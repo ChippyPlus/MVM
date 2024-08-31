@@ -5,6 +5,12 @@ import org.example.helpers.RegisterAllMap
 import org.example.kvmInternals.instructions.Arithmetic.Arithmetic
 import org.example.returnRegisters
 
+
+
+/**
+ * Adds the values in register A and register B, storing the result in R4.
+ * Throws an IllegalStateException if the addition operation fails.
+ */
 fun Arithmetic.add(registerA: SuperRegisterType, registerB: SuperRegisterType) {
     try {
         val currentRegisters = RegisterAllMap()

@@ -5,6 +5,12 @@ import org.example.helpers.RegisterAllMap
 import org.example.kvmInternals.instructions.Arithmetic.Arithmetic
 import org.example.returnRegisters
 
+
+
+/**
+ * Subtracts the value in register B from the value in register A, storing the result in R4.
+ * Throws an IllegalStateException if the subtraction operation fails.
+ */
 fun Arithmetic.sub(registerA: SuperRegisterType, registerB: SuperRegisterType) {
     try {
         val currentRegisters = RegisterAllMap()

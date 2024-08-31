@@ -5,6 +5,13 @@ import org.example.helpers.RegisterAllMap
 import org.example.kvmInternals.instructions.Arithmetic.Arithmetic
 import org.example.returnRegisters
 
+
+
+/**
+ * Multiplies the values in register A and register B, storing the result in R4.
+ * Throws an IllegalStateException if the multiplication operation fails.
+
+ */
 fun Arithmetic.mul(registerA: SuperRegisterType, registerB: SuperRegisterType) {
     try {
         val currentRegisters = RegisterAllMap()
