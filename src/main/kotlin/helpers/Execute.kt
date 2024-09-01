@@ -41,7 +41,7 @@ class Execute {
 
     }
 
-    fun parser(file: File): MutableList<Any> {
+    private fun parser(file: File): MutableList<Any> {
         // map of data classes
         val out = emptyArray<Any>().toMutableList()
         val tokens = emptyList<MutableList<String>>().toMutableList()

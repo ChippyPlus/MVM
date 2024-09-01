@@ -3,3 +3,7 @@ LIT G4 5
 ADD G2 G4
 MOV R4 G3
 ADD G3 G4
+
+G2 = 10
+G4 = 5
+ R4 = 15
