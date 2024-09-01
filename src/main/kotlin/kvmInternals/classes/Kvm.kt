@@ -1,6 +1,6 @@
 package org.example.kvmInternals.classes
 
-import org.example.kvmInternals.instructions.Arithmetic.Arithmetic
+import kvmInternals.instructions.arithmetic.Arithmetic
 import org.example.kvmInternals.instructions.dataTransfer.DataTransfer
 import org.example.kvmInternals.instructions.logical.Logical
 

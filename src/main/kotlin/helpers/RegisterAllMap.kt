@@ -8,8 +8,8 @@ import org.example.generalRegisters
 import org.example.returnRegisters
 import org.example.systemRegisters
 
-fun RegisterAllMap(): MutableMap<SuperRegisterType, UByte> {
-    val dict = mutableMapOf<SuperRegisterType, UByte>()
+fun RegisterAllMap(): MutableMap<SuperRegisterType, Int> {
+    val dict = mutableMapOf<SuperRegisterType, Int>()
     for (type in SuperRegisterType.entries) {
         when (type) {
             SuperRegisterType.G1 -> dict[SuperRegisterType.G1] = generalRegisters.read(GeneralRegisterType.G1)

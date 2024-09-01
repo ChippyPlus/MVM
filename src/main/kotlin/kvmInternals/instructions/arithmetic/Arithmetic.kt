@@ -1,4 +1,4 @@
-package org.example.kvmInternals.instructions.Arithmetic
+package kvmInternals.instructions.arithmetic
 
 
 /**

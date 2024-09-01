@@ -2,7 +2,13 @@ package org.example.helpers
 
 import org.example.kvm
 import org.example.kvmInternals.instructions.Instruction
+import org.example.kvmInternals.instructions.arithmetic.add
+import org.example.kvmInternals.instructions.arithmetic.div
+import org.example.kvmInternals.instructions.arithmetic.mul
+import org.example.kvmInternals.instructions.arithmetic.sub
+
 import org.example.kvmInternals.instructions.dataTransfer.lit
+import org.example.kvmInternals.instructions.dataTransfer.mov
 import java.io.File
 
 class Execute {
@@ -11,18 +17,27 @@ class Execute {
      * @param command please only give this argument from `org.example.helpers.Execute.parser`
 
      */
-    fun run(command: MutableList<Any>) {
-        for (instruction in command) {
+    private fun run(command: MutableList<Any>) {
+        var jumpBuffer = 0
+        for ((index, instruction) in command.withIndex()) {
             when (instruction) {
-                is Instruction.Lit -> {
-                    kvm.dataTransfer.lit(instruction.destination,instruction.value)
+                is Instruction.Lit -> kvm.dataTransfer.lit(instruction.destination, instruction.value)
+                is Instruction.Mov -> kvm.dataTransfer.mov(instruction.source, instruction.destination)
+                is Instruction.Add -> kvm.arithmetic.add(instruction.operand1, instruction.operand2)
+                is Instruction.Sub -> kvm.arithmetic.sub(instruction.operand1, instruction.operand2)
+                is Instruction.Mul -> kvm.arithmetic.mul(instruction.operand1, instruction.operand2)
+                is Instruction.Div -> kvm.arithmetic.div(instruction.operand1, instruction.operand2)
+                is Instruction.Jmp -> { TODO("SO what your doing is trying to find out how the jump function must work")
                 }
+                else -> error("Unknown instruction type ${instruction::class}!!!!!")
             }
         }
     }
 
 
     fun execute(file: File) {
+        val tokens = parser(file)
+        run(tokens)
 
     }
 

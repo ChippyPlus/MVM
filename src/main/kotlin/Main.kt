@@ -11,9 +11,9 @@ val systemRegisters = register.systemRegisters
 val returnRegisters = register.returnRegisters
 val generalRegisters = register.generalRegisters
 val execute = Execute()
-
+val f = File("src/main/resources/main.kar")
 val kvm = Kvm()
 val mov = kvm.dataTransfer
 fun main() {
-    execute.parser(File("src/main/resources/main.kar"))
+    execute.execute(f)
 }

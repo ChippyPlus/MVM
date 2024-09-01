@@ -2,7 +2,7 @@ package org.example.kvmInternals.instructions.arithmetic
 
 import org.example.data.registers.enumIdenifiers.*
 import org.example.helpers.RegisterAllMap
-import org.example.kvmInternals.instructions.Arithmetic.Arithmetic
+import kvmInternals.instructions.arithmetic.Arithmetic
 import org.example.returnRegisters
 
 
@@ -19,9 +19,8 @@ fun Arithmetic.sub(registerA: SuperRegisterType, registerB: SuperRegisterType) {
         val B = currentRegisters[registerB]
             ?: throw IllegalStateException("Current register($registerB) missing in currentRegistersMap")
         val result = A - B
-        returnRegisters.write(ReturnRegisterType.R4, result.toUByte())
+        returnRegisters.write(ReturnRegisterType.R4, result.toInt())
     } catch (e: Exception) {
-        returnRegisters.write(ReturnRegisterType.R1, 0u)
         throw IllegalStateException("Adding failed", e)
     }
 }
