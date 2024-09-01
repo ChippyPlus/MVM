@@ -11,10 +11,10 @@ import org.example.data.registers.enumIdenifiers.GeneralRegisterType
  * General-purpose registers are used for storing operands, intermediate results, and other values during program execution.
  */
 class GeneralRegisters {
-    private var g1: UByte = 0u
-    private var g2: UByte = 0u
-    private var g3: UByte = 0u
-    private var g4: UByte = 0u
+    private var g1 = 0
+    private var g2 = 0
+    private var g3 = 0
+    private var g4 = 0
 
     /**
      * Reads the value from the specified general purpose register.
@@ -22,7 +22,7 @@ class GeneralRegisters {
      * @param registers The general purpose register to read from.
      * @return The value stored in the specified register.
      */
-    fun read(registers: GeneralRegisterType): UByte {
+    fun read(registers: GeneralRegisterType): Int {
         return when (registers) {
             GeneralRegisterType.G1 -> g1
             GeneralRegisterType.G2 -> g2
@@ -37,7 +37,7 @@ class GeneralRegisters {
      * @param registers The general purpose register to write to.
      * @param value The value to write to the register.
      */
-    fun write(registers: GeneralRegisterType, value: UByte) {
+    fun write(registers: GeneralRegisterType, value: Int) {
         when (registers) {
             GeneralRegisterType.G1 -> g1 = value
             GeneralRegisterType.G2 -> g2 = value

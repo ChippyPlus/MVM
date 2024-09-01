@@ -13,10 +13,10 @@ import org.example.data.registers.enumIdenifiers.ReturnRegisterType
  * **Note:**  `R1` and `R3` are deprecated. The KVM now relies on runtime exceptions for error handling.
  */
 class ReturnRegisters {
-    private var r1: UByte = 0u
-    private var r2: UByte = 0u
-    private var r3: UByte = 0u
-    private var r4: UByte = 0u
+    private var r1 = 0
+    private var r2 = 0
+    private var r3 = 0
+    private var r4 = 0
 
     /**
      * Reads the value from the specified return register.
@@ -24,7 +24,7 @@ class ReturnRegisters {
      * @param registers The return register to read from.
      * @return The value stored in the specified register.
      */
-    fun read(registers: ReturnRegisterType): UByte {
+    fun read(registers: ReturnRegisterType): Int {
         return when (registers) {
             ReturnRegisterType.R1 -> r1
             ReturnRegisterType.R2 -> r2
@@ -39,7 +39,7 @@ class ReturnRegisters {
      * @param registers The return register to write to.
      * @param value The value to write to the register.
      */
-    fun write(registers: ReturnRegisterType, value: UByte) {
+    fun write(registers: ReturnRegisterType, value: Int) {
         when (registers) {
             ReturnRegisterType.R1 -> r1 = value
             ReturnRegisterType.R2 -> r2 = value

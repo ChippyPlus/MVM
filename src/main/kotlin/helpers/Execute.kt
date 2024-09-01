@@ -1,17 +1,32 @@
 package org.example.helpers
 
+import org.example.kvm
 import org.example.kvmInternals.instructions.Instruction
+import org.example.kvmInternals.instructions.dataTransfer.lit
 import java.io.File
 
 class Execute {
-    fun run(command: String) {}
+
+    /**
+     * @param command please only give this argument from `org.example.helpers.Execute.parser`
+
+     */
+    fun run(command: MutableList<Any>) {
+        for (instruction in command) {
+            when (instruction) {
+                is Instruction.Lit -> {
+                    kvm.dataTransfer.lit(instruction.destination,instruction.value)
+                }
+            }
+        }
+    }
 
 
     fun execute(file: File) {
 
     }
 
-    fun parser(file: File) {
+    fun parser(file: File): MutableList<Any> {
         // map of data classes
         val out = emptyArray<Any>().toMutableList()
         val tokens = emptyList<MutableList<String>>().toMutableList()
@@ -45,6 +60,7 @@ class Execute {
                 }
             }
         }
-        out.forEach { println(it) }
+//        out.forEach { println(it) }
+        return out
     }
 }
