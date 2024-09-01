@@ -34,7 +34,6 @@ fun DataTransfer.mov(Source: SuperRegisterType, Destination: SuperRegisterType) 
             }
         }
     } catch (e: Exception) {
-        returnRegisters.write(ReturnRegisterType.R1,0u)
         throw IllegalStateException("Moving failed", e)
     }
 }
