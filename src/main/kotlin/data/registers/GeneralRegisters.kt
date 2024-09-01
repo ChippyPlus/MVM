@@ -2,12 +2,26 @@ package org.example.data.registers
 
 import org.example.data.registers.enumIdenifiers.GeneralRegisterType
 
+
+/**
+ * Represents a set of general-purpose registers used for calculations and data manipulation within the virtual machine.
+ *
+ * This class provides methods for reading and writing values to the individual general-purpose registers (G1-G4).
+ *
+ * General-purpose registers are used for storing operands, intermediate results, and other values during program execution.
+ */
 class GeneralRegisters {
     private var g1: UByte = 0u
     private var g2: UByte = 0u
     private var g3: UByte = 0u
     private var g4: UByte = 0u
 
+    /**
+     * Reads the value from the specified general purpose register.
+     *
+     * @param registers The general purpose register to read from.
+     * @return The value stored in the specified register.
+     */
     fun read(registers: GeneralRegisterType): UByte {
         return when (registers) {
             GeneralRegisterType.G1 -> g1
@@ -16,6 +30,13 @@ class GeneralRegisters {
             GeneralRegisterType.G4 -> g4
         }
     }
+
+    /**
+     * Writes a value to the specified general purpose register.
+     *
+     * @param registers The general purpose register to write to.
+     * @param value The value to write to the register.
+     */
     fun write(registers: GeneralRegisterType, value: UByte) {
         when (registers) {
             GeneralRegisterType.G1 -> g1 = value
