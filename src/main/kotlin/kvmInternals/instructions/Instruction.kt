@@ -66,6 +66,14 @@ class Instruction {
      */
     data class Jnz(val targetAddress: Int, val testRegister: SuperRegisterType)
 
+
+    /**
+     * Represents a PEEK instruction, which pushes the value from a source register onto the stack.
+     *
+     * @param destination The destination register.
+     */
+    data class Peek(val destination: SuperRegisterType)
+
     /**
      * Represents a PUSH instruction, which pushes a value from a source register onto the stack.
      *
@@ -88,7 +96,12 @@ class Instruction {
      * @param argument2 The second argument register.
      * @param argument3 The third argument register.
      */
-    data class Syscall(val systemCallNumber: Int, val argument1: SuperRegisterType, val argument2: SuperRegisterType, val argument3: SuperRegisterType)
+    data class Syscall(
+        val systemCallNumber: Int,
+        val argument1: SuperRegisterType,
+        val argument2: SuperRegisterType,
+        val argument3: SuperRegisterType
+    )
 
     /**
      * Represents a LOAD instruction, which loads a value from a memory address into a destination register.

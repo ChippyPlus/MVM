@@ -1,12 +1,15 @@
 package org.example.kvmInternals.instructions.stackOperations
 
+import org.example.data.registers.enumIdenifiers.SuperRegisterType
+import org.example.helpers.fullRegisterRead
+
 
 /**
  * Pushes a value onto the stack.
  *
- * @param value The value to push.
+ * @param registerType The value to push.
  */
 
-fun StackOperations.push(value: Int) {
-    internalStack.push(value)
+fun StackOperations.push(registerType: SuperRegisterType) {
+    internalStack.push(fullRegisterRead(registerType))
 }
