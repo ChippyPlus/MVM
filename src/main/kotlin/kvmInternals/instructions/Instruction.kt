@@ -174,5 +174,11 @@ class Instruction {
      */
     data class Lit(val destination: SuperRegisterType, val value: Int)
 
+    /**
+     * Represents The PRINT_STACK(PRINTS) instruction, which prints the contents of the stack.
+     *
+     * @param nothing This parameter is required for data classes but has no effect.
+     */
+    data class Prints(val nothing: Nothing? = null)
 
 }

@@ -9,6 +9,7 @@ import org.example.kvmInternals.instructions.arithmetic.sub
 
 import org.example.kvmInternals.instructions.dataTransfer.lit
 import org.example.kvmInternals.instructions.dataTransfer.mov
+import org.example.kvmInternals.instructions.ioAbstractions.prints
 import org.example.kvmInternals.instructions.stackOperations.peek
 import org.example.kvmInternals.instructions.stackOperations.pop
 import org.example.kvmInternals.instructions.stackOperations.push
@@ -30,11 +31,14 @@ class Execute {
                 is Instruction.Sub -> kvm.arithmetic.sub(instruction.operand1, instruction.operand2)
                 is Instruction.Mul -> kvm.arithmetic.mul(instruction.operand1, instruction.operand2)
                 is Instruction.Div -> kvm.arithmetic.div(instruction.operand1, instruction.operand2)
-                is Instruction.Jmp -> { TODO("SO what your doing is trying to find out how the jump function must work") }
+                is Instruction.Jmp -> {
+                    TODO("SO what your doing is trying to find out how the jump function must work")
+                }
+
                 is Instruction.Peek -> kvm.stackOperations.peek(instruction.destination)
                 is Instruction.Pop -> kvm.stackOperations.pop(instruction.destination)
                 is Instruction.Push -> kvm.stackOperations.push(instruction.source)
-
+                is Instruction.Prints -> kvm.ioAbstractions.prints()
                 else -> error("Unknown instruction type ${instruction::class}!!!!!")
             }
         }
@@ -83,9 +87,11 @@ class Execute {
                 "SUB" -> {
                     out.add(Instruction.Sub(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
                 }
+
                 "MUL" -> {
                     out.add(Instruction.Mul(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
                 }
+
                 "DIV" -> {
                     out.add(Instruction.Div(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
                 }
@@ -101,6 +107,8 @@ class Execute {
                 "PUSH" -> {
                     out.add(Instruction.Push(line[1].toSuperRegisterType()))
                 }
+
+                "PRINTS" -> out.add(Instruction.Prints())
             }
         }
 //        out.forEach { println(it) }
