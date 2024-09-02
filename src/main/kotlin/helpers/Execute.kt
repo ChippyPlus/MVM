@@ -16,15 +16,15 @@ import org.example.kvmInternals.instructions.stackOperations.push
 import java.io.File
 
 class Execute {
-
     /**
      * @param command please only give this argument from `org.example.helpers.Execute.parser`
 
      */
     private fun run(command: MutableList<Any>) {
-        var jumpBuffer = 0
-        for ((index, instruction) in command.withIndex()) {
-            when (instruction) {
+        // for ((index, instruction) in command.withIndex()) {
+        for (index in 1..command.size) {
+
+            when (val instruction = command[kvm.pc - 1]) {
                 is Instruction.Lit -> kvm.dataTransfer.lit(instruction.destination, instruction.value)
                 is Instruction.Mov -> kvm.dataTransfer.mov(instruction.source, instruction.destination)
                 is Instruction.Add -> kvm.arithmetic.add(instruction.operand1, instruction.operand2)
@@ -32,7 +32,7 @@ class Execute {
                 is Instruction.Mul -> kvm.arithmetic.mul(instruction.operand1, instruction.operand2)
                 is Instruction.Div -> kvm.arithmetic.div(instruction.operand1, instruction.operand2)
                 is Instruction.Jmp -> {
-                    TODO("SO what your doing is trying to find out how the jump function must work")
+                    kvm.pc = instruction.targetAddress
                 }
 
                 is Instruction.Peek -> kvm.stackOperations.peek(instruction.destination)
@@ -41,6 +41,7 @@ class Execute {
                 is Instruction.Prints -> kvm.ioAbstractions.prints()
                 else -> error("Unknown instruction type ${instruction::class}!!!!!")
             }
+            kvm.pc += 1
         }
     }
 
@@ -109,6 +110,7 @@ class Execute {
                 }
 
                 "PRINTS" -> out.add(Instruction.Prints())
+
             }
         }
 //        out.forEach { println(it) }
