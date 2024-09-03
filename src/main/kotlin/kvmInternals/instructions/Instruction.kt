@@ -3,6 +3,7 @@ package org.example.kvmInternals.instructions
 import org.example.data.memory.MemoryAddress
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
 
+@Suppress("unused")
 class Instruction {
 
     @Deprecated("Eh it never worked and useless")
@@ -162,15 +163,15 @@ class Instruction {
      * @param operand The operand register.
      * @param shiftAmount The amount to shift the bits.
      */
-    data class Shl(val operand: SuperRegisterType, val shiftAmount: Int)
+    data class Shl(val operand: SuperRegisterType, val shiftAmount: SuperRegisterType)
 
     /**
-     * Represents a SHR instruction, which shifts the bits of a register to the right by a specified amount.
+     * Represents an SHR instruction, which shifts the bits of a register to the right by a specified amount.
      *
      * @param operand The operand register.
      * @param shiftAmount The amount to shift the bits.
      */
-    data class Shr(val operand: SuperRegisterType, val shiftAmount: Int)
+    data class Shr(val operand: SuperRegisterType, val shiftAmount: SuperRegisterType)
 
     /**
      * Represents a LIT instruction, which loads a literal value into a specified register.

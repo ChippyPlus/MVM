@@ -6,6 +6,7 @@ import org.example.kvmInternals.instructions.arithmetic.add
 import org.example.kvmInternals.instructions.arithmetic.div
 import org.example.kvmInternals.instructions.arithmetic.mul
 import org.example.kvmInternals.instructions.arithmetic.sub
+import org.example.kvmInternals.instructions.bitwise.*
 import org.example.kvmInternals.instructions.controlFlow.jmp
 import org.example.kvmInternals.instructions.controlFlow.jnz
 import org.example.kvmInternals.instructions.controlFlow.jz
@@ -56,6 +57,14 @@ class Execute {
 
                 is Instruction.Store -> kvm.memory.store(instruction.source, instruction.memoryAddress)
                 is Instruction.Load -> kvm.memory.load(instruction.memoryAddress, instruction.destination)
+
+                is Instruction.Shl -> kvm.bitwise.shl(instruction.operand, instruction.shiftAmount)
+                is Instruction.Shr -> kvm.bitwise.shr(instruction.operand, instruction.shiftAmount)
+
+                is Instruction.And -> kvm.bitwise.and(instruction.operand1, instruction.operand2)
+                is Instruction.Not -> kvm.bitwise.not(instruction.operand)
+                is Instruction.Or -> kvm.bitwise.or(instruction.operand1, instruction.operand2)
+                is Instruction.Xor -> kvm.bitwise.xor(instruction.operand1, instruction.operand2)
                 else -> error("Unknown instruction type ${instruction::class}!!!!!")
 
             }
@@ -84,6 +93,63 @@ class Execute {
         for (line in tokens) {
             val instruction = line[0]
             when (instruction) {
+
+                "SHL" -> {
+                    /** SHL G1 G2 */
+                    out.add(Instruction.Shl(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
+                }
+
+                "SHR" -> {
+                    /** SHR G1 G2 */
+                    out.add(Instruction.Shr(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
+                }
+
+                "PEEK" -> {
+                    /** PEEK R1 */
+                    out.add(Instruction.Peek(line[1].toSuperRegisterType()))
+                }
+
+                "POP" -> {
+                    /** POP R1 */
+                    out.add(Instruction.Pop(line[1].toSuperRegisterType()))
+                }
+
+                "PUSH" -> {
+                    /** PUSH R1 */
+                    out.add(Instruction.Push(line[1].toSuperRegisterType()))
+                }
+
+                "PRINTS" -> {
+                    /** PRINTS */
+                    out.add(Instruction.Prints())
+                }
+
+                "DIV" -> {
+                    /** DIV G1 G2 */
+                    out.add(Instruction.Div(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
+                }
+
+
+                "AND" -> {
+                    /** AND G1 G2 */
+                    out.add(Instruction.And(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
+                }
+
+                "OR" -> {
+                    /** OR G1 G2 */
+                    out.add(Instruction.Or(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
+                }
+
+                "XOR" -> {
+                    /** XOR G1 G2 */
+                    out.add(Instruction.Xor(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
+                }
+
+                "NOT" -> {
+                    /** NOT G1 G2 */
+                    out.add(Instruction.Not(line[1].toSuperRegisterType()))
+                }
+
 
                 "STORE" -> {
                     /** STORE G1 10 */
@@ -133,25 +199,6 @@ class Execute {
                     out.add(Instruction.Mul(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
                 }
 
-                "DIV" -> {
-                    out.add(Instruction.Div(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
-                }
-
-                "PEEK" -> {
-                    out.add(Instruction.Peek(line[1].toSuperRegisterType()))
-                }
-
-                "POP" -> {
-                    out.add(Instruction.Pop(line[1].toSuperRegisterType()))
-                }
-
-                "PUSH" -> {
-                    out.add(Instruction.Push(line[1].toSuperRegisterType()))
-                }
-
-                "PRINTS" -> {
-                    out.add(Instruction.Prints())
-                }
 
             }
         }
