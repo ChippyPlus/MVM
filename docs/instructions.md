@@ -5,9 +5,9 @@
 | 2                 | `SUB`            | Subtracts the value in one register from the value in another register and stores the result in a destination register. | `Operand 1 Register`       | `Operand 2 Register`   |                       |                       | `Difference`              |
 | 3                 | `MUL`            | Multiplies the values in two registers and stores the result in a destination register.                                 | `Operand 1 Register`       | `Operand 2 Register`   |                       |                       | `Product`                 |
 | 4                 | `DIV`            | Divides the value in one register by the value in another register and stores the result in a destination register.     | `Dividend Register`        | `Divisor Register`     |                       |                       | `Quotient`                |
-| 5                 | `JMP`            | Unconditional jump to a specific instruction.                                                                           | `Target Instruction Index` |                        |                       |                       |                           |
-| 6                 | `JZ`             | Jump to a specific instruction if the value in a register is zero.                                                      | `Target Instruction Index` | `Test Register`        |                       |                       |                           |
-| 7                 | `JNZ`            | Jump to a specific instruction if the value in a register is not zero.                                                  | `Target Instruction Index` | `Test Register`        |                       |                       |                           |
+| 5                 | `JMP`            | Unconditional jump to a specific line.                                                                                  | `Target Instruction Index` |                        |                       |                       |                           |
+| 6                 | `JZ`             | Jump to a specific line if the value in a register is zero.                                                             | `Target Instruction Index` | `Test Register`        |                       |                       |                           |
+| 7                 | `JNZ`            | Jump to a specific line if the value in a register is not zero.                                                         | `Target Instruction Index` | `Test Register`        |                       |                       |                           |
 | 8                 | `PUSH`           | Pushes a value from a register onto the stack.                                                                          | `Source Register`          |                        |                       |                       |                           |
 | 9                 | `POP`            | Pops a value from the stack into a register.                                                                            | `Destination Register`     |                        |                       |                       |                           |
 | 10                | `PEEK`           | Peeks at the top value of the stack                                                                                     | `Destination Register`     |                        |                       |                       |                           |
@@ -24,7 +24,7 @@
 
 **Extra info!!!!!**
 
-* **Register Notation:**  The "Argument 1" to "Argument 4" columns indicate the general-purpose registers (G1-G4) that
+* **Register Notation:** The "Argument 1" to "Argument 4" columns indicate the general-purpose registers (G1-G4) that
   hold the instruction's operands.
 * **Success/Failure (R3):**  The `R3` register holds the result of the instruction execution. `0` represents success,
   and `1` represents failure.

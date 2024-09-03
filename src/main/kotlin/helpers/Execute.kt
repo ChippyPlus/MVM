@@ -6,6 +6,9 @@ import org.example.kvmInternals.instructions.arithmetic.add
 import org.example.kvmInternals.instructions.arithmetic.div
 import org.example.kvmInternals.instructions.arithmetic.mul
 import org.example.kvmInternals.instructions.arithmetic.sub
+import org.example.kvmInternals.instructions.controlFlow.jmp
+import org.example.kvmInternals.instructions.controlFlow.jnz
+import org.example.kvmInternals.instructions.controlFlow.jz
 
 import org.example.kvmInternals.instructions.dataTransfer.lit
 import org.example.kvmInternals.instructions.dataTransfer.mov
@@ -35,9 +38,15 @@ class Execute {
                 is Instruction.Sub -> kvm.arithmetic.sub(instruction.operand1, instruction.operand2)
                 is Instruction.Mul -> kvm.arithmetic.mul(instruction.operand1, instruction.operand2)
                 is Instruction.Div -> kvm.arithmetic.div(instruction.operand1, instruction.operand2)
-                is Instruction.Jmp -> {
-                    kvm.pc = instruction.targetAddress - 1
-                }
+
+                /**
+                 * Minus one for the `controlFlow` functions are
+                 * because the pc will be incremented after the instruction is executed,
+                 * so we want to point to the instruction before the target address
+                 */
+                is Instruction.Jmp -> kvm.controlFlow.jmp(instruction.targetAddress - 1)
+                is Instruction.Jz -> kvm.controlFlow.jz(instruction.targetAddress - 1, instruction.testRegister)
+                is Instruction.Jnz -> kvm.controlFlow.jnz(instruction.targetAddress - 1, instruction.testRegister)
 
                 is Instruction.Peek -> kvm.stackOperations.peek(instruction.destination)
                 is Instruction.Pop -> kvm.stackOperations.pop(instruction.destination)
@@ -79,6 +88,16 @@ class Execute {
                 "JMP" -> {
                     // JMP 4
                     out.add(Instruction.Jmp(line[1].toInt()))
+                }
+
+                "JZ" -> {
+                    // JZ 4 R1
+                    out.add(Instruction.Jz(line[1].toInt(), line[2].toSuperRegisterType()))
+                }
+
+                "JNZ" -> {
+                    // JNZ 4 R1
+                    out.add(Instruction.Jnz(line[1].toInt(), line[2].toSuperRegisterType()))
                 }
 
                 "MOV" -> {
