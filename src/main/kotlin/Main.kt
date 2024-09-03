@@ -1,5 +1,6 @@
 package org.example
 
+import org.example.data.memory.InternalMemory
 import org.example.data.registers.Registers
 import org.example.helpers.Execute
 import org.example.kvmInternals.classes.Kvm
@@ -7,6 +8,7 @@ import java.io.File
 
 
 val register = Registers()
+val internalMemory = InternalMemory()
 val systemRegisters = register.systemRegisters
 val returnRegisters = register.returnRegisters
 val generalRegisters = register.generalRegisters

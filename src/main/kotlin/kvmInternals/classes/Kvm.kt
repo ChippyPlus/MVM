@@ -5,6 +5,7 @@ import org.example.kvmInternals.instructions.controlFlow.ControlFlow
 import org.example.kvmInternals.instructions.dataTransfer.DataTransfer
 import org.example.kvmInternals.instructions.ioAbstractions.IoAbstractions
 import org.example.kvmInternals.instructions.logical.Logical
+import org.example.kvmInternals.instructions.memory.Memory
 import org.example.kvmInternals.instructions.stackOperations.StackOperations
 
 open class Kvm {

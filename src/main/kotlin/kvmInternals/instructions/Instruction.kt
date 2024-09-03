@@ -1,5 +1,6 @@
 package org.example.kvmInternals.instructions
 
+import org.example.data.memory.MemoryAddress
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
 
 class Instruction {
@@ -95,6 +96,7 @@ class Instruction {
     /**
      * Represents a SYSCALL instruction, which executes a system call.
      *
+     * WARNING`argument1` to `argument3` should always be a System Register!!!!!
      * @param systemCallNumber The system call number.
      * @param argument1 The first argument register.
      * @param argument2 The second argument register.
@@ -113,7 +115,7 @@ class Instruction {
      * @param memoryAddress The memory address to load from.
      * @param destination The destination register.
      */
-    data class Load(val memoryAddress: Int, val destination: SuperRegisterType)
+    data class Load(val memoryAddress: MemoryAddress, val destination: SuperRegisterType)
 
     /**
      * Represents a STORE instruction, which stores a value from a source register into a memory address.
@@ -121,7 +123,7 @@ class Instruction {
      * @param source The source register.
      * @param memoryAddress The memory address to store to.
      */
-    data class Store(val source: SuperRegisterType, val memoryAddress: Int)
+    data class Store(val source: SuperRegisterType, val memoryAddress: MemoryAddress)
 
     /**
      * Represents an AND instruction, which performs a bitwise AND operation between two registers and stores the result in a destination register.
@@ -163,7 +165,7 @@ class Instruction {
     data class Shl(val operand: SuperRegisterType, val shiftAmount: Int)
 
     /**
-     * Represents a SHR instruction, which shifts the bits of a register to the right by a specified amount.
+     * Represents an SHR instruction, which shifts the bits of a register to the right by a specified amount.
      *
      * @param operand The operand register.
      * @param shiftAmount The amount to shift the bits.

@@ -1,4 +1,4 @@
-package org.example.kvmInternals.classes
+package org.example.kvmInternals.instructions.memory
 
 
 /**
