@@ -14,6 +14,6 @@ import org.example.kvmInternals.instructions.controlFlow.ControlFlow
  * @param source The register type containing the value to be stored in memory.
  * @param destination The address in memory where the value should be stored.
  */
-fun ControlFlow.store(source: SuperRegisterType, destination: MemoryAddress) {
+fun Memory.store(source: SuperRegisterType, destination: MemoryAddress) {
     internalMemory.write(destination, MemoryValue(fullRegisterRead(source)))
 }

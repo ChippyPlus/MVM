@@ -13,6 +13,8 @@ import org.example.kvmInternals.instructions.controlFlow.jz
 import org.example.kvmInternals.instructions.dataTransfer.lit
 import org.example.kvmInternals.instructions.dataTransfer.mov
 import org.example.kvmInternals.instructions.ioAbstractions.prints
+import org.example.kvmInternals.instructions.memory.load
+import org.example.kvmInternals.instructions.memory.store
 import org.example.kvmInternals.instructions.stackOperations.peek
 import org.example.kvmInternals.instructions.stackOperations.pop
 import org.example.kvmInternals.instructions.stackOperations.push
@@ -51,6 +53,9 @@ class Execute {
                 is Instruction.Pop -> kvm.stackOperations.pop(instruction.destination)
                 is Instruction.Push -> kvm.stackOperations.push(instruction.source)
                 is Instruction.Prints -> kvm.ioAbstractions.prints()
+
+                is Instruction.Store -> kvm.memory.store(instruction.source, instruction.memoryAddress)
+                is Instruction.Load -> kvm.memory.load(instruction.memoryAddress, instruction.destination)
                 else -> error("Unknown instruction type ${instruction::class}!!!!!")
 
             }
@@ -79,6 +84,18 @@ class Execute {
         for (line in tokens) {
             val instruction = line[0]
             when (instruction) {
+
+                "STORE" -> {
+                    /** STORE G1 10 */
+                    out.add(Instruction.Store(line[1].toSuperRegisterType(), line[2].toMemoryAddress()))
+                }
+
+                "LOAD" -> {
+                    /** LOAD 10 R1 */
+                    out.add(Instruction.Load(line[1].toMemoryAddress(), line[2].toSuperRegisterType()))
+                }
+
+
                 "LIT" -> {
                     /** LIT G1 10 */
                     out.add(Instruction.Lit(line[1].toSuperRegisterType(), line[2].toInt()))
