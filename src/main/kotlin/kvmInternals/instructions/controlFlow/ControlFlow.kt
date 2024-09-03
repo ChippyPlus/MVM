@@ -2,7 +2,7 @@ package org.example.kvmInternals.instructions.controlFlow
 
 
 /**
- ** **Flow Control Instructions:**
+ ** **Flow Control Instructions: **
  *
  * * `JMP` - Unconditional jump.
  * * `JZ`  - Jump if zero.
@@ -11,5 +11,4 @@ package org.example.kvmInternals.instructions.controlFlow
  */
 
 
-class ControlFlow {
-}
+class ControlFlow

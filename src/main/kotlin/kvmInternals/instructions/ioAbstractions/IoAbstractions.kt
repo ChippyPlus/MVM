@@ -10,5 +10,4 @@ package org.example.kvmInternals.instructions.ioAbstractions
  * * `PRINTR` - Print to the standard out from a specified SuperRegisterType
 
  */
-class IoAbstractions {
-}
+class IoAbstractions

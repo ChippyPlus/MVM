@@ -1,11 +1,8 @@
 package org.example.kvmInternals.instructions.dataTransfer
 
-import org.example.data.registers.enumIdenifiers.*
-import org.example.generalRegisters
+import org.example.data.registers.enumIdenifiers.SuperRegisterType
 import org.example.helpers.RegisterAllMap
 import org.example.helpers.fullRegisterWrite
-import org.example.returnRegisters
-import org.example.systemRegisters
 
 
 /**

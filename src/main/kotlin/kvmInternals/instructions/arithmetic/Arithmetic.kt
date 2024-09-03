@@ -2,7 +2,7 @@ package kvmInternals.instructions.arithmetic
 
 
 /**
- * **Arithmetic Instructions:**
+ * **Arithmetic Instructions: **
  *
  *  *  `ADD` - Addition
  *  *  `SUB` - Subtraction
@@ -10,5 +10,4 @@ package kvmInternals.instructions.arithmetic
  *  *  `DIV` - Division
  *  */
 
-class Arithmetic {
-}
+class Arithmetic

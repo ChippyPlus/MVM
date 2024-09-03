@@ -67,6 +67,7 @@ fun SuperRegisterType.toReturnRegisterType(): ReturnRegisterType {
     }
 }
 
+@Suppress("unused")
 fun SuperRegisterType.toRegisterType(): Any {
     return when(this) {
         SuperRegisterType.G1 -> GeneralRegisterType.G1

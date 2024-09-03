@@ -5,7 +5,6 @@ import org.example.data.memory.MemoryValue
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
 import org.example.helpers.fullRegisterRead
 import org.example.internalMemory
-import org.example.kvmInternals.instructions.controlFlow.ControlFlow
 
 /**
  * Stores the value from the specified [source] register into the internal memory

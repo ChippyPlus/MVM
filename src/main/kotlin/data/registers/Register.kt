@@ -1,9 +1,9 @@
 package org.example.data.registers
 
 open class Registers(
-    private val genRegisters: GeneralRegisters = GeneralRegisters(),
-    private val retRegisters: ReturnRegisters = ReturnRegisters(),
-    private val sysRegisters: SystemRegisters = SystemRegisters(),
+    genRegisters: GeneralRegisters = GeneralRegisters(),
+    retRegisters: ReturnRegisters = ReturnRegisters(),
+    sysRegisters: SystemRegisters = SystemRegisters(),
 ) {
 
     val systemRegisters = sysRegisters

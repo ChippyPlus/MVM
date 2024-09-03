@@ -20,7 +20,7 @@ fun Arithmetic.mul(registerA: SuperRegisterType, registerB: SuperRegisterType) {
         val B = currentRegisters[registerB]
             ?: throw IllegalStateException("Current register($registerB) missing in currentRegistersMap")
         val result = A * B
-        returnRegisters.write(ReturnRegisterType.R4, result.toInt())
+        returnRegisters.write(ReturnRegisterType.R4, result)
     } catch (e: Exception) {
         throw IllegalStateException("Adding failed", e)
     }

@@ -4,7 +4,7 @@ import java.util.*
 
 
 /**
- * **Stack Operations:**
+ * **Stack Operations: **
  *
  * * `PUSH` - Push a value onto the stack.
  * * `POP`  - Pop a value from the stack.

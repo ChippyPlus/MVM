@@ -4,13 +4,13 @@ import org.example.data.registers.enumIdenifiers.ReturnRegisterType
 
 
 /**
- * Represents a set of registers used to store the results of operations and system calls.
+ * Represents a set of registers used to store the results of operation and system calls.
  *
  * This class provides methods for reading and writing values to the individual return registers (R2 and R4).
  *
  * The `R2` and `R4` registers are used to store specific results, such as the sum of an addition or the number of bytes read from a file.
  *
- * **Note:**  `R1` and `R3` are deprecated. The KVM now relies on runtime exceptions for error handling.
+ * **Note: **  `R1` and `R3` are deprecated. The KVM now relies on runtime exceptions for error handling.
  */
 class ReturnRegisters {
     private var r1 = 0

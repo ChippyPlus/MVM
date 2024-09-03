@@ -15,7 +15,6 @@ val generalRegisters = register.generalRegisters
 val execute = Execute()
 val f = File("src/main/resources/main.kar")
 val kvm = Kvm()
-val mov = kvm.dataTransfer
 fun main() {
     execute.execute(f)
 }
