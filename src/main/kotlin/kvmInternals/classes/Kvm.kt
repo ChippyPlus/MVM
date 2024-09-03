@@ -15,7 +15,7 @@ open class Kvm {
     val memory = Memory()
     val systemCall = SystemCall()
     val ioAbstractions = IoAbstractions()
-    var pc = 1
+    var pc = 0
 }
 
 

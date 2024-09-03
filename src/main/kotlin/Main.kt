@@ -15,5 +15,7 @@ val f = File("src/main/resources/main.kar")
 val kvm = Kvm()
 val mov = kvm.dataTransfer
 fun main() {
+//    execute.execute(f)
+//    execute.parser(f).forEach { println(it)}
     execute.execute(f)
 }

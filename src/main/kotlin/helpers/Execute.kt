@@ -21,10 +21,14 @@ class Execute {
 
      */
     private fun run(command: MutableList<Any>) {
-        // for ((index, instruction) in command.withIndex()) {
-        for (index in 1..command.size) {
+        while (true) {
+            kvm.pc++
+            if (kvm.pc - 1 == command.size) {
+                break
+            }
 
-            when (val instruction = command[kvm.pc - 1]) {
+            when (val instruction: Any = command[kvm.pc - 1]) {
+                is Instruction.Halt -> println("Yay?")
                 is Instruction.Lit -> kvm.dataTransfer.lit(instruction.destination, instruction.value)
                 is Instruction.Mov -> kvm.dataTransfer.mov(instruction.source, instruction.destination)
                 is Instruction.Add -> kvm.arithmetic.add(instruction.operand1, instruction.operand2)
@@ -32,7 +36,7 @@ class Execute {
                 is Instruction.Mul -> kvm.arithmetic.mul(instruction.operand1, instruction.operand2)
                 is Instruction.Div -> kvm.arithmetic.div(instruction.operand1, instruction.operand2)
                 is Instruction.Jmp -> {
-                    kvm.pc = instruction.targetAddress
+                    kvm.pc = instruction.targetAddress - 1
                 }
 
                 is Instruction.Peek -> kvm.stackOperations.peek(instruction.destination)
@@ -40,8 +44,9 @@ class Execute {
                 is Instruction.Push -> kvm.stackOperations.push(instruction.source)
                 is Instruction.Prints -> kvm.ioAbstractions.prints()
                 else -> error("Unknown instruction type ${instruction::class}!!!!!")
+
             }
-            kvm.pc += 1
+
         }
     }
 
@@ -52,7 +57,7 @@ class Execute {
 
     }
 
-    private fun parser(file: File): MutableList<Any> {
+    fun parser(file: File): MutableList<Any> {
         // map of data classes
         val out = emptyArray<Any>().toMutableList()
         val tokens = emptyList<MutableList<String>>().toMutableList()
@@ -111,9 +116,9 @@ class Execute {
 
                 "PRINTS" -> out.add(Instruction.Prints())
 
+                "HALT" -> out.add(Instruction.Halt())
             }
         }
-//        out.forEach { println(it) }
         return out
     }
 }

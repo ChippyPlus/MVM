@@ -3,6 +3,11 @@ package org.example.kvmInternals.instructions
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
 
 class Instruction {
+
+
+    // TODO Add description
+    data class Halt(val nothing: Nothing? = null)
+
     /**
      * Represents a MOV instruction, which moves a value from a source register to a destination register.
      *
