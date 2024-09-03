@@ -4,8 +4,7 @@ import org.example.data.registers.enumIdenifiers.SuperRegisterType
 
 class Instruction {
 
-
-    // TODO Add description
+    @Deprecated("Eh it never worked and useless")
     data class Halt(val nothing: Nothing? = null)
 
     /**
@@ -185,7 +184,6 @@ class Instruction {
      * @param nothing This parameter is required for data classes but has no effect.
      */
     data class Prints(val nothing: Nothing? = null)
-
 
 
 }

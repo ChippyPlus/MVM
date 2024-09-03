@@ -31,7 +31,6 @@ class Execute {
             }
 
             when (val instruction: Any = command[kvm.pc - 1]) {
-                is Instruction.Halt -> println("Yay?")
                 is Instruction.Lit -> kvm.dataTransfer.lit(instruction.destination, instruction.value)
                 is Instruction.Mov -> kvm.dataTransfer.mov(instruction.source, instruction.destination)
                 is Instruction.Add -> kvm.arithmetic.add(instruction.operand1, instruction.operand2)
@@ -81,27 +80,27 @@ class Execute {
             val instruction = line[0]
             when (instruction) {
                 "LIT" -> {
-                    // LIT G1 10
+                    /** LIT G1 10 */
                     out.add(Instruction.Lit(line[1].toSuperRegisterType(), line[2].toInt()))
                 }
 
                 "JMP" -> {
-                    // JMP 4
+                    /** JMP 4 */
                     out.add(Instruction.Jmp(line[1].toInt()))
                 }
 
                 "JZ" -> {
-                    // JZ 4 R1
+                    /** JZ 4 R1 */
                     out.add(Instruction.Jz(line[1].toInt(), line[2].toSuperRegisterType()))
                 }
 
                 "JNZ" -> {
-                    // JNZ 4 R1
+                    /** JNZ 4 R1 */
                     out.add(Instruction.Jnz(line[1].toInt(), line[2].toSuperRegisterType()))
                 }
 
                 "MOV" -> {
-                    // MOV G3 S4
+                    /** MOV G3 S4 */
                     out.add(Instruction.Mov(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
                 }
 
@@ -133,9 +132,10 @@ class Execute {
                     out.add(Instruction.Push(line[1].toSuperRegisterType()))
                 }
 
-                "PRINTS" -> out.add(Instruction.Prints())
+                "PRINTS" -> {
+                    out.add(Instruction.Prints())
+                }
 
-                "HALT" -> out.add(Instruction.Halt())
             }
         }
         return out
