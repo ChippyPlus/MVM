@@ -1,8 +1,8 @@
-package org.example.kvmInternals.instructions.logical
+package kvmInternals.instructions.bitwise
 
 
 /**
- *  **Logical Instructions:**
+ *  **Bitwise Instructions:**
  *
  *   * `AND` - Bitwise AND
  *   * `OR`  - Bitwise OR
@@ -12,5 +12,4 @@ package org.example.kvmInternals.instructions.logical
  *   * `SHR` - Right Shift
  *
  */
-class Logical {
-}
+open class Bitwise

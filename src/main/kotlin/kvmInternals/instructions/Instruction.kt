@@ -165,7 +165,7 @@ class Instruction {
     data class Shl(val operand: SuperRegisterType, val shiftAmount: Int)
 
     /**
-     * Represents an SHR instruction, which shifts the bits of a register to the right by a specified amount.
+     * Represents a SHR instruction, which shifts the bits of a register to the right by a specified amount.
      *
      * @param operand The operand register.
      * @param shiftAmount The amount to shift the bits.
