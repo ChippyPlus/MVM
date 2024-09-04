@@ -24,7 +24,7 @@ class Execute {
      * @param command please only give this argument from `org.example.helpers.Execute.parser`
 
      */
-    private fun run(command: MutableList<Any>) {
+    private fun run(command: MutableList<Instruction>) {
         while (true) {
             kvm.pc++
             if (kvm.pc - 1 == command.size) {
@@ -67,24 +67,20 @@ class Execute {
                 is Instruction.Xor -> kvm.bitwise.xor(instruction.operand1, instruction.operand2)
 
                 is Instruction.Syscall -> kvm.systemCall.execute(
-                    instruction.systemCallNumber,
-                    instruction.argument1,
-                    instruction.argument2,
-                    instruction.argument3
+                    instruction.systemCallNumber, instruction.argument1, instruction.argument2, instruction.argument3
                 )
 
                 else -> error("Unknown instruction type ${instruction::class}!!!!!")
 
             }
-
         }
     }
 
 
     fun execute(file: File) {
         val tokens = parser(file)
-        run(tokens)
-
+        @Suppress("UNCHECKED_CAST") ((tokens as? MutableList<Instruction>)?.let { run(it) })
+        // This may look strange but. It works for me
     }
 
     fun parser(file: File): MutableList<Any> {
@@ -105,12 +101,7 @@ class Execute {
                 "SYSCALL" -> {
                     out.add(
                         Instruction.Syscall(
-                            SuperRegisterType.S1,
-                            SuperRegisterType.S2,
-                            SuperRegisterType.S3,
-                            SuperRegisterType.S4
-
-
+                            SuperRegisterType.S1, SuperRegisterType.S2, SuperRegisterType.S3, SuperRegisterType.S4
                         )
                     )
                 }
