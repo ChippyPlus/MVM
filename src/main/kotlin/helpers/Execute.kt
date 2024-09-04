@@ -1,5 +1,6 @@
 package org.example.helpers
 
+import org.example.data.registers.enumIdenifiers.SuperRegisterType
 import org.example.kvm
 import org.example.kvmInternals.instructions.Instruction
 import org.example.kvmInternals.instructions.arithmetic.add
@@ -65,6 +66,14 @@ class Execute {
                 is Instruction.Not -> kvm.bitwise.not(instruction.operand)
                 is Instruction.Or -> kvm.bitwise.or(instruction.operand1, instruction.operand2)
                 is Instruction.Xor -> kvm.bitwise.xor(instruction.operand1, instruction.operand2)
+
+                is Instruction.Syscall -> kvm.systemCall.execute(
+                    instruction.systemCallNumber,
+                    instruction.argument1,
+                    instruction.argument2,
+                    instruction.argument3
+                )
+
                 else -> error("Unknown instruction type ${instruction::class}!!!!!")
 
             }
@@ -93,6 +102,19 @@ class Execute {
         for (line in tokens) {
             val instruction = line[0]
             when (instruction) {
+
+                "SYSCALL" -> {
+                    out.add(
+                        Instruction.Syscall(
+                            SuperRegisterType.S1,
+                            SuperRegisterType.S2,
+                            SuperRegisterType.S3,
+                            SuperRegisterType.S4
+
+
+                        )
+                    )
+                }
 
                 "SHL" -> {
                     /** SHL G1 G2 */

@@ -104,7 +104,7 @@ class Instruction {
      * @param argument3 The third argument register.
      */
     data class Syscall(
-        val systemCallNumber: Int,
+        val systemCallNumber: SuperRegisterType,
         val argument1: SuperRegisterType,
         val argument2: SuperRegisterType,
         val argument3: SuperRegisterType

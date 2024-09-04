@@ -1,4 +1,4 @@
-package org.example.kvmInternals.calls
+package kvmInternals.systemCalls
 
 data class Read(val fd: Int, val buffer: Long, val count: Int)
 data class Write(val fd: Int, val buffer: Long, val count: Int)
@@ -69,7 +69,6 @@ data class Connect(val fd: Int, val address: ByteArray) {
     }
 }
 data class GetTimeOfDay(val tv: Long)
-data class SetTimeOfDay(val tv: Long)
 data class Execve(val path: String, val argv: Long, val envp: Long)
 data class GetPid(val nothing: Nothing? = null)
 data class GetUid(val nothing: Nothing? = null)

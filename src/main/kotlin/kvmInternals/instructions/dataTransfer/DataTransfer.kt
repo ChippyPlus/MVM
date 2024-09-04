@@ -7,5 +7,5 @@ package org.example.kvmInternals.instructions.dataTransfer
  * * `MOV` - Move a value from one register to another.
  *
  */
-class DataTransfer
+open class DataTransfer
 

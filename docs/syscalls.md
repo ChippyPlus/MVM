@@ -15,16 +15,15 @@
 | 13                      | `fd: Int`       | `address: ByteArray` |                 | `accept`       | Accepts a connection request on a listening socket.                         | `Socket descriptor of the connection` |
 | 14                      | `fd: Int`       | `address: ByteArray` |                 | `connect`      | Establishes a connection to a socket.                                       |                                       |
 | 15                      | `tv: Long`      |                      |                 | `getTimeOfDay` | Gets the current system time.                                               | `System time`                         |
-| 16                      | `tv: Long`      |                      |                 | `setTimeofDay` | Sets the system time.                                                       |                                       |
-| 17                      | `path: String`  | `argv: Long`         | `envp: Long`    | `execve`       | Replaces the current process with a new program.                            |                                       |
-| 18                      |                 |                      |                 | `getpid`       | Retrieves the process ID of the current process.                            | `Process ID`                          |
-| 19                      |                 |                      |                 | `getuid`       | Retrieves the user ID of the current process.                               | `User ID`                             |
-| 20                      |                 |                      |                 | `getcwd`       | Retrieves the current working directory.                                    | `Current working directory`           |
-| 12                      | `path: String`  |                      |                 | `chdir`        | Changes the current working directory.                                      |                                       |
-| 22                      | `path: String`  |                      |                 | `mkdir`        | Creates a directory.                                                        |                                       |
-| 23                      | `path: String`  |                      |                 | `rmdir`        | Removes a directory.                                                        |                                       |
-| 24                      | `path: String`  |                      |                 | `create`       | Creates a file.                                                             | `File descriptor`                     |
-| 35                      | `path: String`  |                      |                 | `remove`       | Removes a file.                                                             |                                       |
+| 16                      | `path: String`  | `argv: Long`         | `envp: Long`    | `execve`       | Replaces the current process with a new program.                            |                                       |
+| 17                      |                 |                      |                 | `getpid`       | Retrieves the process ID of the current process.                            | `Process ID`                          |
+| 18                      |                 |                      |                 | `getuid`       | Retrieves the user ID of the current process.                               | `User ID`                             |
+| 19                      |                 |                      |                 | `getcwd`       | Retrieves the current working directory.                                    | `Current working directory`           |
+| 20                      | `path: String`  |                      |                 | `chdir`        | Changes the current working directory.                                      |                                       |
+| 21                      | `path: String`  |                      |                 | `mkdir`        | Creates a directory.                                                        |                                       |
+| 22                      | `path: String`  |                      |                 | `rmdir`        | Removes a directory.                                                        |                                       |
+| 23                      | `path: String`  |                      |                 | `create`       | Creates a file.                                                             | `File descriptor`                     |
+| 24                      | `path: String`  |                      |                 | `remove`       | Removes a file.                                                             |                                       |
 
 **Extra Info!!!!!**
 
