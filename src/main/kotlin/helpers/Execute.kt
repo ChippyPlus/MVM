@@ -3,10 +3,7 @@ package org.example.helpers
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
 import org.example.kvm
 import org.example.kvmInternals.instructions.Instruction
-import org.example.kvmInternals.instructions.arithmetic.add
-import org.example.kvmInternals.instructions.arithmetic.div
-import org.example.kvmInternals.instructions.arithmetic.mul
-import org.example.kvmInternals.instructions.arithmetic.sub
+import org.example.kvmInternals.instructions.arithmetic.*
 import org.example.kvmInternals.instructions.bitwise.*
 import org.example.kvmInternals.instructions.controlFlow.jmp
 import org.example.kvmInternals.instructions.controlFlow.jnz
@@ -41,7 +38,7 @@ class Execute {
                 is Instruction.Sub -> kvm.arithmetic.sub(instruction.operand1, instruction.operand2)
                 is Instruction.Mul -> kvm.arithmetic.mul(instruction.operand1, instruction.operand2)
                 is Instruction.Div -> kvm.arithmetic.div(instruction.operand1, instruction.operand2)
-
+                is Instruction.Mod -> kvm.arithmetic.mod(instruction.operand1, instruction.operand2)
                 /**
                  * Minus one for the `controlFlow` functions are
                  * because the pc will be incremented after the instruction is executed,
@@ -61,6 +58,8 @@ class Execute {
 
                 is Instruction.Shl -> kvm.bitwise.shl(instruction.operand, instruction.shiftAmount)
                 is Instruction.Shr -> kvm.bitwise.shr(instruction.operand, instruction.shiftAmount)
+
+                is Instruction.Eq -> kvm.arithmetic.eq(instruction.operand1, instruction.operand2)
 
                 is Instruction.And -> kvm.bitwise.and(instruction.operand1, instruction.operand2)
                 is Instruction.Not -> kvm.bitwise.not(instruction.operand)
@@ -114,6 +113,16 @@ class Execute {
 
                         )
                     )
+                }
+
+                "MOD" -> {
+                    /** MOD G1 G2*/
+                    out.add(Instruction.Mod(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
+                }
+
+                "EQ" -> {
+                    /** EQ G1 G2*/
+                    out.add(Instruction.Eq(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
                 }
 
                 "SHL" -> {

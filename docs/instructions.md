@@ -21,10 +21,11 @@
 | 19                | `SHL`            | Shifts the bits of a register to the left by a specified amount.                                                        | `Operand Register`         | `Shift Amount`         |               |               | `Result of Left Shift`             |
 | 20                | `SHR`            | Shifts the bits of a register to the right by a specified amount.                                                       | `Operand Register`         | `Shift Amount`         |               |               | `Result of Right Shift`            |
 | 21                | `LIT`            | Loads a literal value into a specified register.                                                                        | `Destination Register`     | `Literal Value`        |               |               |                                    |
+| 22                | `EQ`             | Checks if both registers are the same. If they are R4 is set to 0 else to 1                                             | `Operand 1 Register`       | `Operand 2 Register`   |               |               | `Result of Comparision`            |            
 
 **Extra info!!!!!**
 
-* **Register Notation:** The "Argument 1" to "Argument 4" columns indicate the general-purpose registers (G1-G4) that
+* **Register Notation:** the "Argument 1" to "Argument 4" columns indicate the general-purpose registers (G1-G4) that
   hold the instruction's operands.
 * **Bitwise Results(R3)**: TODO but like they go in R3
 * **Result (R4):** The `R4` register holds the primary result of the instruction, if applicable. For example, the `ADD`

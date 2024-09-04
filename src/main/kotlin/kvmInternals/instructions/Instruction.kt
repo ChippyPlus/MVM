@@ -6,6 +6,18 @@ import org.example.data.registers.enumIdenifiers.SuperRegisterType
 @Suppress("unused")
 class Instruction {
 
+
+    // TODO make a description!!!! Its a modulus operator
+    data class Mod(val operand1: SuperRegisterType, val operand2: SuperRegisterType)
+
+    /** Represents an EQ instruction, which checks if the value in [operand1] == [operand2]
+     * If they are equal, it sets `R2` to 0, otherwise, it sets the `R2` to 1
+     *
+     * @param [operand1] The first operand register.
+     * @param [operand2] The second operand register.
+     */
+    data class Eq(val operand1: SuperRegisterType, val operand2: SuperRegisterType)
+
     @Deprecated("Eh it never worked and useless")
     data class Halt(val nothing: Nothing? = null)
 
