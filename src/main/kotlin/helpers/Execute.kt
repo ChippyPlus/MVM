@@ -1,6 +1,7 @@
 package org.example.helpers
 
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
+import org.example.errors
 import org.example.kvm
 import org.example.kvmInternals.instructions.Instruction
 import org.example.kvmInternals.instructions.arithmetic.*
@@ -69,9 +70,6 @@ class Execute {
                 is Instruction.Syscall -> kvm.systemCall.execute(
                     instruction.systemCallNumber, instruction.argument1, instruction.argument2, instruction.argument3
                 )
-
-                else -> error("Unknown instruction type ${instruction::class}!!!!!")
-
             }
         }
     }
@@ -95,8 +93,7 @@ class Execute {
             tokens.add(_lineParts)
         }
         for (line in tokens) {
-            val instruction = line[0]
-            when (instruction) {
+            when (val instruction = line[0]) {
 
                 "SYSCALL" -> {
                     out.add(
@@ -105,6 +102,10 @@ class Execute {
                         )
                     )
                 }
+
+                "" -> {// ignore empty line
+                }
+
 
                 "MOD" -> {
                     /** MOD G1 G2*/
@@ -219,6 +220,10 @@ class Execute {
 
                 "MUL" -> {
                     out.add(Instruction.Mul(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
+                }
+
+                else -> {
+                    errors.InvalidInstructionException(instruction)
                 }
 
 

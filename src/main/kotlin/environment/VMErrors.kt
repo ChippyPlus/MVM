@@ -38,8 +38,8 @@ class VMErrors {
      *
      * @param instruction The invalid instruction.
      */
-    fun InvalidInstructionException(instruction: Instruction) {
-        System.err.println("$prefix: Invalid Instruction \"${instruction::class.simpleName}\"")
+    fun InvalidInstructionException(instruction: String) {
+        System.err.println("$prefix: Invalid Instruction \"${instruction}\"")
         exitProcess(3)
     }
 
@@ -107,7 +107,7 @@ class VMErrors {
      * Reports a memory allocation exception and terminates the virtual machine.
      * @param message An optional message describing the memory error.
      */
-    fun MemoryAllocationException(message: String?  = null) {
+    fun MemoryAllocationException(message: String? = null) {
         System.err.println("$prefix: Memory Allocation Exception")
         exitProcess(10)
     }

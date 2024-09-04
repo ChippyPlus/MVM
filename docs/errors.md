@@ -14,11 +14,7 @@
 
 **Additional Considerations:**
 
-* **Error Handling:** You'll need to implement error handling mechanisms within your KVM to catch these exceptions,
-  handle them appropriately, and potentially continue execution if possible.
-* **Specific Exceptions:** You might create more specific exception types to provide more detailed error information.
-* **Logging:**  Consider logging errors to a file or console to aid in debugging.
-* **Error Recovery:** Explore options for error recovery, such as retrying operations or taking alternative actions if
-  possible.
-* **Termination:** Determine how and when your KVM should terminate the execution of a guest program in case of
-  unrecoverable errors.
+
+* **Logging:** May happen soon, like some debug mode?
+* **Error Recovery:** To maybe add traces soon.
+* **Termination:** All errors will terminate the main program.

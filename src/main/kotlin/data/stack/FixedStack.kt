@@ -14,14 +14,14 @@ class FixedStack(private val maxSize: Int) {
         stack[topIndex] = element
     }
 
-    fun pop(): Int? {
+    fun pop(): Int {
         if (isEmpty()) {
-            return null
+            errors.EmptyStackException()
         }
         val element = stack[topIndex]
         stack[topIndex] = null
         topIndex--
-        return element
+        return element!!
     }
 
     fun peek(): Int {
