@@ -1,6 +1,8 @@
 package org.example.helpers
 
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
+import org.example.errors
+import kotlin.system.exitProcess
 
 fun String.toSuperRegisterType(): SuperRegisterType {
     return when (this) {
@@ -16,6 +18,10 @@ fun String.toSuperRegisterType(): SuperRegisterType {
         "R2" -> SuperRegisterType.R2
         "R3" -> SuperRegisterType.R3
         "R4" -> SuperRegisterType.R4
-        else -> error("Bad superRegisterType '$this'.")
+        else -> {
+            errors.InvalidRegisterException(this)
+            exitProcess(1) // Exit the program with the InvalidRegisterException error code(1)
+            // the `exitProcess(1)` is unreachable but the compiler complains about it
+        }
     }
 }

@@ -1,12 +1,14 @@
-package org.example.dog
+package org.example.data.stack
 
-class FixedSizeStack(private val maxSize: Int) {
+import org.example.errors
+
+class FixedStack(private val maxSize: Int) {
     private val stack = Array<Int?>(maxSize) { null }
     private var topIndex = -1
 
     fun push(element: Int) {
         if (isFull()) {
-            throw StackOverflowError("Stack is full")
+            errors.StackOverflowException()
         }
         topIndex++
         stack[topIndex] = element
@@ -22,8 +24,11 @@ class FixedSizeStack(private val maxSize: Int) {
         return element
     }
 
-    fun peek(): Int? {
-        return if (isEmpty()) null else stack[topIndex]
+    fun peek(): Int {
+        if (isEmpty()) {
+            errors.EmptyStackException()
+        }
+        return stack[topIndex]!!
     }
 
     fun isEmpty(): Boolean {
@@ -33,9 +38,4 @@ class FixedSizeStack(private val maxSize: Int) {
     fun isFull(): Boolean {
         return topIndex == maxSize - 1
     }
-}
-
-fun main() {
-    val x = FixedSizeStack(2)
-
 }

@@ -1,5 +1,6 @@
 package org.example.kvmInternals.instructions.stackOperations
 
+import org.example.data.stack.FixedStack
 import java.util.*
 
 
@@ -11,6 +12,6 @@ import java.util.*
  *
 
  */
-class StackOperations {
-    val internalStack = Stack<Int>()
+class StackOperations(limit: Int) {
+    val internalStack = FixedStack(limit)
 }

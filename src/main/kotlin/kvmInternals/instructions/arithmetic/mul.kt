@@ -3,6 +3,8 @@ package org.example.kvmInternals.instructions.arithmetic
 import org.example.data.registers.enumIdenifiers.*
 import org.example.helpers.RegisterAllMap
 import kvmInternals.instructions.arithmetic.Arithmetic
+import org.example.errors
+import org.example.helpers.fullRegisterRead
 import org.example.returnRegisters
 
 
@@ -14,14 +16,10 @@ import org.example.returnRegisters
  */
 fun Arithmetic.mul(registerA: SuperRegisterType, registerB: SuperRegisterType) {
     try {
-        val currentRegisters = RegisterAllMap()
-        val A = currentRegisters[registerA]
-            ?: throw IllegalStateException("Current register($registerA) missing in currentRegistersMap")
-        val B = currentRegisters[registerB]
-            ?: throw IllegalStateException("Current register($registerB) missing in currentRegistersMap")
-        val result = A * B
-        returnRegisters.write(ReturnRegisterType.R4, result)
+        val A = fullRegisterRead(registerA)
+        val B = fullRegisterRead(registerB)
+        returnRegisters.write(ReturnRegisterType.R4, A + B)
     } catch (e: Exception) {
-        throw IllegalStateException("Adding failed", e)
+        errors.ArithmeticException("Multiplication operation failed")
     }
 }

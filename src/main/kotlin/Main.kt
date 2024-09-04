@@ -2,11 +2,12 @@ package org.example
 
 import org.example.data.memory.InternalMemory
 import org.example.data.registers.Registers
+import org.example.environment.VMErrors
 import org.example.helpers.Execute
 import org.example.kvmInternals.classes.Kvm
 import java.io.File
 
-
+val errors = VMErrors()
 val register = Registers()
 val internalMemory = InternalMemory()
 val systemRegisters = register.systemRegisters
