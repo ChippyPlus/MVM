@@ -13,10 +13,10 @@ import org.example.data.registers.enumIdenifiers.ReturnRegisterType
  * **Note: **  `R1` and `R3` are deprecated. The KVM now relies on runtime exceptions for error handling.
  */
 class ReturnRegisters {
-    private var r1 = 0
-    private var r2 = 0
-    private var r3 = 0
-    private var r4 = 0
+    private var r1 = -1
+    private var r2 = -1
+    private var r3 = -1
+    private var r4 = -1
 
     /**
      * Reads the value from the specified return register.

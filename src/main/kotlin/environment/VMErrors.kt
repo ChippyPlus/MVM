@@ -1,7 +1,6 @@
 package org.example.environment
 
 import org.example.data.memory.MemoryAddress
-import org.example.kvmInternals.instructions.Instruction
 import kotlin.system.exitProcess
 
 /**

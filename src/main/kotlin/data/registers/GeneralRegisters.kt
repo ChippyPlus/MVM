@@ -11,10 +11,10 @@ import org.example.data.registers.enumIdenifiers.GeneralRegisterType
  * General-purpose registers are used for storing operands, intermediate results, and other values during program execution.
  */
 class GeneralRegisters {
-    private var g1 = 0
-    private var g2 = 0
-    private var g3 = 0
-    private var g4 = 0
+    private var g1 = -1
+    private var g2 = -1
+    private var g3 = -1
+    private var g4 = -1
 
     /**
      * Reads the value from the specified general purpose register.

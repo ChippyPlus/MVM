@@ -10,10 +10,10 @@ import org.example.data.registers.enumIdenifiers.SystemRegisterType
  * The `S1` register is used to hold the system call number. The remaining registers (S2-S4) are used to pass arguments to system calls.
  */
 class SystemRegisters {
-    private var s1 = 0
-    private var s2 = 0
-    private var s3 = 0
-    private var s4 = 0
+    private var s1 = -1
+    private var s2 = -1
+    private var s3 = -1
+    private var s4 = -1
 
     /**
      * Reads the value from the specified system call register.
