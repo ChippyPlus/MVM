@@ -12,7 +12,7 @@ import org.example.returnRegisters
 fun Arithmetic.eq(operand1: SuperRegisterType, operand2: SuperRegisterType) {
 
     try {
-        if (fullRegisterRead(operand1) == fullRegisterRead(operand2)) {
+        if (fullRegisterRead(operand1)!! == fullRegisterRead(operand2)!!) {
             fullRegisterWrite(SuperRegisterType.R4, 0)
         } else {
             fullRegisterWrite(SuperRegisterType.R4, 1)

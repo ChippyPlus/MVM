@@ -13,8 +13,11 @@ enum class SuperRegisterType {
     R1,
     R2,
     R3,
-    R4
+    R4;
+
+
 }
+
 
 fun SuperRegisterType.toGeneralRegisterType(): GeneralRegisterType {
     return when (this) {

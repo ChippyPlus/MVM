@@ -13,8 +13,8 @@ import org.example.returnRegisters
  */
 fun Arithmetic.div(registerA: SuperRegisterType, registerB: SuperRegisterType) {
     try {
-        val A = fullRegisterRead(registerA)
-        val B = fullRegisterRead(registerB)
+        val A = fullRegisterRead(registerA)!!
+        val B = fullRegisterRead(registerB)!!
         returnRegisters.write(ReturnRegisterType.R4, A / B)
     } catch (e: Exception) {
         errors.ArithmeticException("Division operation failed")

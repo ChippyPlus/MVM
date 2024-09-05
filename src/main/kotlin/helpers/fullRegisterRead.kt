@@ -8,7 +8,7 @@ import org.example.generalRegisters
 import org.example.returnRegisters
 import org.example.systemRegisters
 
-fun fullRegisterRead(register: SuperRegisterType): Int {
+fun fullRegisterRead(register: SuperRegisterType): Int? {
     return when (register) {
         SuperRegisterType.G1 -> generalRegisters.read(register.toGeneralRegisterType())
         SuperRegisterType.G2 -> generalRegisters.read(register.toGeneralRegisterType())

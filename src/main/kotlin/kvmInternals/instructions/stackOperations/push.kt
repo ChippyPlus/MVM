@@ -11,5 +11,5 @@ import org.example.helpers.fullRegisterRead
  */
 
 fun StackOperations.push(registerType: SuperRegisterType) {
-    internalStack.push(fullRegisterRead(registerType))
+    internalStack.push(fullRegisterRead(registerType)!!)
 }

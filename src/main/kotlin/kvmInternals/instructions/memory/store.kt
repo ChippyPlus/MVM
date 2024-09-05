@@ -14,5 +14,5 @@ import org.example.internalMemory
  * @param destination The address in memory where the value should be stored.
  */
 fun Memory.store(source: SuperRegisterType, destination: MemoryAddress) {
-    internalMemory.write(destination, MemoryValue(fullRegisterRead(source)))
+    internalMemory.write(destination, MemoryValue(fullRegisterRead(source)!!))
 }

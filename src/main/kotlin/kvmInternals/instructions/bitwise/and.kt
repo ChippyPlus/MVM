@@ -9,6 +9,6 @@ import org.example.helpers.fullRegisterWrite
 fun Bitwise.and(operand1: SuperRegisterType, operand2: SuperRegisterType) {
     fullRegisterWrite(
         SuperRegisterType.R4,
-        fullRegisterRead(operand1) and fullRegisterRead(operand2)
+        fullRegisterRead(operand1)!! and fullRegisterRead(operand2)!!
     )
 }
