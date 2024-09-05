@@ -1,6 +1,9 @@
 package org.example.data.registers
 
 import org.example.data.registers.enumIdenifiers.GeneralRegisterType
+import org.example.errors
+import org.example.helpers.toSuperRegisterType
+import kotlin.system.exitProcess
 
 
 /**
@@ -22,12 +25,17 @@ class GeneralRegisters {
      * @param registers The general purpose register to read from.
      * @return The value stored in the specified register.
      */
-    fun read(registers: GeneralRegisterType): Int? {
-        return when (registers) {
-            GeneralRegisterType.G1 -> g1
-            GeneralRegisterType.G2 -> g2
-            GeneralRegisterType.G3 -> g3
-            GeneralRegisterType.G4 -> g4
+    fun read(registers: GeneralRegisterType): Int {
+        try {
+            return when (registers) {
+                GeneralRegisterType.G1 -> g1!!
+                GeneralRegisterType.G2 -> g2!!
+                GeneralRegisterType.G3 -> g3!!
+                GeneralRegisterType.G4 -> g4!!
+            }
+        } catch (e: NullPointerException) {
+            errors.NullRegisterException(registers.toString().toSuperRegisterType())
+            exitProcess(11) // To satisfy the compiler. This shouldn't trigger
         }
     }
 

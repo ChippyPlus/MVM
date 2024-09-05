@@ -11,9 +11,9 @@
 | 9            | `SocketException`                     | Thrown when an error occurs during a socket operation (e.g., connection refused, address in use).                         |
 | 10           | `MemoryAllocationException`           | Thrown when the KVM fails to allocate memory.                                                                             |
 | 11           | `InvalidInstructionArgumentException` | Thrown when an instruction is provided with invalid arguments (e.g., an invalid register name or an incorrect data type). |
+| 12           | `NullRegisterException`               | Thrown when an register with a null value being accessed or manipulated                                                   |
 
 **Additional Considerations:**
-
 
 * **Logging:** May happen soon, like some debug mode?
 * **Error Recovery:** To maybe add traces soon.

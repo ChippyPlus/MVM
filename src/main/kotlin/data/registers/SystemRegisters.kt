@@ -1,6 +1,10 @@
 package org.example.data.registers
 
+import org.example.data.registers.enumIdenifiers.GeneralRegisterType
 import org.example.data.registers.enumIdenifiers.SystemRegisterType
+import org.example.errors
+import org.example.helpers.toSuperRegisterType
+import kotlin.system.exitProcess
 
 /**
  * Represents a set of registers used exclusively for system calls.
@@ -21,12 +25,17 @@ class SystemRegisters {
      * @param registers The system call register to read from.
      * @return The value stored in the specified register.
      */
-    fun read(registers: SystemRegisterType): Int? {
-        return when (registers) {
-            SystemRegisterType.S1 -> s1
-            SystemRegisterType.S2 -> s2
-            SystemRegisterType.S3 -> s3
-            SystemRegisterType.S4 -> s4
+    fun read(registers: SystemRegisterType): Int {
+        try {
+            return when (registers) {
+                SystemRegisterType.S1 -> s1!!
+                SystemRegisterType.S2 -> s2!!
+                SystemRegisterType.S3 -> s3!!
+                SystemRegisterType.S4 -> s4!!
+            }
+        } catch (e: NullPointerException) {
+            errors.NullRegisterException(registers.toString().toSuperRegisterType())
+            exitProcess(11) // To satisfy the compiler. This shouldn't trigger
         }
     }
 

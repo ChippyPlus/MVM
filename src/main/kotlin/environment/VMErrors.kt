@@ -1,6 +1,7 @@
 package org.example.environment
 
 import org.example.data.memory.MemoryAddress
+import org.example.data.registers.enumIdenifiers.SuperRegisterType
 import kotlin.system.exitProcess
 
 /**
@@ -11,6 +12,17 @@ import kotlin.system.exitProcess
  */
 class VMErrors {
     private val prefix = "ERROR"
+
+    /**
+     * Reports a null register exception and terminates the virtual machine.
+     *
+     * @param message The message describing the null register.
+     */
+    fun NullRegisterException(message: SuperRegisterType) {
+        System.err.println("$prefix: Null Register of \"$message\"")
+        exitProcess(12)
+    }
+
 
     /**
      * Reports an invalid register exception and terminates the virtual machine.

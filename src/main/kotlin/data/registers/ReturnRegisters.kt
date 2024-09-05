@@ -1,6 +1,10 @@
 package org.example.data.registers
 
+import org.example.data.registers.enumIdenifiers.GeneralRegisterType
 import org.example.data.registers.enumIdenifiers.ReturnRegisterType
+import org.example.errors
+import org.example.helpers.toSuperRegisterType
+import kotlin.system.exitProcess
 
 
 /**
@@ -24,12 +28,17 @@ class ReturnRegisters {
      * @param registers The return register to read from.
      * @return The value stored in the specified register.
      */
-    fun read(registers: ReturnRegisterType): Int? {
-        return when (registers) {
-            ReturnRegisterType.R1 -> r1
-            ReturnRegisterType.R2 -> r2
-            ReturnRegisterType.R3 -> r3
-            ReturnRegisterType.R4 -> r4
+    fun read(registers: ReturnRegisterType): Int {
+        try {
+            return when (registers) {
+                ReturnRegisterType.R1 -> r1!!
+                ReturnRegisterType.R2 -> r2!!
+                ReturnRegisterType.R3 -> r3!!
+                ReturnRegisterType.R4 -> r4!!
+            }
+        } catch (e: NullPointerException) {
+            errors.NullRegisterException(registers.toString().toSuperRegisterType())
+            exitProcess(11) // To satisfy the compiler. This shouldn't trigger
         }
     }
 
