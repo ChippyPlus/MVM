@@ -1,6 +1,5 @@
 package org.example.data.registers
 
-import org.example.data.registers.enumIdenifiers.GeneralRegisterType
 import org.example.data.registers.enumIdenifiers.ReturnRegisterType
 import org.example.errors
 import org.example.helpers.toSuperRegisterType

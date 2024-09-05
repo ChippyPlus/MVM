@@ -1,8 +1,6 @@
 package org.example.kvmInternals.instructions.dataTransfer
 
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.errors
-import org.example.helpers.RegisterAllMap
 import org.example.helpers.fullRegisterRead
 import org.example.helpers.fullRegisterWrite
 
@@ -16,7 +14,7 @@ import org.example.helpers.fullRegisterWrite
 fun DataTransfer.mov(Source: SuperRegisterType, Destination: SuperRegisterType) {
     try {
         val value = fullRegisterRead(Source)
-        fullRegisterWrite(Destination, value as Int)
+        fullRegisterWrite(Destination, value)
     } catch (e: Exception) {
         throw IllegalStateException("Moving failed", e)
     }
