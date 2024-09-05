@@ -14,6 +14,7 @@ class SystemCall {
     fun execute(callId: SuperRegisterType, s2: SuperRegisterType, s3: SuperRegisterType, s4: SuperRegisterType) {
         when (fullRegisterRead(callId)) {
             6 -> exit(s2)
+            25 -> writeIo(s2, s3)
             else -> throw RuntimeException("Invalid system call ID: $callId")
         }
 

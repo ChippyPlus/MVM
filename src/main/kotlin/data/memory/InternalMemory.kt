@@ -10,6 +10,7 @@ class InternalMemory {
         for (i in 0 until memoryLimit) {
             memory[MemoryAddress(i)] = MemoryValue(0)
         }
+
     }
 
     fun write(address: MemoryAddress, value: MemoryValue) {

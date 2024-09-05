@@ -8,9 +8,6 @@ import kotlin.system.exitProcess
 
 fun SystemCall.exit(s2: SuperRegisterType) {
     val exitCode = fullRegisterRead(s2)
-    if (exitCode == null) {
-        errors.InvalidInstructionArgumentException("S2")
-    }
-    exitProcess(exitCode!!)
+    exitProcess(exitCode)
 
 }
