@@ -12,12 +12,13 @@ Keep in mind that this project is **STILL IN THE PROGRESS** and may parts are un
 
 MVM is a simple, stack-based virtual machine that executes a custom assembly language. It features:
 
-- **Custom Assembly Language:**  A small, human-readable assembly language with instructions for data movement, arithmetic, stack operations, control flow, memory access, and system calls.
+- **Custom Byte-code Language:**  A small, human-readable assembly language with instructions for data movement, arithmetic, stack operations, control flow, memory access, and system calls.
 - **Fixed Memory:**  The VM uses a fixed amount of memory that is universally accessible to simplify memory management.
 - **Error Handling:**  The VM uses exceptions to handle runtime errors, providing informative error messages.
 
 ## Documentation
-For documentation please check the wiki tab!!!!
+For documentation please check the wiki tab!!!   
+Over here -> [wiki tab](https://github.com/ChippyPlus/MVM/wiki)!!!
 
 
 ## Features
