@@ -8,8 +8,8 @@ import org.example.kvmInternals.classes.Kvm
 import java.io.File
 
 
-const val stackLimit = 32
-const val memoryLimit = 1024
+const val STACK_LIMIT = 32
+const val MEMORY_LIMIT = 1024
 val errors = VMErrors()
 val register = Registers()
 val internalMemory = InternalMemory()

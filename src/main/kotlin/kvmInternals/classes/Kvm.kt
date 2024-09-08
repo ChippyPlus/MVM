@@ -7,13 +7,13 @@ import org.example.kvmInternals.instructions.ioAbstractions.IoAbstractions
 import kvmInternals.instructions.bitwise.Bitwise
 import org.example.kvmInternals.instructions.memory.Memory
 import org.example.kvmInternals.instructions.stackOperations.StackOperations
-import org.example.stackLimit
+import org.example.STACK_LIMIT
 
 open class Kvm {
     val dataTransfer = DataTransfer()
     val arithmetic = Arithmetic()
     val bitwise = Bitwise()
-    val stackOperations = StackOperations(stackLimit)
+    val stackOperations = StackOperations(STACK_LIMIT)
     val controlFlow = ControlFlow()
     val memory = Memory()
     val systemCall = SystemCall()
