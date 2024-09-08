@@ -4,6 +4,8 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+docs/gitTemp.md
+
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
@@ -35,7 +37,7 @@ bin/
 /nbdist/
 /.nb-gradle/
 
-### VS Code ###
+### VS Code ##
 .vscode/
 
 ### Mac OS ###

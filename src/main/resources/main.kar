@@ -1,15 +1,5 @@
-LIT G1 100
-LIT G2 10
-LIT G4 0
-LIT G3 1
-LIT R1 10
-
-ADD G4 G3
-MOV R4 R3
-PUSH R3
-PRINTS
-
-JMP 7
-LIT S1 6
-LIT S2 0
-SYSCALL
+LIT G1 10 // Loads the literal '10' into G1
+LIT G2 5  // Loads the literal '5' into G1
+ADD G1 G2 // Adds the value in 'G1' & 'G2' and returns it into 'R4'
+PUSH R4   // Pushes the value of `R4` onto the stack
+PRINTS    // Prints the value on the stack

@@ -25,17 +25,3 @@
 | 23                      | `path: String`           |                      |                 | `create`       | Creates a file.                                                                                       | `File descriptor`                     |
 | 24                      | `path: String`           |                      |                 | `remove`       | Removes a file.                                                                                       |                                       |
 | 25                      | `address: MemoryAddress` | `len: Int`           |                 | `writeIo`      | Writes a string to the screen starting at `address` in memory and incrementing and printing the ASCII |
-
-**Extra Info!!!!!**
-
-* **Result Storage:** The table now includes columns for `Success/Failure (R1)` and `Result (R2)`.
-* **Success/Failure:** The success/failure status will be stored in `R1`, typically with `0` indicating success and `1`
-  indicating failure.
-* **Result:** The actual result of the syscall will be stored in `R2`. The meaning of the result varies depending on the
-  syscall (e.g., file descriptor, number of bytes read, process ID).
-
-**Example:**
-
-* A `read` syscall might have `R1` set to `0` (success) and `R2` containing the number of bytes read from the file.
-* A `mkdir` syscall might have `R1` set to `0` (success) and `R2` would not contain a meaningful value (it could be
-  unused). 

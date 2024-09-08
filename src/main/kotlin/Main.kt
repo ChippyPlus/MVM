@@ -9,7 +9,7 @@ import java.io.File
 
 
 const val stackLimit = 32
-const val memoryLimit = 512
+const val memoryLimit = 1024
 val errors = VMErrors()
 val register = Registers()
 val internalMemory = InternalMemory()
