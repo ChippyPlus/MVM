@@ -13,6 +13,7 @@ import org.example.kvmInternals.systemCalls.calls.*
 class SystemCall {
     fun execute(callId: SuperRegisterType, s2: SuperRegisterType, s3: SuperRegisterType, s4: SuperRegisterType) {
         when (fullRegisterRead(callId)) {
+            1 -> readFile(s2,s3,s4)
             3 -> openFile(s2,s3)
             6 -> exit(s2)
             25 -> writeIo(s2)
