@@ -20,6 +20,7 @@ import org.example.kvmInternals.instructions.stackOperations.peek
 import org.example.kvmInternals.instructions.stackOperations.pop
 import org.example.kvmInternals.instructions.stackOperations.push
 import org.example.kvmInternals.instructions.strings.str
+import org.example.kvmInternals.instructions.strings.strlen
 import java.io.File
 
 class Execute {
@@ -35,6 +36,7 @@ class Execute {
             }
 
             when (val instruction: Any = command[kvm.pc - 1]) {
+                is Instruction.Strlen -> kvm.strings.strlen(instruction.addressRegister, instruction.destination)
                 is Instruction.Str -> kvm.strings.str(instruction.targetAddress, instruction.string)
                 is Instruction.Lit -> kvm.dataTransfer.lit(instruction.destination, instruction.value)
                 is Instruction.Mov -> kvm.dataTransfer.mov(instruction.source, instruction.destination)
@@ -99,6 +101,8 @@ class Execute {
         }
         for (line in tokens) {
             when (val instruction = line[0]) {
+
+                "STRLEN" -> out.add(Instruction.Strlen(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
 
                 "PRINTR" -> out.add(Instruction.Printr(line[1].toSuperRegisterType()))
 
@@ -185,7 +189,7 @@ class Execute {
 
                 "STORE" -> {
                     /** STORE G1 10 */
-                    out.add(Instruction.Store(line[1].toSuperRegisterType(), line[2].toMemoryAddress()))
+                    out.add(Instruction.Store(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
                 }
 
                 "LOAD" -> {

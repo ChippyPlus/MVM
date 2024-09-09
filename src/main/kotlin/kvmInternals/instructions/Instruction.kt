@@ -6,6 +6,9 @@ import org.example.data.registers.enumIdenifiers.SuperRegisterType
 @Suppress("unused")
 class Instruction {
 
+
+    data class Strlen(val addressRegister: SuperRegisterType, val destination: SuperRegisterType)
+
     // TODO it um. its here ioAbstractions.printr
     data class Printr(val register: SuperRegisterType)
 
@@ -141,7 +144,7 @@ class Instruction {
      * @param source The source register.
      * @param memoryAddress The memory address to store to.
      */
-    data class Store(val source: SuperRegisterType, val memoryAddress: MemoryAddress)
+    data class Store(val source: SuperRegisterType, val memoryAddress: SuperRegisterType)
 
     /**
      * Represents an AND instruction, which performs a bitwise AND operation between two registers and stores the result in a destination register.

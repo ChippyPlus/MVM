@@ -13,6 +13,6 @@ import org.example.internalMemory
  * @param source The register type containing the value to be stored in memory.
  * @param destination The address in memory where the value should be stored.
  */
-fun Memory.store(source: SuperRegisterType, destination: MemoryAddress) {
-    internalMemory.write(destination, MemoryValue(fullRegisterRead(source)!!))
+fun Memory.store(source: SuperRegisterType, destination: SuperRegisterType) {
+    internalMemory.write(MemoryAddress(fullRegisterRead( destination)), MemoryValue(fullRegisterRead(source)))
 }
