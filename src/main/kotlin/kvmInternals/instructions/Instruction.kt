@@ -7,7 +7,7 @@ import org.example.data.registers.enumIdenifiers.SuperRegisterType
 class Instruction {
 
 
-    data class Strlen(val addressRegister: SuperRegisterType, val destination: SuperRegisterType)
+    data class Strlen(val addressRegister: SuperRegisterType)
 
     // TODO it um. its here ioAbstractions.printr
     data class Printr(val register: SuperRegisterType)
