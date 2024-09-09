@@ -41,6 +41,7 @@ fun Strings.str(targetAddress: SuperRegisterType, string: String) {
     for ((index, i) in (spot!! until (spot + allocMem)).withIndex()) {
         internalMemory.memory[MemoryAddress(i)] = MemoryValue(string[index].code)
     }
+    internalMemory.memory[MemoryAddress(spot + allocMem)] = MemoryValue(0)
+
     println(internalMemory.memory)
-    println(spot + allocMem)
 }
