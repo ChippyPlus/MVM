@@ -6,13 +6,19 @@ import org.example.helpers.fullRegisterRead
 import org.example.internalMemory
 import org.example.kvmInternals.classes.SystemCall
 
-fun SystemCall.writeIo(address: SuperRegisterType, len: SuperRegisterType) {
-    for (i in 0 until fullRegisterRead(len)) {
+fun SystemCall.writeIo(address: SuperRegisterType) {
+    var index = 0
+    while (true) {
+
         val byte = internalMemory.read(
             MemoryAddress(
-                fullRegisterRead(address) + i
+                fullRegisterRead(address) + index
             )
         )
-        print(byte.value.toChar())
+        if (byte.value == 0) break
+
+        index++
+        print(byte.value!!.toChar())
+
     }
 }

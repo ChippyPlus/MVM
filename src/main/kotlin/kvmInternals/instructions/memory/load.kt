@@ -13,5 +13,5 @@ import org.example.internalMemory
  * @param destination The register type to write the loaded value to.
  */
 fun Memory.load(memoryAddress: MemoryAddress, destination: SuperRegisterType) {
-    fullRegisterWrite(destination, internalMemory.read(memoryAddress).value)
+    fullRegisterWrite(destination, internalMemory.read(memoryAddress).value!!)
 }

@@ -8,7 +8,7 @@ class InternalMemory {
 
     init {
         for (i in 0 until MEMORY_LIMIT) {
-            memory[MemoryAddress(i)] = MemoryValue(0)
+            memory[MemoryAddress(i)] = MemoryValue(null)
         }
 
     }
@@ -21,10 +21,13 @@ class InternalMemory {
     }
 
     fun read(address: MemoryAddress): MemoryValue {
+        if (memory[address] == MemoryValue(null)) {
+            errors.NullAddressException(address)
+        }
         if (address.address > MEMORY_LIMIT) { // Out of bounds error
             errors.InvalidMemoryAddressException(address)
         }
-        return memory[address] ?: MemoryValue(0)
+        return memory[address]!!
     }
 
 }

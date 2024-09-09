@@ -13,16 +13,6 @@ import kotlin.system.exitProcess
 class VMErrors {
     private val prefix = "ERROR"
 
-    /**
-     * Reports a null register exception and terminates the virtual machine.
-     *
-     * @param message The message describing the null register.
-     */
-    fun NullRegisterException(message: SuperRegisterType) {
-        System.err.println("$prefix: Null Register of \"$message\"")
-        exitProcess(12)
-    }
-
 
     /**
      * Reports an invalid register exception and terminates the virtual machine.
@@ -131,5 +121,20 @@ class VMErrors {
     fun InvalidInstructionArgumentException(message: String) {
         System.err.println("$prefix: Invalid Instruction Argument \"$message\"")
         exitProcess(11)
+    }
+
+    /**
+     * Reports a null register exception and terminates the virtual machine.
+     *
+     * @param message The message describing the null register.
+     */
+    fun NullRegisterException(message: SuperRegisterType) {
+        System.err.println("$prefix: Null Register of \"$message\"")
+        exitProcess(12)
+    }
+
+    fun NullAddressException(message: MemoryAddress) {
+        System.err.println("$prefix: Null Address of \"$message\"")
+        exitProcess(13)
     }
 }
