@@ -43,5 +43,4 @@ fun Strings.str(targetAddress: SuperRegisterType, string: String) {
     }
     internalMemory.memory[MemoryAddress(spot + allocMem)] = MemoryValue(0)
 
-    println(internalMemory.memory)
 }

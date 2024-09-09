@@ -97,7 +97,7 @@ class Execute {
         for (line in tokens) {
             when (val instruction = line[0]) {
 
-                "STR" -> out.add(Instruction.Str(line[1].toSuperRegisterType(), line[2].split("\"")[1]))
+                "STR" -> out.add(Instruction.Str(line[1].toSuperRegisterType(), line.joinToString(" ").split("\"")[1]))
 
                 "SYSCALL" -> {
                     out.add(

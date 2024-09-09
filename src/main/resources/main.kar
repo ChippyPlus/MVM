@@ -1,6 +1,9 @@
-STR G1 "Hello-World"
-STR G2 "I-love-dogs"
+STR G1 "Hello World!!!"
+STR G2 "I love dogs!!!"
 PUSH G2
 LIT S1 25
 MOV G2 S2
 SYSCALL
+LOAD 6 G3
+PUSH G3
+PRINTS
