@@ -6,6 +6,8 @@ import org.example.data.registers.enumIdenifiers.SuperRegisterType
 @Suppress("unused")
 class Instruction {
 
+    // TODO it um. its here ioAbstractions.printr
+    data class Printr(val register: SuperRegisterType)
 
     // TODO it um. its here instructions.strings.Str
     data class Str(val targetAddress: SuperRegisterType, val string: String)

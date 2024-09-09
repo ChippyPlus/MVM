@@ -12,6 +12,7 @@ import org.example.kvmInternals.instructions.controlFlow.jz
 
 import org.example.kvmInternals.instructions.dataTransfer.lit
 import org.example.kvmInternals.instructions.dataTransfer.mov
+import org.example.kvmInternals.instructions.ioAbstractions.printr
 import org.example.kvmInternals.instructions.ioAbstractions.prints
 import org.example.kvmInternals.instructions.memory.load
 import org.example.kvmInternals.instructions.memory.store
@@ -72,6 +73,8 @@ class Execute {
                 is Instruction.Syscall -> kvm.systemCall.execute(
                     instruction.systemCallNumber, instruction.argument1, instruction.argument2, instruction.argument3
                 )
+
+                is Instruction.Printr -> kvm.ioAbstractions.printr(instruction.register)
             }
         }
     }
@@ -96,6 +99,8 @@ class Execute {
         }
         for (line in tokens) {
             when (val instruction = line[0]) {
+
+                "PRINTR" -> out.add(Instruction.Printr(line[1].toSuperRegisterType()))
 
                 "STR" -> out.add(Instruction.Str(line[1].toSuperRegisterType(), line.joinToString(" ").split("\"")[1]))
 
