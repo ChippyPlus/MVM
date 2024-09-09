@@ -8,6 +8,7 @@ import kvmInternals.instructions.bitwise.Bitwise
 import org.example.kvmInternals.instructions.memory.Memory
 import org.example.kvmInternals.instructions.stackOperations.StackOperations
 import org.example.STACK_LIMIT
+import org.example.kvmInternals.instructions.strings.Strings
 
 open class Kvm {
     val dataTransfer = DataTransfer()
@@ -18,6 +19,7 @@ open class Kvm {
     val memory = Memory()
     val systemCall = SystemCall()
     val ioAbstractions = IoAbstractions()
+    val strings = Strings()
     var pc = 0
 }
 

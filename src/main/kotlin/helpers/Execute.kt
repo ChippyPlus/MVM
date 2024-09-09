@@ -18,6 +18,7 @@ import org.example.kvmInternals.instructions.memory.store
 import org.example.kvmInternals.instructions.stackOperations.peek
 import org.example.kvmInternals.instructions.stackOperations.pop
 import org.example.kvmInternals.instructions.stackOperations.push
+import org.example.kvmInternals.instructions.strings.str
 import java.io.File
 
 class Execute {
@@ -33,6 +34,7 @@ class Execute {
             }
 
             when (val instruction: Any = command[kvm.pc - 1]) {
+                is Instruction.Str -> kvm.strings.str(instruction.targetAddress, instruction.string)
                 is Instruction.Lit -> kvm.dataTransfer.lit(instruction.destination, instruction.value)
                 is Instruction.Mov -> kvm.dataTransfer.mov(instruction.source, instruction.destination)
                 is Instruction.Add -> kvm.arithmetic.add(instruction.operand1, instruction.operand2)
@@ -94,6 +96,8 @@ class Execute {
         }
         for (line in tokens) {
             when (val instruction = line[0]) {
+
+                "STR" -> out.add(Instruction.Str(line[1].toSuperRegisterType(), line[2].split("\"")[1]))
 
                 "SYSCALL" -> {
                     out.add(

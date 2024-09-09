@@ -7,6 +7,9 @@ import org.example.data.registers.enumIdenifiers.SuperRegisterType
 class Instruction {
 
 
+    // TODO it um. its here instructions.strings.Str
+    data class Str(val targetAddress: SuperRegisterType, val string: String)
+
     // TODO make a description!!!! Its a modulus operator
     data class Mod(val operand1: SuperRegisterType, val operand2: SuperRegisterType)
 

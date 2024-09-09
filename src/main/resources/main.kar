@@ -1,5 +1,1 @@
-LIT G1 10 // Loads the literal '10' into G1
-LIT G2 5  // Loads the literal '5' into G1
-ADD G1 G2 // Adds the value in 'G1' & 'G2' and returns it into 'R4'
-PUSH R4   // Pushes the value of `R4` onto the stack
-PRINTS    // Prints the value on the stack
+STR G1 "Hello World!"
