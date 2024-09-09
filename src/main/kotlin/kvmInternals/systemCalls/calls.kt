@@ -6,7 +6,7 @@ import org.example.data.memory.MemoryAddress
 data class WriteIo(val address: MemoryAddress, val len: Int)
 data class ReadFile(val fd: Int, val buffer: Long, val count: Int)
 data class WriteFile(val fd: Int, val buffer: Long, val count: Int)
-data class Open(val path: String, val flags: Int, val mode: Int)
+data class Open(val path: String, val flags: Int)
 data class Close(val fd: Int)
 data class Fork(val nothing: Nothing? = null)
 data class Exit(val status: Int)
