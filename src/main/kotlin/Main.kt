@@ -3,8 +3,8 @@ package org.example
 import org.example.data.io.FileDescriptors
 import org.example.data.memory.InternalMemory
 import org.example.data.registers.Registers
+import org.example.engine.execution.Execute
 import org.example.environment.VMErrors
-import org.example.helpers.Execute
 import org.example.kvmInternals.classes.Kvm
 import java.io.File
 
