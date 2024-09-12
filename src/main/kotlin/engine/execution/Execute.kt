@@ -65,6 +65,7 @@ class Execute {
             }
         }
     }
+
     fun execute(file: File) {
         val tokens = parser(file)
         @Suppress("UNCHECKED_CAST") ((tokens as? MutableList<Instruction>)?.let { run(it) })

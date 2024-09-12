@@ -38,6 +38,10 @@ fun parser(file: File): MutableList<Any> {
             "" -> {// ignore empty line
             }
 
+            "//" -> {// ignore comments
+
+            }
+
 
             "MOD" -> {
                 /** MOD G1 G2*/

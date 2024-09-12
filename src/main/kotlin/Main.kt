@@ -11,6 +11,7 @@ import java.io.File
 
 const val STACK_LIMIT = 32
 const val MEMORY_LIMIT = 1024
+val kvm = Kvm()
 val errors = VMErrors()
 val fileDescriptors = FileDescriptors()
 val register = Registers()
@@ -20,7 +21,7 @@ val returnRegisters = register.returnRegisters
 val generalRegisters = register.generalRegisters
 val execute = Execute()
 val f = File("src/main/resources/main.kar")
-val kvm = Kvm()
 fun main() {
     execute.execute(f)
+//    println(internalMemory.memory)
 }

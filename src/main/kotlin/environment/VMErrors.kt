@@ -2,6 +2,7 @@ package org.example.environment
 
 import org.example.data.memory.MemoryAddress
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
+import org.example.kvm
 import kotlin.system.exitProcess
 
 /**
@@ -11,7 +12,7 @@ import kotlin.system.exitProcess
  *  and terminating the virtual machine execution with a specific exit code for each type of error.
  */
 class VMErrors {
-    private val prefix = "ERROR"
+    private val prefix = "ERROR:${kvm.pc}"
 
 
     /**
