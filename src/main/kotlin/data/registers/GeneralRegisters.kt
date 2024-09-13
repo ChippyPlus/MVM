@@ -14,10 +14,10 @@ import kotlin.system.exitProcess
  * General-purpose registers are used for storing operands, intermediate results, and other values during program execution.
  */
 class GeneralRegisters {
-    private var g1: Int? = null
-    private var g2: Int? = null
-    private var g3: Int? = null
-    private var g4: Int? = null
+    var g1: Int? = null
+    var g2: Int? = null
+    var g3: Int? = null
+    var g4: Int? = null
 
     /**
      * Reads the value from the specified general purpose register.

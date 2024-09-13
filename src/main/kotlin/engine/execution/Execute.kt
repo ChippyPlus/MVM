@@ -1,5 +1,6 @@
 package org.example.engine.execution
 
+import org.example.debugEngine
 import org.example.engine.parser
 import org.example.kvm
 import org.example.kvmInternals.instructions.Instruction
@@ -29,6 +30,8 @@ class Execute {
     private fun run(command: MutableList<Instruction>) {
         while (true) {
             kvm.pc++
+            debugEngine.eachInteraction()
+
             if (kvm.pc - 1 == command.size) {
                 break
             }
@@ -60,6 +63,7 @@ class Execute {
                 is Instruction.Syscall -> kvm.systemCall.execute(
                     instruction.systemCallNumber, instruction.argument1, instruction.argument2, instruction.argument3
                 )
+
                 is Instruction.Prints -> kvm.ioAbstractions.prints()
                 is Instruction.Printr -> kvm.ioAbstractions.printr(instruction.register)
             }

@@ -2,31 +2,13 @@ package org.example.debuger.internals
 
 import kotlinx.serialization.json.Json
 import org.example.debuger.jsonInfo.DebugFile
+import java.io.File
 
-val dataRaw = """
-    {
-      "breakPoints": [
-        {
-          "line": 1,
-          "enabled": true
-        },
-        {
-          "line": 2,
-          "enabled": true
-        }
-      ],
-      "lineSpecific": {
-        "2": ["registers ALL"],
-        "3": ["memoryRange 0 10"]
-      },
-      "eachIteration": [
-        "registers"
-      ]
-    }
-""".trimIndent()
 
+
+private val json = Json { prettyPrint = true }
 
 fun main() {
-    val data = Json.decodeFromString<DebugFile>(dataRaw)
-    println(data)
+    val data = json.decodeFromString<DebugFile>( File("src/main/resources/debug/debug.json").readText())
+    val bug = DebugEngine(data)
 }

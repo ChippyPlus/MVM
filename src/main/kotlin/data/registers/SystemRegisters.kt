@@ -13,10 +13,10 @@ import kotlin.system.exitProcess
  * The `S1` register is used to hold the system call number. The remaining registers (S2-S4) are used to pass arguments to system calls.
  */
 class SystemRegisters {
-    private var s1: Int? = null
-    private var s2: Int? = null
-    private var s3: Int? = null
-    private var s4: Int? = null
+    var s1: Int? = null
+    var s2: Int? = null
+    var s3: Int? = null
+    var s4: Int? = null
 
     /**
      * Reads the value from the specified system call register.

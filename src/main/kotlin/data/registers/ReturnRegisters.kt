@@ -16,10 +16,10 @@ import kotlin.system.exitProcess
  * **Note: **  `R1` and `R3` are deprecated. The KVM now relies on runtime exceptions for error handling.
  */
 class ReturnRegisters {
-    private var r1: Int? = null
-    private var r2: Int? = null
-    private var r3: Int? = null
-    private var r4: Int? = null
+     var r1: Int? = null
+     var r2: Int? = null
+     var r3: Int? = null
+     var r4: Int? = null
 
     /**
      * Reads the value from the specified return register.

@@ -14,6 +14,7 @@
     "3": ["memoryRange 0 10"]
   },
   "eachIteration": [
-    "registers"
+    "registers ALL",
+    "memoryRange 0 20"
   ]
 }
