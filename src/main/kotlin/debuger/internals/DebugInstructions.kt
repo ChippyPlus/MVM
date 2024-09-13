@@ -45,7 +45,7 @@ class DebugInstructions {
     fun memoryRange(a: Int, b: Int) {
         val memMap = emptyMap<String, Int?>().toMutableMap()
         for (address in a..b) {
-            memMap[address.toString()] = internalMemory.memory[MemoryAddress(address)]!!.value
+            memMap[address.toString()] = internalMemory.memory[MemoryAddress(address)]?.value
         }
         File("src/main/resources/debug/out/each/memoryRange/frame=${kvm.pc}.json").writeText(
             json.encodeToString(EachInstruction(kvm.pc.toString(), "memoryRange", memMap))

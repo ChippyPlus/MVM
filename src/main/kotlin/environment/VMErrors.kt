@@ -12,7 +12,7 @@ import kotlin.system.exitProcess
  *  and terminating the virtual machine execution with a specific exit code for each type of error.
  */
 class VMErrors {
-    private val prefix = "ERROR:${kvm.pc}"
+    private val prefix = "ERROR:"
 
 
     /**
@@ -21,7 +21,7 @@ class VMErrors {
      * @param message The message describing the invalid register.
      */
     fun InvalidRegisterException(message: String) {
-        System.err.println("$prefix: Invalid Register of type \"$message\"")
+        System.err.println("$prefix${kvm.pc}: Invalid Register of type \"$message\"")
         exitProcess(1)
     }
 
@@ -31,7 +31,7 @@ class VMErrors {
      * @param message The out-of-bounds memory address. Please use the address that overflowed as [message]
      */
     fun InvalidMemoryAddressException(message: MemoryAddress) {
-        System.err.println("$prefix: Out Of Bounds Memory Address \"${message.address}\"")
+        System.err.println("$prefix${kvm.pc}: Out Of Bounds Memory Address \"${message.address}\"")
         exitProcess(2)
     }
 
@@ -41,7 +41,7 @@ class VMErrors {
      * @param instruction The invalid instruction.
      */
     fun InvalidInstructionException(instruction: String) {
-        System.err.println("$prefix: Invalid Instruction \"${instruction}\"")
+        System.err.println("$prefix${kvm.pc}: Invalid Instruction \"${instruction}\"")
         exitProcess(3)
     }
 
@@ -49,7 +49,7 @@ class VMErrors {
      * Reports a stack overflow exception and terminates the virtual machine.
      */
     fun StackOverflowException() {
-        System.err.println("$prefix: Stack Overflow Exception")
+        System.err.println("$prefix${kvm.pc}: Stack Overflow Exception")
         exitProcess(4)
     }
 
@@ -57,7 +57,7 @@ class VMErrors {
      * Reports an empty stack exception and terminates the virtual machine.
      */
     fun EmptyStackException() {
-        System.err.println("$prefix: Empty Stack Exception")
+        System.err.println("$prefix${kvm.pc}: Empty Stack Exception")
         exitProcess(5)
     }
 
@@ -68,9 +68,9 @@ class VMErrors {
      */
     fun ArithmeticException(message: String? = null) {
         if (message != null) {
-            System.err.println("$prefix: Arithmetic Exception \"$message\"")
+            System.err.println("$prefix${kvm.pc}: Arithmetic Exception \"$message\"")
         } else {
-            System.err.println("$prefix: Arithmetic Exception")
+            System.err.println("$prefix${kvm.pc}: Arithmetic Exception")
         }
         exitProcess(6)
     }
@@ -82,9 +82,9 @@ class VMErrors {
      */
     fun SystemCallException(message: String? = null) {
         if (message != null) {
-            System.err.println("$prefix: System Call Exception \"$message\"")
+            System.err.println("$prefix${kvm.pc}: System Call Exception \"$message\"")
         } else {
-            System.err.println("$prefix: System Call Exception")
+            System.err.println("$prefix${kvm.pc}: System Call Exception")
         }
         exitProcess(7)
     }
@@ -93,7 +93,7 @@ class VMErrors {
      * Reports a file access exception and terminates the virtual machine.
      */
     fun FileAccessException() {
-        System.err.println("$prefix: File Access Exception")
+        System.err.println("$prefix${kvm.pc}: File Access Exception")
         exitProcess(8)
     }
 
@@ -101,7 +101,7 @@ class VMErrors {
      * Reports a socket exception and terminates the virtual machine.
      */
     fun SocketException() {
-        System.err.println("$prefix: Socket Exception")
+        System.err.println("$prefix${kvm.pc}: Socket Exception")
         exitProcess(9)
     }
 
@@ -110,7 +110,7 @@ class VMErrors {
      * @param message An optional message describing the memory error.
      */
     fun MemoryAllocationException(message: String? = null) {
-        System.err.println("$prefix: Memory Allocation Exception")
+        System.err.println("$prefix${kvm.pc}: Memory Allocation Exception")
         exitProcess(10)
     }
 
@@ -120,7 +120,7 @@ class VMErrors {
      * @param message The message describing the invalid argument.
      */
     fun InvalidInstructionArgumentException(message: String) {
-        System.err.println("$prefix: Invalid Instruction Argument \"$message\"")
+        System.err.println("$prefix${kvm.pc}: Invalid Instruction Argument \"$message\"")
         exitProcess(11)
     }
 
@@ -130,12 +130,12 @@ class VMErrors {
      * @param message The message describing the null register.
      */
     fun NullRegisterException(message: SuperRegisterType) {
-        System.err.println("$prefix: Null Register of \"$message\"")
+        System.err.println("$prefix${kvm.pc}: Null Register of \"$message\"")
         exitProcess(12)
     }
 
     fun NullAddressException(message: MemoryAddress) {
-        System.err.println("$prefix: Null Address of \"$message\"")
+        System.err.println("$prefix${kvm.pc}: Null Address of \"$message\"")
         exitProcess(13)
     }
 }
