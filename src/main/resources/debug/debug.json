@@ -10,11 +10,11 @@
     }
   ],
   "lineSpecific": {
-    "2": ["registers ALL"],
-    "3": ["memoryRange 0 10"]
+    "2": "registers ALL",
+    "3": "memoryRange 0 10"
   },
   "eachIteration": [
     "registers ALL",
-    "memoryRange 0 100"
+    "memoryRange 0 63"
   ]
 }

@@ -13,7 +13,7 @@ import java.io.File
 
 
 const val STACK_LIMIT = 32
-const val MEMORY_LIMIT = 30
+const val MEMORY_LIMIT = 64
 val kvm = Kvm()
 val debugEngine= DebugEngine(Json.decodeFromString<DebugFile>(File("src/main/resources/debug/debug.json").readText()))
 val errors = VMErrors()

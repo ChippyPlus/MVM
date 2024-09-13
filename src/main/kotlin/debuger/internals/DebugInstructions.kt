@@ -44,8 +44,11 @@ class DebugInstructions {
 
     fun memoryRange(a: Int, b: Int) {
         val memMap = emptyMap<String, Int?>().toMutableMap()
+        if (MEMORY_LIMIT <= b) {
+            errors.MemoryAllocationException("Debugger/memoryRange is accessing non-existent memory \"$b\"")
+        }
         for (address in a..b) {
-            memMap[address.toString()] = internalMemory.memory[MemoryAddress(address)]?.value
+            memMap[address.toString()] = internalMemory.memory[MemoryAddress(address)]!!.value
         }
         File("src/main/resources/debug/out/each/memoryRange/frame=${kvm.pc}.json").writeText(
             json.encodeToString(EachInstruction(kvm.pc.toString(), "memoryRange", memMap))

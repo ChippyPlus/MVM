@@ -11,5 +11,5 @@ data class BreakPoints(
 
 @Serializable
 data class DebugFile(
-    val breakPoints: List<BreakPoints>, val lineSpecific: Map<String, List<String>>, val eachIteration: List<String>
+    val breakPoints: List<BreakPoints>, val lineSpecific: Map<String, String>, val eachIteration: List<String>
 )

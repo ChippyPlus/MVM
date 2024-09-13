@@ -110,7 +110,11 @@ class VMErrors {
      * @param message An optional message describing the memory error.
      */
     fun MemoryAllocationException(message: String? = null) {
-        System.err.println("$prefix${kvm.pc}: Memory Allocation Exception")
+        if (message != null) {
+            System.err.println("$prefix${kvm.pc}: Memory Allocation Exception \"$message\"")
+        } else {
+            System.err.println("$prefix${kvm.pc}: Memory Allocation Exception")
+        }
         exitProcess(10)
     }
 
