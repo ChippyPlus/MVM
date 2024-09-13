@@ -1,8 +1,14 @@
+// open hello
 STR S2 "hello"
 LIT S1 3
 LIT S3 3
 SYSCALL
+// read hello
 LIT S1 1
 MOV R2 S2
 LIT S3 0
+SYSCALL
+// write "Hello!! With style!!!!"
+MOV R2 S2
+LIT S1 25
 SYSCALL
