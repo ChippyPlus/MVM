@@ -33,7 +33,6 @@ data class Bind(val fd: Int, val address: ByteArray) {
         return result
     }
 }
-
 data class Listen(val fd: Int, val backlog: Int)
 data class Accept(val fd: Int, val address: ByteArray) {
     override fun equals(other: Any?): Boolean {
@@ -54,7 +53,6 @@ data class Accept(val fd: Int, val address: ByteArray) {
         return result
     }
 }
-
 data class Connect(val fd: Int, val address: ByteArray) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -74,7 +72,6 @@ data class Connect(val fd: Int, val address: ByteArray) {
         return result
     }
 }
-
 data class GetTimeOfDay(val tv: Long)
 data class Execve(val path: String, val argv: Long, val envp: Long)
 data class GetPid(val nothing: Nothing? = null)

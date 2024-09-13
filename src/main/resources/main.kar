@@ -1,18 +1,19 @@
-// open hello
-STR S2 "hello"
+// load writing
+STR G1 "This  again to say HIIII!!!!!! with a dog!!!"
+// open helloAgain
+STR S2 "helloAgain"
 LIT S1 3
-LIT S3 3
+LIT S3 6
 SYSCALL
-// read hello
-LIT S1 1
+// write hello
+LIT S1 2
 MOV R2 S2
-LIT S3 0
-SYSCALL
-// write "Hello!! With style!!!!"
-MOV R2 S2
-LIT S1 25
+MOV G1 S3
 SYSCALL
 // close file
 LIT S1 4
-LIT S2 3
+LIT S2 1
+SYSCALL
+LIT S1 6
+LIT S2 1999
 SYSCALL

@@ -14,6 +14,7 @@ class SystemCall {
     fun execute(callId: SuperRegisterType, s2: SuperRegisterType, s3: SuperRegisterType, s4: SuperRegisterType) {
         when (fullRegisterRead(callId)) {
             1 -> readFile(s2, s3)
+            2 -> writeFile(s2, s3)
             3 -> openFile(s2, s3)
             4 -> closeFile(s2)
             6 -> exit(s2)

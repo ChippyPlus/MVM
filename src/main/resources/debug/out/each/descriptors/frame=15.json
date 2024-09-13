@@ -1,7 +1,5 @@
 {
     "pc": "15",
     "instructionType": "descriptors",
-    "dataOutput": {
-        "1": 1
-    }
+    "dataOutput": {}
 }
