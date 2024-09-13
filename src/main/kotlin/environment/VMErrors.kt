@@ -142,4 +142,9 @@ class VMErrors {
         System.err.println("$prefix${kvm.pc}: Null Address of \"$message\"")
         exitProcess(13)
     }
+
+    fun InvalidFileDescriptorException(message: String) {
+        System.err.println("$prefix${kvm.pc}: Invalid File Descriptor of \"$message\"")
+        exitProcess(14)
+    }
 }
