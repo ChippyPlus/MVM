@@ -1,4 +1,4 @@
-package org.example.debuger.internals.encoding
+package org.example.internals.encoding
 
 import kotlinx.serialization.Serializable
 

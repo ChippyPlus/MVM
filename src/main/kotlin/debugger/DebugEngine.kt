@@ -1,6 +1,6 @@
-package org.example.debuger.internals
+package debugger
 
-import org.example.debuger.jsonInfo.DebugFile
+import org.example.internals.encoding.DebugFile
 import org.example.kvm
 import java.io.File
 import java.util.*

@@ -1,4 +1,4 @@
-package org.example.debuger.jsonInfo
+package org.example.internals.encoding
 
 import kotlinx.serialization.Serializable
 

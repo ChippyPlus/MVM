@@ -1,7 +1,7 @@
-package org.example.debuger.internals
+package debugger
 
 import kotlinx.serialization.json.Json
-import org.example.debuger.jsonInfo.DebugFile
+import org.example.internals.encoding.DebugFile
 import java.io.File
 
 
