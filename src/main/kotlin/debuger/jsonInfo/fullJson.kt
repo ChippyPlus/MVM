@@ -3,10 +3,7 @@ package org.example.debuger.jsonInfo
 import kotlinx.serialization.Serializable
 
 
-@Serializable
-data class BreakPoints(
-    val line: Int, val enabled: Boolean
-)
+
 
 
 @Serializable
