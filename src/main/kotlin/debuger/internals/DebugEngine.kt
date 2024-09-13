@@ -3,11 +3,13 @@ package org.example.debuger.internals
 import org.example.debuger.jsonInfo.DebugFile
 import org.example.kvm
 import java.io.File
+import java.util.*
 
 class DebugEngine(val debugFile: DebugFile) {
     private val debugInstructions = DebugInstructions()
     private val eachInteractionInstruction = debugFile.eachIteration
-    private var passedPC = 0
+    private val linesStack = Stack<Int>()
+    private val orderedLineInstructions: MutableList<Int> = emptyList<Int>().toMutableList()
 
     init {
         val root = "src/main/resources/debug/"
@@ -17,33 +19,54 @@ class DebugEngine(val debugFile: DebugFile) {
             "out/each/memoryRange",
             "out/each/registers",
             "out/lineSpecific",
-
+            "out/lineSpecific/memoryRange",
+            "out/lineSpecific/registers",
         )
-        for (file in filePaths) {
-            if (File(file).exists().not()) {
-                File(file).mkdir()
+        for (_f in filePaths) {
+            val file = File("$root/$_f")
+            if (file.exists().not()) {
+                file.mkdir()
             } else {
-                File(file).delete()
-                File(file).mkdir()
+                file.deleteRecursively()
+                file.mkdir()
             }
         }
-    }
 
-    fun checkPC() {
-        if (kvm.pc != passedPC) {
-            passedPC = kvm.pc
+
+        debugFile.lineSpecific.keys.forEach { orderedLineInstructions.add(it.toInt()) }
+        orderedLineInstructions.sortDescending()
+        for (i in orderedLineInstructions) {
+            linesStack.push(i)
         }
     }
+
+
+
+    fun lineSpecific() {
+        if (linesStack.isEmpty()) {
+            return
+        }
+        if (linesStack.peek() == kvm.pc) {
+            val internalInstruction = debugFile.lineSpecific[linesStack.pop().toString()]!!.split(" ")
+            execute(internalInstruction, DebugInstructionModes.Line)
+        }
+    }
+
+
     fun eachInteraction() {
         for (instruction in eachInteractionInstruction) {
             val internalInstruction = instruction.split(" ")
-            when (internalInstruction[0]) {
-                "registers" -> debugInstructions.registers(internalInstruction[1])
-                "memoryRange" -> debugInstructions.memoryRange(internalInstruction[1].toInt(), internalInstruction[2].toInt())
-            }
+            execute(internalInstruction, DebugInstructionModes.Iterator)
         }
     }
-    fun invoke(): Int {
-        return kvm.pc
+
+    fun execute(internalInstruction: List<String>, mode: DebugInstructionModes) {
+        when (internalInstruction[0]) {
+            "registers" -> debugInstructions.registers(internalInstruction[1], mode)
+            "memoryRange" -> debugInstructions.memoryRange(
+                internalInstruction[1].toInt(),
+                internalInstruction[2].toInt(), mode
+            )
+        }
     }
 }

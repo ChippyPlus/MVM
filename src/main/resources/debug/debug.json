@@ -1,20 +1,10 @@
 {
-  "breakPoints": [
-    {
-      "line": 1,
-      "enabled": true
+    "lineSpecific": {
+        "4": "registers ALL",
+        "3": "memoryRange 0 10"
     },
-    {
-      "line": 2,
-      "enabled": true
-    }
-  ],
-  "lineSpecific": {
-    "2": "registers ALL",
-    "3": "memoryRange 0 10"
-  },
-  "eachIteration": [
-    "registers ALL",
-    "memoryRange 0 63"
-  ]
+    "eachIteration": [
+        "registers ALL",
+        "memoryRange 0 63"
+    ]
 }

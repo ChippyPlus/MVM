@@ -9,7 +9,7 @@ import java.io.File
 
 class DebugInstructions {
     val json = Json { prettyPrint = true }
-    fun registers(which: String) {
+    fun registers(which: String, mode: DebugInstructionModes) {
         when (which) {
             "ALL" -> {
                 val data = mapOf(
@@ -26,9 +26,17 @@ class DebugInstructions {
                     "R3" to returnRegisters.r3,
                     "R4" to returnRegisters.r4
                 )
+                val location = when (mode) {
+                    DebugInstructionModes.Iterator -> {
+                        "each"
+                    }
 
-                File("src/main/resources/debug/out/each/registers/frame=${kvm.pc}.json")
-                    .writeText(
+                    DebugInstructionModes.Line -> {
+                        "lineSpecific"
+                    }
+
+                }
+                File("src/main/resources/debug/out/$location/registers/frame=${kvm.pc}.json").writeText(
                     json.encodeToString(
                         EachInstruction(
                             kvm.pc.toString(), "registers", data
@@ -42,7 +50,7 @@ class DebugInstructions {
         }
     }
 
-    fun memoryRange(a: Int, b: Int) {
+    fun memoryRange(a: Int, b: Int, mode: DebugInstructionModes) {
         val memMap = emptyMap<String, Int?>().toMutableMap()
         if (MEMORY_LIMIT <= b) {
             errors.MemoryAllocationException("Debugger/memoryRange is accessing non-existent memory \"$b\"")
@@ -50,7 +58,18 @@ class DebugInstructions {
         for (address in a..b) {
             memMap[address.toString()] = internalMemory.memory[MemoryAddress(address)]!!.value
         }
-        File("src/main/resources/debug/out/each/memoryRange/frame=${kvm.pc}.json").writeText(
+        val location = when (mode) {
+            DebugInstructionModes.Iterator -> {
+                "each"
+            }
+
+            DebugInstructionModes.Line -> {
+                "lineSpecific"
+            }
+
+        }
+
+        File("src/main/resources/debug/out/$location/memoryRange/frame=${kvm.pc}.json").writeText(
             json.encodeToString(EachInstruction(kvm.pc.toString(), "memoryRange", memMap))
         )
     }

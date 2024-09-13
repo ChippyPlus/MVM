@@ -31,7 +31,7 @@ class Execute {
         while (true) {
             kvm.pc++
             debugEngine.eachInteraction()
-
+            debugEngine.lineSpecific()
             if (kvm.pc - 1 == command.size) {
                 break
             }
