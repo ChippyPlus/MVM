@@ -67,4 +67,45 @@ class DebugInstructions {
             json.encodeToString(EachInstruction(kvm.pc.toString(), "memoryRange", memMap))
         )
     }
+
+    fun descriptors(mode: DebugInstructionModes) {
+        val data = emptyMap<String, Int?>().toMutableMap()
+        fileDescriptors.fds.forEach { data[it.key.toString()] = it.key }
+        val location = when (mode) {
+            DebugInstructionModes.Iterator -> {
+                "each"
+            }
+
+            DebugInstructionModes.Line -> {
+                "lineSpecific"
+            }
+
+        }
+
+        File("src/main/resources/debug/out/$location/descriptors/frame=${kvm.pc}.json").writeText(
+            json.encodeToString(EachInstruction(kvm.pc.toString(), "descriptors", data))
+        )
+    }
+
+    fun stack(mode: DebugInstructionModes) {
+
+        val data = mapOf<String,Int?>("current" to kvm.stackOperations.internalStack.peek())
+
+
+        val location = when (mode) {
+            DebugInstructionModes.Iterator -> {
+                "each"
+            }
+
+            DebugInstructionModes.Line -> {
+                "lineSpecific"
+            }
+
+        }
+
+        File("src/main/resources/debug/out/$location/stack/frame=${kvm.pc}.json").writeText(
+            json.encodeToString(EachInstruction(kvm.pc.toString(), "stack", data))
+        )
+    }
 }
+

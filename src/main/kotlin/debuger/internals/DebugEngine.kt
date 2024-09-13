@@ -21,6 +21,10 @@ class DebugEngine(val debugFile: DebugFile) {
             "out/lineSpecific",
             "out/lineSpecific/memoryRange",
             "out/lineSpecific/registers",
+            "out/lineSpecific/stack",
+            "out/each/stack",
+            "out/lineSpecific/descriptors",
+            "out/each/descriptors",
         )
         for (_f in filePaths) {
             val file = File("$root/$_f")
@@ -39,7 +43,6 @@ class DebugEngine(val debugFile: DebugFile) {
             linesStack.push(i)
         }
     }
-
 
 
     fun lineSpecific() {
@@ -67,6 +70,9 @@ class DebugEngine(val debugFile: DebugFile) {
                 internalInstruction[1].toInt(),
                 internalInstruction[2].toInt(), mode
             )
+
+            "stack" -> debugInstructions.stack(mode)
+            "descriptors" -> debugInstructions.descriptors(mode)
         }
     }
 }

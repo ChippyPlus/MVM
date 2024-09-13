@@ -1,5 +1,4 @@
 * MemoryRange \[a] \[b]
-* Register \[things]
+* Register 
 * descriptors
 * stack
-* 
