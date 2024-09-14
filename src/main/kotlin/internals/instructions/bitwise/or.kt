@@ -1,6 +1,6 @@
 package org.example.kvmInternals.instructions.bitwise
 
-import kvmInternals.instructions.bitwise.Bitwise
+import internals.instructions.bitwise.Bitwise
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
 import org.example.helpers.fullRegisterRead
 import org.example.helpers.fullRegisterWrite

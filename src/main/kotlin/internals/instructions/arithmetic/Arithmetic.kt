@@ -1,4 +1,4 @@
-package kvmInternals.instructions.arithmetic
+package internals.instructions.arithmetic
 
 
 /**

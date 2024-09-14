@@ -1,4 +1,4 @@
-package org.example.kvmInternals.instructions.dataTransfer
+package internals.instructions.dataTransfer
 
 
 /**

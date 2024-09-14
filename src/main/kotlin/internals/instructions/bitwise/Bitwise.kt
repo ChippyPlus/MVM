@@ -1,4 +1,4 @@
-package kvmInternals.instructions.bitwise
+package internals.instructions.bitwise
 
 
 /**

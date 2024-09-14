@@ -1,6 +1,6 @@
 package org.example.kvmInternals.instructions.arithmetic
 
-import kvmInternals.instructions.arithmetic.Arithmetic
+import internals.instructions.arithmetic.Arithmetic
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
 import org.example.errors
 import org.example.helpers.fullRegisterRead

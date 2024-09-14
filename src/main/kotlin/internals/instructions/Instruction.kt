@@ -1,4 +1,4 @@
-package org.example.kvmInternals.instructions
+package internals.instructions
 
 import org.example.data.memory.MemoryAddress
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
@@ -6,6 +6,8 @@ import org.example.data.registers.enumIdenifiers.SuperRegisterType
 @Suppress("unused")
 class Instruction {
 
+
+    data class Cpy(val register1: SuperRegisterType, val register2: SuperRegisterType)
 
     data class Strlen(val addressRegister: SuperRegisterType)
 

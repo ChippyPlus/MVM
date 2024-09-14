@@ -1,10 +1,10 @@
 package org.example.engine
 
+import internals.instructions.Instruction
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
 import org.example.errors
 import org.example.helpers.toMemoryAddress
 import org.example.helpers.toSuperRegisterType
-import org.example.kvmInternals.instructions.Instruction
 import java.io.File
 
 fun parser(file: File): MutableList<Any> {
@@ -20,6 +20,8 @@ fun parser(file: File): MutableList<Any> {
     }
     for (line in tokens) {
         when (val instruction = line[0]) {
+
+            "CPY" -> out.add(Instruction.Cpy(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
 
             "STRLEN" -> out.add(Instruction.Strlen(line[1].toSuperRegisterType()))
 
