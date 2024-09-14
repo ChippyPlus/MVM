@@ -17,11 +17,11 @@ class SystemCall {
             2 -> writeFile(s2, s3)
             3 -> openFile(s2)
             4 -> closeFile(s2)
-            6 -> exit(s2)
-            15 -> getTimeOfday()
-            17 -> getPid()
-            18 -> getUid()
-            25 -> writeIo(s2)
+            5 -> exit(s2)
+            14 -> getTimeOfday()
+            16 -> getPid()
+            17 -> getUid()
+            24 -> writeIo(s2)
 
 
             else -> throw RuntimeException("Invalid system call ID: $callId")
