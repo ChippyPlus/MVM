@@ -21,6 +21,42 @@ fun parser(file: File): MutableList<Any> {
     for (line in tokens) {
         when (val instruction = line[0]) {
 
+
+            "STRCPY" -> { // String Copy
+                out.add(Instruction.StrCpy(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
+            }
+
+            "STRCMP" -> {
+                out.add(Instruction.StrCmp(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
+            }
+
+            "STRCAT" -> {
+                out.add(
+                    Instruction.StrCat(
+                        line[1].toSuperRegisterType(),
+                        line[2].toSuperRegisterType(),
+                    )
+                )
+            }
+
+            "SUBSTR" -> {
+                out.add(
+                    Instruction.SubStr(
+                        line[1].toSuperRegisterType(),
+                        line[2].toSuperRegisterType(),
+                        line[3].toSuperRegisterType(),
+                    )
+                )
+            }
+
+            "FIND" -> { // Find Substring
+                out.add(
+                    Instruction.Find(
+                        line[1].toSuperRegisterType(), line[2].toSuperRegisterType()
+                    )
+                )
+            }
+
             "CPY" -> out.add(Instruction.Cpy(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
 
             "STRLEN" -> out.add(Instruction.Strlen(line[1].toSuperRegisterType()))
