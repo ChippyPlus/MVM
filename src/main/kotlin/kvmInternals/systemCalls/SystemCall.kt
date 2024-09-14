@@ -15,10 +15,13 @@ class SystemCall {
         when (fullRegisterRead(callId)) {
             1 -> readFile(s2, s3)
             2 -> writeFile(s2, s3)
-            3 -> openFile(s2, s3)
+            3 -> openFile(s2)
             4 -> closeFile(s2)
             6 -> exit(s2)
+            17 -> getPid()
+            18 -> getUid()
             25 -> writeIo(s2)
+
 
             else -> throw RuntimeException("Invalid system call ID: $callId")
         }
