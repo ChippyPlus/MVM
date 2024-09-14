@@ -1,4 +1,4 @@
-package org.example.kvmInternals.classes
+package org.example.kvmInternals.systemCalls
 
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
 import org.example.helpers.fullRegisterRead

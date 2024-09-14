@@ -5,7 +5,7 @@ import org.example.fileDescriptors
 import org.example.helpers.fullRegisterRead
 import org.example.helpers.fullRegisterWrite
 import org.example.helpers.writeRegisterString
-import org.example.kvmInternals.classes.SystemCall
+import org.example.kvmInternals.systemCalls.SystemCall
 
 fun SystemCall.readFile(fd: SuperRegisterType, buffer: SuperRegisterType) {
     val f = fileDescriptors.getFileDescriptor(fullRegisterRead(fd))!!

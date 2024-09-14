@@ -10,4 +10,4 @@ package kvmInternals.instructions.arithmetic
  *  *  `DIV` - Division
  *  */
 
-open class Arithmetic
+open class  Arithmetic

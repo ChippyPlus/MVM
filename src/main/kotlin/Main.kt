@@ -8,7 +8,7 @@ import org.example.engine.execution.Execute
 import org.example.environment.VMErrors
 import debugger.DebugEngine
 import org.example.internals.encoding.DebugFile
-import org.example.kvmInternals.classes.Kvm
+import org.example.kvmInternals.Kvm
 import java.io.File
 
 

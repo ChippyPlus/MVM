@@ -1,10 +1,10 @@
 package debugger
 
+import debugger.encoding.EachInstruction
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.example.*
 import org.example.data.memory.MemoryAddress
-import org.example.internals.encoding.EachInstruction
 import java.io.File
 
 class DebugInstructions {
