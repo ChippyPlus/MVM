@@ -5,6 +5,7 @@ build/
 !**/src/test/**/build/
 
 docs/gitTemp.md
+src/main/resources/debug/out/*
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
