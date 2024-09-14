@@ -11,6 +11,7 @@ import kotlin.system.exitProcess
  *  This class provides functions for printing error messages to the standard error stream
  *  and terminating the virtual machine execution with a specific exit code for each type of error.
  */
+@Suppress("unused")
 class VMErrors {
     private val prefix = "ERROR:"
 

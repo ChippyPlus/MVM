@@ -20,7 +20,7 @@ fun Strings.strcpy(source: SuperRegisterType, destination: SuperRegisterType) {
     possibleStarts.filter { it.value == 0 }
     val allocMem = string.length
 
-    for ((index, i) in (destinationAddress until (destinationAddress + allocMem)).withIndex()) {
+    for (i in (destinationAddress until (destinationAddress + allocMem))) {
         if (internalMemory.memory[MemoryAddress(i)] != MemoryValue(null)) {
             errors.NotFreeMemoryException(i.toString())
         }
