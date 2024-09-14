@@ -2,11 +2,11 @@
     "pc": "2",
     "instructionType": "registers",
     "dataOutput": {
-        "G1": 0,
+        "G1": null,
         "G2": null,
         "G3": null,
         "G4": null,
-        "S1": null,
+        "S1": 15,
         "S2": null,
         "S3": null,
         "S4": null,
