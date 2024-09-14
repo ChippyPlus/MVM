@@ -1,6 +1,7 @@
-package org.example.engine.execution
+package engine.execution
 
 import internals.instructions.Instruction
+import internals.instructions.bitwise.*
 import internals.instructions.dataTransfer.cpy
 import internals.instructions.dataTransfer.lit
 import internals.instructions.dataTransfer.mov
@@ -8,7 +9,6 @@ import org.example.debugEngine
 import org.example.engine.parser
 import org.example.kvm
 import org.example.kvmInternals.instructions.arithmetic.*
-import org.example.kvmInternals.instructions.bitwise.*
 import org.example.kvmInternals.instructions.controlFlow.jmp
 import org.example.kvmInternals.instructions.controlFlow.jnz
 import org.example.kvmInternals.instructions.controlFlow.jz
