@@ -24,6 +24,10 @@ class FixedStack(private val maxSize: Int) {
         return element!!
     }
 
+    fun inspect(): Array<Long?> {
+        return stack
+    }
+
     fun peek(): Long {
         if (isEmpty()) {
             errors.EmptyStackException()

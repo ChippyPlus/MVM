@@ -10,10 +10,10 @@ import org.example.internalMemory
 
 //TODO Make more efficient and add description
 fun Strings.str(targetAddress: SuperRegisterType, string: String) {
-    val possibleStarts= emptyMap<Long?, Any>().toMutableMap()
+    val possibleStarts= emptyMap<Long?, Any?>().toMutableMap()
 
     internalMemory.memory.forEach {
-        possibleStarts[it.key.address] = it.value.value!!
+        possibleStarts[it.key.address] = it.value.value
     }
     possibleStarts.filter { it.value == 0 }
     val allocMem = string.length

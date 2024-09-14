@@ -5,16 +5,16 @@ plugins {
 }
 
 
+group = "org.example"
+
 tasks.jar {
-    manifest.attributes["Main-Class"] = "org.helloWorld.MainKt"
+    manifest.attributes["Main-Class"] = "org.example.MainKt"
     manifest.attributes["Class-Path"] = configurations
         .runtimeClasspath.get()
         .joinToString(separator = " ") { file ->
             "libs/${file.name}"
         }
 }
-
-group = "org.example"
 version = "1.0-SNAPSHOT"
 
 repositories {

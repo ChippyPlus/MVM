@@ -7,10 +7,10 @@ import org.example.errors
 import org.example.internalMemory
 
 fun writeRegisterString(register: SuperRegisterType, string: String): Long {
-    val possibleStarts = emptyMap<Long?, Any>().toMutableMap()
+    val possibleStarts = emptyMap<Long?, Any?>().toMutableMap()
 
     internalMemory.memory.forEach {
-        possibleStarts[it.key.address] = it.value.value!!
+        possibleStarts[it.key.address] = it.value.value
     }
     possibleStarts.filter { it.value == 0 }
     val allocMem = string.length

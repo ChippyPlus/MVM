@@ -1,17 +1,17 @@
 {
-    "pc": "4",
+    "pc": "7",
     "instructionType": "registers",
     "dataOutput": {
         "G1": null,
         "G2": null,
         "G3": null,
         "G4": null,
-        "S1": 3,
-        "S2": 0,
+        "S1": 1,
+        "S2": 1,
         "S3": null,
         "S4": null,
         "R1": null,
-        "R2": null,
+        "R2": 1,
         "R3": null,
         "R4": null
     }

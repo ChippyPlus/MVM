@@ -6,6 +6,7 @@
     "eachIteration": [
         "registers",
         "memoryRange 0 63",
-        "descriptors"
+        "descriptors",
+        "stack"
     ]
 }

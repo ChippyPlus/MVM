@@ -1,5 +1,5 @@
 {
-    "pc": "4",
+    "pc": "5",
     "instructionType": "registers",
     "dataOutput": {
         "G1": null,
@@ -11,7 +11,7 @@
         "S3": null,
         "S4": null,
         "R1": null,
-        "R2": null,
+        "R2": 1,
         "R3": null,
         "R4": null
     }

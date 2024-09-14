@@ -89,7 +89,7 @@ class DebugInstructions {
 
     fun stack(mode: DebugInstructionModes) {
 
-        val data = mapOf<String, Long?>("current" to kvm.stackOperations.internalStack.peek())
+        val data = mapOf("current" to kvm.stackOperations.internalStack.inspect()[0])
 
 
         val location = when (mode) {

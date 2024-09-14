@@ -1,3 +1,21 @@
-LIT S1 15
+// open hello.txt
+LIT S1 3
+STR S2 "hello.txt"
+PUSH S2
 SYSCALL
-PRINTR R2
+
+// read hello.txt
+LIT S1 1
+MOV R2 S2
+POP S3
+SYSCALL
+
+// close file
+LIT S1 4
+MOV S2 S3
+SYSCALL
+
+// write
+LIT S1 24
+MOV R2 S2
+SYSCALL

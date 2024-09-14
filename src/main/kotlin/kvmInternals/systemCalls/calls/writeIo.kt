@@ -8,6 +8,7 @@ import org.example.kvmInternals.systemCalls.SystemCall
 
 fun SystemCall.writeIo(address: SuperRegisterType) {
     var index = 0
+//    var string = ""
     while (true) {
 
         val byte = internalMemory.read(
@@ -18,6 +19,8 @@ fun SystemCall.writeIo(address: SuperRegisterType) {
         if (byte.value == 0L) break
 
         index++
+//        string += byte.value!!.toInt().toChar()
+//        println(string)
         print(byte.value!!.toInt().toChar())
 
     }
