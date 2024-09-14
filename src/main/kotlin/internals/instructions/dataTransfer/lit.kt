@@ -1,26 +1,11 @@
 package internals.instructions.dataTransfer
 
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.data.registers.enumIdenifiers.toGeneralRegisterType
-import org.example.data.registers.enumIdenifiers.toReturnRegisterType
-import org.example.data.registers.enumIdenifiers.toSystemRegisterType
-import org.example.generalRegisters
-import org.example.returnRegisters
-import org.example.systemRegisters
+import org.example.errors
+import org.example.helpers.fullRegisterWrite
 
-fun DataTransfer.lit(Source: SuperRegisterType, value: Long) {
-    when (Source.toString()[0]) {
-        'G' -> {
-            generalRegisters.write(Source.toGeneralRegisterType(), value)
-        }
-
-        'S' -> {
-            systemRegisters.write(Source.toSystemRegisterType(), value)
-        }
-
-        'R' -> {
-            returnRegisters.write(Source.toReturnRegisterType(), value)
-        }
-    }
-
+fun DataTransfer.lit(Source: SuperRegisterType, value: Long) = try {
+    fullRegisterWrite(Source, value)
+} catch (_: Exception) {
+    errors.GeneralDataTransferException("Lit")
 }

@@ -1,12 +1,13 @@
-package org.example.kvmInternals.instructions.strings
+package internals.instructions.strings
 
 import org.example.data.memory.MemoryAddress
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
+import org.example.errors
 import org.example.helpers.fullRegisterRead
 import org.example.helpers.fullRegisterWrite
 import org.example.internalMemory
 
-fun Strings.strlen(addressRegister: SuperRegisterType) {
+fun Strings.strlen(addressRegister: SuperRegisterType) = try {
     var index = 0L
     while (true) {
         val byte = internalMemory.read(MemoryAddress(fullRegisterRead(addressRegister) + index))
@@ -14,4 +15,6 @@ fun Strings.strlen(addressRegister: SuperRegisterType) {
         index++
     }
     fullRegisterWrite(SuperRegisterType.R4, index)
+} catch (_: Exception) {
+    errors.GeneralStringException("strlen")
 }

@@ -8,7 +8,7 @@ import org.example.data.memory.InternalMemory
 import org.example.data.registers.Registers
 import org.example.environment.VMErrors
 import org.example.internals.encoding.DebugFile
-import org.example.kvmInternals.Kvm
+import internals.Kvm
 import java.io.File
 
 

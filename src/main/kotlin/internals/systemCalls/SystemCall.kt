@@ -1,8 +1,8 @@
-package org.example.kvmInternals.systemCalls
+package internals.systemCalls
 
+import internals.systemCalls.calls.*
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
 import org.example.helpers.fullRegisterRead
-import org.example.kvmInternals.systemCalls.calls.*
 
 
 /**

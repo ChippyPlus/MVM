@@ -67,12 +67,8 @@ class VMErrors {
      *
      * @param message An optional message describing the arithmetic error.
      */
-    fun ArithmeticException(message: String? = null) {
-        if (message != null) {
-            System.err.println("$prefix${kvm.pc}: Arithmetic Exception \"$message\"")
-        } else {
-            System.err.println("$prefix${kvm.pc}: Arithmetic Exception")
-        }
+    fun GeneralArithmeticException(message: String) {
+        System.err.println("$prefix${kvm.pc}: General Arithmetic Exception \"$message operation failed\"")
         exitProcess(6)
     }
 
@@ -152,5 +148,40 @@ class VMErrors {
     fun NotFreeMemoryException(message: String) {
         System.err.println("$prefix${kvm.pc}: Address \"$message\" is not free Memory")
         exitProcess(15)
+    }
+
+    fun GeneralBitwiseException(message: String) {
+        System.err.println("$prefix${kvm.pc}: General Bitwise Exception \"$message operation failed\"")
+        exitProcess(16)
+    }
+
+    fun GeneralControlFlowException(message: String) {
+        System.err.println("$prefix${kvm.pc}: General ControlFlow Exception \"$message operation failed\"")
+        exitProcess(17)
+    }
+
+    fun GeneralDataTransferException(message: String) {
+        System.err.println("$prefix${kvm.pc}: General DataTransfer Exception \"$message operation failed\"")
+        exitProcess(18)
+    }
+
+    fun GeneralIoAbstractionsException(message: String) {
+        System.err.println("$prefix${kvm.pc}: General IoAbstractions Exception \"$message operation failed\"")
+        exitProcess(19)
+    }
+
+    fun GeneralMemoryException(message: String) {
+        System.err.println("$prefix${kvm.pc}: General Memory Exception \"$message operation failed\"")
+        exitProcess(20)
+    }
+
+    fun GeneralStackOperationsException(message: String) {
+        System.err.println("$prefix${kvm.pc}: General Stack Operation \"$message operation failed\"")
+        exitProcess(21)
+    }
+
+    fun GeneralStringException(message: String) {
+        System.err.println("$prefix${kvm.pc}: General Strings Exception \"$message operation failed\"")
+        exitProcess(22)
     }
 }

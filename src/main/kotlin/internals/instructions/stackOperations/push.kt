@@ -1,5 +1,6 @@
 package org.example.kvmInternals.instructions.stackOperations
 
+import internals.instructions.stackOperations.StackOperations
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
 import org.example.helpers.fullRegisterRead
 

@@ -1,8 +1,8 @@
-package org.example.kvmInternals.systemCalls.calls
+package internals.systemCalls.calls
 
+import internals.systemCalls.SystemCall
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
 import org.example.helpers.fullRegisterRead
-import org.example.kvmInternals.systemCalls.SystemCall
 import kotlin.system.exitProcess
 
 fun SystemCall.exit(s2: SuperRegisterType) {

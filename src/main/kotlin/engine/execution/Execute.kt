@@ -1,28 +1,29 @@
 package engine.execution
 
 import internals.instructions.Instruction
+import internals.instructions.arithmetic.*
 import internals.instructions.bitwise.*
+import internals.instructions.controlFlow.jmp
+import internals.instructions.controlFlow.jnz
+import internals.instructions.controlFlow.jz
 import internals.instructions.dataTransfer.cpy
 import internals.instructions.dataTransfer.lit
 import internals.instructions.dataTransfer.mov
+import internals.instructions.ioAbstractions.printr
+import internals.instructions.ioAbstractions.prints
+import internals.instructions.memory.load
+import internals.instructions.memory.store
+import internals.instructions.stackOperations.peek
+import internals.instructions.stackOperations.pop
+import internals.instructions.strings.str
 import internals.instructions.strings.strcat
+import internals.instructions.strings.strcmp
 import internals.instructions.strings.strcpy
 import org.example.debugEngine
 import org.example.engine.parser
 import org.example.kvm
-import org.example.kvmInternals.instructions.arithmetic.*
-import org.example.kvmInternals.instructions.controlFlow.jmp
-import org.example.kvmInternals.instructions.controlFlow.jnz
-import org.example.kvmInternals.instructions.controlFlow.jz
-import org.example.kvmInternals.instructions.ioAbstractions.printr
-import org.example.kvmInternals.instructions.ioAbstractions.prints
-import org.example.kvmInternals.instructions.memory.load
-import org.example.kvmInternals.instructions.memory.store
-import org.example.kvmInternals.instructions.stackOperations.peek
-import org.example.kvmInternals.instructions.stackOperations.pop
 import org.example.kvmInternals.instructions.stackOperations.push
-import org.example.kvmInternals.instructions.strings.str
-import org.example.kvmInternals.instructions.strings.strlen
+import internals.instructions.strings.strlen
 import java.io.File
 
 class Execute {
@@ -39,6 +40,7 @@ class Execute {
                 break
             }
             when (val instruction: Any = command[kvm.pc - 1]) {
+                is Instruction.StrCmp -> kvm.strings.strcmp(instruction.string1,instruction.string2)
                 is Instruction.StrCat -> kvm.strings.strcat(instruction.string1, instruction.string2)
                 is Instruction.StrCpy -> kvm.strings.strcpy(instruction.source, instruction.destination)
                 is Instruction.Cpy -> kvm.dataTransfer.cpy(instruction.register1, instruction.register2)
