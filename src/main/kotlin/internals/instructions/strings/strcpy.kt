@@ -12,12 +12,7 @@ import org.example.kvmInternals.instructions.strings.Strings
 fun Strings.strcpy(source: SuperRegisterType, destination: SuperRegisterType) {
     val string = readRegisterString(source)
     val destinationAddress = fullRegisterRead(destination)
-    val possibleStarts = emptyMap<Long?, Any?>().toMutableMap()
 
-    internalMemory.memory.forEach {
-        possibleStarts[it.key.address] = it.value.value
-    }
-    possibleStarts.filter { it.value == 0 }
     val allocMem = string.length
 
     for (i in (destinationAddress until (destinationAddress + allocMem))) {
