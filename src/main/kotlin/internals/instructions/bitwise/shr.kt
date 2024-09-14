@@ -8,7 +8,7 @@ import org.example.helpers.fullRegisterWrite
 
 fun Bitwise.shr(operand1: SuperRegisterType, operand2: SuperRegisterType) {
     fullRegisterWrite(
-        SuperRegisterType.R4,
+        SuperRegisterType.R3,
         fullRegisterRead(operand1) shr fullRegisterRead(operand2).toInt()
     )
 }

@@ -9,7 +9,7 @@ import org.example.helpers.fullRegisterWrite
 
 fun Bitwise.xor(operand1: SuperRegisterType, operand2: SuperRegisterType) {
     fullRegisterWrite(
-        SuperRegisterType.R4,
+        SuperRegisterType.R3,
         fullRegisterRead(operand1) xor fullRegisterRead(operand2)
     )
 }
