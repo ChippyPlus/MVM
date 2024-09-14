@@ -6,6 +6,22 @@ import org.example.data.registers.enumIdenifiers.SuperRegisterType
 @Suppress("unused")
 class Instruction {
 
+    data class StrCpy(val source: SuperRegisterType, val destination: SuperRegisterType)
+
+    data class StrCmp(val string1: SuperRegisterType, val string2: SuperRegisterType)
+
+    data class StrCat(
+        val string1: SuperRegisterType,
+        val string2: SuperRegisterType,
+    )
+
+    data class SubStr(
+        val string: SuperRegisterType,
+        val start: SuperRegisterType,
+        val length: SuperRegisterType,
+    )
+
+    data class Find(val string: SuperRegisterType, val substring: SuperRegisterType)
 
     data class Cpy(val register1: SuperRegisterType, val register2: SuperRegisterType)
 
