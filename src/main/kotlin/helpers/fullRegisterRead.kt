@@ -10,7 +10,7 @@ import org.example.returnRegisters
 import org.example.systemRegisters
 import kotlin.system.exitProcess
 
-fun fullRegisterRead(register: SuperRegisterType): Int {
+fun fullRegisterRead(register: SuperRegisterType): Long {
     return try {
         when (register) {
             SuperRegisterType.G1 -> generalRegisters.read(register.toGeneralRegisterType())

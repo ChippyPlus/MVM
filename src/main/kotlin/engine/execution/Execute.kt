@@ -32,7 +32,7 @@ class Execute {
             kvm.pc++
             debugEngine.eachInteraction()
             debugEngine.lineSpecific()
-            if (kvm.pc - 1 == command.size) {
+            if (kvm.pc - 1L == command.size.toLong()) {
                 break
             }
             when (val instruction: Any = command[kvm.pc - 1]) {

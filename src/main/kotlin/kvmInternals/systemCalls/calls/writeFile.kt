@@ -20,7 +20,7 @@ fun SystemCall.writeFile(fd: SuperRegisterType, buffer: SuperRegisterType) {
                 fullRegisterRead(buffer) + index
             )
         )
-        if (byte.value == 0) break
+        if (byte.value == 0L) break
 
         index++
         string += byte.value!!.toChar()

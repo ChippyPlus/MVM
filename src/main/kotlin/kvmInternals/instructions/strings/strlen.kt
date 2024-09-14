@@ -7,10 +7,10 @@ import org.example.helpers.fullRegisterWrite
 import org.example.internalMemory
 
 fun Strings.strlen(addressRegister: SuperRegisterType) {
-    var index = 0
+    var index = 0L
     while (true) {
         val byte = internalMemory.read(MemoryAddress(fullRegisterRead(addressRegister) + index))
-        if (byte.value == 0) break
+        if (byte.value == 0L) break
         index++
     }
     fullRegisterWrite(SuperRegisterType.R4, index)

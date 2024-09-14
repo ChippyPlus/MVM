@@ -1,22 +1,21 @@
 package org.example.data.io
 
 import org.example.helpers.VMFile
-import java.io.File
 
 class FileDescriptors {
-    val fds = emptyMap<Int, VMFile>().toMutableMap()
+    val fds = emptyMap<Long, VMFile>().toMutableMap()
 
-    fun getFileDescriptor(fd: Int): VMFile? {
+    fun getFileDescriptor(fd: Long): VMFile? {
         return fds[fd]
     }
 
-    fun addFileDescriptor(fileName: VMFile): Int {
-        val fd = fds.size + 1
+    fun addFileDescriptor(fileName: VMFile): Long {
+        val fd = fds.size + 1L
         fds[fd] = fileName
         return fd
     }
 
-    fun removeFileDescriptor(fd: Int) {
+    fun removeFileDescriptor(fd: Long) {
         fds.remove(fd)
     }
 

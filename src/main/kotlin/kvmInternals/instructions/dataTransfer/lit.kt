@@ -8,7 +8,7 @@ import org.example.generalRegisters
 import org.example.returnRegisters
 import org.example.systemRegisters
 
-fun DataTransfer.lit(Source: SuperRegisterType, value: Int) {
+fun DataTransfer.lit(Source: SuperRegisterType, value: Long) {
     when (Source.toString()[0]) {
         'G' -> {
             generalRegisters.write(Source.toGeneralRegisterType(), value)

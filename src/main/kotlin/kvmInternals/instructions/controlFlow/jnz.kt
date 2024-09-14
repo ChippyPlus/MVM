@@ -5,7 +5,7 @@ import org.example.helpers.fullRegisterRead
 import org.example.kvm
 
 fun ControlFlow.jnz(targetAddress: Int, testRegister: SuperRegisterType) {
-    if (fullRegisterRead(testRegister) != 0) {
+    if (fullRegisterRead(testRegister) != 0L) {
         kvm.pc = targetAddress
     }
 

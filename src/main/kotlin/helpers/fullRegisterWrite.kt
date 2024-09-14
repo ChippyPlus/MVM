@@ -8,7 +8,7 @@ import org.example.generalRegisters
 import org.example.returnRegisters
 import org.example.systemRegisters
 
-fun fullRegisterWrite(register: SuperRegisterType,value: Int) {
+fun fullRegisterWrite(register: SuperRegisterType,value: Long) {
     when (register) {
         SuperRegisterType.G1 -> generalRegisters.write(register.toGeneralRegisterType(), value)
         SuperRegisterType.G2 -> generalRegisters.write(register.toGeneralRegisterType(), value)

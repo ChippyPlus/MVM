@@ -9,6 +9,6 @@ import org.example.helpers.fullRegisterWrite
 fun Bitwise.not(operand1: SuperRegisterType) {
     fullRegisterWrite(
         SuperRegisterType.R4,
-        fullRegisterRead(operand1)!!.inv()
+        fullRegisterRead(operand1).inv()
     )
 }

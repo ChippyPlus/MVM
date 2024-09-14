@@ -9,7 +9,6 @@ import java.io.InputStreamReader
 fun SystemCall.getUid() {
     val p: Process = Runtime.getRuntime().exec("id -u")
     val reader = BufferedReader(InputStreamReader(p.inputStream))
-    val line: String = reader.readLine()
-    val uid = line.toInt()
+    val uid: Long = reader.readLine().toLong()
     fullRegisterWrite(SuperRegisterType.R2, uid)
 }

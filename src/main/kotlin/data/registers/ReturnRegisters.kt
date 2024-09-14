@@ -16,10 +16,10 @@ import kotlin.system.exitProcess
  * **Note: **  `R1` and `R3` are deprecated. The KVM now relies on runtime exceptions for error handling.
  */
 class ReturnRegisters {
-     var r1: Int? = null
-     var r2: Int? = null
-     var r3: Int? = null
-     var r4: Int? = null
+     var r1: Long? = null
+     var r2: Long? = null
+     var r3: Long? = null
+     var r4: Long? = null
 
     /**
      * Reads the value from the specified return register.
@@ -27,7 +27,7 @@ class ReturnRegisters {
      * @param registers The return register to read from.
      * @return The value stored in the specified register.
      */
-    fun read(registers: ReturnRegisterType): Int {
+    fun read(registers: ReturnRegisterType): Long {
         try {
             return when (registers) {
                 ReturnRegisterType.R1 -> r1!!
@@ -47,7 +47,7 @@ class ReturnRegisters {
      * @param registers The return register to write to.
      * @param value The value to write to the register.
      */
-    fun write(registers: ReturnRegisterType, value: Int) {
+    fun write(registers: ReturnRegisterType, value: Long) {
         when (registers) {
             ReturnRegisterType.R1 -> r1 = value
             ReturnRegisterType.R2 -> r2 = value

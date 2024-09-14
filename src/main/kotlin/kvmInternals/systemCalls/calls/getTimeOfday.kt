@@ -5,5 +5,5 @@ import org.example.helpers.fullRegisterWrite
 import org.example.kvmInternals.systemCalls.SystemCall
 
 fun SystemCall.getTimeOfday() {
-    fullRegisterWrite(SuperRegisterType.R2, System.currentTimeMillis().toInt())
+    fullRegisterWrite(SuperRegisterType.R2, System.currentTimeMillis())
 }

@@ -15,10 +15,10 @@ fun SystemCall.writeIo(address: SuperRegisterType) {
                 fullRegisterRead(address) + index
             )
         )
-        if (byte.value == 0) break
+        if (byte.value == 0L) break
 
         index++
-        print(byte.value!!.toChar())
+        print(byte.value!!.toInt().toChar())
 
     }
 }

@@ -123,7 +123,7 @@ fun parser(file: File): MutableList<Any> {
 
             "LIT" -> {
                 /** LIT G1 10 */
-                out.add(Instruction.Lit(line[1].toSuperRegisterType(), line[2].toInt()))
+                out.add(Instruction.Lit(line[1].toSuperRegisterType(), line[2].toLong()))
             }
 
             "JMP" -> {

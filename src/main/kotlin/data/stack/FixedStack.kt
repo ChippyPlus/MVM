@@ -3,10 +3,10 @@ package org.example.data.stack
 import org.example.errors
 
 class FixedStack(private val maxSize: Int) {
-    private val stack = Array<Int?>(maxSize) { null }
+    private val stack = Array<Long?>(maxSize) { null }
     private var topIndex = -1
 
-    fun push(element: Int) {
+    fun push(element: Long) {
         if (isFull()) {
             errors.StackOverflowException()
         }
@@ -14,7 +14,7 @@ class FixedStack(private val maxSize: Int) {
         stack[topIndex] = element
     }
 
-    fun pop(): Int {
+    fun pop(): Long {
         if (isEmpty()) {
             errors.EmptyStackException()
         }
@@ -24,7 +24,7 @@ class FixedStack(private val maxSize: Int) {
         return element!!
     }
 
-    fun peek(): Int {
+    fun peek(): Long {
         if (isEmpty()) {
             errors.EmptyStackException()
         }

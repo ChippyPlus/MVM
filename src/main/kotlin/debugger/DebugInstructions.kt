@@ -44,13 +44,13 @@ class DebugInstructions {
     }
 
 
-    fun memoryRange(a: Int, b: Int, mode: DebugInstructionModes) {
-        val memMap = emptyMap<String, Int?>().toMutableMap()
+    fun memoryRange(a: Long, b: Long, mode: DebugInstructionModes) {
+        val memMap = emptyMap<String, Long?>().toMutableMap()
         if (MEMORY_LIMIT <= b) {
             errors.MemoryAllocationException("Debugger/memoryRange is accessing non-existent memory \"$b\"")
         }
         for (address in a..b) {
-            memMap[address.toString()] = internalMemory.memory[MemoryAddress(address)]!!.value
+            memMap[address.toString()] = internalMemory.memory[MemoryAddress(address)]?.value
         }
         val location = when (mode) {
             DebugInstructionModes.Iterator -> {
@@ -69,8 +69,8 @@ class DebugInstructions {
     }
 
     fun descriptors(mode: DebugInstructionModes) {
-        val data = emptyMap<String, Int?>().toMutableMap()
-        fileDescriptors.fds.forEach { data[it.key.toString()] = it.key }
+        val data = emptyMap<String, Long?>().toMutableMap()
+        fileDescriptors.fds.forEach { data[it.key.toString()] = it.key.toLong() }
         val location = when (mode) {
             DebugInstructionModes.Iterator -> {
                 "each"
@@ -89,7 +89,7 @@ class DebugInstructions {
 
     fun stack(mode: DebugInstructionModes) {
 
-        val data = mapOf<String,Int?>("current" to kvm.stackOperations.internalStack.peek())
+        val data = mapOf<String, Long?>("current" to kvm.stackOperations.internalStack.peek())
 
 
         val location = when (mode) {

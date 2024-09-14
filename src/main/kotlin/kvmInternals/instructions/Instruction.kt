@@ -199,7 +199,7 @@ class Instruction {
      * @param destination The destination register.
      * @param value The literal value to load.
      */
-    data class Lit(val destination: SuperRegisterType, val value: Int)
+    data class Lit(val destination: SuperRegisterType, val value: Long)
 
     /**
      * Represents The PRINT_STACK(PRINTS) instruction, which prints the contents of the stack.

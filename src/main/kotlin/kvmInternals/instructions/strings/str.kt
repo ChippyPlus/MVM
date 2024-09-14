@@ -10,20 +10,20 @@ import org.example.internalMemory
 
 //TODO Make more efficient and add description
 fun Strings.str(targetAddress: SuperRegisterType, string: String) {
-    val possibleStarts: MutableMap<Int, Any?> = emptyMap<Int, Any>().toMutableMap()
+    val possibleStarts= emptyMap<Long?, Any>().toMutableMap()
 
     internalMemory.memory.forEach {
-        possibleStarts[it.key.address] = it.value.value
+        possibleStarts[it.key.address] = it.value.value!!
     }
     possibleStarts.filter { it.value == 0 }
     val allocMem = string.length
 
 
-    var spot: Int? = null
+    var spot: Long? = null
     for (i in possibleStarts.keys) {
         var count = 0
         for (j in 0..allocMem) {
-            if (possibleStarts[i + j] == null) {
+            if (possibleStarts[i!! + j] == null) {
                 count++
             }
         }
@@ -39,7 +39,7 @@ fun Strings.str(targetAddress: SuperRegisterType, string: String) {
         errors.MemoryAllocationException("Could not allocate memory for string: $string")
     }
     for ((index, i) in (spot!! until (spot + allocMem)).withIndex()) {
-        internalMemory.memory[MemoryAddress(i)] = MemoryValue(string[index].code)
+        internalMemory.memory[MemoryAddress(i)] = MemoryValue(string[index].code.toLong())
     }
     internalMemory.memory[MemoryAddress(spot + allocMem)] = MemoryValue(0)
 

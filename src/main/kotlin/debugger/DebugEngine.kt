@@ -67,8 +67,8 @@ class DebugEngine(val debugFile: DebugFile) {
         when (internalInstruction[0]) {
             "registers" -> debugInstructions.registers(mode)
             "memoryRange" -> debugInstructions.memoryRange(
-                internalInstruction[1].toInt(),
-                internalInstruction[2].toInt(), mode
+                internalInstruction[1].toLong(),
+                internalInstruction[2].toLong(), mode
             )
 
             "stack" -> debugInstructions.stack(mode)
