@@ -1,11 +1,11 @@
 package org.example
 
 import debugger.DebugEngine
+import engine.execution.Execute
 import kotlinx.serialization.json.Json
 import org.example.data.io.FileDescriptors
 import org.example.data.memory.InternalMemory
 import org.example.data.registers.Registers
-import org.example.engine.execution.Execute
 import org.example.environment.VMErrors
 import org.example.internals.encoding.DebugFile
 import org.example.kvmInternals.Kvm

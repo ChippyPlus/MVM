@@ -5,6 +5,7 @@ import internals.instructions.bitwise.*
 import internals.instructions.dataTransfer.cpy
 import internals.instructions.dataTransfer.lit
 import internals.instructions.dataTransfer.mov
+import internals.instructions.strings.strcpy
 import org.example.debugEngine
 import org.example.engine.parser
 import org.example.kvm
@@ -37,6 +38,7 @@ class Execute {
                 break
             }
             when (val instruction: Any = command[kvm.pc - 1]) {
+                is Instruction.StrCpy -> kvm.strings.strcpy(instruction.source,instruction.destination)
                 is Instruction.Cpy -> kvm.dataTransfer.cpy(instruction.register1, instruction.register2)
                 is Instruction.Add -> kvm.arithmetic.add(instruction.operand1, instruction.operand2)
                 is Instruction.Sub -> kvm.arithmetic.sub(instruction.operand1, instruction.operand2)

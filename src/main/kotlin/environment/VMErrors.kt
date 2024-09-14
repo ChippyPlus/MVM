@@ -147,4 +147,9 @@ class VMErrors {
         System.err.println("$prefix${kvm.pc}: Invalid File Descriptor of \"$message\"")
         exitProcess(14)
     }
+
+    fun NotFreeMemoryException(message: String) {
+        System.err.println("$prefix${kvm.pc}: Address \"$message\" is not free Memory")
+        exitProcess(15)
+    }
 }
