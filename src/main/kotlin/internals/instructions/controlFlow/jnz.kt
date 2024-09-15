@@ -5,13 +5,14 @@ import org.example.errors
 import org.example.helpers.fullRegisterRead
 import org.example.kvm
 
-fun ControlFlow.jnz(targetAddress: Int, testRegister: SuperRegisterType) = try {
-    if (fullRegisterRead(testRegister) != 0L) {
-        kvm.pc = targetAddress
-    } else {
-        // Pass
+fun ControlFlow.jnz(targetAddress: Int, testRegister: SuperRegisterType): Any = try {
+    @Suppress("ReplaceCallWithBinaryOperator") if (fullRegisterRead(register = testRegister).equals(other = 0L).not()) {
+        targetAddress.apply { kvm.pc = this@apply }
+    } else {/* Pass */
     }
 
 } catch (_: Exception) {
-    errors.GeneralControlFlowException("Jnz")
+    errors.run {
+        this@run.GeneralControlFlowException(message = "Jnz")
+    }
 }

@@ -7,10 +7,12 @@ import org.example.helpers.fullRegisterRead
 import org.example.helpers.readRegisterString
 import org.example.helpers.writeStringSpecInMemory
 
-fun Strings.strcpy(source: SuperRegisterType, destination: SuperRegisterType) = try {
-    val string = readRegisterString(source)
-    val destinationAddress = fullRegisterRead(destination)
-    writeStringSpecInMemory(string, MemoryAddress(destinationAddress))
+fun Strings.strcpy(source: SuperRegisterType, destination: SuperRegisterType): Unit = try {
+    val string: String = readRegisterString(register = source)
+    val destinationAddress: Long = fullRegisterRead(register = destination)
+    writeStringSpecInMemory(
+        string = string, destinationAddress = MemoryAddress(address = destinationAddress)
+    )
 } catch (_: Exception) {
-    errors.GeneralStringException("strcpy")
+    with(receiver = errors) { this@with.GeneralStringException(message = "strcpy") }
 }

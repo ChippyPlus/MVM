@@ -6,11 +6,16 @@ import org.example.helpers.fullRegisterWrite
 import org.example.helpers.readRegisterString
 
 fun Strings.strcmp(string1: SuperRegisterType, string2: SuperRegisterType) = try {
-    if (readRegisterString(string1) == readRegisterString(string2)) {
-        fullRegisterWrite(SuperRegisterType.R4, 0)
-    } else {
-        fullRegisterWrite(SuperRegisterType.R4, 1)
-    }
+    @Suppress("ReplaceCallWithBinaryOperator") (if (readRegisterString(register = string1).equals(
+            other = readRegisterString(
+                register = string2
+            )
+        )
+    ) fullRegisterWrite(
+        register = SuperRegisterType.R4, value = 0
+    ) else fullRegisterWrite(register = SuperRegisterType.R4, value = 1))
 } catch (_: Exception) {
-    errors.GeneralStringException("strcmp")
+    with(receiver = errors) {
+        this@with.GeneralStringException("strcmp")
+    }
 }

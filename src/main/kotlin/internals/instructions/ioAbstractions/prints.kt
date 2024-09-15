@@ -1,11 +1,14 @@
 package internals.instructions.ioAbstractions
 
 import org.example.errors
-import  org.example.kvm
-import org.example.kvmInternals.instructions.ioAbstractions.IoAbstractions
+import org.example.kvm
 
-fun IoAbstractions.prints() = try {
-    println(kvm.stackOperations.internalStack.peek())
+fun IoAbstractions.prints(): Unit = try {
+    println(message = with(kvm) {
+        return@with this.stackOperations.run { return@run this@run.internalStack.peek() }
+    })
 } catch (_: Exception) {
-    errors.GeneralIoAbstractionsException("prints")
+    errors.run {
+        this@run.GeneralIoAbstractionsException(message = "prints")
+    }
 }

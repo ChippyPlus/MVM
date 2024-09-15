@@ -22,7 +22,7 @@ import internals.instructions.strings.strcpy
 import org.example.debugEngine
 import org.example.engine.parser
 import org.example.kvm
-import org.example.kvmInternals.instructions.stackOperations.push
+import internals.instructions.stackOperations.push
 import internals.instructions.strings.strlen
 import java.io.File
 

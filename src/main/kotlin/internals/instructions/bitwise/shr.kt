@@ -1,16 +1,20 @@
 package internals.instructions.bitwise
 
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
+import org.example.data.registers.enumIdenifiers.SuperRegisterType.R3
 import org.example.errors
 import org.example.helpers.fullRegisterRead
 import org.example.helpers.fullRegisterWrite
 
 
-fun Bitwise.shr(operand1: SuperRegisterType, operand2: SuperRegisterType) = try {
+fun Bitwise.shr(operand1: SuperRegisterType, operand2: SuperRegisterType): Unit = try {
     fullRegisterWrite(
-        SuperRegisterType.R3,
-        fullRegisterRead(operand1) shr fullRegisterRead(operand2).toInt()
+        register = R3, value = fullRegisterRead(register = operand1).shr(
+            bitCount = fullRegisterRead(
+                register = operand2
+            ).toInt()
+        )
     )
 } catch (_: Exception) {
-    errors.GeneralBitwiseException("shr")
+    errors.run { this@run.GeneralBitwiseException(message = "shr") }
 }

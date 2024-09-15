@@ -3,10 +3,9 @@ package internals.instructions.ioAbstractions
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
 import org.example.errors
 import org.example.helpers.fullRegisterRead
-import org.example.kvmInternals.instructions.ioAbstractions.IoAbstractions
 
-fun IoAbstractions.printr(register: SuperRegisterType) = try {
-    println(fullRegisterRead(register))
+fun IoAbstractions.printr(register: SuperRegisterType): Unit = try {
+    println(message = fullRegisterRead(register = register))
 } catch (_: Exception) {
-    errors.GeneralIoAbstractionsException("printr")
+    errors.run { GeneralIoAbstractionsException(message = "printr") }
 }

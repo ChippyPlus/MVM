@@ -7,8 +7,11 @@ import org.example.helpers.fullRegisterWrite
 import org.example.internalMemory
 
 
-fun Memory.load(memoryAddress: MemoryAddress, destination: SuperRegisterType) = try{
-    fullRegisterWrite(destination, internalMemory.read(memoryAddress).value!!.toLong())
-} catch (_: Exception){
-    errors.GeneralMemoryException("load")
+fun Memory.load(memoryAddress: MemoryAddress, destination: SuperRegisterType): Unit = try {
+    fullRegisterWrite(
+        register = destination,
+        value = internalMemory.read(address = memoryAddress).value!!.toLong()
+    )
+} catch (_: Exception) {
+    errors.run { this@run.GeneralMemoryException(message = "load") }
 }

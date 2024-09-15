@@ -6,10 +6,15 @@ import org.example.helpers.fullRegisterRead
 import org.example.helpers.fullRegisterWrite
 
 
-
-fun DataTransfer.mov(Source: SuperRegisterType, Destination: SuperRegisterType) = try {
-    val value = fullRegisterRead(Source)
-    fullRegisterWrite(Destination, value)
+fun DataTransfer.mov(Source: SuperRegisterType, Destination: SuperRegisterType): Unit = try {
+    @Suppress("UNUSED_VARIABLE") val value: Long = fullRegisterRead(register = Source).apply {
+        fullRegisterWrite(
+            register = Destination,
+            value = this@apply,
+        )
+    }
 } catch (_: Exception) {
-    errors.GeneralDataTransferException("mov")
+    errors.run {
+        this@run.GeneralDataTransferException(message = "mov")
+    }
 }

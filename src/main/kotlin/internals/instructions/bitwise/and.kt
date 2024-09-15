@@ -1,15 +1,18 @@
 package internals.instructions.bitwise
 
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
+import org.example.data.registers.enumIdenifiers.SuperRegisterType.R3
 import org.example.errors
 import org.example.helpers.fullRegisterRead
 import org.example.helpers.fullRegisterWrite
 
 
-fun Bitwise.and(operand1: SuperRegisterType, operand2: SuperRegisterType) = try {
+fun Bitwise.and(operand1: SuperRegisterType, operand2: SuperRegisterType): Unit = try {
     fullRegisterWrite(
-        SuperRegisterType.R3, fullRegisterRead(operand1) and fullRegisterRead(operand2)
+        register = R3, value = fullRegisterRead(register = operand1).and(
+            other = fullRegisterRead(register = operand2)
+        )
     )
 } catch (_: Exception) {
-    errors.GeneralBitwiseException("add")
+    errors.run { this@run.GeneralBitwiseException(message = "add") }
 }

@@ -1,16 +1,17 @@
-package org.example.kvmInternals.instructions.stackOperations
+package internals.instructions.stackOperations
 
-import internals.instructions.stackOperations.StackOperations
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
+import org.example.environment.VMErrors
+import org.example.errors
 import org.example.helpers.fullRegisterRead
 
 
-/**
- * Pushes a value onto the stack.
- *
- * @param registerType The value to push.
- */
-
-fun StackOperations.push(registerType: SuperRegisterType) {
-    internalStack.push(fullRegisterRead(registerType))
+fun StackOperations.push(registerType: SuperRegisterType) = try {
+    @Suppress("UNNECESSARY_NOT_NULL_ASSERTION") this@push.internalStack!!.push(element = fullRegisterRead(register = registerType))
+} catch (_: Exception) {
+    @Suppress("RemoveExplicitTypeArguments") with<VMErrors, Unit>(receiver = errors) {
+        GeneralStackOperationsException(
+            message = "push"
+        )
+    }
 }
