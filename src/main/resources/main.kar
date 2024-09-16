@@ -1,7 +1,20 @@
-STR G1 "Hello, "
-STR G2 "World!!!"
-STRCAT G1 G2
+// open hello.txt
+STR S2 "hello.txt"
+LIT S1 3
+SYSCALL
 
+// read file
+LIT S1 1
+MOV R2 S2
+LIT S3 0
+SYSCALL
+
+// Close file
+LIT S1 4
+LIT S2 1
+SYSCALL
+
+// Write to terminal
 LIT S1 24
-MOV R4 S2
+MOV R2 S2
 SYSCALL

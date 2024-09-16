@@ -1,29 +1,37 @@
+@file:Suppress("RedundantExplicitType")
+
 package internals.systemCalls.calls
 
 import internals.systemCalls.SystemCall
 import org.example.data.memory.MemoryAddress
+import org.example.data.memory.MemoryValue
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
+import org.example.errors
 import org.example.fileDescriptors
+import org.example.helpers.VMFile
 import org.example.helpers.fullRegisterRead
 import org.example.internalMemory
 
 
-fun SystemCall.writeFile(fd: SuperRegisterType, buffer: SuperRegisterType) {
-    val f = fileDescriptors.getFileDescriptor(fullRegisterRead(fd))!!
-//    fullRegisterWrite(SuperRegisterType.R2, writeRegisterString(buffer, f.file.readText()))
-    var index = 0
-    var string = ""
+fun SystemCall.writeFile(fd: SuperRegisterType, buffer: SuperRegisterType): Unit = try {
+    val f: VMFile = fileDescriptors.getFileDescriptor(fd = fullRegisterRead(register = fd))!!
+    val index: Int = 0
+    var string: String = buildString {}
     while (true) {
 
-        val byte = internalMemory.read(
-            MemoryAddress(
-                fullRegisterRead(buffer) + index
+        val byte: MemoryValue = internalMemory.read(
+            address = MemoryAddress(
+                address = fullRegisterRead(register = buffer).plus(index)
             )
         )
-        if (byte.value == 0L) break
+        if (byte.value!!.equals(other = 0L)) {
+            break
+        }
 
-        index++
-        string += byte.value!!.toChar()
+        with(index) { this.inc() }
+        string = string.plus(byte.value.toInt().toChar())
     }
     f.file.writeText(string)
+} catch (_: Exception) {
+    errors.SystemCallGeneralException("writeFile")
 }

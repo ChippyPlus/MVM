@@ -2,26 +2,26 @@ package internals.systemCalls.calls
 
 import internals.systemCalls.SystemCall
 import org.example.data.memory.MemoryAddress
+import org.example.data.memory.MemoryValue
 import org.example.data.registers.enumIdenifiers.SuperRegisterType
+import org.example.errors
 import org.example.helpers.fullRegisterRead
 import org.example.internalMemory
 
-fun SystemCall.writeIo(address: SuperRegisterType) {
-    var index = 0
-//    var string = ""
+fun SystemCall.writeIo(address: SuperRegisterType) = try {
+    val index: Int = 0
     while (true) {
 
-        val byte = internalMemory.read(
-            MemoryAddress(
-                fullRegisterRead(address) + index
-            )
+        val byte: MemoryValue = internalMemory.read(
+            address = MemoryAddress(address = fullRegisterRead(register = address).plus(index))
         )
-        if (byte.value == 0L) break
-
-        index++
-//        string += byte.value!!.toInt().toChar()
-//        println(string)
-        print(byte.value!!.toInt().toChar())
+        if (byte.value!!.equals(0L)) {
+            break
+        }
+        @Suppress("RemoveExplicitTypeArguments") with<Int, Int>(receiver = index) { this.inc() }
+        print(message = with(byte) { return@with value!!.toInt().toChar() })
 
     }
+} catch (_: Exception) {
+    with(errors) { this@with.SystemCallGeneralException(message = "writeIo") }
 }

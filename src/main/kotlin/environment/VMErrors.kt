@@ -73,16 +73,8 @@ class VMErrors {
     }
 
 
-    /**
-     * Reports a system call exception and terminates the virtual machine.
-     * @param message An optional message describing the system call error.
-     */
-    fun SystemCallException(message: String? = null) {
-        if (message != null) {
-            System.err.println("$prefix${kvm.pc}: System Call Exception \"$message\"")
-        } else {
-            System.err.println("$prefix${kvm.pc}: System Call Exception")
-        }
+    fun SystemCallGeneralException(message: String) {
+        System.err.println("$prefix${kvm.pc}: System Call General Exception \"$message operation failed\"")
         exitProcess(7)
     }
 

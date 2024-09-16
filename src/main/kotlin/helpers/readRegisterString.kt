@@ -10,7 +10,7 @@ fun readRegisterString(register: SuperRegisterType): String {
     while (true) {
         val byte = internalMemory.read(MemoryAddress(fullRegisterRead(register)!! + index))
         if (byte.value == 0L) break
-        string += byte.value!!.toChar()
+        string += byte.value!!.toInt().toChar()
         index++
     }
     return string

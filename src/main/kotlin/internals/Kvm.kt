@@ -2,14 +2,14 @@ package internals
 
 import internals.instructions.arithmetic.Arithmetic
 import internals.instructions.bitwise.Bitwise
-import internals.instructions.dataTransfer.DataTransfer
-import org.example.STACK_LIMIT
 import internals.instructions.controlFlow.ControlFlow
-import org.example.kvmInternals.instructions.ioAbstractions.IoAbstractions
+import internals.instructions.dataTransfer.DataTransfer
+import internals.instructions.ioAbstractions.IoAbstractions
 import internals.instructions.memory.Memory
 import internals.instructions.stackOperations.StackOperations
 import internals.instructions.strings.Strings
 import internals.systemCalls.SystemCall
+import org.example.STACK_LIMIT
 
 open class Kvm {
     val dataTransfer = DataTransfer()
