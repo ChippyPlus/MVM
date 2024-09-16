@@ -1,19 +1,20 @@
 package engine
 
 import java.io.File
+import java.util.*
 
 fun parser(file: File): MutableList<Any> {
-    // map of data classes
-    val out = emptyArray<Any>().toMutableList()
-    val tokens = emptyList<MutableList<String>>().toMutableList()
-    for (line in file.readLines()) {
-        val _lineParts = emptyList<String>().toMutableList()
-        for (token in line.split(' ')) {
-            _lineParts.add(token)
-        }
-        tokens.add(_lineParts)
-    }
-    for (line in tokens) {
+	// map of data classes
+	val out = emptyArray<Any>().toMutableList()
+	val tokens = emptyList<MutableList<String>>().toMutableList()
+	for (line in file.readLines()) {
+		val _lineParts = emptyList<String>().toMutableList()
+		for (token in line.split(' ')) {
+			_lineParts.add(token)
+		}
+		tokens.add(_lineParts)
+	}
+	for (line in tokens) {
 //        when (val instruction = line[0]) {
 //
 //
@@ -197,12 +198,32 @@ fun parser(file: File): MutableList<Any> {
 //
 //
 //        }
-    }
+	}
 
-    for (line in tokens) {
-        println(line.joinToString(", "))
-    }
+	val loopStack: Stack<MutableList<List<String>>> = Stack()
+	val indented = mutableListOf<List<List<String>>>()
 
+	for (line in tokens) {
+		if (line.isNotEmpty() && line[0].isNotEmpty() && line[0][0].code == 9 && line[0] != (9).toChar().toString()) {
+			val indentedInstruction = line.map {
+				if (it[0].code == 9) it.substring(1) else it
+			}
 
-    return out
+			loopStack.peek().add(indentedInstruction)
+		} else if (line[0] == "LOOP") {
+			loopStack.push(mutableListOf())
+		} else if (loopStack.isNotEmpty() && line[0] !in listOf("JMP", "JZ", "JNZ")) {
+			if (loopStack.isNotEmpty()) {
+				indented.add(loopStack.pop())
+			}
+		}
+
+	}
+
+	while (loopStack.isNotEmpty()) {
+		indented.add(loopStack.pop())
+	}
+
+	indented.forEach { println(it) }
+	return out
 }

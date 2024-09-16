@@ -1,12 +1,12 @@
-import debugger.DebugEngine
-import debugger.encoding.DebugFile
-import engine.execution.Execute
-import internals.Kvm
-import kotlinx.serialization.json.Json
 import data.io.FileDescriptors
 import data.memory.InternalMemory
 import data.registers.Registers
+import debugger.DebugEngine
+import debugger.encoding.DebugFile
+import engine.execution.Execute
 import environment.VMErrors
+import internals.Kvm
+import kotlinx.serialization.json.Json
 import java.io.File
 
 
@@ -25,5 +25,5 @@ val execute = Execute()
 val f = File("src/main/resources/main.kar")
 fun main() {
 //    execute.execute(f)
-    engine.parser(f)
+	engine.parser(f)
 }
