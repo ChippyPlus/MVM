@@ -22,8 +22,9 @@ val systemRegisters = register.systemRegisters
 val returnRegisters = register.returnRegisters
 val generalRegisters = register.generalRegisters
 val execute = Execute()
+
 val f = File("src/main/resources/main.kar")
 fun main() {
 //    execute.execute(f)
-	engine.parser(f)
+
 }
