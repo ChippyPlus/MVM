@@ -9,7 +9,7 @@ import org.example.helpers.fullRegisterRead
 import org.example.internalMemory
 
 fun SystemCall.writeIo(address: SuperRegisterType) = try {
-    val index: Int = 0
+    var index: Int = 0
     while (true) {
 
         val byte: MemoryValue = internalMemory.read(
@@ -18,7 +18,9 @@ fun SystemCall.writeIo(address: SuperRegisterType) = try {
         if (byte.value!!.equals(0L)) {
             break
         }
-        @Suppress("RemoveExplicitTypeArguments") with<Int, Int>(receiver = index) { this.inc() }
+
+        @Suppress("RemoveExplicitTypeArguments")
+        index = with<Int, Int>(receiver = index) { this.inc() }
         print(message = with(byte) { return@with value!!.toInt().toChar() })
 
     }

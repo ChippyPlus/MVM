@@ -15,7 +15,7 @@ import org.example.internalMemory
 
 fun SystemCall.writeFile(fd: SuperRegisterType, buffer: SuperRegisterType): Unit = try {
     val f: VMFile = fileDescriptors.getFileDescriptor(fd = fullRegisterRead(register = fd))!!
-    val index: Int = 0
+    var index: Int = 0
     var string: String = buildString {}
     while (true) {
 
@@ -28,7 +28,7 @@ fun SystemCall.writeFile(fd: SuperRegisterType, buffer: SuperRegisterType): Unit
             break
         }
 
-        with(index) { this.inc() }
+        index = with(index) { this.inc() }
         string = string.plus(byte.value.toInt().toChar())
     }
     f.file.writeText(string)

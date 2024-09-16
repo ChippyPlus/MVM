@@ -20,5 +20,6 @@ fun Arithmetic.add(registerA: SuperRegisterType, registerB: SuperRegisterType): 
         )
     }
 } catch (e: Exception) {
+    @Suppress("RemoveExplicitTypeArguments")
     errors.run<VMErrors, Unit> { this@run.GeneralArithmeticException(message = "add") }
 }
