@@ -1,4 +1,8 @@
-package org.example.data.registers
+package data.registers
+
+import data.registers.GeneralRegisters
+import data.registers.ReturnRegisters
+import data.registers.SystemRegisters
 
 open class Registers(
     genRegisters: GeneralRegisters = GeneralRegisters(),

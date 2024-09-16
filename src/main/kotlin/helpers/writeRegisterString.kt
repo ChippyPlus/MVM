@@ -1,10 +1,10 @@
-package org.example.helpers
+package helpers
 
-import org.example.data.memory.MemoryAddress
-import org.example.data.memory.MemoryValue
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.errors
-import org.example.internalMemory
+import data.memory.MemoryAddress
+import data.memory.MemoryValue
+import data.registers.enumIdenifiers.SuperRegisterType
+import errors
+import internalMemory
 
 fun writeRegisterString(register: SuperRegisterType, string: String): Long {
     val possibleStarts = emptyMap<Long?, Any?>().toMutableMap()

@@ -1,4 +1,4 @@
-package org.example.data.memory
+package data.memory
 
 @JvmInline
 value class MemoryValue(val value: Long?)

@@ -1,10 +1,10 @@
 package internals.instructions.memory
 
-import org.example.data.memory.MemoryAddress
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.errors
-import org.example.helpers.fullRegisterWrite
-import org.example.internalMemory
+import errors
+import internalMemory
+import data.memory.MemoryAddress
+import data.registers.enumIdenifiers.SuperRegisterType
+import helpers.fullRegisterWrite
 
 
 fun Memory.load(memoryAddress: MemoryAddress, destination: SuperRegisterType): Unit = try {

@@ -1,7 +1,7 @@
 package internals.instructions.controlFlow
 
-import org.example.errors
-import org.example.kvm
+import errors
+import kvm
 
 
 fun ControlFlow.jmp(targetAddress: Int): Any = try {

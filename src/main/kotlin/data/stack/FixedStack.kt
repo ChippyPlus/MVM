@@ -1,6 +1,6 @@
-package org.example.data.stack
+package data.stack
 
-import org.example.errors
+import errors
 
 class FixedStack(private val maxSize: Int) {
     private val stack = Array<Long?>(maxSize) { null }

@@ -1,7 +1,7 @@
 package debugger
 
 import kotlinx.serialization.json.Json
-import org.example.internals.encoding.DebugFile
+import debugger.encoding.DebugFile
 import java.io.File
 
 

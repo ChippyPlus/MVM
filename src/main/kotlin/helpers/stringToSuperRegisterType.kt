@@ -1,7 +1,7 @@
-package org.example.helpers
+package helpers
 
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.errors
+import data.registers.enumIdenifiers.SuperRegisterType
+import errors
 import kotlin.system.exitProcess
 
 fun String.toSuperRegisterType(): SuperRegisterType {

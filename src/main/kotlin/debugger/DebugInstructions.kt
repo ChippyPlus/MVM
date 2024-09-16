@@ -1,11 +1,18 @@
 package debugger
 
+import MEMORY_LIMIT
+import data.memory.MemoryAddress
 import debugger.encoding.EachInstruction
+import fileDescriptors
+import generalRegisters
+import internalMemory
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.example.*
-import org.example.data.memory.MemoryAddress
+import kvm
+import returnRegisters
+import systemRegisters
 import java.io.File
+import errors
 
 class DebugInstructions {
     val json = Json { prettyPrint = true }

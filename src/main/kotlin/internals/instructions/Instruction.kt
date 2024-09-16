@@ -1,10 +1,13 @@
 package internals.instructions
 
-import org.example.data.memory.MemoryAddress
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
+import data.memory.MemoryAddress
+import data.registers.enumIdenifiers.SuperRegisterType
 
 @Suppress("unused")
 class Instruction {
+
+
+    data class Loop(val times: SuperRegisterType, val instructions: List<Instruction>)
 
     data class StrCpy(val source: SuperRegisterType, val destination: SuperRegisterType)
 

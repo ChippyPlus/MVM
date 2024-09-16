@@ -1,9 +1,9 @@
 package internals.instructions.strings
 
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.errors
-import org.example.helpers.fullRegisterWrite
-import org.example.helpers.readRegisterString
+import data.registers.enumIdenifiers.SuperRegisterType
+import errors
+import helpers.fullRegisterWrite
+import helpers.readRegisterString
 
 fun Strings.strcmp(string1: SuperRegisterType, string2: SuperRegisterType) = try {
     @Suppress("ReplaceCallWithBinaryOperator") (if (readRegisterString(register = string1).equals(

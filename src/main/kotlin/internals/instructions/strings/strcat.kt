@@ -1,10 +1,10 @@
 package internals.instructions.strings
 
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.environment.VMErrors
-import org.example.errors
-import org.example.helpers.readRegisterString
-import org.example.helpers.writeRegisterString
+import data.registers.enumIdenifiers.SuperRegisterType
+import environment.VMErrors
+import errors
+import helpers.readRegisterString
+import helpers.writeRegisterString
 
 fun Strings.strcat(string1: SuperRegisterType, string2: SuperRegisterType): Any = try {
     val s1: String = readRegisterString(register = string1)

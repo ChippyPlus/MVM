@@ -1,14 +1,14 @@
-package org.example.helpers
+package helpers
 
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.data.registers.enumIdenifiers.toGeneralRegisterType
-import org.example.data.registers.enumIdenifiers.toReturnRegisterType
-import org.example.data.registers.enumIdenifiers.toSystemRegisterType
-import org.example.generalRegisters
-import org.example.returnRegisters
-import org.example.systemRegisters
+import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.enumIdenifiers.toGeneralRegisterType
+import data.registers.enumIdenifiers.toReturnRegisterType
+import data.registers.enumIdenifiers.toSystemRegisterType
+import generalRegisters
+import returnRegisters
+import systemRegisters
 
-fun fullRegisterWrite(register: SuperRegisterType,value: Long) {
+fun fullRegisterWrite(register: SuperRegisterType, value: Long) {
     when (register) {
         SuperRegisterType.G1 -> generalRegisters.write(register.toGeneralRegisterType(), value)
         SuperRegisterType.G2 -> generalRegisters.write(register.toGeneralRegisterType(), value)

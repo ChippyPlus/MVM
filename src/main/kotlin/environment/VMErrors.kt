@@ -1,8 +1,8 @@
-package org.example.environment
+package environment
 
-import org.example.data.memory.MemoryAddress
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.kvm
+import data.memory.MemoryAddress
+import data.registers.enumIdenifiers.SuperRegisterType
+import kvm
 import kotlin.system.exitProcess
 
 /**

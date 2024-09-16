@@ -1,12 +1,12 @@
 package internals.systemCalls.calls
 
 import internals.systemCalls.SystemCall
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.data.registers.enumIdenifiers.SuperRegisterType.R2
-import org.example.fileDescriptors
-import org.example.helpers.VMFile
-import org.example.helpers.fullRegisterWrite
-import org.example.helpers.readRegisterString
+import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.enumIdenifiers.SuperRegisterType.R2
+import fileDescriptors
+import helpers.VMFile
+import helpers.fullRegisterWrite
+import helpers.readRegisterString
 import java.io.File
 
 fun SystemCall.openFile(registerPath: SuperRegisterType) {

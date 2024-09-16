@@ -1,8 +1,8 @@
-package org.example.data.registers
+package data.registers
 
-import org.example.data.registers.enumIdenifiers.ReturnRegisterType
-import org.example.errors
-import org.example.helpers.toSuperRegisterType
+import errors
+import data.registers.enumIdenifiers.ReturnRegisterType
+import helpers.toSuperRegisterType
 import kotlin.system.exitProcess
 
 
@@ -16,10 +16,10 @@ import kotlin.system.exitProcess
  * **Note: **  `R1` and `R3` are deprecated. The KVM now relies on runtime exceptions for error handling.
  */
 class ReturnRegisters {
-     var r1: Long? = null
-     var r2: Long? = null
-     var r3: Long? = null
-     var r4: Long? = null
+    var r1: Long? = null
+    var r2: Long? = null
+    var r3: Long? = null
+    var r4: Long? = null
 
     /**
      * Reads the value from the specified return register.

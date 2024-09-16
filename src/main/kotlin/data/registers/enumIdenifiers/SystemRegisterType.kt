@@ -1,4 +1,4 @@
-package org.example.data.registers.enumIdenifiers
+package data.registers.enumIdenifiers
 
 enum class SystemRegisterType {
     S1,

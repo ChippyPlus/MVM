@@ -1,9 +1,9 @@
 package internals.instructions.controlFlow
 
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.errors
-import org.example.helpers.fullRegisterRead
-import org.example.kvm
+import errors
+import kvm
+import data.registers.enumIdenifiers.SuperRegisterType
+import helpers.fullRegisterRead
 
 fun ControlFlow.jnz(targetAddress: Int, testRegister: SuperRegisterType): Any = try {
     @Suppress("ReplaceCallWithBinaryOperator") if (fullRegisterRead(register = testRegister).equals(other = 0L).not()) {

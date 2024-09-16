@@ -1,8 +1,8 @@
 package internals.systemCalls.calls
 
 import internals.systemCalls.SystemCall
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.helpers.fullRegisterWrite
+import data.registers.enumIdenifiers.SuperRegisterType
+import helpers.fullRegisterWrite
 import java.io.BufferedReader
 import java.io.InputStreamReader
 

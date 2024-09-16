@@ -1,8 +1,8 @@
 package internals.systemCalls
 
 import internals.systemCalls.calls.*
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.helpers.fullRegisterRead
+import data.registers.enumIdenifiers.SuperRegisterType
+import helpers.fullRegisterRead
 
 
 /**

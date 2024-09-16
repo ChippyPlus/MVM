@@ -1,13 +1,13 @@
 package internals.instructions.strings
 
-import org.example.data.memory.MemoryAddress
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.data.registers.enumIdenifiers.SuperRegisterType.R4
-import org.example.environment.VMErrors
-import org.example.errors
-import org.example.helpers.fullRegisterRead
-import org.example.helpers.fullRegisterWrite
-import org.example.internalMemory
+import data.memory.MemoryAddress
+import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.enumIdenifiers.SuperRegisterType.R4
+import environment.VMErrors
+import errors
+import helpers.fullRegisterRead
+import helpers.fullRegisterWrite
+import internalMemory
 
 fun Strings.strlen(addressRegister: SuperRegisterType): Unit = try {
     @Suppress("RedundantExplicitType") val index: Long = 0L

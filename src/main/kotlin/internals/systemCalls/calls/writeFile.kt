@@ -3,14 +3,14 @@
 package internals.systemCalls.calls
 
 import internals.systemCalls.SystemCall
-import org.example.data.memory.MemoryAddress
-import org.example.data.memory.MemoryValue
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.errors
-import org.example.fileDescriptors
-import org.example.helpers.VMFile
-import org.example.helpers.fullRegisterRead
-import org.example.internalMemory
+import data.memory.MemoryAddress
+import data.memory.MemoryValue
+import data.registers.enumIdenifiers.SuperRegisterType
+import errors
+import fileDescriptors
+import helpers.VMFile
+import helpers.fullRegisterRead
+import internalMemory
 
 
 fun SystemCall.writeFile(fd: SuperRegisterType, buffer: SuperRegisterType): Unit = try {

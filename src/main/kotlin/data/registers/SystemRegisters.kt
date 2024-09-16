@@ -1,8 +1,8 @@
-package org.example.data.registers
+package data.registers
 
-import org.example.data.registers.enumIdenifiers.SystemRegisterType
-import org.example.errors
-import org.example.helpers.toSuperRegisterType
+import data.registers.enumIdenifiers.SystemRegisterType
+import errors
+import helpers.toSuperRegisterType
 import kotlin.system.exitProcess
 
 /**

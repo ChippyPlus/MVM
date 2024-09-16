@@ -1,4 +1,4 @@
-package org.example.helpers
+package helpers
 
 enum class FileFlags {
     READ_ONLY,
@@ -9,7 +9,7 @@ enum class FileFlags {
     CREATE
 }
 
-val fileFlags: Map<Int,FileFlags> = mapOf(
+val fileFlags: Map<Int, FileFlags> = mapOf(
     1 to FileFlags.READ_ONLY,
     2 to FileFlags.WRITE_ONLY,
     3 to FileFlags.READ_WRITE,

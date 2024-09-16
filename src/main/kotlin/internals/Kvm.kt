@@ -9,7 +9,7 @@ import internals.instructions.memory.Memory
 import internals.instructions.stackOperations.StackOperations
 import internals.instructions.strings.Strings
 import internals.systemCalls.SystemCall
-import org.example.STACK_LIMIT
+import STACK_LIMIT
 
 open class Kvm {
     val dataTransfer = DataTransfer()

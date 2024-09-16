@@ -1,20 +1,7 @@
-// open hello.txt
-STR S2 "hello.txt"
-LIT S1 3
-SYSCALL
-
-// read file
-LIT S1 1
-MOV R2 S2
-LIT S3 0
-SYSCALL
-
-// Close file
-LIT S1 4
-LIT S2 1
-SYSCALL
-
-// Write to terminal
-LIT S1 24
-MOV R2 S2
-SYSCALL
+LIT G1 5
+LIT G2 1
+LIT G3 0
+LOOP G1
+    PRINTR R4
+    ADD G2 G3
+PRINTR R4

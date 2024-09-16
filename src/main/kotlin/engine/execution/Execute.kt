@@ -1,5 +1,7 @@
 package engine.execution
 
+import debugEngine
+import engine.parser
 import internals.instructions.Instruction
 import internals.instructions.arithmetic.*
 import internals.instructions.bitwise.*
@@ -15,15 +17,9 @@ import internals.instructions.memory.load
 import internals.instructions.memory.store
 import internals.instructions.stackOperations.peek
 import internals.instructions.stackOperations.pop
-import internals.instructions.strings.str
-import internals.instructions.strings.strcat
-import internals.instructions.strings.strcmp
-import internals.instructions.strings.strcpy
-import org.example.debugEngine
-import org.example.engine.parser
-import org.example.kvm
 import internals.instructions.stackOperations.push
-import internals.instructions.strings.strlen
+import internals.instructions.strings.*
+import kvm
 import java.io.File
 
 class Execute {

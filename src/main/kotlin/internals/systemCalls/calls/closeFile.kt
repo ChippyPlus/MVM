@@ -3,10 +3,10 @@
 package internals.systemCalls.calls
 
 import internals.systemCalls.SystemCall
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.errors
-import org.example.fileDescriptors
-import org.example.helpers.fullRegisterRead
+import data.registers.enumIdenifiers.SuperRegisterType
+import errors
+import fileDescriptors
+import helpers.fullRegisterRead
 
 fun SystemCall.closeFile(s2: SuperRegisterType): Unit = try {
     val fd: Long = fullRegisterRead(register = s2)

@@ -1,10 +1,10 @@
 package internals.systemCalls.calls
 
 import internals.systemCalls.SystemCall
-import org.example.data.registers.enumIdenifiers.SuperRegisterType.R2
-import org.example.environment.VMErrors
-import org.example.errors
-import org.example.helpers.fullRegisterWrite
+import data.registers.enumIdenifiers.SuperRegisterType.R2
+import environment.VMErrors
+import errors
+import helpers.fullRegisterWrite
 
 @Suppress("RemoveExplicitTypeArguments")
 fun SystemCall.getPid(): Unit = try {

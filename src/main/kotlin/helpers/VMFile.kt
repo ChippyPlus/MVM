@@ -1,4 +1,4 @@
-package org.example.helpers
+package helpers
 
 import java.io.File
 

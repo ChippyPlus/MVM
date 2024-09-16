@@ -1,7 +1,7 @@
 package debugger
 
-import org.example.internals.encoding.DebugFile
-import org.example.kvm
+import debugger.encoding.DebugFile
+import kvm
 import java.io.File
 import java.util.*
 
