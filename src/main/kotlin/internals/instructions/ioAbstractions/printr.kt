@@ -1,8 +1,8 @@
 package internals.instructions.ioAbstractions
 
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.errors
-import org.example.helpers.fullRegisterRead
+import data.registers.enumIdenifiers.SuperRegisterType
+import errors
+import helpers.fullRegisterRead
 
 fun IoAbstractions.printr(register: SuperRegisterType): Unit = try {
     println(message = fullRegisterRead(register = register))

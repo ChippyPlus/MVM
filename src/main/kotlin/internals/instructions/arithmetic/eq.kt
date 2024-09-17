@@ -1,10 +1,10 @@
 package internals.instructions.arithmetic
 
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.data.registers.enumIdenifiers.SuperRegisterType.R4
-import org.example.errors
-import org.example.helpers.fullRegisterRead
-import org.example.helpers.fullRegisterWrite
+import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.enumIdenifiers.SuperRegisterType.R4
+import errors
+import helpers.fullRegisterRead
+import helpers.fullRegisterWrite
 
 
 fun Arithmetic.eq(operand1: SuperRegisterType, operand2: SuperRegisterType) = try {

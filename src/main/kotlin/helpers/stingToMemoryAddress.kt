@@ -1,6 +1,6 @@
-package org.example.helpers
+package helpers
 
-import org.example.data.memory.MemoryAddress
+import data.memory.MemoryAddress
 
 fun String.toMemoryAddress(): MemoryAddress {
     return MemoryAddress(this.toLong())

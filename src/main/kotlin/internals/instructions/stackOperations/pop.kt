@@ -1,9 +1,9 @@
 package internals.instructions.stackOperations
 
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.environment.VMErrors
-import org.example.errors
-import org.example.helpers.fullRegisterWrite
+import data.registers.enumIdenifiers.SuperRegisterType
+import environment.VMErrors
+import errors
+import helpers.fullRegisterWrite
 
 
 fun StackOperations.pop(destination: SuperRegisterType) = try {

@@ -1,10 +1,17 @@
 package debugger
 
+import MEMORY_LIMIT
+import data.memory.MemoryAddress
 import debugger.encoding.EachInstruction
+import errors
+import fileDescriptors
+import generalRegisters
+import internalMemory
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.example.*
-import org.example.data.memory.MemoryAddress
+import kvm
+import returnRegisters
+import systemRegisters
 import java.io.File
 
 class DebugInstructions {
@@ -70,7 +77,7 @@ class DebugInstructions {
 
     fun descriptors(mode: DebugInstructionModes) {
         val data = emptyMap<String, Long?>().toMutableMap()
-        fileDescriptors.fds.forEach { data[it.key.toString()] = it.key.toLong() }
+        fileDescriptors.fds.forEach { data[it.key.toString()] = it.key }
         val location = when (mode) {
             DebugInstructionModes.Iterator -> {
                 "each"

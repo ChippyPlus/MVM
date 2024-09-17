@@ -1,13 +1,13 @@
-package org.example.helpers
+package helpers
 
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.data.registers.enumIdenifiers.toGeneralRegisterType
-import org.example.data.registers.enumIdenifiers.toReturnRegisterType
-import org.example.data.registers.enumIdenifiers.toSystemRegisterType
-import org.example.errors
-import org.example.generalRegisters
-import org.example.returnRegisters
-import org.example.systemRegisters
+import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.enumIdenifiers.toGeneralRegisterType
+import data.registers.enumIdenifiers.toReturnRegisterType
+import data.registers.enumIdenifiers.toSystemRegisterType
+import errors
+import generalRegisters
+import returnRegisters
+import systemRegisters
 import kotlin.system.exitProcess
 
 fun fullRegisterRead(register: SuperRegisterType): Long {

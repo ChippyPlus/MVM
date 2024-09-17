@@ -1,6 +1,6 @@
-package org.example.data.io
+package data.io
 
-import org.example.helpers.VMFile
+import helpers.VMFile
 
 class FileDescriptors {
     val fds = emptyMap<Long, VMFile>().toMutableMap()

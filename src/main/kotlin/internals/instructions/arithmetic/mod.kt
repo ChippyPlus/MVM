@@ -1,11 +1,11 @@
 package internals.instructions.arithmetic
 
-import org.example.data.registers.enumIdenifiers.ReturnRegisterType.R4
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.environment.VMErrors
-import org.example.errors
-import org.example.helpers.fullRegisterRead
-import org.example.returnRegisters
+import data.registers.enumIdenifiers.ReturnRegisterType.R4
+import data.registers.enumIdenifiers.SuperRegisterType
+import environment.VMErrors
+import errors
+import helpers.fullRegisterRead
+import returnRegisters
 
 fun Arithmetic.mod(registerA: SuperRegisterType, registerB: SuperRegisterType): Unit = try {
     val A: Long = fullRegisterRead(register = registerA)
@@ -19,5 +19,6 @@ fun Arithmetic.mod(registerA: SuperRegisterType, registerB: SuperRegisterType): 
         )
     }
 } catch (e: Exception) {
+    @Suppress("RemoveExplicitTypeArguments")
     errors.run<VMErrors, Unit> { this@run.GeneralArithmeticException(message = "mod") }
 }

@@ -1,7 +1,7 @@
 package internals.instructions.ioAbstractions
 
-import org.example.errors
-import org.example.kvm
+import errors
+import kvm
 
 fun IoAbstractions.prints(): Unit = try {
     println(message = with(kvm) {

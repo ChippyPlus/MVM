@@ -1,16 +1,14 @@
-package org.example
 
+import data.io.FileDescriptors
+import data.memory.InternalMemory
+import data.registers.Registers
 import debugger.DebugEngine
+import debugger.encoding.DebugFile
 import engine.execution.Execute
-import kotlinx.serialization.json.Json
-import org.example.data.io.FileDescriptors
-import org.example.data.memory.InternalMemory
-import org.example.data.registers.Registers
-import org.example.environment.VMErrors
-import org.example.internals.encoding.DebugFile
+import environment.VMErrors
 import internals.Kvm
+import kotlinx.serialization.json.Json
 import java.io.File
-
 
 
 const val STACK_LIMIT = 32

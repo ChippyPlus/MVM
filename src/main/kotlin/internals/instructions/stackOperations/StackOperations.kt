@@ -1,6 +1,6 @@
 package internals.instructions.stackOperations
 
-import org.example.data.stack.FixedStack
+import data.stack.FixedStack
 
 
 

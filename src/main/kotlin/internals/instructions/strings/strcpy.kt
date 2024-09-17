@@ -1,11 +1,11 @@
 package internals.instructions.strings
 
-import org.example.data.memory.MemoryAddress
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.errors
-import org.example.helpers.fullRegisterRead
-import org.example.helpers.readRegisterString
-import org.example.helpers.writeStringSpecInMemory
+import data.memory.MemoryAddress
+import data.registers.enumIdenifiers.SuperRegisterType
+import errors
+import helpers.fullRegisterRead
+import helpers.readRegisterString
+import helpers.writeStringSpecInMemory
 
 fun Strings.strcpy(source: SuperRegisterType, destination: SuperRegisterType): Unit = try {
     val string: String = readRegisterString(register = source)

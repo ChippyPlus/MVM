@@ -1,15 +1,11 @@
 package internals.systemCalls
 
+import data.registers.enumIdenifiers.SuperRegisterType
+import errors
+import helpers.fullRegisterRead
 import internals.systemCalls.calls.*
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.helpers.fullRegisterRead
 
 
-/**
- * **System Call Instruction:**
- *
- * * `SYSCALL` - Execute a system call (requires system call number and arguments).
- */
 class SystemCall {
     fun execute(callId: SuperRegisterType, s2: SuperRegisterType, s3: SuperRegisterType, s4: SuperRegisterType) {
         when (fullRegisterRead(callId).toInt()) {
@@ -24,7 +20,7 @@ class SystemCall {
             24 -> writeIo(s2)
 
 
-            else -> throw RuntimeException("Invalid system call ID: $callId")
+            else -> errors.InvalidSystemCallException(fullRegisterRead(callId).toString())
         }
 
     }

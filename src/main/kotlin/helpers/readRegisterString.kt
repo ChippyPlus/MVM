@@ -1,8 +1,8 @@
-package org.example.helpers
+package helpers
 
-import org.example.data.memory.MemoryAddress
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.internalMemory
+import data.memory.MemoryAddress
+import data.registers.enumIdenifiers.SuperRegisterType
+import internalMemory
 
 fun readRegisterString(register: SuperRegisterType): String {
     var index = 0

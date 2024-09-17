@@ -1,7 +1,7 @@
 package internals.instructions
 
-import org.example.data.memory.MemoryAddress
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
+import data.memory.MemoryAddress
+import data.registers.enumIdenifiers.SuperRegisterType
 
 @Suppress("unused")
 class Instruction {
@@ -11,14 +11,14 @@ class Instruction {
     data class StrCmp(val string1: SuperRegisterType, val string2: SuperRegisterType)
 
     data class StrCat(
-        val string1: SuperRegisterType,
-        val string2: SuperRegisterType,
+		val string1: SuperRegisterType,
+		val string2: SuperRegisterType,
     )
 
     data class SubStr(
-        val string: SuperRegisterType,
-        val start: SuperRegisterType,
-        val length: SuperRegisterType,
+		val string: SuperRegisterType,
+		val start: SuperRegisterType,
+		val length: SuperRegisterType,
     )
 
     data class Find(val string: SuperRegisterType, val substring: SuperRegisterType)
@@ -142,10 +142,10 @@ class Instruction {
      * @param argument3 The third argument register.
      */
     data class Syscall(
-        val systemCallNumber: SuperRegisterType,
-        val argument1: SuperRegisterType,
-        val argument2: SuperRegisterType,
-        val argument3: SuperRegisterType
+		val systemCallNumber: SuperRegisterType,
+		val argument1: SuperRegisterType,
+		val argument2: SuperRegisterType,
+		val argument3: SuperRegisterType
     )
 
     /**

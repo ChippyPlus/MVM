@@ -1,10 +1,10 @@
 package internals.systemCalls.calls
 
+import data.registers.enumIdenifiers.SuperRegisterType
+import environment.VMErrors
+import errors
+import helpers.fullRegisterRead
 import internals.systemCalls.SystemCall
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.environment.VMErrors
-import org.example.errors
-import org.example.helpers.fullRegisterRead
 import kotlin.system.exitProcess
 
 @Suppress("RemoveExplicitTypeArguments")

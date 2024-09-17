@@ -3,10 +3,10 @@
 package internals.systemCalls.calls
 
 import internals.systemCalls.SystemCall
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.environment.VMErrors
-import org.example.errors
-import org.example.helpers.fullRegisterWrite
+import data.registers.enumIdenifiers.SuperRegisterType
+import environment.VMErrors
+import errors
+import helpers.fullRegisterWrite
 
 fun SystemCall.getTimeOfday(): Unit = try {
     fullRegisterWrite(register = SuperRegisterType.R2, value = System.currentTimeMillis())

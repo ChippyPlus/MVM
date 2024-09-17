@@ -1,14 +1,14 @@
 package internals.systemCalls.calls
 
+import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.enumIdenifiers.SuperRegisterType.R2
+import errors
+import fileDescriptors
+import helpers.VMFile
+import helpers.fullRegisterRead
+import helpers.fullRegisterWrite
+import helpers.writeRegisterString
 import internals.systemCalls.SystemCall
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.data.registers.enumIdenifiers.SuperRegisterType.R2
-import org.example.errors
-import org.example.fileDescriptors
-import org.example.helpers.VMFile
-import org.example.helpers.fullRegisterRead
-import org.example.helpers.fullRegisterWrite
-import org.example.helpers.writeRegisterString
 
 @Suppress("RemoveExplicitTypeArguments")
 fun SystemCall.readFile(fd: SuperRegisterType, buffer: SuperRegisterType): Unit = try {

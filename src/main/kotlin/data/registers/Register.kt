@@ -1,4 +1,4 @@
-package org.example.data.registers
+package data.registers
 
 open class Registers(
     genRegisters: GeneralRegisters = GeneralRegisters(),

@@ -1,11 +1,11 @@
 package internals.instructions.bitwise
 
 
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.data.registers.enumIdenifiers.SuperRegisterType.R3
-import org.example.errors
-import org.example.helpers.fullRegisterRead
-import org.example.helpers.fullRegisterWrite
+import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.enumIdenifiers.SuperRegisterType.R3
+import errors
+import helpers.fullRegisterRead
+import helpers.fullRegisterWrite
 
 
 fun Bitwise.xor(operand1: SuperRegisterType, operand2: SuperRegisterType): Unit = try {

@@ -1,9 +1,9 @@
 package internals.instructions.strings
 
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.environment.VMErrors
-import org.example.errors
-import org.example.helpers.writeRegisterString
+import data.registers.enumIdenifiers.SuperRegisterType
+import environment.VMErrors
+import errors
+import helpers.writeRegisterString
 
 
 fun Strings.str(targetAddress: SuperRegisterType, string: String): Unit = try {

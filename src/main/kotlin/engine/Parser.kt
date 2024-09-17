@@ -1,10 +1,10 @@
-package org.example.engine
+package engine
 
+import data.registers.enumIdenifiers.SuperRegisterType
+import errors
+import helpers.toSuperRegisterType
 import internals.instructions.Instruction
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.errors
-import org.example.helpers.toMemoryAddress
-import org.example.helpers.toSuperRegisterType
+import helpers.toMemoryAddress
 import java.io.File
 
 fun parser(file: File): MutableList<Any> {
@@ -22,7 +22,7 @@ fun parser(file: File): MutableList<Any> {
         when (val instruction = line[0]) {
 
 
-            "STRCPY" -> { // String Copy
+            "STRCPY" -> {
                 out.add(Instruction.StrCpy(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
             }
 
@@ -49,7 +49,7 @@ fun parser(file: File): MutableList<Any> {
                 )
             }
 
-            "FIND" -> { // Find Substring
+            "FIND" -> {
                 out.add(
                     Instruction.Find(
                         line[1].toSuperRegisterType(), line[2].toSuperRegisterType()
@@ -82,105 +82,85 @@ fun parser(file: File): MutableList<Any> {
 
 
             "MOD" -> {
-                /** MOD G1 G2*/
                 out.add(Instruction.Mod(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
             }
 
             "EQ" -> {
-                /** EQ G1 G2*/
                 out.add(Instruction.Eq(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
             }
 
             "SHL" -> {
-                /** SHL G1 G2 */
                 out.add(Instruction.Shl(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
             }
 
             "SHR" -> {
-                /** SHR G1 G2 */
                 out.add(Instruction.Shr(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
             }
 
             "PEEK" -> {
-                /** PEEK R1 */
                 out.add(Instruction.Peek(line[1].toSuperRegisterType()))
             }
 
             "POP" -> {
-                /** POP R1 */
                 out.add(Instruction.Pop(line[1].toSuperRegisterType()))
             }
 
             "PUSH" -> {
-                /** PUSH R1 */
                 out.add(Instruction.Push(line[1].toSuperRegisterType()))
             }
 
             "PRINTS" -> {
-                /** PRINTS */
                 out.add(Instruction.Prints())
             }
 
             "DIV" -> {
-                /** DIV G1 G2 */
                 out.add(Instruction.Div(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
             }
 
 
             "AND" -> {
-                /** AND G1 G2 */
                 out.add(Instruction.And(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
             }
 
             "OR" -> {
-                /** OR G1 G2 */
                 out.add(Instruction.Or(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
             }
 
             "XOR" -> {
-                /** XOR G1 G2 */
                 out.add(Instruction.Xor(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
             }
 
             "NOT" -> {
-                /** NOT G1 G2 */
                 out.add(Instruction.Not(line[1].toSuperRegisterType()))
             }
 
 
             "STORE" -> {
-                /** STORE G1 10 */
                 out.add(Instruction.Store(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
             }
 
             "LOAD" -> {
-                /** LOAD 10 R1 */
                 out.add(Instruction.Load(line[1].toMemoryAddress(), line[2].toSuperRegisterType()))
             }
 
 
             "LIT" -> {
-                /** LIT G1 10 */
                 out.add(Instruction.Lit(line[1].toSuperRegisterType(), line[2].toLong()))
             }
 
             "JMP" -> {
-                /** JMP 4 */
                 out.add(Instruction.Jmp(line[1].toInt()))
             }
 
             "JZ" -> {
-                /** JZ 4 R1 */
                 out.add(Instruction.Jz(line[1].toInt(), line[2].toSuperRegisterType()))
             }
 
             "JNZ" -> {
-                /** JNZ 4 R1 */
                 out.add(Instruction.Jnz(line[1].toInt(), line[2].toSuperRegisterType()))
             }
 
             "MOV" -> {
-                /** MOV G3 S4 */
                 out.add(Instruction.Mov(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
             }
 

@@ -1,9 +1,9 @@
-package org.example.helpers
+package helpers
 
-import org.example.data.memory.MemoryAddress
-import org.example.data.memory.MemoryValue
-import org.example.errors
-import org.example.internalMemory
+import data.memory.MemoryAddress
+import data.memory.MemoryValue
+import errors
+import internalMemory
 
 fun writeStringSpecInMemory(string: String, destinationAddress: MemoryAddress) {
     val allocMem = string.length

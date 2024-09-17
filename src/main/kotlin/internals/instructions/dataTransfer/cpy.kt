@@ -1,9 +1,9 @@
 package internals.instructions.dataTransfer
 
-import org.example.data.registers.enumIdenifiers.SuperRegisterType
-import org.example.errors
-import org.example.helpers.fullRegisterRead
-import org.example.helpers.fullRegisterWrite
+import data.registers.enumIdenifiers.SuperRegisterType
+import errors
+import helpers.fullRegisterRead
+import helpers.fullRegisterWrite
 
 fun DataTransfer.cpy(register1: SuperRegisterType, register2: SuperRegisterType): Any = try {
     run {
