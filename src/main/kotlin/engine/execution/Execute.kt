@@ -21,15 +21,10 @@ import internals.instructions.stackOperations.push
 import internals.instructions.strings.*
 import kvm
 import java.io.File
-import java.util.*
 
 class Execute {
 
-	/**
-	 * @param command please only give this argument from `org.example.Engine.Execute.parser`
 
-	 */
-	val loopData = LoopData()
 	private fun run(command: MutableList<Instruction>) {
 		while (true) {
 			kvm.pc++
@@ -77,10 +72,6 @@ class Execute {
 		}
 	}
 
-	inner class LoopData {
-		val loopStack: Stack<MutableList<List<String>>> = Stack()
-		val indented = mutableListOf<List<List<String>>>()
-	}
 
 	fun execute(file: File) {
 		val tokens = parser(file)
