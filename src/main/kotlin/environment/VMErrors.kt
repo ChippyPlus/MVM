@@ -24,108 +24,106 @@ class VMErrors {
         exitProcess(3)
     }
 
+    fun InvalidSystemCallException(message: String) {
+        System.err.println("$prefix${kvm.pc}: Invalid System Call \"${message}\"")
+        exitProcess(4)
+    }
+
     fun StackOverflowException() {
         System.err.println("$prefix${kvm.pc}: Stack Overflow Exception")
-        exitProcess(4)
+        exitProcess(5)
     }
 
     fun EmptyStackException() {
         System.err.println("$prefix${kvm.pc}: Empty Stack Exception")
-        exitProcess(5)
+        exitProcess(6)
     }
 
     fun GeneralArithmeticException(message: String) {
         System.err.println("$prefix${kvm.pc}: General Arithmetic Exception \"$message operation failed\"")
-        exitProcess(6)
+        exitProcess(7)
     }
 
 
     fun SystemCallGeneralException(message: String) {
         System.err.println("$prefix${kvm.pc}: System Call General Exception \"$message operation failed\"")
-        exitProcess(7)
+        exitProcess(8)
     }
 
     fun FileAccessException() {
         System.err.println("$prefix${kvm.pc}: File Access Exception")
-        exitProcess(8)
+        exitProcess(9)
     }
 
     fun SocketException() {
         System.err.println("$prefix${kvm.pc}: Socket Exception")
-        exitProcess(9)
+        exitProcess(10)
     }
 
-    fun MemoryAllocationException(message: String? = null) {
-        if (message != null) {
-            System.err.println("$prefix${kvm.pc}: Memory Allocation Exception \"$message\"")
-        } else {
-            System.err.println("$prefix${kvm.pc}: Memory Allocation Exception")
-        }
-        exitProcess(10)
+    fun MemoryAllocationException(message: String) {
+        System.err.println("$prefix${kvm.pc}: Memory Allocation Exception \"$message\"")
+        exitProcess(11)
     }
 
     fun InvalidInstructionArgumentException(message: String) {
         System.err.println("$prefix${kvm.pc}: Invalid Instruction Argument \"$message\"")
-        exitProcess(11)
+        exitProcess(12)
     }
 
     fun NullRegisterException(message: SuperRegisterType) {
         System.err.println("$prefix${kvm.pc}: Null Register of \"$message\"")
-        exitProcess(12)
+        exitProcess(13)
     }
 
     fun NullAddressException(message: MemoryAddress) {
         System.err.println("$prefix${kvm.pc}: Null Address of \"$message\"")
-        exitProcess(13)
+        exitProcess(14)
     }
 
     fun InvalidFileDescriptorException(message: String) {
         System.err.println("$prefix${kvm.pc}: Invalid File Descriptor of \"$message\"")
-        exitProcess(14)
+        exitProcess(15)
     }
 
     fun NotFreeMemoryException(message: String) {
         System.err.println("$prefix${kvm.pc}: Address \"$message\" is not free Memory")
-        exitProcess(15)
+        exitProcess(16)
     }
 
     fun GeneralBitwiseException(message: String) {
         System.err.println("$prefix${kvm.pc}: General Bitwise Exception \"$message operation failed\"")
-        exitProcess(16)
+        exitProcess(17)
     }
 
     fun GeneralControlFlowException(message: String) {
         System.err.println("$prefix${kvm.pc}: General ControlFlow Exception \"$message operation failed\"")
-        exitProcess(17)
+        exitProcess(18)
     }
 
     fun GeneralDataTransferException(message: String) {
         System.err.println("$prefix${kvm.pc}: General DataTransfer Exception \"$message operation failed\"")
-        exitProcess(18)
+        exitProcess(19)
     }
 
     fun GeneralIoAbstractionsException(message: String) {
         System.err.println("$prefix${kvm.pc}: General IoAbstractions Exception \"$message operation failed\"")
-        exitProcess(19)
+        exitProcess(20)
     }
 
     fun GeneralMemoryException(message: String) {
         System.err.println("$prefix${kvm.pc}: General Memory Exception \"$message operation failed\"")
-        exitProcess(20)
+        exitProcess(21)
     }
 
     fun GeneralStackOperationsException(message: String) {
         System.err.println("$prefix${kvm.pc}: General Stack Operation \"$message operation failed\"")
-        exitProcess(21)
+        exitProcess(22)
     }
 
     fun GeneralStringException(message: String) {
         System.err.println("$prefix${kvm.pc}: General Strings Exception \"$message operation failed\"")
-        exitProcess(22)
+        exitProcess(23)
     }
 
-    fun InvalidSystemCallException(message: String) {
-        System.err.println("$prefix${kvm.pc}: Invalid System Call \"${message}\"")
-        exitProcess(3)
-    }
+
 }
