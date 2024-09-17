@@ -6,7 +6,9 @@ Welcome to the MVM (Micro Virtual Machine) project! This is an experimental virt
 
 
 **PLEASE LOOK**   
-Keep in mind that this project is **STILL IN THE PROGRESS** and may parts are unfinished. I recomend you look into the code yourself to see whats implimented   
+Keep in mind that this project is **STILL IN THE PROGRESS** and may parts are unfinished. I recomend you look into the code yourself to see whats implimented.   
+AND These docs are being changed. For instance some of the syscall/instruction tables are wrong because they are busy being changed in production   
+
 
 ## Project Overview
 
