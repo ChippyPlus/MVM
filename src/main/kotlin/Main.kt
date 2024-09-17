@@ -4,6 +4,7 @@ import data.registers.Registers
 import debugger.DebugEngine
 import debugger.encoding.DebugFile
 import engine.execution.Execute
+import engine.parser
 import environment.VMErrors
 import internals.Kvm
 import kotlinx.serialization.json.Json
@@ -26,5 +27,6 @@ val execute = Execute()
 val f = File("src/main/resources/main.kar")
 fun main() {
 //    execute.execute(f)
+	execute.parser(f)
 
 }

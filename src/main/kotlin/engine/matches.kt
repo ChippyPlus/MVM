@@ -8,8 +8,17 @@ import helpers.toSuperRegisterType
 import internals.instructions.Instruction
 
 fun Execute.matches(line: MutableList<String>): Any {
-	return when (val instruction = line[0]) {
 
+	return when (val instruction = line[0].removePrefix("	")) {
+
+		"LOOP" -> {
+			// Loop G1
+			val x = loopData.indented.first()
+
+			x.forEach {
+				println(it)
+			}
+		}
 
 		"STRCPY" -> { // String Copy
 			Instruction.StrCpy(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())

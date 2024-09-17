@@ -16,17 +16,12 @@ fun Execute.parser(file: File): MutableList<Any> {
 		}
 		tokens.add(_lineParts)
 	}
-	for (line in tokens) {
 
-	}
-
-	val loopStack: Stack<MutableList<List<String>>> = Stack()
-	val indented = mutableListOf<List<List<String>>>()
+	val loopStack: Stack<MutableList<List<String>>> = loopData.loopStack
+	val indented: MutableList<List<List<String>>> = loopData.indented
 
 	for (line in tokens) {
-		if (line.isNotEmpty() && line[0].isNotEmpty() && line[0][0].code == 9 && line[0] != (9).toChar()
-				.toString()
-		) {
+		if (line.isNotEmpty() && line[0].isNotEmpty() && line[0][0].code == 9 && line[0] != (9).toChar().toString()) {
 			val indentedInstruction = line.map {
 				if (it[0].code == 9) it.substring(1) else it
 			}
@@ -41,6 +36,12 @@ fun Execute.parser(file: File): MutableList<Any> {
 		}
 
 	}
+
+	for (line in tokens) {
+		out.add(this.matches(line))
+	}
+
+
 
 	while (loopStack.isNotEmpty()) {
 		indented.add(loopStack.pop())
