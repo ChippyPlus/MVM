@@ -7,7 +7,12 @@ import internals.systemCalls.calls.*
 
 
 class SystemCall {
-    fun execute(callId: SuperRegisterType, s2: SuperRegisterType, s3: SuperRegisterType, s4: SuperRegisterType) {
+    fun execute(
+        callId: SuperRegisterType,
+        s2: SuperRegisterType,
+        s3: SuperRegisterType,
+        @Suppress("UNUSED_PARAMETER") s4: SuperRegisterType,
+    ) {
         when (fullRegisterRead(callId).toInt()) {
             1 -> readFile(s2, s3)
             2 -> writeFile(s2, s3)

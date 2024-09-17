@@ -15,8 +15,4 @@ class FileDescriptors {
         return fd
     }
 
-    fun removeFileDescriptor(fd: Long) {
-        fds.remove(fd)
-    }
-
 }
