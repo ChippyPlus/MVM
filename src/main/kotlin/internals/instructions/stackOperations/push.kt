@@ -6,6 +6,12 @@ import errors
 import helpers.fullRegisterRead
 
 
+/**
+ * Pushes the value from the specified register onto the stack.
+ *
+ * @param registerType The register containing the value to push.
+ * @throws GeneralStackOperationsException If an error occurs during the push operation (e.g., stack overflow).
+ */
 fun StackOperations.push(registerType: SuperRegisterType) = try {
     @Suppress("UNNECESSARY_NOT_NULL_ASSERTION") this@push.internalStack!!.push(element = fullRegisterRead(register = registerType))
 } catch (_: Exception) {
