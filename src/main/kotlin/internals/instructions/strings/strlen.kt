@@ -9,6 +9,12 @@ import helpers.fullRegisterRead
 import helpers.fullRegisterWrite
 import internalMemory
 
+/**
+ * Calculates the length of a null-terminated string and stores it in the `R4` register.
+ *
+ * @param addressRegister The register containing the memory address of the first character of the string.
+ * @throws GeneralStringException If an error occurs during the string length calculation.
+ */
 fun Strings.strlen(addressRegister: SuperRegisterType): Unit = try {
     @Suppress("RedundantExplicitType") val index: Long = 0L
     while (true) {

@@ -7,6 +7,14 @@ import helpers.fullRegisterRead
 import helpers.readRegisterString
 import helpers.writeStringSpecInMemory
 
+/**
+ * Copies a string from one memory location to another.
+ *
+ * @param source The register containing the memory address of the source string.
+ * @param destination The register containing the memory address of the destination location.
+ * @throws GeneralStringException If an error occurs during the string copy.
+ */
+
 fun Strings.strcpy(source: SuperRegisterType, destination: SuperRegisterType): Unit = try {
     val string: String = readRegisterString(register = source)
     val destinationAddress: Long = fullRegisterRead(register = destination)
