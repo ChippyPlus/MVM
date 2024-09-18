@@ -5,12 +5,24 @@ import errors
 import helpers.toSuperRegisterType
 import kotlin.system.exitProcess
 
+/**
+ * Represents the set of system registers in the virtual machine.
+ *
+ * System registers are primarily used for handling system calls and storing system-related information.
+ */
 class SystemRegisters {
     var s1: Long? = null
     var s2: Long? = null
     var s3: Long? = null
     var s4: Long? = null
 
+    /**
+     * Reads the value from the specified system register.
+     *
+     * @param registers The [SystemRegisterType] to read from.
+     * @return The value stored in the register as a [Long].
+     * @throws NullRegisterException If the register has not been initialised (has a null value).
+     */
     fun read(registers: SystemRegisterType): Long {
         try {
             return when (registers) {
@@ -25,7 +37,12 @@ class SystemRegisters {
         }
     }
 
-
+    /**
+     * Writes a value to the specified system register.
+     *
+     * @param registers The [SystemRegisterType] to write to.
+     * @param value The [Long] value to write to the register.
+     */
     fun write(registers: SystemRegisterType, value: Long) {
         when (registers) {
             SystemRegisterType.S1 -> s1 = value
