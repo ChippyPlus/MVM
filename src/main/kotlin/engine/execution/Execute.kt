@@ -22,7 +22,19 @@ import internals.instructions.strings.*
 import kvm
 import java.io.File
 
+/**
+ * The class responsible for executing parsed instructions.
+ */
 class Execute {
+
+    /**
+     * Executes a list of parsed [Instruction] objects.
+     *
+     * This function represents the main execution loop of the virtual machine.
+     * It iterates through the instructions, executes them one by one, and handles control flow.
+     *
+     * @param command The list of instructions to execute.
+     */
     private fun run(command: MutableList<Instruction>) {
         while (true) {
             kvm.pc++
@@ -70,13 +82,14 @@ class Execute {
         }
     }
 
+    /**
+     * Parses and executes the instructions from the specified file.
+     *
+     * @param file The file containing the assembly code to execute.
+     */
     fun execute(file: File) {
         val tokens = parser(file)
         @Suppress("UNCHECKED_CAST") ((tokens as? MutableList<Instruction>)?.let { run(it) })
-        /**
-         *  This may look strange but. It works for me
-         */
+        // This may look strange, but it's safe!
     }
-
-
 }
