@@ -7,6 +7,13 @@ import errors
 import helpers.fullRegisterRead
 import returnRegisters
 
+/**
+ * Subtracts the value in registerB from registerA and stores the result in the `R4` register.
+ *
+ * @param registerA The [SuperRegisterType] holding the minuend.
+ * @param registerB The [SuperRegisterType] holding the subtrahend.
+ * @throws GeneralArithmeticException If an arithmetic error occurs during the subtraction.
+ */
 
 fun Arithmetic.sub(registerA: SuperRegisterType, registerB: SuperRegisterType): Unit = try {
     val A: Long = fullRegisterRead(register = registerA)
