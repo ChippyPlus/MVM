@@ -1,4 +1,3 @@
-
 import data.io.FileDescriptors
 import data.memory.InternalMemory
 import data.registers.Registers
@@ -23,7 +22,7 @@ val systemRegisters = register.systemRegisters
 val returnRegisters = register.returnRegisters
 val generalRegisters = register.generalRegisters
 val execute = Execute()
-val f = File("src/main/resources/main.kar")
-fun main() {
+fun main(args: Array<String>) {
+    val f = File(args[0])
     execute.execute(f)
 }
