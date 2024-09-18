@@ -5,6 +5,11 @@ import kvm
 import java.io.File
 import java.util.*
 
+/**
+ * The debug engine responsible for executing debug instructions and generating debug output.
+ *
+ * @property debugFile The [DebugFile] containing the debugger configuration.
+ */
 class DebugEngine(val debugFile: DebugFile) {
     private val debugInstructions = DebugInstructions()
     private val eachInteractionInstruction = debugFile.eachIteration
@@ -12,6 +17,7 @@ class DebugEngine(val debugFile: DebugFile) {
     private val orderedLineInstructions: MutableList<Int> = emptyList<Int>().toMutableList()
 
     init {
+        // Create output directories for debug data if they don't exist, or clear them if they do.
         val root = "src/main/resources/debug/"
         val filePaths = arrayOf(
             "out",
@@ -36,7 +42,7 @@ class DebugEngine(val debugFile: DebugFile) {
             }
         }
 
-
+        // Initialize the stack for line-specific debug instructions
         debugFile.lineSpecific.keys.forEach { orderedLineInstructions.add(it.toInt()) }
         orderedLineInstructions.sortDescending()
         for (i in orderedLineInstructions) {
@@ -44,7 +50,12 @@ class DebugEngine(val debugFile: DebugFile) {
         }
     }
 
-
+    /**
+     * Executes debug instructions specified for the current line (if any).
+     *
+     * Checks if there are line-specific debug instructions for the current program counter (PC) value.
+     * If found, it pops the instruction from the stack and executes it.
+     */
     fun lineSpecific() {
         if (linesStack.isEmpty()) {
             return
@@ -55,7 +66,11 @@ class DebugEngine(val debugFile: DebugFile) {
         }
     }
 
-
+    /**
+     * Executes debug instructions specified for each iteration of the VM's execution loop.
+     *
+     * Iterates through the `eachIteration` instructions from the `debugFile` and executes them.
+     */
     fun eachInteraction() {
         for (instruction in eachInteractionInstruction) {
             val internalInstruction = instruction.split(" ")
@@ -63,12 +78,17 @@ class DebugEngine(val debugFile: DebugFile) {
         }
     }
 
+    /**
+     * Executes a single debug instruction.
+     *
+     * @param internalInstruction The debug instruction, split into parts (command and arguments).
+     * @param mode The execution mode ([DebugInstructionModes.Line] or [DebugInstructionModes.Iterator]).
+     */
     fun execute(internalInstruction: List<String>, mode: DebugInstructionModes) {
         when (internalInstruction[0]) {
             "registers" -> debugInstructions.registers(mode)
             "memoryRange" -> debugInstructions.memoryRange(
-                internalInstruction[1].toLong(),
-                internalInstruction[2].toLong(), mode
+                internalInstruction[1].toLong(), internalInstruction[2].toLong(), mode
             )
 
             "stack" -> debugInstructions.stack(mode)

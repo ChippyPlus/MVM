@@ -14,8 +14,20 @@ import returnRegisters
 import systemRegisters
 import java.io.File
 
+/**
+ * Defines and executes actions for debug instructions.
+ *
+ * This class provides functions for capturing and writing debug information,
+ * such as register values, memory ranges, stack contents, and file descriptors.
+ */
 class DebugInstructions {
-    val json = Json { prettyPrint = true }
+    private val json = Json { prettyPrint = true }
+
+    /**
+     * Captures the values of all registers and writes them to a JSON file.
+     *
+     * @param mode The execution mode, determining the output directory (Line or Iterator).
+     */
     fun registers(mode: DebugInstructionModes) {
         val data = mapOf(
             "G1" to generalRegisters.g1,
@@ -32,25 +44,22 @@ class DebugInstructions {
             "R4" to returnRegisters.r4
         )
         val location = when (mode) {
-            DebugInstructionModes.Iterator -> {
-                "each"
-            }
-
-            DebugInstructionModes.Line -> {
-                "lineSpecific"
-            }
-
+            DebugInstructionModes.Iterator -> "each"
+            DebugInstructionModes.Line -> "lineSpecific"
         }
         File("src/main/resources/debug/out/$location/registers/frame=${kvm.pc}.json").writeText(
-            json.encodeToString(
-                EachInstruction(
-                    kvm.pc.toString(), "registers", data
-                )
-            )
+            json.encodeToString(EachInstruction(kvm.pc.toString(), "registers", data))
         )
     }
 
-
+    /**
+     * Captures the values of a specified memory range and writes them to a JSON file.
+     *
+     * @param a The starting address of the memory range.
+     * @param b The ending address of the memory range.
+     * @param mode The execution mode, determining the output directory (Line or Iterator).
+     * @throws MemoryAllocationException If the end address is out of the allocated memory bounds.
+     */
     fun memoryRange(a: Long, b: Long, mode: DebugInstructionModes) {
         val memMap = emptyMap<String, Long?>().toMutableMap()
         if (MEMORY_LIMIT <= b) {
@@ -60,14 +69,8 @@ class DebugInstructions {
             memMap[address.toString()] = internalMemory.memory[MemoryAddress(address)]?.value
         }
         val location = when (mode) {
-            DebugInstructionModes.Iterator -> {
-                "each"
-            }
-
-            DebugInstructionModes.Line -> {
-                "lineSpecific"
-            }
-
+            DebugInstructionModes.Iterator -> "each"
+            DebugInstructionModes.Line -> "lineSpecific"
         }
 
         File("src/main/resources/debug/out/$location/memoryRange/frame=${kvm.pc}.json").writeText(
@@ -75,18 +78,17 @@ class DebugInstructions {
         )
     }
 
+    /**
+     * Captures the current state of file descriptors and writes them to a JSON file.
+     *
+     * @param mode The execution mode, determining the output directory (Line or Iterator).
+     */
     fun descriptors(mode: DebugInstructionModes) {
         val data = emptyMap<String, Long?>().toMutableMap()
         fileDescriptors.fds.forEach { data[it.key.toString()] = it.key }
         val location = when (mode) {
-            DebugInstructionModes.Iterator -> {
-                "each"
-            }
-
-            DebugInstructionModes.Line -> {
-                "lineSpecific"
-            }
-
+            DebugInstructionModes.Iterator -> "each"
+            DebugInstructionModes.Line -> "lineSpecific"
         }
 
         File("src/main/resources/debug/out/$location/descriptors/frame=${kvm.pc}.json").writeText(
@@ -94,20 +96,16 @@ class DebugInstructions {
         )
     }
 
+    /**
+     * Captures the value at the top of the stack and writes it to a JSON file.
+     *
+     * @param mode The execution mode, determining the output directory (Line or Iterator).
+     */
     fun stack(mode: DebugInstructionModes) {
-
         val data = mapOf("current" to kvm.stackOperations.internalStack.inspect()[0])
-
-
         val location = when (mode) {
-            DebugInstructionModes.Iterator -> {
-                "each"
-            }
-
-            DebugInstructionModes.Line -> {
-                "lineSpecific"
-            }
-
+            DebugInstructionModes.Iterator -> "each"
+            DebugInstructionModes.Line -> "lineSpecific"
         }
 
         File("src/main/resources/debug/out/$location/stack/frame=${kvm.pc}.json").writeText(
@@ -115,4 +113,3 @@ class DebugInstructions {
         )
     }
 }
-
