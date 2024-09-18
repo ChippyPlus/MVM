@@ -31,9 +31,20 @@ class VMErrors {
      * @param message The invalid [MemoryAddress] accessed.
      */
     fun InvalidMemoryAddressException(message: MemoryAddress) {
-        System.err.println("$prefix${kvm.pc}: Out Of Bounds Memory Address \"${message.address}\"")
+        System.err.println("$prefix${kvm.pc}: Invalid Memory Address \"${message.address}\"")
         exitProcess(2)
     }
+
+    /**
+     * Reports an invalid memory address exception.
+     *
+     * @param message The invalid [MemoryAddress] in string form.
+     */
+    fun InvalidMemoryAddressException(message: String) {
+        System.err.println("$prefix${kvm.pc}: Invalid Memory Address \"${message}\"")
+        exitProcess(2)
+    }
+
 
     /**
      * Reports an invalid instruction exception.

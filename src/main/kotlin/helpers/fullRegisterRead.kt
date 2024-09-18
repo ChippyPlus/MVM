@@ -1,5 +1,6 @@
 package helpers
 
+
 import data.registers.enumIdenifiers.SuperRegisterType
 import data.registers.enumIdenifiers.toGeneralRegisterType
 import data.registers.enumIdenifiers.toReturnRegisterType
@@ -9,6 +10,17 @@ import generalRegisters
 import returnRegisters
 import systemRegisters
 import kotlin.system.exitProcess
+
+/**
+ * Reads the value from the specified register, regardless of its type.
+ *
+ * This function provides a unified way to access the value of any register ([SuperRegisterType])
+ * by internally converting it to the appropriate specific register type.
+ *
+ * @param register The register ([SuperRegisterType]) to read from.
+ * @return The value stored in the register as a [Long].
+ * @throws NullRegisterException If the register has not been initialized (has a null value).
+ */
 
 fun fullRegisterRead(register: SuperRegisterType): Long {
     return try {
