@@ -8,6 +8,13 @@ import helpers.fullRegisterRead
 import internalMemory
 import internals.systemCalls.SystemCall
 
+/**
+ * Writes a null-terminated string to the console.
+ *
+ * System call number: 24
+ *
+ * @param address The register containing the memory address of the start of the string (stored in register S2).
+ */
 fun SystemCall.writeIo(address: SuperRegisterType) = try {
     var index: Int = 0
     while (true) {

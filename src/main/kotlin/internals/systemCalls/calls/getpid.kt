@@ -6,6 +6,11 @@ import errors
 import helpers.fullRegisterWrite
 import internals.systemCalls.SystemCall
 
+/**
+ * Retrieves the process ID of the current process.
+ *
+ * System call number: 16
+ */
 @Suppress("RemoveExplicitTypeArguments")
 fun SystemCall.getPid(): Unit = try {
     fullRegisterWrite(
