@@ -5,6 +5,13 @@ import errors
 import helpers.fullRegisterRead
 import kvm
 
+/**
+ * Performs a conditional jump to the target address if the value in the test register is zero.
+ *
+ * @param targetAddress The target address (line number) to jump to.
+ * @param testRegister The register to check for a zero value.
+ * @throws GeneralControlFlowException If an error occurs during the jump operation.
+ */
 fun ControlFlow.jz(targetAddress: Int, testRegister: SuperRegisterType): Any = try {
     @Suppress("ReplaceCallWithBinaryOperator") if (fullRegisterRead(register = testRegister).equals(other = 0L)) {
         targetAddress.apply { kvm.pc = this@apply }
