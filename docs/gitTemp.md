@@ -82,5 +82,3 @@ To run this program, you would use one of the following commands:
 - **Using the alias** `mvm run myprogram.kar`
 This will execute the assembly code, and the output will be printed to the console.
 
-Now that you have MVM set up and running, you can start writing and executing your own assembly programs!  Refer to
-the [Instruction Table](Instruction-Table) for a detailed list of instructions and their syntax. 
