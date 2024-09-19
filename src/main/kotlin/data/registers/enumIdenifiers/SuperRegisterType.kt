@@ -65,10 +65,10 @@ fun SuperRegisterType.toReturnRegisterType(): ReturnRegisterType {
  */
 fun SuperRegisterType.toFloatingRegisterType(): FloatingRegisterType {
     return when (this) {
-        SuperRegisterType.R1 -> FloatingRegisterType.F1
-        SuperRegisterType.R2 -> FloatingRegisterType.F2
-        SuperRegisterType.R3 -> FloatingRegisterType.F3
-        SuperRegisterType.R4 -> FloatingRegisterType.F4
+        SuperRegisterType.F1 -> FloatingRegisterType.F1
+        SuperRegisterType.F2 -> FloatingRegisterType.F2
+        SuperRegisterType.F3 -> FloatingRegisterType.F3
+        SuperRegisterType.F4 -> FloatingRegisterType.F4
         else -> error("Invalid SuperRegisterType \"$this\" for returnRegister")
     }
 }
