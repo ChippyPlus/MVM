@@ -1,19 +1,11 @@
 plugins {
     kotlin("jvm") version "2.0.20"
     kotlin("plugin.serialization") version "2.0.20"
-
 }
-
 
 group = "org.example"
-
-tasks.jar {
-    manifest.attributes["Main-Class"] = "org.example.MainKt"
-    manifest.attributes["Class-Path"] = configurations.runtimeClasspath.get().joinToString(separator = " ") { file ->
-        "libs/${file.name}"
-    }
-}
 version = "1.0-SNAPSHOT"
+
 
 repositories {
     mavenCentral()
@@ -22,16 +14,29 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
     implementation(kotlin("stdlib"))
-    testImplementation(kotlin("test-junit5"))
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.2")
-
     implementation(kotlin("reflect"))
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.1")
-
 }
 
+tasks.jar {
+    manifest.attributes["Main-Class"] = "MainKt"
+}
 
-tasks.test {
-    useJUnitPlatform()
+val fatJar = tasks.create("FatJar", Jar::class) {
+    group = "better build"
+    description = "Creates a self-contained fat JAR."
+    manifest.attributes["Main-Class"] = "MainKt"
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    repositories {
+        mavenCentral()
+    }
+
+    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+    with(tasks.jar.get())
+}
+tasks {
+    "build" {
+        dependsOn(fatJar)
+    }
 }

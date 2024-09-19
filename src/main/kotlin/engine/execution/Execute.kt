@@ -1,6 +1,6 @@
 package engine.execution
 
-import debugEngine
+import debugger.DebugEngine
 import engine.parser
 import internals.instructions.Instruction
 import internals.instructions.arithmetic.*
@@ -35,11 +35,13 @@ class Execute {
      *
      * @param command The list of instructions to execute.
      */
-    private fun run(command: MutableList<Instruction>) {
+    private fun run(command: MutableList<Instruction>, usingDebugEngine: DebugEngine? = null) {
         while (true) {
             kvm.pc++
-            debugEngine.eachInteraction()
-            debugEngine.lineSpecific()
+            if (usingDebugEngine != null) {
+                usingDebugEngine.eachInteraction()
+                usingDebugEngine.lineSpecific()
+            }
             if (kvm.pc - 1L == command.size.toLong()) {
                 break
             }
@@ -87,7 +89,7 @@ class Execute {
      *
      * @param file The file containing the assembly code to execute.
      */
-    fun execute(file: File) {
+    fun execute(file: File, usingDebugTools: DebugEngine? = null) {
         val tokens = parser(file)
         @Suppress("UNCHECKED_CAST") ((tokens as? MutableList<Instruction>)?.let { run(it) })
         // This may look strange, but it's safe!

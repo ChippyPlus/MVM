@@ -3,6 +3,7 @@ package debugger
 import debugger.encoding.DebugFile
 import kvm
 import java.io.File
+import java.nio.file.Paths
 import java.util.*
 
 /**
@@ -17,8 +18,7 @@ class DebugEngine(val debugFile: DebugFile) {
     private val orderedLineInstructions: MutableList<Int> = emptyList<Int>().toMutableList()
 
     init {
-        // Create output directories for debug data if they don't exist, or clear them if they do.
-        val root = "src/main/resources/debug/"
+        val root = Paths.get("").toAbsolutePath().toString()
         val filePaths = arrayOf(
             "out",
             "out/each",
@@ -33,7 +33,7 @@ class DebugEngine(val debugFile: DebugFile) {
             "out/each/descriptors",
         )
         for (_f in filePaths) {
-            val file = File("$root/$_f")
+            val file = File("$root/debug/$_f")
             if (file.exists().not()) {
                 file.mkdir()
             } else {
