@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "2.0.20"
     kotlin("plugin.serialization") version "2.0.20"
+    application
 }
 
 group = "org.example"
@@ -35,6 +36,22 @@ val fatJar = tasks.create("FatJar", Jar::class) {
     from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
     with(tasks.jar.get())
 }
+
+application {
+    mainClass.set("MainKt")
+}
+
+tasks.register<JavaExec>("r") {
+    group = "execution"
+    description = "Runs the MVM from the fat JAR."
+
+    dependsOn(fatJar)
+
+    classpath = files(fatJar.archiveFile)
+    mainClass.set(application.mainClass.get())
+
+}
+
 tasks {
     "build" {
         dependsOn(fatJar)
