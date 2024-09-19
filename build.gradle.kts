@@ -9,7 +9,9 @@ version = "1.0-SNAPSHOT"
 
 kotlin {
     jvmToolchain(17)
+    compilerOptions.suppressWarnings = true
 }
+
 
 repositories {
     mavenCentral()
