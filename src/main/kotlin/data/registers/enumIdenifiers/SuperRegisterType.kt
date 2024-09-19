@@ -6,7 +6,7 @@ package data.registers.enumIdenifiers
  * This enumeration allows for a unified way to refer to any register type, regardless of its specific category (General, System, or Return).
  */
 enum class SuperRegisterType {
-    G1, G2, G3, G4, S1, S2, S3, S4, R1, R2, R3, R4;
+    G1, G2, G3, G4, S1, S2, S3, S4, R1, R2, R3, R4, F1, F2, F3, F4;
 }
 
 /**
@@ -58,6 +58,23 @@ fun SuperRegisterType.toReturnRegisterType(): ReturnRegisterType {
 }
 
 /**
+ * Converts this [SuperRegisterType] to a [FloatingRegisterType], if applicable.
+ *
+ * @return The corresponding [ReturnRegisterType].
+ * @throws IllegalStateException if this [SuperRegisterType] is not a return register.
+ */
+fun SuperRegisterType.toFloatingRegisterType(): FloatingRegisterType {
+    return when (this) {
+        SuperRegisterType.R1 -> FloatingRegisterType.F1
+        SuperRegisterType.R2 -> FloatingRegisterType.F2
+        SuperRegisterType.R3 -> FloatingRegisterType.F3
+        SuperRegisterType.R4 -> FloatingRegisterType.F4
+        else -> error("Invalid SuperRegisterType \"$this\" for returnRegister")
+    }
+}
+
+
+/**
  * Converts this [SuperRegisterType] to its specific register type ([GeneralRegisterType], [SystemRegisterType], or [ReturnRegisterType]).
  *
  * @return The corresponding register type.
@@ -78,5 +95,9 @@ fun SuperRegisterType.toRegisterType(): Any {
         SuperRegisterType.R2 -> ReturnRegisterType.R2
         SuperRegisterType.R3 -> ReturnRegisterType.R3
         SuperRegisterType.R4 -> ReturnRegisterType.R4
+        SuperRegisterType.F1 -> FloatingRegisterType.F1
+        SuperRegisterType.F2 -> FloatingRegisterType.F2
+        SuperRegisterType.F3 -> FloatingRegisterType.F3
+        SuperRegisterType.F4 -> FloatingRegisterType.F4
     }
 }
