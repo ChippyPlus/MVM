@@ -20,18 +20,23 @@ class DebugEngine(val debugFile: DebugFile) {
     init {
         val root = Paths.get("").toAbsolutePath().toString()
         val filePaths = arrayOf(
-            "out",
-            "out/each",
-            "out/each/memoryRange",
-            "out/each/registers",
-            "out/lineSpecific",
-            "out/lineSpecific/memoryRange",
-            "out/lineSpecific/registers",
-            "out/lineSpecific/stack",
-            "out/each/stack",
-            "out/lineSpecific/descriptors",
-            "out/each/descriptors",
+            "each",
+            "each/memoryRange",
+            "each/registers",
+            "lineSpecific",
+            "lineSpecific/memoryRange",
+            "lineSpecific/registers",
+            "lineSpecific/stack",
+            "each/stack",
+            "lineSpecific/descriptors",
+            "each/descriptors",
         )
+        if (File("${root}/debug").exists().not()) {
+            File("${root}/debug").mkdir()
+        } else {
+            File("${root}/debug").deleteRecursively()
+            File("${root}/debug").mkdir()
+        }
         for (_f in filePaths) {
             val file = File("$root/debug/$_f")
             if (file.exists().not()) {

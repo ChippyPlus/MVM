@@ -43,7 +43,12 @@ fun main(args: Array<String>) {
                 exitProcess(1)
             }
             val debugEngine = DebugEngine(Json.decodeFromString<DebugFile>(File(args[1]).readText()))
-            execute.execute(File(args[2]), usingDebugTools = debugEngine)
+            execute.execute(File(args[2]), debugEngine)
+        }
+
+        else -> {
+            println("Usage: mvm <command> <arguments...>")
+            exitProcess(1)
         }
     }
 }

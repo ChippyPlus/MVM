@@ -39,6 +39,7 @@ class Execute {
         while (true) {
             kvm.pc++
             if (usingDebugEngine != null) {
+                println("USING DEBUG")
                 usingDebugEngine.eachInteraction()
                 usingDebugEngine.lineSpecific()
             }
@@ -91,7 +92,11 @@ class Execute {
      */
     fun execute(file: File, usingDebugTools: DebugEngine? = null) {
         val tokens = parser(file)
-        @Suppress("UNCHECKED_CAST") ((tokens as? MutableList<Instruction>)?.let { run(it) })
+        @Suppress("UNCHECKED_CAST") ((tokens as? MutableList<Instruction>)?.let {
+            run(
+                it, usingDebugEngine = usingDebugTools
+            )
+        })
         // This may look strange, but it's safe!
     }
 }
