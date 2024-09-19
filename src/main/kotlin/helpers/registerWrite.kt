@@ -21,7 +21,7 @@ import kotlin.system.exitProcess
  * @throws InvalidRegisterException If the register is a floating point number
  *
  */
-fun fullRegisterWrite(register: SuperRegisterType, value: Long) {
+fun registerWrite(register: SuperRegisterType, value: Long) {
     when (register) {
         SuperRegisterType.G1 -> generalRegisters.write(register.toGeneralRegisterType(), value)
         SuperRegisterType.G2 -> generalRegisters.write(register.toGeneralRegisterType(), value)

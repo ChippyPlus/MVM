@@ -3,7 +3,7 @@ package internals.instructions.stackOperations
 import data.registers.enumIdenifiers.SuperRegisterType
 import environment.VMErrors
 import errors
-import helpers.fullRegisterWrite
+import helpers.registerWrite
 
 /**
  * Pushes the value from the specified register onto the stack.
@@ -13,7 +13,7 @@ import helpers.fullRegisterWrite
  */
 fun StackOperations.peek(destination: SuperRegisterType) = try {
     @Suppress("UNUSED_VARIABLE") val value = internalStack.peek().apply<Long> {
-        fullRegisterWrite(
+        registerWrite(
             register = destination, value = this@apply
         )
     }

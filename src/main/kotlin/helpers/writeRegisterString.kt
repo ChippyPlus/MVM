@@ -42,7 +42,7 @@ fun writeRegisterString(register: SuperRegisterType, string: String): Long {
     }
 
     if (spot != null) {
-        fullRegisterWrite(register, spot.toLong())
+        registerWrite(register, spot.toLong())
     } else {
         errors.MemoryAllocationException("Could not allocate memory for string: $string")
     }

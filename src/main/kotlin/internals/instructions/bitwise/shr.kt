@@ -3,8 +3,8 @@ package internals.instructions.bitwise
 import data.registers.enumIdenifiers.SuperRegisterType
 import data.registers.enumIdenifiers.SuperRegisterType.R3
 import errors
-import helpers.fullRegisterRead
-import helpers.fullRegisterWrite
+import helpers.registerRead
+import helpers.registerWrite
 
 /**
  * Performs a logical right shift operation on the value in the operand register by the amount specified in the shift amount register,
@@ -16,9 +16,9 @@ import helpers.fullRegisterWrite
  */
 
 fun Bitwise.shr(operand1: SuperRegisterType, operand2: SuperRegisterType): Unit = try {
-    fullRegisterWrite(
-        register = R3, value = fullRegisterRead(register = operand1).shr(
-            bitCount = fullRegisterRead(
+    registerWrite(
+        register = R3, value = registerRead(register = operand1).shr(
+            bitCount = registerRead(
                 register = operand2
             ).toInt()
         )

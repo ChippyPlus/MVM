@@ -2,7 +2,7 @@ package internals.instructions.ioAbstractions
 
 import data.registers.enumIdenifiers.SuperRegisterType
 import errors
-import helpers.fullRegisterRead
+import helpers.registerRead
 
 
 /**
@@ -11,7 +11,7 @@ import helpers.fullRegisterRead
  * @throws GeneralIoAbstractionsException If an error occurs during the printing operation.
  */
 fun IoAbstractions.printr(register: SuperRegisterType): Unit = try {
-    println(message = fullRegisterRead(register = register))
+    println(message = registerRead(register = register))
 } catch (_: Exception) {
     errors.run { GeneralIoAbstractionsException(message = "printr") }
 }

@@ -19,6 +19,7 @@ val errors = VMErrors()
 val fileDescriptors = FileDescriptors()
 val register = Registers()
 val internalMemory = InternalMemory()
+val floatingRegisters = register.floatingRegisters
 val systemRegisters = register.systemRegisters
 val returnRegisters = register.returnRegisters
 val generalRegisters = register.generalRegisters

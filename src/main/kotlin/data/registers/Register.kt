@@ -7,13 +7,10 @@ package data.registers
  * @property returnRegisters The return registers.
  * @property systemRegisters The system registers.
  */
-open class Registers(
-    genRegisters: GeneralRegisters = GeneralRegisters(),
-    retRegisters: ReturnRegisters = ReturnRegisters(),
-    sysRegisters: SystemRegisters = SystemRegisters(),
-) {
+open class Registers {
 
-    val systemRegisters = sysRegisters
-    val generalRegisters = genRegisters
-    val returnRegisters = retRegisters
+    val systemRegisters = SystemRegisters()
+    val generalRegisters = GeneralRegisters()
+    val returnRegisters = ReturnRegisters()
+    val floatingRegisters = FloatingRegisters()
 }

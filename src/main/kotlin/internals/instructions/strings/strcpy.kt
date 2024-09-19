@@ -3,7 +3,7 @@ package internals.instructions.strings
 import data.memory.MemoryAddress
 import data.registers.enumIdenifiers.SuperRegisterType
 import errors
-import helpers.fullRegisterRead
+import helpers.registerRead
 import helpers.readRegisterString
 import helpers.writeStringSpecInMemory
 
@@ -17,7 +17,7 @@ import helpers.writeStringSpecInMemory
 
 fun Strings.strcpy(source: SuperRegisterType, destination: SuperRegisterType): Unit = try {
     val string: String = readRegisterString(register = source)
-    val destinationAddress: Long = fullRegisterRead(register = destination)
+    val destinationAddress: Long = registerRead(register = destination)
     writeStringSpecInMemory(
         string = string, destinationAddress = MemoryAddress(address = destinationAddress)
     )

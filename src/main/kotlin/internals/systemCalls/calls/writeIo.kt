@@ -4,7 +4,7 @@ import data.memory.MemoryAddress
 import data.memory.MemoryValue
 import data.registers.enumIdenifiers.SuperRegisterType
 import errors
-import helpers.fullRegisterRead
+import helpers.registerRead
 import internalMemory
 import internals.systemCalls.SystemCall
 
@@ -20,7 +20,7 @@ fun SystemCall.writeIo(address: SuperRegisterType) = try {
     while (true) {
 
         val byte: MemoryValue = internalMemory.read(
-            address = MemoryAddress(address = fullRegisterRead(register = address).plus(index))
+            address = MemoryAddress(address = registerRead(register = address).plus(index))
         )
         if (byte.value!!.equals(0L)) {
             break

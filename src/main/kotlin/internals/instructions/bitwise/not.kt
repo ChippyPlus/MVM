@@ -3,8 +3,8 @@ package internals.instructions.bitwise
 import data.registers.enumIdenifiers.SuperRegisterType
 import data.registers.enumIdenifiers.SuperRegisterType.R3
 import errors
-import helpers.fullRegisterRead
-import helpers.fullRegisterWrite
+import helpers.registerRead
+import helpers.registerWrite
 
 /**
  * Performs a bitwise NOT operation on the values in a register and stores the result in the `R3` register.
@@ -12,8 +12,8 @@ import helpers.fullRegisterWrite
  * @throws GeneralBitwiseException If an error occurs during the bitwise AND operation.
  */
 fun Bitwise.not(operand: SuperRegisterType) = try {
-    fullRegisterWrite(
-        register = R3, value = fullRegisterRead(register = operand).inv()
+    registerWrite(
+        register = R3, value = registerRead(register = operand).inv()
     )
 } catch (_: Exception) {
     with(errors) {

@@ -2,7 +2,7 @@ package internals.systemCalls
 
 import data.registers.enumIdenifiers.SuperRegisterType
 import errors
-import helpers.fullRegisterRead
+import helpers.registerRead
 import internals.systemCalls.calls.*
 
 /**
@@ -25,7 +25,7 @@ class SystemCall {
         s3: SuperRegisterType,
         @Suppress("UNUSED_PARAMETER") s4: SuperRegisterType,
     ) {
-        when (fullRegisterRead(callId).toInt()) {
+        when (registerRead(callId).toInt()) {
             1 -> readFile(s2, s3)
             2 -> writeFile(s2, s3)
             3 -> openFile(s2)
@@ -35,7 +35,7 @@ class SystemCall {
             16 -> getPid()
             17 -> getUid()
             24 -> writeIo(s2)
-            else -> errors.InvalidSystemCallException(fullRegisterRead(callId).toString())
+            else -> errors.InvalidSystemCallException(registerRead(callId).toString())
         }
     }
 }

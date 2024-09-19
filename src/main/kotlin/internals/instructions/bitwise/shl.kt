@@ -4,8 +4,8 @@ package internals.instructions.bitwise
 import data.registers.enumIdenifiers.SuperRegisterType
 import data.registers.enumIdenifiers.SuperRegisterType.R3
 import errors
-import helpers.fullRegisterRead
-import helpers.fullRegisterWrite
+import helpers.registerRead
+import helpers.registerWrite
 
 /**
  * Performs a logical left shift operation on the value in the operand register by the amount specified in the shift amount register,
@@ -16,9 +16,9 @@ import helpers.fullRegisterWrite
  * @throws GeneralBitwiseException If an error occurs during the left shift operation.
  */
 fun Bitwise.shl(operand1: SuperRegisterType, operand2: SuperRegisterType): Unit = try {
-    fullRegisterWrite(
-        register = R3, value = fullRegisterRead(register = operand1).shl(
-            bitCount = fullRegisterRead(
+    registerWrite(
+        register = R3, value = registerRead(register = operand1).shl(
+            bitCount = registerRead(
                 register = operand2
             ).toInt()
         )
