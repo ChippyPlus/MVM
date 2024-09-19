@@ -16,7 +16,7 @@ import kotlin.system.exitProcess
  */
 @Suppress("RemoveExplicitTypeArguments")
 fun SystemCall.exit(s2: SuperRegisterType): Unit = try {
-    val exitCode: Long = registerRead(register = s2)
+    val exitCode: Long = registerRead(register = s2) as Long
     exitProcess(status = with<Long, Int>(receiver = exitCode) { return@with this.run<Long, Int>(block = Long::toInt) })
 } catch (_: Exception) {
     errors.run<VMErrors, Unit> {

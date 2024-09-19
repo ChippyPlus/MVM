@@ -21,7 +21,7 @@ fun writeRegisterString(register: SuperRegisterType, string: String): Long {
     val possibleStarts = emptyMap<Long?, Any?>().toMutableMap()
 
     internalMemory.memory.forEach {
-        possibleStarts[it.key.address] = it.value.value
+        possibleStarts[it.key.address as Long?] = it.value.value
     }
     possibleStarts.filter { it.value == 0 }
     val allocMem = string.length

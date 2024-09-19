@@ -16,7 +16,7 @@ import internals.systemCalls.SystemCall
  * @param s2 The register containing the file descriptor to close (stored in register S2).
  */
 fun SystemCall.closeFile(s2: SuperRegisterType): Unit = try {
-    val fd: Long = registerRead(register = s2)
+    val fd: Long = registerRead(register = s2) as Long
 
     if (fileDescriptors.fds.remove(fd)?.equals(null)
             ?: throw NullPointerException("Expression 'fileDescriptors.fds.remove(fd)?.equals(null)' must not be null")

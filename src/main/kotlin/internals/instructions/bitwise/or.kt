@@ -15,8 +15,8 @@ import helpers.registerWrite
  */
 fun Bitwise.or(operand1: SuperRegisterType, operand2: SuperRegisterType): Unit = try {
     registerWrite(
-        register = R3, value = registerRead(register = operand1).or(
-            other = registerRead(register = operand2)
+        register = R3, value = (registerRead(register = operand1) as Long).or(
+            other = registerRead(register = operand2) as Long
         )
     )
 } catch (_: Exception) {

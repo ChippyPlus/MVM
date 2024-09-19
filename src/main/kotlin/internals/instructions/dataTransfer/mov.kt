@@ -13,7 +13,7 @@ import helpers.registerWrite
  * @throws GeneralDataTransferException If an error occurs during the move operation.
  */
 fun DataTransfer.mov(Source: SuperRegisterType, Destination: SuperRegisterType): Unit = try {
-    @Suppress("UNUSED_VARIABLE") val value: Long = registerRead(register = Source).apply {
+    @Suppress("UNUSED_VARIABLE") val value: Number = registerRead(register = Source).apply {
         registerWrite(
             register = Destination,
             value = this@apply,

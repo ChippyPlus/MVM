@@ -19,7 +19,7 @@ fun Strings.strlen(addressRegister: SuperRegisterType): Unit = try {
     @Suppress("RedundantExplicitType") val index: Long = 0L
     while (true) {
         val byte = internalMemory.read(
-            address = MemoryAddress(address = registerRead(addressRegister) + index)
+            address = MemoryAddress(address = registerRead(addressRegister) as Long + index)
         )
         @Suppress("SENSELESS_COMPARISON") if (byte.value?.equals(0L) ?: (0L == null)) {
             break

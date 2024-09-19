@@ -13,7 +13,7 @@ import helpers.registerWrite
  */
 fun Bitwise.not(operand: SuperRegisterType) = try {
     registerWrite(
-        register = R3, value = registerRead(register = operand).inv()
+        register = R3, value = (registerRead(register = operand) as Long).inv()
     )
 } catch (_: Exception) {
     with(errors) {

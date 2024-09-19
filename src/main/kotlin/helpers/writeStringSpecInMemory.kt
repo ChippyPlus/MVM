@@ -15,7 +15,7 @@ import internalMemory
 fun writeStringSpecInMemory(string: String, destinationAddress: MemoryAddress) {
     val allocMem = string.length
 
-    for (i in (destinationAddress.address!! until (destinationAddress.address + allocMem))) {
+    for (i in ((destinationAddress.address as Long?)!! until (destinationAddress.address + allocMem))) {
         if (internalMemory.memory[MemoryAddress(i)] != MemoryValue(null)) {
             errors.NotFreeMemoryException(i.toString())
         }

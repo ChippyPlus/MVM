@@ -22,7 +22,7 @@ import internals.systemCalls.SystemCall
 @Suppress("RemoveExplicitTypeArguments")
 fun SystemCall.readFile(fd: SuperRegisterType, buffer: SuperRegisterType): Unit = try {
     val f: VMFile =
-        fileDescriptors.getFileDescriptor(fd = registerRead(register = fd)) ?: throw NullPointerException(
+        fileDescriptors.getFileDescriptor(fd = registerRead(register = fd) as Long) ?: throw NullPointerException(
             "Expression 'fileDescriptors.getFileDescriptor(fd = fullRegisterRead(register = fd))' must not be null"
         )
     registerWrite(

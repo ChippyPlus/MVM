@@ -5,4 +5,4 @@ package data.memory
  * @property address The numerical value of the memory address, or `null` if the address is not initialised.
  */
 @JvmInline
-value class MemoryAddress(val address: Long?)
+value class MemoryAddress(val address: Number)

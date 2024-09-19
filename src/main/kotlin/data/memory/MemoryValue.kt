@@ -7,4 +7,4 @@ package data.memory
  *                 A value of `null` indicates that the memory address has not been initialised.
  */
 @JvmInline
-value class MemoryValue(val value: Long?)
+value class MemoryValue(val value: Number?)

@@ -13,7 +13,7 @@ import helpers.registerRead
  * @throws GeneralStackOperationsException If an error occurs during the push operation (e.g., stack overflow).
  */
 fun StackOperations.push(registerType: SuperRegisterType) = try {
-    @Suppress("UNNECESSARY_NOT_NULL_ASSERTION") this@push.internalStack!!.push(element = registerRead(register = registerType))
+    @Suppress("UNNECESSARY_NOT_NULL_ASSERTION") this@push.internalStack!!.push(element = registerRead(register = registerType) as Long)
 } catch (_: Exception) {
     @Suppress("RemoveExplicitTypeArguments") with<VMErrors, Unit>(receiver = errors) {
         GeneralStackOperationsException(

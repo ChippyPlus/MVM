@@ -17,7 +17,7 @@ import helpers.registerWrite
 
 fun Bitwise.shr(operand1: SuperRegisterType, operand2: SuperRegisterType): Unit = try {
     registerWrite(
-        register = R3, value = registerRead(register = operand1).shr(
+        register = R3, value = (registerRead(register = operand1) as Long).shr(
             bitCount = registerRead(
                 register = operand2
             ).toInt()

@@ -47,8 +47,9 @@ class DebugInstructions {
             DebugInstructionModes.Iterator -> "each"
             DebugInstructionModes.Line -> "lineSpecific"
         }
+        @Suppress("UNCHECKED_CAST")
         File("src/main/resources/debug/out/$location/registers/frame=${kvm.pc}.json").writeText(
-            json.encodeToString(EachInstruction(kvm.pc.toString(), "registers", data))
+            json.encodeToString(EachInstruction(kvm.pc.toString(), "registers", data as Map<String,Long?>))
         )
     }
 
@@ -66,7 +67,7 @@ class DebugInstructions {
             errors.MemoryAllocationException("Debugger/memoryRange is accessing non-existent memory \"$b\"")
         }
         for (address in a..b) {
-            memMap[address.toString()] = internalMemory.memory[MemoryAddress(address)]?.value
+            memMap[address.toString()] = internalMemory.memory[MemoryAddress(address)]?.value as Long?
         }
         val location = when (mode) {
             DebugInstructionModes.Iterator -> "each"
