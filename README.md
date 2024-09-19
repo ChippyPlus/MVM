@@ -21,6 +21,7 @@ MVM is a simple, stack-based virtual machine that executes a custom assembly lan
 ## Documentation
 For documentation please check the wiki tab!!!   
 Over here -> [wiki tab](https://github.com/ChippyPlus/MVM/wiki)!!!
+And getting started available here -> [Getting started](https://github.com/ChippyPlus/MVM/wiki/Getting-Started)!!!!
 
 
 ## Features
