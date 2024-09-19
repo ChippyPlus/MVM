@@ -23,7 +23,7 @@ import kotlin.system.exitProcess
  * @throws InvalidRegisterException If the register is a floating point number
  */
 
-fun registerRead(register: SuperRegisterType): Long {
+fun registerRead(register: SuperRegisterType): Number {
     return try {
         when (register) {
             SuperRegisterType.G1 -> generalRegisters.read(register.toGeneralRegisterType())

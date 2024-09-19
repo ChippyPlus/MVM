@@ -11,7 +11,7 @@ import kotlin.system.exitProcess
  * Return registers are primarily used to store results from operations & system calls
  */
 class ReturnRegisters {
-    var r1: Long? = null
+    var r1: Double? = null
     var r2: Long? = null
     var r3: Long? = null
     var r4: Long? = null
@@ -23,7 +23,7 @@ class ReturnRegisters {
      * @return The value stored in the register as a [Long].
      * @throws NullRegisterException If the register has not been initialized (has a null value).
      */
-    fun read(registers: ReturnRegisterType): Long {
+    fun read(registers: ReturnRegisterType): Number {
         try {
             return when (registers) {
                 ReturnRegisterType.R1 -> r1!!
@@ -43,12 +43,12 @@ class ReturnRegisters {
      * @param registers The [ReturnRegisterType] to write to.
      * @param value The [Long] value to write to the register.
      */
-    fun write(registers: ReturnRegisterType, value: Long) {
+    fun write(registers: ReturnRegisterType, value: Number) {
         when (registers) {
-            ReturnRegisterType.R1 -> r1 = value
-            ReturnRegisterType.R2 -> r2 = value
-            ReturnRegisterType.R3 -> r3 = value
-            ReturnRegisterType.R4 -> r4 = value
+            ReturnRegisterType.R1 -> r1 = value as Double?
+            ReturnRegisterType.R2 -> r2 = value as Long?
+            ReturnRegisterType.R3 -> r3 = value as Long?
+            ReturnRegisterType.R4 -> r4 = value as Long
         }
     }
 }

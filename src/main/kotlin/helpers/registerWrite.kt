@@ -21,16 +21,16 @@ import kotlin.system.exitProcess
  * @throws InvalidRegisterException If the register is a floating point number
  *
  */
-fun registerWrite(register: SuperRegisterType, value: Long) {
+fun registerWrite(register: SuperRegisterType, value: Number) {
     when (register) {
-        SuperRegisterType.G1 -> generalRegisters.write(register.toGeneralRegisterType(), value)
-        SuperRegisterType.G2 -> generalRegisters.write(register.toGeneralRegisterType(), value)
-        SuperRegisterType.G3 -> generalRegisters.write(register.toGeneralRegisterType(), value)
-        SuperRegisterType.G4 -> generalRegisters.write(register.toGeneralRegisterType(), value)
-        SuperRegisterType.S1 -> systemRegisters.write(register.toSystemRegisterType(), value)
-        SuperRegisterType.S2 -> systemRegisters.write(register.toSystemRegisterType(), value)
-        SuperRegisterType.S3 -> systemRegisters.write(register.toSystemRegisterType(), value)
-        SuperRegisterType.S4 -> systemRegisters.write(register.toSystemRegisterType(), value)
+        SuperRegisterType.G1 -> generalRegisters.write(register.toGeneralRegisterType(), value as Long)
+        SuperRegisterType.G2 -> generalRegisters.write(register.toGeneralRegisterType(), value as Long)
+        SuperRegisterType.G3 -> generalRegisters.write(register.toGeneralRegisterType(), value as Long)
+        SuperRegisterType.G4 -> generalRegisters.write(register.toGeneralRegisterType(), value as Long)
+        SuperRegisterType.S1 -> systemRegisters.write(register.toSystemRegisterType(), value as Long)
+        SuperRegisterType.S2 -> systemRegisters.write(register.toSystemRegisterType(), value as Long)
+        SuperRegisterType.S3 -> systemRegisters.write(register.toSystemRegisterType(), value as Long)
+        SuperRegisterType.S4 -> systemRegisters.write(register.toSystemRegisterType(), value as Long)
         SuperRegisterType.R1 -> returnRegisters.write(register.toReturnRegisterType(), value)
         SuperRegisterType.R2 -> returnRegisters.write(register.toReturnRegisterType(), value)
         SuperRegisterType.R3 -> returnRegisters.write(register.toReturnRegisterType(), value)

@@ -51,11 +51,17 @@ class Execute {
                 is Instruction.StrCat -> kvm.strings.strcat(instruction.string1, instruction.string2)
                 is Instruction.StrCpy -> kvm.strings.strcpy(instruction.source, instruction.destination)
                 is Instruction.Cpy -> kvm.dataTransfer.cpy(instruction.register1, instruction.register2)
-                is Instruction.Add -> kvm.arithmetic.add(instruction.operand1, instruction.operand2)
+                is Instruction.Add -> internals.instructions.floats.arithmetic.add(
+                    instruction.operand1,
+                    instruction.operand2
+                )
                 is Instruction.Sub -> kvm.arithmetic.sub(instruction.operand1, instruction.operand2)
                 is Instruction.Mul -> kvm.arithmetic.mul(instruction.operand1, instruction.operand2)
                 is Instruction.Div -> kvm.arithmetic.div(instruction.operand1, instruction.operand2)
-                is Instruction.Mod -> kvm.arithmetic.mod(instruction.operand1, instruction.operand2)
+                is Instruction.Mod -> internals.instructions.floats.arithmetic.mod(
+                    instruction.operand1,
+                    instruction.operand2
+                )
                 is Instruction.Eq -> kvm.arithmetic.eq(instruction.operand1, instruction.operand2)
                 is Instruction.Strlen -> kvm.strings.strlen(instruction.addressRegister)
                 is Instruction.Str -> kvm.strings.str(instruction.targetAddress, instruction.string)
