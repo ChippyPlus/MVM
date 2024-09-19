@@ -11,6 +11,9 @@ import internals.instructions.controlFlow.jz
 import internals.instructions.dataTransfer.cpy
 import internals.instructions.dataTransfer.lit
 import internals.instructions.dataTransfer.mov
+import internals.instructions.floats.arithmetic.*
+import internals.instructions.floats.dataTransfer.flit
+import internals.instructions.floats.dataTransfer.itof
 import internals.instructions.ioAbstractions.printr
 import internals.instructions.ioAbstractions.prints
 import internals.instructions.memory.load
@@ -47,21 +50,33 @@ class Execute {
                 break
             }
             when (val instruction: Any = command[kvm.pc - 1]) {
+                is Instruction.FAdd -> kvm.floats.fAdd(instruction.registerA, instruction.registerB)
+                is Instruction.FSub -> kvm.floats.fSub(instruction.registerA, instruction.registerB)
+                is Instruction.FMul -> kvm.floats.fMul(instruction.registerA, instruction.registerB)
+                is Instruction.FDiv -> kvm.floats.fDiv(instruction.registerA, instruction.registerB)
+                is Instruction.FEq -> kvm.floats.fEq(instruction.registerA, instruction.registerB)
+                is Instruction.Itof -> kvm.floats.itof(instruction.destination, instruction.value)
+                is Instruction.FLit -> kvm.floats.flit(instruction.source, instruction.value)
+                is Instruction.FMod -> kvm.floats.fMod(instruction.registerA,instruction.registerB)
+
+
                 is Instruction.StrCmp -> kvm.strings.strcmp(instruction.string1, instruction.string2)
                 is Instruction.StrCat -> kvm.strings.strcat(instruction.string1, instruction.string2)
                 is Instruction.StrCpy -> kvm.strings.strcpy(instruction.source, instruction.destination)
                 is Instruction.Cpy -> kvm.dataTransfer.cpy(instruction.register1, instruction.register2)
-                is Instruction.Add -> internals.instructions.floats.arithmetic.add(
+                is Instruction.Add -> kvm.arithmetic.add(
                     instruction.operand1,
                     instruction.operand2
                 )
+
                 is Instruction.Sub -> kvm.arithmetic.sub(instruction.operand1, instruction.operand2)
                 is Instruction.Mul -> kvm.arithmetic.mul(instruction.operand1, instruction.operand2)
                 is Instruction.Div -> kvm.arithmetic.div(instruction.operand1, instruction.operand2)
-                is Instruction.Mod -> internals.instructions.floats.arithmetic.mod(
+                is Instruction.Mod -> kvm.arithmetic.mod(
                     instruction.operand1,
                     instruction.operand2
                 )
+
                 is Instruction.Eq -> kvm.arithmetic.eq(instruction.operand1, instruction.operand2)
                 is Instruction.Strlen -> kvm.strings.strlen(instruction.addressRegister)
                 is Instruction.Str -> kvm.strings.str(instruction.targetAddress, instruction.string)

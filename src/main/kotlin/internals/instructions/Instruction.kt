@@ -1,24 +1,36 @@
 package internals.instructions
 
 import data.memory.MemoryAddress
+import data.registers.enumIdenifiers.FloatingRegisterType
 import data.registers.enumIdenifiers.SuperRegisterType
 
 @Suppress("unused")
 class Instruction {
+
+
+    data class FAdd(val registerA: FloatingRegisterType, val registerB: FloatingRegisterType)
+    data class FSub(val registerA: FloatingRegisterType, val registerB: FloatingRegisterType)
+    data class FMul(val registerA: FloatingRegisterType, val registerB: FloatingRegisterType)
+    data class FDiv(val registerA: FloatingRegisterType, val registerB: FloatingRegisterType)
+    data class FMod(val registerA: FloatingRegisterType, val registerB: FloatingRegisterType)
+    data class FEq(val registerA: FloatingRegisterType, val registerB: FloatingRegisterType)
+    data class FLit(val source: FloatingRegisterType, val value: Double)
+    data class Itof(val destination: SuperRegisterType, val value: SuperRegisterType)
+
 
     data class StrCpy(val source: SuperRegisterType, val destination: SuperRegisterType)
 
     data class StrCmp(val string1: SuperRegisterType, val string2: SuperRegisterType)
 
     data class StrCat(
-		val string1: SuperRegisterType,
-		val string2: SuperRegisterType,
+        val string1: SuperRegisterType,
+        val string2: SuperRegisterType,
     )
 
     data class SubStr(
-		val string: SuperRegisterType,
-		val start: SuperRegisterType,
-		val length: SuperRegisterType,
+        val string: SuperRegisterType,
+        val start: SuperRegisterType,
+        val length: SuperRegisterType,
     )
 
     data class Find(val string: SuperRegisterType, val substring: SuperRegisterType)
@@ -142,10 +154,10 @@ class Instruction {
      * @param argument3 The third argument register.
      */
     data class Syscall(
-		val systemCallNumber: SuperRegisterType,
-		val argument1: SuperRegisterType,
-		val argument2: SuperRegisterType,
-		val argument3: SuperRegisterType
+        val systemCallNumber: SuperRegisterType,
+        val argument1: SuperRegisterType,
+        val argument2: SuperRegisterType,
+        val argument3: SuperRegisterType,
     )
 
     /**

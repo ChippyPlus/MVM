@@ -16,8 +16,8 @@ import returnRegisters
  */
 
 fun Arithmetic.sub(registerA: SuperRegisterType, registerB: SuperRegisterType): Unit = try {
-    val A: Long = registerRead(register = registerA)
-    val B: Long = registerRead(register = registerB)
+    val A: Long = registerRead(register = registerA) as Long
+    val B: Long = registerRead(register = registerB) as Long
     returnRegisters.run {
         write(
             registers = R4,
@@ -27,6 +27,5 @@ fun Arithmetic.sub(registerA: SuperRegisterType, registerB: SuperRegisterType): 
         )
     }
 } catch (e: Exception) {
-    @Suppress("RemoveExplicitTypeArguments")
-    errors.run<VMErrors, Unit> { this@run.GeneralArithmeticException(message = "sub") }
+    @Suppress("RemoveExplicitTypeArguments") errors.run<VMErrors, Unit> { this@run.GeneralArithmeticException(message = "sub") }
 }

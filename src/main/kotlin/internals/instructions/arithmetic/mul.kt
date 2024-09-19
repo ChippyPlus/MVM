@@ -17,8 +17,8 @@ import returnRegisters
  * @throws GeneralArithmeticException If an arithmetic error occurs during the multiplication.
  */
 fun Arithmetic.mul(registerA: SuperRegisterType, registerB: SuperRegisterType): Unit = try {
-    val A: Long = registerRead(register = registerA)
-    val B: Long = registerRead(register = registerB)
+    val A: Long = registerRead(register = registerA) as Long
+    val B: Long = registerRead(register = registerB) as Long
     returnRegisters.run {
         write(
             registers = R4,

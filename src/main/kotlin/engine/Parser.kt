@@ -1,6 +1,7 @@
 package engine
 
 import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.enumIdenifiers.toFloatingRegisterType
 import errors
 import helpers.toMemoryAddress
 import helpers.toSuperRegisterType
@@ -30,6 +31,59 @@ fun parser(file: File): MutableList<Any> {
     for (line in tokens) {
         // The first token is the instruction mnemonic
         when (val instruction = line[0]) {
+
+
+            "FADD" -> out.add(
+                Instruction.FAdd(
+                    line[1].toSuperRegisterType().toFloatingRegisterType(),
+                    line[2].toSuperRegisterType().toFloatingRegisterType(),
+                )
+            )
+
+            "FSUB" -> out.add(
+                Instruction.FSub(
+                    line[1].toSuperRegisterType().toFloatingRegisterType(),
+                    line[2].toSuperRegisterType().toFloatingRegisterType(),
+                )
+            )
+
+            "FMUL" -> out.add(
+                Instruction.FMul(
+                    line[1].toSuperRegisterType().toFloatingRegisterType(),
+                    line[2].toSuperRegisterType().toFloatingRegisterType(),
+                )
+            )
+
+            "FDIV" -> out.add(
+                Instruction.FDiv(
+                    line[1].toSuperRegisterType().toFloatingRegisterType(),
+                    line[2].toSuperRegisterType().toFloatingRegisterType(),
+                )
+            )
+
+            "FMOD" -> out.add(
+                Instruction.FMod(
+                    line[1].toSuperRegisterType().toFloatingRegisterType(),
+                    line[2].toSuperRegisterType().toFloatingRegisterType(),
+                )
+            )
+
+            "FEQ" -> out.add(
+                Instruction.FEq(
+                    line[1].toSuperRegisterType().toFloatingRegisterType(),
+                    line[2].toSuperRegisterType().toFloatingRegisterType(),
+                )
+            )
+
+            "FLIT" -> out.add(
+                Instruction.FLit(
+                    line[1].toSuperRegisterType().toFloatingRegisterType(), line[2].toDouble()
+                )
+            )
+
+            "ITOF" -> out.add(Instruction.Itof(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
+
+
             "STRCPY" -> out.add(Instruction.StrCpy(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
             "STRCMP" -> out.add(Instruction.StrCmp(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
             "STRCAT" -> out.add(Instruction.StrCat(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
