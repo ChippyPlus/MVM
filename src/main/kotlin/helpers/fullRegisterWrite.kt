@@ -4,9 +4,11 @@ import data.registers.enumIdenifiers.SuperRegisterType
 import data.registers.enumIdenifiers.toGeneralRegisterType
 import data.registers.enumIdenifiers.toReturnRegisterType
 import data.registers.enumIdenifiers.toSystemRegisterType
+import errors
 import generalRegisters
 import returnRegisters
 import systemRegisters
+import kotlin.system.exitProcess
 
 /**
  * Writes a value to the specified register, regardless of its type.
@@ -16,6 +18,8 @@ import systemRegisters
  *
  * @param register The register ([SuperRegisterType]) to write to.
  * @param value The [Long] value to write to the register.
+ * @throws InvalidRegisterException If the register is a floating point number
+ *
  */
 fun fullRegisterWrite(register: SuperRegisterType, value: Long) {
     when (register) {
@@ -31,5 +35,9 @@ fun fullRegisterWrite(register: SuperRegisterType, value: Long) {
         SuperRegisterType.R2 -> returnRegisters.write(register.toReturnRegisterType(), value)
         SuperRegisterType.R3 -> returnRegisters.write(register.toReturnRegisterType(), value)
         SuperRegisterType.R4 -> returnRegisters.write(register.toReturnRegisterType(), value)
+        else -> {
+            errors.InvalidRegisterException(register.toString())
+            exitProcess(1)
+        }
     }
 }
