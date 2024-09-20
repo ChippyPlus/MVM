@@ -1,5 +1,7 @@
 package data.stack
 
+import data.flags.enumIdenifiers.StackUsingTypeType
+import data.flags.stackUsingTypeFlag
 import errors
 
 /**
@@ -10,7 +12,9 @@ import errors
  * @constructor Creates a new [FixedStack] with the specified maximum size.
  */
 class FixedStack(private val maxSize: Int) {
-    private val stack = Array<Long?>(maxSize) { null }
+    private val longStack = Array<Long?>(maxSize) { null }
+    private val doubleStack = Array<Double?>(maxSize) { null }
+
     private var topIndex = -1
 
     /**
@@ -19,12 +23,16 @@ class FixedStack(private val maxSize: Int) {
      * @param element The element to push onto the stack.
      * @throws StackOverflowException If the stack is full.
      */
-    fun push(element: Long) {
+    fun push(element: Number) {
         if (isFull()) {
             errors.StackOverflowException()
         }
         topIndex++
-        stack[topIndex] = element
+        if (stackUsingTypeFlag.read() == StackUsingTypeType.Long) {
+            longStack[topIndex] = element.toLong()
+        } else if (stackUsingTypeFlag.read() == StackUsingTypeType.Double) {
+            doubleStack[topIndex] = element.toDouble()
+        }
     }
 
     /**
@@ -33,12 +41,19 @@ class FixedStack(private val maxSize: Int) {
      * @return The popped element.
      * @throws EmptyStackException If the stack is empty.
      */
-    fun pop(): Long {
+    fun pop(): Number {
         if (isEmpty()) {
             errors.EmptyStackException()
         }
-        val element = stack[topIndex]
-        stack[topIndex] = null
+        val element: Number? = if (stackUsingTypeFlag.read() == StackUsingTypeType.Long) {
+            longStack[topIndex]
+        } else if (stackUsingTypeFlag.read() == StackUsingTypeType.Double) {
+            doubleStack[topIndex]
+        } else {
+            null
+        }
+
+        longStack[topIndex] = null
         topIndex--
         return element!!
     }
@@ -48,8 +63,15 @@ class FixedStack(private val maxSize: Int) {
      *
      * @return An array representation of the stack.
      */
-    fun inspect(): Array<Long?> {
-        return stack
+    fun inspect(): Array<out Any?>? {
+        val output: Array<out Any?> = if (stackUsingTypeFlag.read() == StackUsingTypeType.Long) {
+            longStack
+        } else if (stackUsingTypeFlag.read() == StackUsingTypeType.Double) {
+            doubleStack
+        } else {
+            Array(maxSize) { "ERROR!!!!" }
+        }
+        return output
     }
 
     /**
@@ -58,11 +80,17 @@ class FixedStack(private val maxSize: Int) {
      * @return The top element.
      * @throws EmptyStackException If the stack is empty.
      */
-    fun peek(): Long {
+    fun peek(): Number? {
         if (isEmpty()) {
             errors.EmptyStackException()
         }
-        return stack[topIndex]!!
+        return if (stackUsingTypeFlag.read() == StackUsingTypeType.Long) {
+            longStack[topIndex]!!
+        } else if (stackUsingTypeFlag.read() == StackUsingTypeType.Double) {
+            doubleStack[topIndex]!!
+        } else {
+            null
+        }
     }
 
     /**
