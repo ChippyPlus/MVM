@@ -1,12 +1,13 @@
 package data.registers
 
 import data.registers.enumIdenifiers.FloatingRegisterType
+import data.registers.enumIdenifiers.ReturnRegisterType
 import errors
 import helpers.toSuperRegisterType
+import returnRegisters
 import kotlin.system.exitProcess
 
 class FloatingRegisters {
-
 
     var f1: Double? = null
     var f2: Double? = null
@@ -20,6 +21,7 @@ class FloatingRegisters {
                 FloatingRegisterType.F2 -> f2!!
                 FloatingRegisterType.F3 -> f3!!
                 FloatingRegisterType.F4 -> f4!!
+                FloatingRegisterType.R1 -> returnRegisters.read(ReturnRegisterType.R1) as Double
             }
         } catch (e: NullPointerException) {
             errors.NullRegisterException(registers.toString().toSuperRegisterType())
@@ -30,6 +32,7 @@ class FloatingRegisters {
 
     fun write(registers: FloatingRegisterType, value: Double) {
         when (registers) {
+            FloatingRegisterType.R1 -> returnRegisters.write(ReturnRegisterType.R1, value)
             FloatingRegisterType.F1 -> f1 = value
             FloatingRegisterType.F2 -> f2 = value
             FloatingRegisterType.F3 -> f3 = value

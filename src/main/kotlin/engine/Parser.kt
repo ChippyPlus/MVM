@@ -81,7 +81,11 @@ fun parser(file: File): MutableList<Any> {
                 )
             )
 
-            "ITOF" -> out.add(Instruction.Itof(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
+            "ITOF" -> out.add(
+                Instruction.Itof(
+                    line[1].toSuperRegisterType(), line[2].toSuperRegisterType().toFloatingRegisterType()
+                )
+            )
 
 
             "STRCPY" -> out.add(Instruction.StrCpy(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))

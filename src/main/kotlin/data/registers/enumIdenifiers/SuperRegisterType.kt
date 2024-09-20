@@ -65,6 +65,7 @@ fun SuperRegisterType.toReturnRegisterType(): ReturnRegisterType {
  */
 fun SuperRegisterType.toFloatingRegisterType(): FloatingRegisterType {
     return when (this) {
+        SuperRegisterType.R1 -> FloatingRegisterType.R1
         SuperRegisterType.F1 -> FloatingRegisterType.F1
         SuperRegisterType.F2 -> FloatingRegisterType.F2
         SuperRegisterType.F3 -> FloatingRegisterType.F3

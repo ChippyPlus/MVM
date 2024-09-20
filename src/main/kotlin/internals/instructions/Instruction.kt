@@ -15,7 +15,7 @@ class Instruction {
     data class FMod(val registerA: FloatingRegisterType, val registerB: FloatingRegisterType)
     data class FEq(val registerA: FloatingRegisterType, val registerB: FloatingRegisterType)
     data class FLit(val source: FloatingRegisterType, val value: Double)
-    data class Itof(val destination: SuperRegisterType, val value: SuperRegisterType)
+    data class Itof(val destination: SuperRegisterType, val value: FloatingRegisterType)
 
 
     data class StrCpy(val source: SuperRegisterType, val destination: SuperRegisterType)
