@@ -18,6 +18,7 @@ class VMErrors {
     /**
      * Reports an invalid register exception.
      *
+     * Exit code 1
      * @param message A description of the invalid register type.
      */
     fun InvalidRegisterException(message: String) {
@@ -28,6 +29,7 @@ class VMErrors {
     /**
      * Reports an invalid memory address exception.
      *
+     * Exit code 2
      * @param message The invalid [MemoryAddress] accessed.
      */
     fun InvalidMemoryAddressException(message: MemoryAddress) {
@@ -38,6 +40,7 @@ class VMErrors {
     /**
      * Reports an invalid memory address exception.
      *
+     * Exit code 2
      * @param message The invalid [MemoryAddress] in string form.
      */
     fun InvalidMemoryAddressException(message: String) {
@@ -49,6 +52,7 @@ class VMErrors {
     /**
      * Reports an invalid instruction exception.
      *
+     * Exit code 3
      * @param message The invalid instruction mnemonic encountered.
      */
     fun InvalidInstructionException(message: String) {
@@ -59,6 +63,7 @@ class VMErrors {
     /**
      * Reports an invalid system call exception.
      *
+     * Exit code 4
      * @param message A description of the invalid system call.
      */
     fun InvalidSystemCallException(message: String) {
@@ -68,6 +73,8 @@ class VMErrors {
 
     /**
      * Reports a stack overflow exception.
+     *
+     * Exit code 5
      */
     fun StackOverflowException() {
         System.err.println("$prefix${kvm.pc}: Stack Overflow Exception")
@@ -76,6 +83,8 @@ class VMErrors {
 
     /**
      * Reports an empty stack exception.
+     *
+     * Exit code 6
      */
     fun EmptyStackException() {
         System.err.println("$prefix${kvm.pc}: Empty Stack Exception")
@@ -85,7 +94,8 @@ class VMErrors {
     /**
      * Reports a general arithmetic exception.
      *
-     * @param message A description of the arithmetic error (e.g., "division by zero").
+     * Exit code 7
+     * @param message A description of the arithmetic error (e.g. "division by zero").
      */
     fun GeneralArithmeticException(message: String) {
         System.err.println("$prefix${kvm.pc}: General Arithmetic Exception \"$message operation failed\"")
@@ -95,6 +105,7 @@ class VMErrors {
     /**
      * Reports a general system call exception.
      *
+     * Exit code 8
      * @param message A description of the system call error.
      */
     fun SystemCallGeneralException(message: String) {
@@ -104,6 +115,8 @@ class VMErrors {
 
     /**
      * Reports a file access exception.
+     *
+     * Exit code 9
      */
     fun FileAccessException() {
         System.err.println("$prefix${kvm.pc}: File Access Exception")
@@ -112,6 +125,8 @@ class VMErrors {
 
     /**
      * Reports a socket exception.
+     *
+     * Exit code 10
      */
     fun SocketException() {
         System.err.println("$prefix${kvm.pc}: Socket Exception")
@@ -121,6 +136,7 @@ class VMErrors {
     /**
      * Reports a memory allocation exception.
      *
+     * Exit code 11
      * @param message A description of the memory allocation error.
      */
     fun MemoryAllocationException(message: String) {
@@ -130,6 +146,8 @@ class VMErrors {
 
     /**
      * Reports an invalid instruction argument exception.
+     *
+     * Exit code 12
      *
      * @param message A description of the invalid argument.
      */
@@ -141,6 +159,8 @@ class VMErrors {
     /**
      * Reports a null register exception.
      *
+     * Exit code 13
+     *
      * @param message The [SuperRegisterType] of the register that was null.
      */
     fun NullRegisterException(message: SuperRegisterType) {
@@ -150,6 +170,8 @@ class VMErrors {
 
     /**
      * Reports a null address exception.
+     *
+     * Exit code 14
      *
      * @param message The null [MemoryAddress] that was accessed.
      */
@@ -161,6 +183,8 @@ class VMErrors {
     /**
      * Reports an invalid file descriptor exception.
      *
+     * Exit code 15
+     *
      * @param message A description of the invalid file descriptor.
      */
     fun InvalidFileDescriptorException(message: String) {
@@ -170,6 +194,8 @@ class VMErrors {
 
     /**
      * Reports a not-free memory exception.
+     *
+     * Exit code 16
      *
      * @param message The memory address that was not free.
      */
@@ -181,6 +207,8 @@ class VMErrors {
     /**
      * Reports a general bitwise exception.
      *
+     * Exit code 17
+     *
      * @param message A description of the bitwise operation error.
      */
     fun GeneralBitwiseException(message: String) {
@@ -190,6 +218,8 @@ class VMErrors {
 
     /**
      * Reports a general control flow exception.
+     *
+     * Exit code 18
      *
      * @param message A description of the control flow error.
      */
@@ -201,6 +231,8 @@ class VMErrors {
     /**
      * Reports a general data transfer exception.
      *
+     * Exit code 19
+     *
      * @param message A description of the data transfer error.
      */
     fun GeneralDataTransferException(message: String) {
@@ -211,6 +243,7 @@ class VMErrors {
     /**
      * Reports a general I/O abstractions exception.
      *
+     * Exit code 20
      * @param message A description of the I/O error.
      */
     fun GeneralIoAbstractionsException(message: String) {
@@ -221,6 +254,7 @@ class VMErrors {
     /**
      * Reports a general memory exception.
      *
+     *Exit code 21
      * @param message A description of the memory operation error.
      */
     fun GeneralMemoryException(message: String) {
@@ -231,6 +265,7 @@ class VMErrors {
     /**
      * Reports a general stack operations exception.
      *
+     *Exit code 22
      * @param message A description of the stack operation error.
      */
     fun GeneralStackOperationsException(message: String) {
@@ -241,10 +276,21 @@ class VMErrors {
     /**
      * Reports a general string exception.
      *
+     * Exit code 23
      * @param message A description of the string operation error.
      */
     fun GeneralStringException(message: String) {
         System.err.println("$prefix${kvm.pc}: General Strings Exception \"$message operation failed\"")
         exitProcess(23)
+    }
+
+    /** Reports a null flag exception
+     *
+     * Exit code 24
+     * @param message The name of the flag
+     */
+    fun NullFlagException(message: String) {
+        System.err.println("$prefix${kvm.pc}: Null Flag Exception \"$message\"")
+        exitProcess(24)
     }
 }
