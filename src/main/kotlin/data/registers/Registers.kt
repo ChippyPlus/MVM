@@ -19,6 +19,13 @@ class Registers {
         }
     }
 
+    fun getType(registerType: RegisterType): RegisterValueType {
+        if (registers[registerType] == null) {
+            errors.NullRegisterException(registerType)
+        }
+        return registers[registerType]!!.type
+    }
+
     fun typeChange(registerType: RegisterType, type: RegisterValueType) {
         if (registers[registerType] == null) {
             errors.NullRegisterException(registerType)

@@ -66,8 +66,15 @@ class Printr(private val register: RegisterType) : InstructionBuild {
      * @throws IllegalArgumentException If the provided argument is not a [RegisterType] or the register is invalid.
      */
     override fun execute() {
-        val registerValue = registers.read(register)
-        println(registerValue.value)
+        val registerValue = registers.read(register).value!!
+        when (register.getType()) {
+            RegisterValueType.Byte -> println(registerValue.toInt().toByte())
+            RegisterValueType.Short -> println(registerValue.toInt().toShort())
+            RegisterValueType.Int -> println(registerValue.toInt())
+            RegisterValueType.Long -> println(registerValue.toLong())
+            RegisterValueType.Float -> println(registerValue.toFloat())
+            RegisterValueType.Double -> println(registerValue)
+        }
     }
 
     override fun debug(): String {
