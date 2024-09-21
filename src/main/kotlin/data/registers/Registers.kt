@@ -3,11 +3,8 @@ package data.registers
 import data.registers.enumIdenifies.RegisterType
 import errors
 
-enum class RegisterValueType {
-    Byte, Short, Int, Long, Float, Double,
-}
 
-data class Register(var value: Number?, var type: RegisterValueType)
+data class Register(var value: Number?)
 
 
 class Registers {
@@ -15,23 +12,41 @@ class Registers {
 
     init {
         for (registerType in RegisterType.entries) {
-            registers[registerType] = Register(value = null, type = RegisterValueType.Long)
+            registers[registerType] = Register(value = 0)
         }
     }
 
-    fun getType(registerType: RegisterType): RegisterValueType {
+    fun getType(registerType: RegisterType): Any? {
         if (registers[registerType] == null) {
             errors.NullRegisterException(registerType)
         }
-        return registers[registerType]!!.type
+        return when (registers[registerType]!!.value) {
+            is Byte -> Byte
+            is Short -> Short
+            is Int -> Int
+            is Long -> Long
+            is Float -> Float
+            is Double -> Double
+            else -> null
+        }
     }
 
-    fun typeChange(registerType: RegisterType, type: RegisterValueType) {
+    fun typeChange(registerType: RegisterType, type: Any?) {
         if (registers[registerType] == null) {
             errors.NullRegisterException(registerType)
         }
-        registers[registerType]!!.type = type
-        registers[registerType]!!.value
+
+        println(type)
+        when (type) {
+            is Byte.Companion -> registers[registerType]!!.value!!.toByte()
+            is Short.Companion -> registers[registerType]!!.value!!.toShort()
+            is Int.Companion -> registers[registerType]!!.value!!.toInt()
+            is Long.Companion -> registers[registerType]!!.value!!.toLong()
+            is Float.Companion -> registers[registerType]!!.value!!.toFloat()
+            is Double.Companion -> registers[registerType]!!.value!!.toDouble()
+            else -> error("Invalid register type $type")
+        }
+
     }
 
     fun read(registerType: RegisterType): Register {

@@ -1,15 +1,14 @@
 package helpers
 
-import data.registers.RegisterValueType
 
-fun String.toRegisterValueType(): RegisterValueType {
+fun String.toRegisterValueType(): Any {
     return when (this) {
-        "BYTE" -> RegisterValueType.Byte
-        "SHORT" -> RegisterValueType.Short
-        "INT" -> RegisterValueType.Int
-        "LONG" -> RegisterValueType.Long
-        "FLOAT" -> RegisterValueType.Float
-        "DOUBLE" -> RegisterValueType.Double
+        "BYTE" -> Byte
+        "SHORT" -> Short
+        "INT" -> Int
+        "LONG" -> Long
+        "FLOAT" -> Float
+        "DOUBLE" -> Double
         else -> error("Invalid RegisterValueType $this")
     }
 }

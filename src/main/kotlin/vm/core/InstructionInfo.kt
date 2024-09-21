@@ -1,7 +1,6 @@
 package vm.core
 
 import data.registers.Register
-import data.registers.RegisterValueType
 import data.registers.enumIdenifies.RegisterType
 import registers
 
@@ -38,7 +37,7 @@ class Lit(private val register: RegisterType, private val value: Double) : Instr
      *                                  or if the register type is invalid.
      */
     override fun execute() {
-        registers.write(register, Register(value, register.getType()))
+        registers.write(register, Register(value))
     }
 
     override fun debug(): String {
@@ -68,12 +67,12 @@ class Printr(private val register: RegisterType) : InstructionBuild {
     override fun execute() {
         val registerValue = registers.read(register).value!!
         when (register.getType()) {
-            RegisterValueType.Byte -> println(registerValue.toInt().toByte())
-            RegisterValueType.Short -> println(registerValue.toInt().toShort())
-            RegisterValueType.Int -> println(registerValue.toInt())
-            RegisterValueType.Long -> println(registerValue.toLong())
-            RegisterValueType.Float -> println(registerValue.toFloat())
-            RegisterValueType.Double -> println(registerValue)
+            Byte -> println(registerValue.toInt().toByte())
+            Short -> println(registerValue.toInt().toShort())
+            Int -> println(registerValue.toInt())
+            Long -> println(registerValue.toLong())
+            Float -> println(registerValue.toFloat())
+            Double -> println(registerValue)
         }
     }
 
@@ -104,7 +103,7 @@ class Mov(private val source: RegisterType, private val destination: RegisterTyp
      */
     override fun execute() {
         val sourceValue = registers.read(source).value ?: error("Source register $source is not initialized")
-        registers.write(destination, Register(sourceValue, RegisterValueType.Double))
+        registers.write(destination, Register(sourceValue))
     }
 
     override fun debug(): String {
@@ -117,16 +116,16 @@ class Mov(private val source: RegisterType, private val destination: RegisterTyp
 }
 
 
-class SetType(private val register: RegisterType, private val type: RegisterValueType) : InstructionBuild {
+class SetType(private val register: RegisterType, private val type: Any) : InstructionBuild {
     override val name = "SETTYPE"
     override fun execute() {
         when (type) {
-            RegisterValueType.Byte -> register.updateType(type)
-            RegisterValueType.Short -> register.updateType(type)
-            RegisterValueType.Int -> register.updateType(type)
-            RegisterValueType.Long -> register.updateType(type)
-            RegisterValueType.Float -> register.updateType(type)
-            RegisterValueType.Double -> register.updateType(type)
+            Byte.Companion -> register.updateType(type)
+            Short.Companion -> register.updateType(type)
+            Int.Companion -> register.updateType(type)
+            Long.Companion -> register.updateType(type)
+            Float.Companion -> register.updateType(type)
+            Double.Companion -> register.updateType(type)
         }
     }
 
