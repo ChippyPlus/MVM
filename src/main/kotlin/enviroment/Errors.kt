@@ -73,7 +73,7 @@ class Errors {
     /**
      * Reports a general arithmetic exception.
      *
-     * @param message A description of the arithmetic error (e.g., "division by zero").
+     * @param message A description of the arithmetic error (e.g. "division by zero").
      */
     fun GeneralArithmeticException(message: String) {
         System.err.println("$prefix${mvm.pc}: General Arithmetic Exception \"$message operation failed\"")
@@ -163,7 +163,7 @@ class Errors {
     /**
      * Reports a not-free memory exception.
      *
-     * @param message The memory address that was not free.
+     * @param message The memory address that wasn’t free.
      */
     fun NotFreeMemoryException(message: String) {
         System.err.println("$prefix${mvm.pc}: Address \"$message\" is not free Memory")
@@ -273,7 +273,7 @@ class Errors {
     }
 
     /**
-     * Reports a division by zero exception.
+     * Reports a division by zero exceptions.
      *
      * @param message A message indicating the occurrence of division by zero.
      */
@@ -294,7 +294,7 @@ class Errors {
     }
 
     /**
-     * Reports a non-initialized register exception. This occurs when trying to read from a
+     * Reports a non-initialised register exception. This occurs when trying to read from a
      * register that has not been assigned a value.
      *
      * @param message The register that was accessed without initialization.
@@ -306,7 +306,7 @@ class Errors {
 
     /**
      * Reports an illegal instruction format exception. This occurs when the format of an
-     * instruction does not conform to the expected syntax.
+     * instruction doesn’t conform to the expected syntax.
      *
      * @param message A description of the illegal instruction format.
      */

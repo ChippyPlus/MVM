@@ -7,11 +7,11 @@ enum class RegisterValueType {
     Byte, Short, Int, Long, Float, Double,
 }
 
-data class Register(var value: Double?, var type: RegisterValueType)
+data class Register(var value: Number?, var type: RegisterValueType)
 
 
 class Registers {
-    private val registers = mutableMapOf<RegisterType, Register>()
+    val registers = mutableMapOf<RegisterType, Register>()
 
     init {
         for (registerType in RegisterType.entries) {
@@ -31,6 +31,7 @@ class Registers {
             errors.NullRegisterException(registerType)
         }
         registers[registerType]!!.type = type
+        registers[registerType]!!.value
     }
 
     fun read(registerType: RegisterType): Register {

@@ -38,7 +38,7 @@ class Lit(private val register: RegisterType, private val value: Double) : Instr
      *                                  or if the register type is invalid.
      */
     override fun execute() {
-        registers.write(register, Register(value, RegisterValueType.Double))
+        registers.write(register, Register(value, register.getType()))
     }
 
     override fun debug(): String {
@@ -67,7 +67,6 @@ class Printr(private val register: RegisterType) : InstructionBuild {
      */
     override fun execute() {
         val registerValue = registers.read(register).value!!
-        println(register.getType())
         when (register.getType()) {
             RegisterValueType.Byte -> println(registerValue.toInt().toByte())
             RegisterValueType.Short -> println(registerValue.toInt().toShort())

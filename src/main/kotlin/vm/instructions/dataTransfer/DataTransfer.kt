@@ -1,4 +1,3 @@
 package vm.instructions.dataTransfer
 
-class DataTransfer {
-}
+class DataTransfer
