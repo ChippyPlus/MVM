@@ -35,15 +35,13 @@ class Registers {
         if (registers[registerType] == null) {
             errors.NullRegisterException(registerType)
         }
-
-        println(type)
         when (type) {
-            is Byte.Companion -> registers[registerType]!!.value!!.toByte()
-            is Short.Companion -> registers[registerType]!!.value!!.toShort()
-            is Int.Companion -> registers[registerType]!!.value!!.toInt()
-            is Long.Companion -> registers[registerType]!!.value!!.toLong()
-            is Float.Companion -> registers[registerType]!!.value!!.toFloat()
-            is Double.Companion -> registers[registerType]!!.value!!.toDouble()
+            is Byte.Companion -> registers[registerType] = Register(registers[registerType]!!.value!!.toByte())
+            is Short.Companion -> registers[registerType] = Register(registers[registerType]!!.value!!.toShort())
+            is Int.Companion -> registers[registerType] = Register(registers[registerType]!!.value!!.toInt())
+            is Long.Companion -> registers[registerType] = Register(registers[registerType]!!.value!!.toLong())
+            is Float.Companion -> registers[registerType] = Register(registers[registerType]!!.value!!.toFloat())
+            is Double.Companion -> registers[registerType] = Register(registers[registerType]!!.value!!.toDouble())
             else -> error("Invalid register type $type")
         }
 
@@ -58,6 +56,21 @@ class Registers {
     }
 
     fun write(registerType: RegisterType, registerDataClass: Register) {
-        registers[registerType] = registerDataClass
+
+        registers[registerType] = when (val type = registerType.getType()) {
+            is Byte.Companion -> Register(registerDataClass.value?.toByte())
+
+            is Short.Companion -> Register(registerDataClass.value?.toShort())
+
+            is Int.Companion -> Register(registerDataClass.value?.toInt())
+
+            is Long.Companion -> Register(registerDataClass.value?.toLong())
+
+            is Float.Companion -> Register(registerDataClass.value?.toFloat())
+
+            is Double.Companion -> Register(registerDataClass.value?.toLong())
+
+            else -> error("Invalid register type $type")
+        }
     }
 }

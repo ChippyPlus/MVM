@@ -1,8 +1,13 @@
 package vm.core
-//
-//interface InstructionBuild {
-//    fun getArguments(): List<Any>
-//    fun execute()
-//    fun debug(): String
-//    fun collectOutput(): String?
-//}
+
+
+/**
+ * Represents a buildable instruction for the virtual machine.
+ */
+interface InstructionBuild {
+    val name: String
+    fun execute()
+    fun debug(): String
+    fun collectOutput(): String?
+}
+
