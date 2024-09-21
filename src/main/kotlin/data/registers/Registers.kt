@@ -1,6 +1,7 @@
 package data.registers
 
 import data.registers.enumIdenifies.RegisterType
+import errors
 
 enum class RegisterValueType {
     Byte, Short, Int, Long, Float, Double,
@@ -19,11 +20,18 @@ class Registers {
     }
 
     fun typeChange(registerType: RegisterType, type: RegisterValueType) {
-        registers[registerType]?.type = type
+        if (registers[registerType] == null) {
+            errors.NullRegisterException(registerType)
+        }
+        registers[registerType]!!.type = type
     }
 
     fun read(registerType: RegisterType): Register {
-        return registers[registerType] ?: error("Invalid register: $registerType")
+        if (registers[registerType] == null) {
+            errors.InvalidRegisterException(registerType)
+        }
+        return registers[registerType]!!
+
     }
 
     fun write(registerType: RegisterType, registerDataClass: Register) {

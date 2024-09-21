@@ -19,7 +19,7 @@ class Errors {
      *
      * @param message A description of the invalid register type.
      */
-    fun InvalidRegisterException(message: String) {
+    fun InvalidRegisterException(message: RegisterType) {
         System.err.println("$prefix${mvm.pc}: Invalid Register of type \"$message\"")
         exitProcess(1)
     }
