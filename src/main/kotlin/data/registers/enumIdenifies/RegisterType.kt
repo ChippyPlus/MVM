@@ -10,4 +10,8 @@ enum class RegisterType {
     fun getType(): RegisterValueType {
         return registers.getType(this)
     }
+
+    fun updateType(registerValueType: RegisterValueType) {
+        registers.typeChange(this, registerValueType)
+    }
 }

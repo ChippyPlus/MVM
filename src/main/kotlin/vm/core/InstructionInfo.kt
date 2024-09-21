@@ -67,6 +67,7 @@ class Printr(private val register: RegisterType) : InstructionBuild {
      */
     override fun execute() {
         val registerValue = registers.read(register).value!!
+        println(register.getType())
         when (register.getType()) {
             RegisterValueType.Byte -> println(registerValue.toInt().toByte())
             RegisterValueType.Short -> println(registerValue.toInt().toShort())
@@ -114,4 +115,28 @@ class Mov(private val source: RegisterType, private val destination: RegisterTyp
     override fun collectOutput(): String? {
         return null
     }
+}
+
+
+class SetType(private val register: RegisterType, private val type: RegisterValueType) : InstructionBuild {
+    override val name = "SETTYPE"
+    override fun execute() {
+        when (type) {
+            RegisterValueType.Byte -> register.updateType(type)
+            RegisterValueType.Short -> register.updateType(type)
+            RegisterValueType.Int -> register.updateType(type)
+            RegisterValueType.Long -> register.updateType(type)
+            RegisterValueType.Float -> register.updateType(type)
+            RegisterValueType.Double -> register.updateType(type)
+        }
+    }
+
+    override fun debug(): String {
+        return "Changing register $registers to type $type"
+    }
+
+    override fun collectOutput(): String? {
+        return null
+    }
+
 }
