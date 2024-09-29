@@ -4,6 +4,7 @@ import data.registers.Registers
 import debugger.DebugEngine
 import debugger.encoding.DebugFile
 import engine.execution.Execute
+import engine.parser
 import engine.v2.Compile
 import environment.VMErrors
 import internals.Vm
@@ -35,6 +36,10 @@ fun main(args: Array<String>) {
                 exitProcess(1)
             }
             execute.execute(File(args[1]))
+        }
+
+        "tokenise" -> {
+            println(parser(File(args[1])))
         }
 
         "compile" -> {
