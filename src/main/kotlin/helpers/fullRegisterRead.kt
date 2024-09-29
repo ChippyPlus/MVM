@@ -40,6 +40,6 @@ fun fullRegisterRead(register: SuperRegisterType): Long {
         }
     } catch (e: NullPointerException) {
         errors.NullRegisterException(register)
-        exitProcess(11) // To satisfy the compiler. This shouldn't trigger
+        exitProcess(11)
     }
 }
