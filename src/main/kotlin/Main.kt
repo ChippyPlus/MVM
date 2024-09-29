@@ -10,7 +10,6 @@ import kotlinx.serialization.json.Json
 import java.io.File
 import kotlin.system.exitProcess
 
-
 const val STACK_LIMIT = 32
 const val MEMORY_LIMIT = 64
 val vm = Vm()
