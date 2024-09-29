@@ -41,7 +41,7 @@ class Execute {
      *
      * @param command The list of instructions to execute.
      */
-    private fun run(command: MutableList<InstructData>, usingDebugEngine: DebugEngine? = null) {
+    private fun run(command: List<InstructData>, usingDebugEngine: DebugEngine? = null) {
         while (true) {
             vm.pc++
             if (usingDebugEngine != null) {/* This is an optional thing and is checked over each iteration

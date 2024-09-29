@@ -14,7 +14,7 @@ import java.io.File
  * @return A mutable list of [Instruction] objects representing the parsed instructions.
  * @throws InvalidInstructionException If an invalid instruction mnemonic is encountered.
  */
-fun parser(file: File): MutableList<InstructData> {
+fun parser(file: File): List<InstructData> {
     val out = emptyArray<InstructData>().toMutableList()
     val tokens = emptyList<MutableList<String>>().toMutableList()
 

@@ -4,6 +4,7 @@ import data.registers.Registers
 import debugger.DebugEngine
 import debugger.encoding.DebugFile
 import engine.execution.Execute
+import engine.v2.Compile
 import environment.VMErrors
 import internals.Vm
 import kotlinx.serialization.json.Json
@@ -34,6 +35,11 @@ fun main(args: Array<String>) {
                 exitProcess(1)
             }
             execute.execute(File(args[1]))
+        }
+
+        "compile" -> {
+            val x = engine.parser(File(args[1]))
+            println(Compile().execute(x))
         }
 
         "debug" -> {
