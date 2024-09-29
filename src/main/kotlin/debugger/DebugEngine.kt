@@ -1,7 +1,7 @@
 package debugger
 
 import debugger.encoding.DebugFile
-import kvm
+import vm
 import java.io.File
 import java.nio.file.Paths
 import java.util.*
@@ -65,7 +65,7 @@ class DebugEngine(val debugFile: DebugFile) {
         if (linesStack.isEmpty()) {
             return
         }
-        if (linesStack.peek() == kvm.pc) {
+        if (linesStack.peek() == vm.pc) {
             val internalInstruction = debugFile.lineSpecific[linesStack.pop().toString()]!!.split(" ")
             execute(internalInstruction, DebugInstructionModes.Line)
         }

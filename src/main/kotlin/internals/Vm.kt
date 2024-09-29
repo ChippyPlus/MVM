@@ -11,7 +11,7 @@ import internals.instructions.stackOperations.StackOperations
 import internals.instructions.strings.Strings
 import internals.systemCalls.SystemCall
 
-open class Kvm {
+open class Vm {
     val dataTransfer = DataTransfer()
     val arithmetic = Arithmetic()
     val bitwise = Bitwise()

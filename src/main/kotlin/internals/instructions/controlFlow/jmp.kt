@@ -1,7 +1,7 @@
 package internals.instructions.controlFlow
 
 import errors
-import kvm
+import vm
 
 /**
  * Performs an unconditional jump to the specified target address.
@@ -10,7 +10,7 @@ import kvm
  * @throws GeneralControlFlowException If an error occurs during the jump operation.
  */
 fun ControlFlow.jmp(targetAddress: Int): Any = try {
-    targetAddress.apply { kvm.pc = this@apply }
+    targetAddress.apply { vm.pc = this@apply }
 } catch (_: Exception) {
     errors.run { this@run.GeneralControlFlowException(message = "Jmp") }
 }

@@ -9,7 +9,7 @@ import generalRegisters
 import internalMemory
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import kvm
+import vm
 import returnRegisters
 import systemRegisters
 import java.io.File
@@ -47,8 +47,8 @@ class DebugInstructions {
             DebugInstructionModes.Iterator -> "each"
             DebugInstructionModes.Line -> "lineSpecific"
         }
-        File("src/main/resources/debug/out/$location/registers/frame=${kvm.pc}.json").writeText(
-            json.encodeToString(EachInstruction(kvm.pc.toString(), "registers", data))
+        File("src/main/resources/debug/out/$location/registers/frame=${vm.pc}.json").writeText(
+            json.encodeToString(EachInstruction(vm.pc.toString(), "registers", data))
         )
     }
 
@@ -73,8 +73,8 @@ class DebugInstructions {
             DebugInstructionModes.Line -> "lineSpecific"
         }
 
-        File("src/main/resources/debug/out/$location/memoryRange/frame=${kvm.pc}.json").writeText(
-            json.encodeToString(EachInstruction(kvm.pc.toString(), "memoryRange", memMap))
+        File("src/main/resources/debug/out/$location/memoryRange/frame=${vm.pc}.json").writeText(
+            json.encodeToString(EachInstruction(vm.pc.toString(), "memoryRange", memMap))
         )
     }
 
@@ -91,8 +91,8 @@ class DebugInstructions {
             DebugInstructionModes.Line -> "lineSpecific"
         }
 
-        File("src/main/resources/debug/out/$location/descriptors/frame=${kvm.pc}.json").writeText(
-            json.encodeToString(EachInstruction(kvm.pc.toString(), "descriptors", data))
+        File("src/main/resources/debug/out/$location/descriptors/frame=${vm.pc}.json").writeText(
+            json.encodeToString(EachInstruction(vm.pc.toString(), "descriptors", data))
         )
     }
 
@@ -102,14 +102,14 @@ class DebugInstructions {
      * @param mode The execution mode, determining the output directory (Line or Iterator).
      */
     fun stack(mode: DebugInstructionModes) {
-        val data = mapOf("current" to kvm.stackOperations.internalStack.inspect()[0])
+        val data = mapOf("current" to vm.stackOperations.internalStack.inspect()[0])
         val location = when (mode) {
             DebugInstructionModes.Iterator -> "each"
             DebugInstructionModes.Line -> "lineSpecific"
         }
 
-        File("src/main/resources/debug/out/$location/stack/frame=${kvm.pc}.json").writeText(
-            json.encodeToString(EachInstruction(kvm.pc.toString(), "stack", data))
+        File("src/main/resources/debug/out/$location/stack/frame=${vm.pc}.json").writeText(
+            json.encodeToString(EachInstruction(vm.pc.toString(), "stack", data))
         )
     }
 }

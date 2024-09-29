@@ -2,7 +2,7 @@ package environment
 
 import data.memory.MemoryAddress
 import data.registers.enumIdenifiers.SuperRegisterType
-import kvm
+import vm
 import kotlin.system.exitProcess
 
 /**
@@ -21,7 +21,7 @@ class VMErrors {
      * @param message A description of the invalid register type.
      */
     fun InvalidRegisterException(message: String) {
-        System.err.println("$prefix${kvm.pc}: Invalid Register of type \"$message\"")
+        System.err.println("$prefix${vm.pc}: Invalid Register of type \"$message\"")
         exitProcess(1)
     }
 
@@ -31,7 +31,7 @@ class VMErrors {
      * @param message The invalid [MemoryAddress] accessed.
      */
     fun InvalidMemoryAddressException(message: MemoryAddress) {
-        System.err.println("$prefix${kvm.pc}: Invalid Memory Address \"${message.address}\"")
+        System.err.println("$prefix${vm.pc}: Invalid Memory Address \"${message.address}\"")
         exitProcess(2)
     }
 
@@ -41,7 +41,7 @@ class VMErrors {
      * @param message The invalid [MemoryAddress] in string form.
      */
     fun InvalidMemoryAddressException(message: String) {
-        System.err.println("$prefix${kvm.pc}: Invalid Memory Address \"${message}\"")
+        System.err.println("$prefix${vm.pc}: Invalid Memory Address \"${message}\"")
         exitProcess(2)
     }
 
@@ -52,7 +52,7 @@ class VMErrors {
      * @param message The invalid instruction mnemonic encountered.
      */
     fun InvalidInstructionException(message: String) {
-        System.err.println("$prefix${kvm.pc}: Invalid Instruction \"${message}\"")
+        System.err.println("$prefix${vm.pc}: Invalid Instruction \"${message}\"")
         exitProcess(3)
     }
 
@@ -62,7 +62,7 @@ class VMErrors {
      * @param message A description of the invalid system call.
      */
     fun InvalidSystemCallException(message: String) {
-        System.err.println("$prefix${kvm.pc}: Invalid System Call \"${message}\"")
+        System.err.println("$prefix${vm.pc}: Invalid System Call \"${message}\"")
         exitProcess(4)
     }
 
@@ -70,7 +70,7 @@ class VMErrors {
      * Reports a stack overflow exception.
      */
     fun StackOverflowException() {
-        System.err.println("$prefix${kvm.pc}: Stack Overflow Exception")
+        System.err.println("$prefix${vm.pc}: Stack Overflow Exception")
         exitProcess(5)
     }
 
@@ -78,7 +78,7 @@ class VMErrors {
      * Reports an empty stack exception.
      */
     fun EmptyStackException() {
-        System.err.println("$prefix${kvm.pc}: Empty Stack Exception")
+        System.err.println("$prefix${vm.pc}: Empty Stack Exception")
         exitProcess(6)
     }
 
@@ -88,7 +88,7 @@ class VMErrors {
      * @param message A description of the arithmetic error (e.g., "division by zero").
      */
     fun GeneralArithmeticException(message: String) {
-        System.err.println("$prefix${kvm.pc}: General Arithmetic Exception \"$message operation failed\"")
+        System.err.println("$prefix${vm.pc}: General Arithmetic Exception \"$message operation failed\"")
         exitProcess(7)
     }
 
@@ -98,7 +98,7 @@ class VMErrors {
      * @param message A description of the system call error.
      */
     fun SystemCallGeneralException(message: String) {
-        System.err.println("$prefix${kvm.pc}: System Call General Exception \"$message operation failed\"")
+        System.err.println("$prefix${vm.pc}: System Call General Exception \"$message operation failed\"")
         exitProcess(8)
     }
 
@@ -106,7 +106,7 @@ class VMErrors {
      * Reports a file access exception.
      */
     fun FileAccessException() {
-        System.err.println("$prefix${kvm.pc}: File Access Exception")
+        System.err.println("$prefix${vm.pc}: File Access Exception")
         exitProcess(9)
     }
 
@@ -114,7 +114,7 @@ class VMErrors {
      * Reports a socket exception.
      */
     fun SocketException() {
-        System.err.println("$prefix${kvm.pc}: Socket Exception")
+        System.err.println("$prefix${vm.pc}: Socket Exception")
         exitProcess(10)
     }
 
@@ -124,7 +124,7 @@ class VMErrors {
      * @param message A description of the memory allocation error.
      */
     fun MemoryAllocationException(message: String) {
-        System.err.println("$prefix${kvm.pc}: Memory Allocation Exception \"$message\"")
+        System.err.println("$prefix${vm.pc}: Memory Allocation Exception \"$message\"")
         exitProcess(11)
     }
 
@@ -134,7 +134,7 @@ class VMErrors {
      * @param message A description of the invalid argument.
      */
     fun InvalidInstructionArgumentException(message: String) {
-        System.err.println("$prefix${kvm.pc}: Invalid Instruction Argument \"$message\"")
+        System.err.println("$prefix${vm.pc}: Invalid Instruction Argument \"$message\"")
         exitProcess(12)
     }
 
@@ -144,7 +144,7 @@ class VMErrors {
      * @param message The [SuperRegisterType] of the register that was null.
      */
     fun NullRegisterException(message: SuperRegisterType) {
-        System.err.println("$prefix${kvm.pc}: Null Register of \"$message\"")
+        System.err.println("$prefix${vm.pc}: Null Register of \"$message\"")
         exitProcess(13)
     }
 
@@ -154,7 +154,7 @@ class VMErrors {
      * @param message The null [MemoryAddress] that was accessed.
      */
     fun NullAddressException(message: MemoryAddress) {
-        System.err.println("$prefix${kvm.pc}: Null Address of \"$message\"")
+        System.err.println("$prefix${vm.pc}: Null Address of \"$message\"")
         exitProcess(14)
     }
 
@@ -164,7 +164,7 @@ class VMErrors {
      * @param message A description of the invalid file descriptor.
      */
     fun InvalidFileDescriptorException(message: String) {
-        System.err.println("$prefix${kvm.pc}: Invalid File Descriptor of \"$message\"")
+        System.err.println("$prefix${vm.pc}: Invalid File Descriptor of \"$message\"")
         exitProcess(15)
     }
 
@@ -174,7 +174,7 @@ class VMErrors {
      * @param message The memory address that was not free.
      */
     fun NotFreeMemoryException(message: String) {
-        System.err.println("$prefix${kvm.pc}: Address \"$message\" is not free Memory")
+        System.err.println("$prefix${vm.pc}: Address \"$message\" is not free Memory")
         exitProcess(16)
     }
 
@@ -184,7 +184,7 @@ class VMErrors {
      * @param message A description of the bitwise operation error.
      */
     fun GeneralBitwiseException(message: String) {
-        System.err.println("$prefix${kvm.pc}: General Bitwise Exception \"$message operation failed\"")
+        System.err.println("$prefix${vm.pc}: General Bitwise Exception \"$message operation failed\"")
         exitProcess(17)
     }
 
@@ -194,7 +194,7 @@ class VMErrors {
      * @param message A description of the control flow error.
      */
     fun GeneralControlFlowException(message: String) {
-        System.err.println("$prefix${kvm.pc}: General ControlFlow Exception \"$message operation failed\"")
+        System.err.println("$prefix${vm.pc}: General ControlFlow Exception \"$message operation failed\"")
         exitProcess(18)
     }
 
@@ -204,7 +204,7 @@ class VMErrors {
      * @param message A description of the data transfer error.
      */
     fun GeneralDataTransferException(message: String) {
-        System.err.println("$prefix${kvm.pc}: General DataTransfer Exception \"$message operation failed\"")
+        System.err.println("$prefix${vm.pc}: General DataTransfer Exception \"$message operation failed\"")
         exitProcess(19)
     }
 
@@ -214,7 +214,7 @@ class VMErrors {
      * @param message A description of the I/O error.
      */
     fun GeneralIoAbstractionsException(message: String) {
-        System.err.println("$prefix${kvm.pc}: General IoAbstractions Exception \"$message operation failed\"")
+        System.err.println("$prefix${vm.pc}: General IoAbstractions Exception \"$message operation failed\"")
         exitProcess(20)
     }
 
@@ -224,7 +224,7 @@ class VMErrors {
      * @param message A description of the memory operation error.
      */
     fun GeneralMemoryException(message: String) {
-        System.err.println("$prefix${kvm.pc}: General Memory Exception \"$message operation failed\"")
+        System.err.println("$prefix${vm.pc}: General Memory Exception \"$message operation failed\"")
         exitProcess(21)
     }
 
@@ -234,7 +234,7 @@ class VMErrors {
      * @param message A description of the stack operation error.
      */
     fun GeneralStackOperationsException(message: String) {
-        System.err.println("$prefix${kvm.pc}: General Stack Operation \"$message operation failed\"")
+        System.err.println("$prefix${vm.pc}: General Stack Operation \"$message operation failed\"")
         exitProcess(22)
     }
 
@@ -244,7 +244,7 @@ class VMErrors {
      * @param message A description of the string operation error.
      */
     fun GeneralStringException(message: String) {
-        System.err.println("$prefix${kvm.pc}: General Strings Exception \"$message operation failed\"")
+        System.err.println("$prefix${vm.pc}: General Strings Exception \"$message operation failed\"")
         exitProcess(23)
     }
 }

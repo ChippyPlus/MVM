@@ -24,7 +24,7 @@ import internals.instructions.strings.strcat
 import internals.instructions.strings.strcmp
 import internals.instructions.strings.strcpy
 import internals.instructions.strings.strlen
-import kvm
+import vm
 import java.io.File
 
 
@@ -43,112 +43,112 @@ class Execute {
      */
     private fun run(command: MutableList<InstructData>, usingDebugEngine: DebugEngine? = null) {
         while (true) {
-            kvm.pc++
+            vm.pc++
             if (usingDebugEngine != null) {/* This is an optional thing and is checked over each iteration
  TODO fix the iteration performance oversight */
                 usingDebugEngine.eachInteraction()
                 usingDebugEngine.lineSpecific()
             }
-            if (kvm.pc - 1L == command.size.toLong()) {
+            if (vm.pc - 1L == command.size.toLong()) {
                 break
             }
-            val args = command[kvm.pc - 1].values
-            when (command[kvm.pc - 1].name) {
-                "strcmp" -> kvm.strings.strcmp(
+            val args = command[vm.pc - 1].values
+            when (command[vm.pc - 1].name) {
+                "strcmp" -> vm.strings.strcmp(
                     string1 = args[1] as SuperRegisterType, string2 = args[2] as SuperRegisterType
                 )
 
-                "strcat" -> kvm.strings.strcat(
+                "strcat" -> vm.strings.strcat(
                     string1 = args[1] as SuperRegisterType, string2 = args[2] as SuperRegisterType
                 )
 
-                "strcpy" -> kvm.strings.strcpy(
+                "strcpy" -> vm.strings.strcpy(
                     source = args[1] as SuperRegisterType, destination = args[2] as SuperRegisterType
                 )
 
-                "cpy" -> kvm.dataTransfer.cpy(
+                "cpy" -> vm.dataTransfer.cpy(
                     register1 = args[1] as SuperRegisterType, register2 = args[2] as SuperRegisterType
                 )
 
-                "add" -> kvm.arithmetic.add(
+                "add" -> vm.arithmetic.add(
                     registerA = args[1] as SuperRegisterType, registerB = args[2] as SuperRegisterType
                 )
 
-                "sub" -> kvm.arithmetic.sub(
+                "sub" -> vm.arithmetic.sub(
                     registerA = args[1] as SuperRegisterType, registerB = args[2] as SuperRegisterType
                 )
 
 
-                "mul" -> kvm.arithmetic.mul(
+                "mul" -> vm.arithmetic.mul(
                     registerA = args[1] as SuperRegisterType, registerB = args[2] as SuperRegisterType
                 )
 
-                "div" -> kvm.arithmetic.div(
+                "div" -> vm.arithmetic.div(
                     registerA = args[1] as SuperRegisterType, registerB = args[2] as SuperRegisterType
                 )
 
-                "mod" -> kvm.arithmetic.mod(
+                "mod" -> vm.arithmetic.mod(
                     registerA = args[1] as SuperRegisterType, registerB = args[2] as SuperRegisterType
                 )
 
-                "eq" -> kvm.arithmetic.eq(
+                "eq" -> vm.arithmetic.eq(
                     operand1 = args[1] as SuperRegisterType, operand2 = args[2] as SuperRegisterType
                 )
 
-                "strlen" -> kvm.strings.strlen(addressRegister = args[1] as SuperRegisterType)
-                "lit" -> kvm.dataTransfer.lit(Source = args[0] as SuperRegisterType, value = args[1] as Long)
-                "mov" -> kvm.dataTransfer.mov(
+                "strlen" -> vm.strings.strlen(addressRegister = args[1] as SuperRegisterType)
+                "lit" -> vm.dataTransfer.lit(Source = args[0] as SuperRegisterType, value = args[1] as Long)
+                "mov" -> vm.dataTransfer.mov(
                     Source = args[0] as SuperRegisterType, Destination = args[1] as SuperRegisterType
                 )
 
-                "jmp" -> kvm.controlFlow.jmp(targetAddress = args[0] as Int - 1)
-                "jz" -> kvm.controlFlow.jz(
+                "jmp" -> vm.controlFlow.jmp(targetAddress = args[0] as Int - 1)
+                "jz" -> vm.controlFlow.jz(
                     targetAddress = args[0] as Int - 1, testRegister = args[1] as SuperRegisterType
                 )
 
-                "jnz" -> kvm.controlFlow.jnz(
+                "jnz" -> vm.controlFlow.jnz(
                     targetAddress = args[0] as Int - 1, testRegister = args[1] as SuperRegisterType
                 )
 
-                "peek" -> kvm.stackOperations.peek(destination = args[0] as SuperRegisterType)
-                "pop" -> kvm.stackOperations.pop(destination = args[0] as SuperRegisterType)
-                "push" -> kvm.stackOperations.push(registerType = args[0] as SuperRegisterType)
-                "store" -> kvm.memory.store(
+                "peek" -> vm.stackOperations.peek(destination = args[0] as SuperRegisterType)
+                "pop" -> vm.stackOperations.pop(destination = args[0] as SuperRegisterType)
+                "push" -> vm.stackOperations.push(registerType = args[0] as SuperRegisterType)
+                "store" -> vm.memory.store(
                     source = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
                 )
 
-                "load" -> kvm.memory.load(
+                "load" -> vm.memory.load(
                     memoryAddress = args[0] as MemoryAddress, destination = args[1] as SuperRegisterType
                 )
 
-                "shl" -> kvm.bitwise.shl(
+                "shl" -> vm.bitwise.shl(
                     operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
                 )
 
-                "shr" -> kvm.bitwise.shr(
+                "shr" -> vm.bitwise.shr(
                     operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
                 )
 
-                "and" -> kvm.bitwise.and(
+                "and" -> vm.bitwise.and(
                     operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
                 )
 
-                "not" -> kvm.bitwise.not(operand = args[0] as SuperRegisterType)
-                "or" -> kvm.bitwise.or(operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType)
-                "xor" -> kvm.bitwise.xor(
+                "not" -> vm.bitwise.not(operand = args[0] as SuperRegisterType)
+                "or" -> vm.bitwise.or(operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType)
+                "xor" -> vm.bitwise.xor(
                     operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
                 )
 
-                "syscall" -> kvm.systemCall.execute(
+                "syscall" -> vm.systemCall.execute(
                     callId = args[0] as SuperRegisterType,
                     s2 = args[1] as SuperRegisterType,
                     s3 = args[2] as SuperRegisterType,
                     s4 = args[3] as SuperRegisterType
                 )
 
-                "prints" -> kvm.ioAbstractions.prints()
-                "printr" -> kvm.ioAbstractions.printr(register = args[0] as SuperRegisterType)
-                else -> errors.InvalidInstructionException(command[kvm.pc - 1].name)
+                "prints" -> vm.ioAbstractions.prints()
+                "printr" -> vm.ioAbstractions.printr(register = args[0] as SuperRegisterType)
+                else -> errors.InvalidInstructionException(command[vm.pc - 1].name)
             }
 
         }

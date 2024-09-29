@@ -5,7 +5,7 @@ import debugger.DebugEngine
 import debugger.encoding.DebugFile
 import engine.execution.Execute
 import environment.VMErrors
-import internals.Kvm
+import internals.Vm
 import kotlinx.serialization.json.Json
 import java.io.File
 import kotlin.system.exitProcess
@@ -13,7 +13,7 @@ import kotlin.system.exitProcess
 
 const val STACK_LIMIT = 32
 const val MEMORY_LIMIT = 64
-val kvm = Kvm()
+val vm = Vm()
 
 val errors = VMErrors()
 val fileDescriptors = FileDescriptors()

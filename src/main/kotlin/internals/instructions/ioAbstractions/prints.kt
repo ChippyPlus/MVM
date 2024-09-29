@@ -1,7 +1,7 @@
 package internals.instructions.ioAbstractions
 
 import errors
-import kvm
+import vm
 
 /**
  * Prints the value at the top of the stack to the console.
@@ -9,7 +9,7 @@ import kvm
  * @throws GeneralIoAbstractionsException If an error occurs during the printing operation.
  */
 fun IoAbstractions.prints(): Unit = try {
-    println(message = with(kvm) {
+    println(message = with(vm) {
         return@with this.stackOperations.run { return@run this@run.internalStack.peek() }
     })
 } catch (_: Exception) {
