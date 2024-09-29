@@ -3,7 +3,6 @@ package engine
 import data.registers.enumIdenifiers.SuperRegisterType
 import engine.execution.InstructData
 import errors
-import helpers.toMemoryAddress
 import helpers.toSuperRegisterType
 import java.io.File
 
@@ -185,7 +184,7 @@ fun parser(file: File): List<InstructData> {
 
             "LOAD" -> out.add(
                 InstructData(
-                    name = "load", arrayOf(line[1].toMemoryAddress(), line[2].toSuperRegisterType())
+                    name = "load", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
                 )
             )
 
