@@ -3,6 +3,7 @@ package internals.instructions
 import data.memory.MemoryAddress
 import data.registers.enumIdenifiers.SuperRegisterType
 
+@Deprecated("Ready to phase this out. It just adds un-necessary complexity")
 @Suppress("unused")
 class Instruction {
 

@@ -1,10 +1,10 @@
 package engine
 
 import data.registers.enumIdenifiers.SuperRegisterType
+import engine.execution.InstructData
 import errors
 import helpers.toMemoryAddress
 import helpers.toSuperRegisterType
-import internals.instructions.Instruction
 import java.io.File
 
 /**
@@ -14,8 +14,8 @@ import java.io.File
  * @return A mutable list of [Instruction] objects representing the parsed instructions.
  * @throws InvalidInstructionException If an invalid instruction mnemonic is encountered.
  */
-fun parser(file: File): MutableList<Any> {
-    val out = emptyArray<Any>().toMutableList()
+fun parser(file: File): MutableList<InstructData> {
+    val out = emptyArray<InstructData>().toMutableList()
     val tokens = emptyList<MutableList<String>>().toMutableList()
 
     // Read each line from the file and split it into tokens
@@ -30,25 +30,66 @@ fun parser(file: File): MutableList<Any> {
     for (line in tokens) {
         // The first token is the instruction mnemonic
         when (val instruction = line[0]) {
-            "STRCPY" -> out.add(Instruction.StrCpy(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
-            "STRCMP" -> out.add(Instruction.StrCmp(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
-            "STRCAT" -> out.add(Instruction.StrCat(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
-            "SUBSTR" -> out.add(
-                Instruction.SubStr(
-                    line[1].toSuperRegisterType(),
-                    line[2].toSuperRegisterType(),
-                    line[3].toSuperRegisterType(),
+
+            "STRCPY" -> out.add(
+                InstructData(
+                    name = "strcpy", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
                 )
             )
 
-            "FIND" -> out.add(Instruction.Find(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
-            "CPY" -> out.add(Instruction.Cpy(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
-            "STRLEN" -> out.add(Instruction.Strlen(line[1].toSuperRegisterType()))
-            "PRINTR" -> out.add(Instruction.Printr(line[1].toSuperRegisterType()))
-            "STR" -> out.add(Instruction.Str(line[1].toSuperRegisterType(), line.joinToString(" ").split("\"")[1]))
+            "STRCMP" -> out.add(
+                InstructData(
+                    name = "strcmp", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+                )
+            )
+
+            "STRCAT" -> out.add(
+                InstructData(
+                    name = "strcat", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+                )
+            )
+
+            "SUBSTR" -> out.add(
+                InstructData(
+                    name = "substr",
+                    arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType(), line[3].toSuperRegisterType())
+                )
+            )
+
+            "FIND" -> out.add(
+                InstructData(
+                    name = "find", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+                )
+            )
+
+            "CPY" -> out.add(
+                InstructData(
+                    name = "cpy", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+                )
+            )
+
+            "STRLEN" -> out.add(
+                InstructData(
+                    name = "strlen", arrayOf(line[1].toSuperRegisterType())
+                )
+            )
+
+            "PRINTR" -> out.add(
+                InstructData(
+                    name = "printr", arrayOf(line[1].toSuperRegisterType())
+                )
+            )
+
+            "STR" -> out.add(
+                InstructData(
+                    name = "str", arrayOf(line[1].toSuperRegisterType(), line.joinToString(" ").split("\"")[1])
+                )
+            )
+
             "SYSCALL" -> out.add(
-                Instruction.Syscall(
-                    SuperRegisterType.S1, SuperRegisterType.S2, SuperRegisterType.S3, SuperRegisterType.S4
+                InstructData(
+                    name = "syscall",
+                    arrayOf(SuperRegisterType.S1, SuperRegisterType.S2, SuperRegisterType.S3, SuperRegisterType.S4)
                 )
             )
 
@@ -58,29 +99,144 @@ fun parser(file: File): MutableList<Any> {
             "//" -> { /* Ignore comments */
             }
 
-            "MOD" -> out.add(Instruction.Mod(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
-            "EQ" -> out.add(Instruction.Eq(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
-            "SHL" -> out.add(Instruction.Shl(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
-            "SHR" -> out.add(Instruction.Shr(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
-            "PEEK" -> out.add(Instruction.Peek(line[1].toSuperRegisterType()))
-            "POP" -> out.add(Instruction.Pop(line[1].toSuperRegisterType()))
-            "PUSH" -> out.add(Instruction.Push(line[1].toSuperRegisterType()))
-            "PRINTS" -> out.add(Instruction.Prints())
-            "DIV" -> out.add(Instruction.Div(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
-            "AND" -> out.add(Instruction.And(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
-            "OR" -> out.add(Instruction.Or(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
-            "XOR" -> out.add(Instruction.Xor(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
-            "NOT" -> out.add(Instruction.Not(line[1].toSuperRegisterType()))
-            "STORE" -> out.add(Instruction.Store(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
-            "LOAD" -> out.add(Instruction.Load(line[1].toMemoryAddress(), line[2].toSuperRegisterType()))
-            "LIT" -> out.add(Instruction.Lit(line[1].toSuperRegisterType(), line[2].toLong()))
-            "JMP" -> out.add(Instruction.Jmp(line[1].toInt()))
-            "JZ" -> out.add(Instruction.Jz(line[1].toInt(), line[2].toSuperRegisterType()))
-            "JNZ" -> out.add(Instruction.Jnz(line[1].toInt(), line[2].toSuperRegisterType()))
-            "MOV" -> out.add(Instruction.Mov(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
-            "ADD" -> out.add(Instruction.Add(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
-            "SUB" -> out.add(Instruction.Sub(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
-            "MUL" -> out.add(Instruction.Mul(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
+            "MOD" -> out.add(
+                InstructData(
+                    name = "mod", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+                )
+            )
+
+            "EQ" -> out.add(
+                InstructData(
+                    name = "eq", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+                )
+            )
+
+            "SHL" -> out.add(
+                InstructData(
+                    name = "shl", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+                )
+            )
+
+            "SHR" -> out.add(
+                InstructData(
+                    name = "shr", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+                )
+            )
+
+            "PEEK" -> out.add(
+                InstructData(
+                    name = "peek", arrayOf(line[1].toSuperRegisterType())
+                )
+            )
+
+            "POP" -> out.add(
+                InstructData(
+                    name = "pop", arrayOf(line[1].toSuperRegisterType())
+                )
+            )
+
+            "PUSH" -> out.add(
+                InstructData(
+                    name = "push", arrayOf(line[1].toSuperRegisterType())
+                )
+            )
+
+            "PRINTS" -> out.add(
+                InstructData(
+                    name = "prints", emptyArray()
+                )
+            )
+
+            "DIV" -> out.add(
+                InstructData(
+                    name = "div", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+                )
+            )
+
+            "AND" -> out.add(
+                InstructData(
+                    name = "and", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+                )
+            )
+
+            "OR" -> out.add(
+                InstructData(
+                    name = "or", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+                )
+            )
+
+            "XOR" -> out.add(
+                InstructData(
+                    name = "xor", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+                )
+            )
+
+            "NOT" -> out.add(
+                InstructData(
+                    name = "not", arrayOf(line[1].toSuperRegisterType())
+                )
+            )
+
+            "STORE" -> out.add(
+                InstructData(
+                    name = "store", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+                )
+            )
+
+            "LOAD" -> out.add(
+                InstructData(
+                    name = "load", arrayOf(line[1].toMemoryAddress(), line[2].toSuperRegisterType())
+                )
+            )
+
+            "LIT" -> out.add(
+                InstructData(
+                    name = "lit", arrayOf(line[1].toSuperRegisterType(), line[2].toLong())
+                )
+            )
+
+            "JMP" -> out.add(
+                InstructData(
+                    name = "jmp", arrayOf(line[1].toInt())
+                )
+            )
+
+            "JZ" -> out.add(
+                InstructData(
+                    name = "jz", arrayOf(line[1].toInt(), line[2].toSuperRegisterType())
+                )
+            )
+
+            "JNZ" -> out.add(
+                InstructData(
+                    name = "jnz", arrayOf(line[1].toInt(), line[2].toSuperRegisterType())
+                )
+            )
+
+            "MOV" -> out.add(
+                InstructData(
+                    name = "mov", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+                )
+            )
+
+            "ADD" -> out.add(
+                InstructData(
+                    name = "add", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+                )
+            )
+
+            "SUB" -> out.add(
+                InstructData(
+                    name = "sub", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+                )
+            )
+
+            "MUL" -> out.add(
+                InstructData(
+                    name = "mul", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+                )
+            )
+
             else -> errors.InvalidInstructionException(instruction) // Throw an exception for invalid instructions
         }
     }

@@ -1,8 +1,10 @@
 package engine.execution
 
+import data.memory.MemoryAddress
+import data.registers.enumIdenifiers.SuperRegisterType
 import debugger.DebugEngine
 import engine.parser
-import internals.instructions.Instruction
+import errors
 import internals.instructions.arithmetic.*
 import internals.instructions.bitwise.*
 import internals.instructions.controlFlow.jmp
@@ -18,7 +20,10 @@ import internals.instructions.memory.store
 import internals.instructions.stackOperations.peek
 import internals.instructions.stackOperations.pop
 import internals.instructions.stackOperations.push
-import internals.instructions.strings.*
+import internals.instructions.strings.strcat
+import internals.instructions.strings.strcmp
+import internals.instructions.strings.strcpy
+import internals.instructions.strings.strlen
 import kvm
 import java.io.File
 
@@ -35,55 +40,117 @@ class Execute {
      *
      * @param command The list of instructions to execute.
      */
-    private fun run(command: MutableList<Instruction>, usingDebugEngine: DebugEngine? = null) {
+    private fun run(command: MutableList<InstructData>, usingDebugEngine: DebugEngine? = null) {
         while (true) {
             kvm.pc++
             if (usingDebugEngine != null) {
-                println("USING DEBUG")
                 usingDebugEngine.eachInteraction()
                 usingDebugEngine.lineSpecific()
             }
             if (kvm.pc - 1L == command.size.toLong()) {
                 break
             }
-            when (val instruction: Any = command[kvm.pc - 1]) {
-                is Instruction.StrCmp -> kvm.strings.strcmp(instruction.string1, instruction.string2)
-                is Instruction.StrCat -> kvm.strings.strcat(instruction.string1, instruction.string2)
-                is Instruction.StrCpy -> kvm.strings.strcpy(instruction.source, instruction.destination)
-                is Instruction.Cpy -> kvm.dataTransfer.cpy(instruction.register1, instruction.register2)
-                is Instruction.Add -> kvm.arithmetic.add(instruction.operand1, instruction.operand2)
-                is Instruction.Sub -> kvm.arithmetic.sub(instruction.operand1, instruction.operand2)
-                is Instruction.Mul -> kvm.arithmetic.mul(instruction.operand1, instruction.operand2)
-                is Instruction.Div -> kvm.arithmetic.div(instruction.operand1, instruction.operand2)
-                is Instruction.Mod -> kvm.arithmetic.mod(instruction.operand1, instruction.operand2)
-                is Instruction.Eq -> kvm.arithmetic.eq(instruction.operand1, instruction.operand2)
-                is Instruction.Strlen -> kvm.strings.strlen(instruction.addressRegister)
-                is Instruction.Str -> kvm.strings.str(instruction.targetAddress, instruction.string)
-                is Instruction.Lit -> kvm.dataTransfer.lit(instruction.destination, instruction.value)
-                is Instruction.Mov -> kvm.dataTransfer.mov(instruction.source, instruction.destination)
-                is Instruction.Jmp -> kvm.controlFlow.jmp(instruction.targetAddress - 1)
-                is Instruction.Jz -> kvm.controlFlow.jz(instruction.targetAddress - 1, instruction.testRegister)
-                is Instruction.Jnz -> kvm.controlFlow.jnz(instruction.targetAddress - 1, instruction.testRegister)
-                is Instruction.Peek -> kvm.stackOperations.peek(instruction.destination)
-                is Instruction.Pop -> kvm.stackOperations.pop(instruction.destination)
-                is Instruction.Push -> kvm.stackOperations.push(instruction.source)
-                is Instruction.Store -> kvm.memory.store(instruction.source, instruction.memoryAddress)
-                is Instruction.Load -> kvm.memory.load(instruction.memoryAddress, instruction.destination)
-                is Instruction.Shl -> kvm.bitwise.shl(instruction.operand, instruction.shiftAmount)
-                is Instruction.Shr -> kvm.bitwise.shr(instruction.operand, instruction.shiftAmount)
-                is Instruction.And -> kvm.bitwise.and(instruction.operand1, instruction.operand2)
-                is Instruction.Not -> kvm.bitwise.not(instruction.operand)
-                is Instruction.Or -> kvm.bitwise.or(instruction.operand1, instruction.operand2)
-                is Instruction.Xor -> kvm.bitwise.xor(instruction.operand1, instruction.operand2)
-                is Instruction.Syscall -> kvm.systemCall.execute(
-                    instruction.systemCallNumber, instruction.argument1, instruction.argument2, instruction.argument3
+            val args = command[kvm.pc - 1].values
+            when (command[kvm.pc - 1].name) {
+                "strcmp" -> kvm.strings.strcmp(
+                    string1 = args[1] as SuperRegisterType, string2 = args[2] as SuperRegisterType
                 )
 
-                is Instruction.Prints -> kvm.ioAbstractions.prints()
-                is Instruction.Printr -> kvm.ioAbstractions.printr(instruction.register)
+                "strcat" -> kvm.strings.strcat(
+                    string1 = args[1] as SuperRegisterType, string2 = args[2] as SuperRegisterType
+                )
+
+                "strcpy" -> kvm.strings.strcpy(
+                    source = args[1] as SuperRegisterType, destination = args[2] as SuperRegisterType
+                )
+
+                "cpy" -> kvm.dataTransfer.cpy(
+                    register1 = args[1] as SuperRegisterType, register2 = args[2] as SuperRegisterType
+                )
+
+                "add" -> kvm.arithmetic.add(
+                    registerA = args[1] as SuperRegisterType, registerB = args[2] as SuperRegisterType
+                )
+
+                "sub" -> kvm.arithmetic.sub(
+                    registerA = args[1] as SuperRegisterType, registerB = args[2] as SuperRegisterType
+                )
+
+                "mul" -> kvm.arithmetic.mul(
+                    registerA = args[1] as SuperRegisterType, registerB = args[2] as SuperRegisterType
+                )
+
+                "div" -> kvm.arithmetic.div(
+                    registerA = args[1] as SuperRegisterType, registerB = args[2] as SuperRegisterType
+                )
+
+                "mod" -> kvm.arithmetic.mod(
+                    registerA = args[1] as SuperRegisterType, registerB = args[2] as SuperRegisterType
+                )
+
+                "eq" -> kvm.arithmetic.eq(
+                    operand1 = args[1] as SuperRegisterType, operand2 = args[2] as SuperRegisterType
+                )
+
+                "strlen" -> kvm.strings.strlen(addressRegister = args[1] as SuperRegisterType)
+                "lit" -> kvm.dataTransfer.lit(Source = args[0] as SuperRegisterType, value = args[1] as Long)
+                "mov" -> kvm.dataTransfer.mov(
+                    Source = args[0] as SuperRegisterType, Destination = args[1] as SuperRegisterType
+                )
+
+                "jmp" -> kvm.controlFlow.jmp(targetAddress = args[0] as Int - 1)
+                "jz" -> kvm.controlFlow.jz(
+                    targetAddress = args[0] as Int - 1, testRegister = args[1] as SuperRegisterType
+                )
+
+                "jnz" -> kvm.controlFlow.jnz(
+                    targetAddress = args[0] as Int - 1, testRegister = args[1] as SuperRegisterType
+                )
+
+                "peek" -> kvm.stackOperations.peek(destination = args[0] as SuperRegisterType)
+                "pop" -> kvm.stackOperations.pop(destination = args[0] as SuperRegisterType)
+                "push" -> kvm.stackOperations.push(registerType = args[0] as SuperRegisterType)
+                "store" -> kvm.memory.store(
+                    source = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
+                )
+
+                "load" -> kvm.memory.load(
+                    memoryAddress = args[0] as MemoryAddress, destination = args[1] as SuperRegisterType
+                )
+
+                "shl" -> kvm.bitwise.shl(
+                    operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+                )
+
+                "shr" -> kvm.bitwise.shr(
+                    operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+                )
+
+                "and" -> kvm.bitwise.and(
+                    operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+                )
+
+                "not" -> kvm.bitwise.not(operand = args[0] as SuperRegisterType)
+                "or" -> kvm.bitwise.or(operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType)
+                "xor" -> kvm.bitwise.xor(
+                    operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+                )
+
+                "syscall" -> kvm.systemCall.execute(
+                    callId = args[0] as SuperRegisterType,
+                    s2 = args[1] as SuperRegisterType,
+                    s3 = args[2] as SuperRegisterType,
+                    s4 = args[3] as SuperRegisterType
+                )
+
+                "prints" -> kvm.ioAbstractions.prints()
+                "printr" -> kvm.ioAbstractions.printr(register = args[0] as SuperRegisterType)
+                else -> errors.InvalidInstructionException(command[kvm.pc - 1].name)
             }
+
         }
     }
+
 
     /**
      * Parses and executes the instructions from the specified file.
@@ -92,11 +159,6 @@ class Execute {
      */
     fun execute(file: File, usingDebugTools: DebugEngine? = null) {
         val tokens = parser(file)
-        @Suppress("UNCHECKED_CAST") ((tokens as? MutableList<Instruction>)?.let {
-            run(
-                it, usingDebugEngine = usingDebugTools
-            )
-        })
-        // This may look strange, but it's safe!
+        this@Execute.run(command = tokens, usingDebugEngine = usingDebugTools)
     }
 }
