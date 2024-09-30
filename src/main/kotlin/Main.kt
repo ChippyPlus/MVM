@@ -48,8 +48,7 @@ fun main(args: Array<String>) {
         }
 
         "compile" -> {
-            val x = parser(File(args[1]))
-            println(Compile().execute(x))
+            println(Compile().execute(parser(File(args[1]))))
         }
 
         "debug" -> {
