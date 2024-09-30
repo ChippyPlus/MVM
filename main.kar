@@ -1,11 +1,4 @@
-str G1 "I love dogs"
-lit S1 24
-mov G1 S2
-syscall
-LIT G1 0
 LIT G2 10
-LIT G3 30
-LIT G4 31
-STORE G2 G3
-STORE G1 G4
-mov S2 G1
+LIT G2 30
+push G2
+PRINTS

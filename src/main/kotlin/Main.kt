@@ -72,6 +72,7 @@ fun main(args: Array<String>) {
             val f = File(args[1].split(".")[0] + ".mar")
             f.createNewFile()
             f.writeText(out)
+            println("Compiled with 0 Issues!!!!!")
         }
 
         "debug" -> {// TODO Make this an option
