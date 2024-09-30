@@ -21,11 +21,13 @@ import vm
 
 class ExecutionV2 {
     fun execute(f: String) {
+
         val nf = f.split((0).toChar()).toMutableList()
         nf.removeLast()
 
         val transMapIDs = TransMapIDs()
         for (instruct in nf) {
+            vm.internalPc++
             when (instruct[0]) {
                 'a' -> vm.dataTransfer.mov(getR(instruct[1]), getR(instruct[2]))
                 'b' -> vm.dataTransfer.lit(getR(instruct[1]), instruct.substring(2).toLong())
@@ -56,6 +58,7 @@ class ExecutionV2 {
                 'A' -> vm.strings.strcat(getR(instruct[1]), getR(instruct[2]))
                 'B' -> vm.strings.strcpy(getR(instruct[1]), getR(instruct[2]))
                 'C' -> vm.ioAbstractions.printr(transMapIDs.uRegisters[instruct[1]]!!)
+                else -> System.err.println("ERROR:${vm.internalPc}: Bad symbol at runtime in MAR \"${instruct[0]}\"")
             }
         }
     }
