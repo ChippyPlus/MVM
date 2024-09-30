@@ -4,6 +4,7 @@ import data.registers.enumIdenifiers.SuperRegisterType
 import engine.execution.InstructData
 import errors
 import helpers.toSuperRegisterType
+import vm
 import java.io.File
 
 /**
@@ -27,7 +28,7 @@ fun parser(file: File): List<InstructData> {
     }
 
     for (line in tokens) {
-        // The first token is the instruction mnemonic
+        vm.pc++
         when (val instruction = line[0].uppercase()) {
 
             "STRCPY" -> out.add(
@@ -239,5 +240,6 @@ fun parser(file: File): List<InstructData> {
             else -> errors.InvalidInstructionException(instruction) // Throw an exception for invalid instructions
         }
     }
+    vm.pc = 0
     return out
 }

@@ -49,7 +49,7 @@ fun main(args: Array<String>) {
 
         "compile" -> {
             val out = Compile().execute(parser(File(args[1])))
-            val f = File(args[1].split(".")[0] + ".machine")
+            val f = File(args[1].split(".")[0] + ".mar")
             f.createNewFile()
             f.writeText(out)
         }

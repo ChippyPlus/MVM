@@ -22,6 +22,7 @@ open class Vm {
     val ioAbstractions = IoAbstractions()
     val strings = Strings()
     var pc = 0
+    val internalPc = 0
 }
 
 
