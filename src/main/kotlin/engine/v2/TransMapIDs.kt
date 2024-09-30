@@ -15,8 +15,55 @@ class TransMapIDs {
         R1 to '(',
         R2 to ')',
         R3 to '-',
-        R4 to "+"
+        R4 to '+'
     )
+
+    val uRegisters = mapOf(
+        '!' to G1,
+        '@' to G2,
+        '#' to G3,
+        '$' to G4,
+        '%' to S1,
+        '^' to S2,
+        '&' to S3,
+        '*' to S4,
+        '(' to R1,
+        ')' to R2,
+        '-' to R3,
+        '+' to R4
+    )
+    val uInstruction = mapOf(
+        'a' to "mov",
+        'b' to "lit",
+        'c' to "add",
+        'd' to "sub",
+        'e' to "mul",
+        'f' to "div",
+        'g' to "mod",
+        'h' to "jmp",
+        'i' to "jz",
+        'j' to "jnz",
+        'k' to "push",
+        'l' to "pop",
+        'm' to "peek",
+        'n' to "store",
+        'o' to "load",
+        'p' to "shl",
+        'q' to "shr",
+        'r' to "and",
+        's' to "or",
+        't' to "xor",
+        'u' to "not",
+        'v' to "prints",
+        'w' to "syscall",
+        'x' to "str",
+        'y' to "strlen",
+        'z' to "strcmp",
+        'A' to "strcat",
+        'B' to "strcpy",
+        'C' to "printr"
+    )
+
     val instructions = mapOf(
         "mov" to 'a',
         "lit" to 'b',

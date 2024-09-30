@@ -6,6 +6,7 @@ import debugger.encoding.DebugFile
 import engine.execution.Execute
 import engine.parser
 import engine.v2.Compile
+import engine.v2.ExecutionV2
 import environment.VMErrors
 import internals.Vm
 import kotlinx.serialization.json.Json
@@ -38,12 +39,16 @@ fun main(args: Array<String>) {
             execute.execute(File(args[1]))
         }
 
+        "crun" -> {
+            ExecutionV2().execute(Compile().execute(parser(File(args[1]))))
+        }
+
         "tokenise" -> {
             println(parser(File(args[1])))
         }
 
         "compile" -> {
-            val x = engine.parser(File(args[1]))
+            val x = parser(File(args[1]))
             println(Compile().execute(x))
         }
 
