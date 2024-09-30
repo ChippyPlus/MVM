@@ -1,6 +1,5 @@
 package engine.v2
 
-import data.memory.MemoryAddress
 import engine.execution.InstructData
 
 class Compile {
@@ -42,18 +41,18 @@ class Compile {
                 }
 
                 "load" -> {
-                    vadd((instruction.values[0] as MemoryAddress).address as Any)
+                    radd(instruction.values[0]!!)
                     radd(instruction.values[1]!!)
                 }
 
                 "str" -> {
                     radd(instruction.values[0]!!)
-                    uneditedFile += "\"${instruction.values[1]!!}\""
+                    uneditedFile += instruction.values[1]!! // This is a string btw
                 }
 
 
             }
-            uneditedFile += '\n'
+            uneditedFile += (0).toChar()
         }
 
         return uneditedFile

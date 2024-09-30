@@ -28,7 +28,7 @@ fun parser(file: File): List<InstructData> {
 
     for (line in tokens) {
         // The first token is the instruction mnemonic
-        when (val instruction = line[0]) {
+        when (val instruction = line[0].uppercase()) {
 
             "STRCPY" -> out.add(
                 InstructData(

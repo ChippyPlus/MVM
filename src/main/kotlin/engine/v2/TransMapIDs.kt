@@ -14,7 +14,8 @@ class TransMapIDs {
         S4 to '*',
         R1 to '(',
         R2 to ')',
-        R3 to '-'
+        R3 to '-',
+        R4 to "+"
     )
     val instructions = mapOf(
         "mov" to 'a',

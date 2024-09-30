@@ -1,6 +1,5 @@
 package engine.execution
 
-import data.memory.MemoryAddress
 import data.registers.enumIdenifiers.SuperRegisterType
 import debugger.DebugEngine
 import engine.parser
@@ -118,7 +117,7 @@ class Execute {
                 )
 
                 "load" -> vm.memory.load(
-                    memoryAddress = args[0] as MemoryAddress, destination = args[1] as SuperRegisterType
+                    memoryAddress = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
                 )
 
                 "shl" -> vm.bitwise.shl(
