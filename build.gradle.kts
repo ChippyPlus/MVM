@@ -28,6 +28,11 @@ tasks.jar {
     manifest.attributes["Main-Class"] = "MainKt"
 }
 
+tasks.test {
+    enabled = false
+}
+
+
 val fatJar = tasks.create("FatJar", Jar::class) {
     group = "better build"
     description = "Creates a self-contained fat JAR."
@@ -42,6 +47,9 @@ val fatJar = tasks.create("FatJar", Jar::class) {
     with(tasks.jar.get())
 }
 
+tasks.startScripts {
+    dependsOn(fatJar)
+}
 application {
     mainClass.set("MainKt")
 }

@@ -31,36 +31,62 @@ fun main(args: Array<String>) {
         exitProcess(1)
     }
     when (args[0]) {
-        "run" -> {
+        "irun" -> {
             if (args.size < 2) {
-                println("Usage: mvm run <file.kar>")
+                println("Usage: mvm irun <file.kar>")
                 exitProcess(1)
             }
             execute.execute(File(args[1]))
         }
 
         "crun" -> {
+            if (args.size < 2) {
+                println("Usage: mvm crun <file.mar>")
+                exitProcess(1)
+            }
             ExecutionV2().execute(File(args[1]).readText())
         }
 
+        "run" -> {
+            if (args.size < 2) {
+                println("Usage: mvm run <file.kar>")
+                exitProcess(1)
+            }
+            ExecutionV2().execute(Compile().execute(parser(File(args[1]))))
+        }
+
         "tokenise" -> {
+            if (args.size < 2) {
+                println("Usage: mvm tokenise <file.kar>")
+                exitProcess(1)
+            }
             println(parser(File(args[1])))
         }
 
         "compile" -> {
+            if (args.size < 2) {
+                println("Usage: mvm compile <file.kar>")
+                exitProcess(1)
+            }
             val out = Compile().execute(parser(File(args[1])))
             val f = File(args[1].split(".")[0] + ".mar")
             f.createNewFile()
             f.writeText(out)
         }
 
-        "debug" -> {
+        "debug" -> {// TODO Make this an option
             if (args.size < 3) {
                 println("Usage: mvm debug <debugFile.json> <file.kar>")
                 exitProcess(1)
             }
             val debugEngine = DebugEngine(Json.decodeFromString<DebugFile>(File(args[1]).readText()))
             execute.execute(File(args[2]), debugEngine)
+        }
+
+        "help" -> {
+            println(
+                "mvm irun <file.kar> - Runs KAR code in interpreter mode\n" + "mvm compile <file.kar> - Compiles the KAR code into the byte code stored in file.mar\n" + "mvm crun <file.mar> - Runs compiled code\n" + "mvm run <file.kar> - Compiles and runs code without creating a file\n" + "mvm tokenise <file.kar> - Shows the tokenised version of the code to the terminal"
+            )
         }
 
         else -> {
