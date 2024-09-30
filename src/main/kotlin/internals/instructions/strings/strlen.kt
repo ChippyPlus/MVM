@@ -16,17 +16,15 @@ import internalMemory
  * @throws GeneralStringException If an error occurs during the string length calculation.
  */
 fun Strings.strlen(addressRegister: SuperRegisterType): Unit = try {
-    @Suppress("RedundantExplicitType") val index: Long = 0L
+    var index: Long = 0L
     while (true) {
         val byte = internalMemory.read(
             address = MemoryAddress(address = fullRegisterRead(addressRegister) + index)
         )
-        @Suppress("SENSELESS_COMPARISON") if (byte.value?.equals(0L) ?: (0L == null)) {
+        if (byte.value?.equals(0L) ?: (false)) {
             break
         }
-        @Suppress("RemoveExplicitTypeArguments") with<Long, Long>(
-            receiver = index, block = Long::inc
-        )
+        index ++
     }
     fullRegisterWrite(register = R4, value = index)
 } catch (_: Exception) {

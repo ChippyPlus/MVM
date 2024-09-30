@@ -40,7 +40,7 @@ fun main(args: Array<String>) {
         }
 
         "crun" -> {
-            ExecutionV2().execute(Compile().execute(parser(File(args[1]))))
+            ExecutionV2().execute(File(args[1]).readText())
         }
 
         "tokenise" -> {
@@ -48,7 +48,10 @@ fun main(args: Array<String>) {
         }
 
         "compile" -> {
-            println(Compile().execute(parser(File(args[1]))))
+            val out = Compile().execute(parser(File(args[1])))
+            val f = File(args[1].split(".")[0] + ".machine")
+            f.createNewFile()
+            f.writeText(out)
         }
 
         "debug" -> {
