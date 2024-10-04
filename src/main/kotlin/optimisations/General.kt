@@ -5,11 +5,8 @@ import data.registers.enumIdenifiers.SuperRegisterType
 import engine.execution.InstructData
 
 
-typealias RegisterTree = MutableMap<SuperRegisterType, MutableList<ContextUnderstanding>>
-
 enum class StatusType {
-    USE, DECLARED, FUNCTION_R4, FUNCTION_R3
-
+    USE, DECLARED
 }
 
 val r4Outs = setOf("add", "sub", "mul", "div", "mod", "strlen", "strcmp", "strcat")
@@ -30,95 +27,102 @@ val test = listOf(
 data class ContextUnderstanding(val name: SuperRegisterType, var status: StatusType, val lineNumber: Int)
 
 
-data class FunctionUnderstanding(val name: String, val lineNumber: Int)
+class General(val globalInfo: List<InstructData>) {
+    private fun parseRegisterStatuses(): MutableList<ContextUnderstanding> {
+        val tracked = mutableListOf<ContextUnderstanding>()
 
-
-//class General(/* val globalInfo: List<InstructData> */) {
-fun parseRegisterStatuses(): MutableList<ContextUnderstanding> {
-    val tracked = mutableListOf<ContextUnderstanding>()
-
-    for ((index, i) in test.withIndex()) {
-        if (i.name == "lit") {
-            tracked.add(
-                ContextUnderstanding(
-                    name = i.values[0] as SuperRegisterType,
-                    status = StatusType.DECLARED,
-                    lineNumber = index
-                )
-            )
-        } else if (i.name in r4Outs) {
-            tracked.add(
-                ContextUnderstanding(
-                    name = SuperRegisterType.R4,
-                    status = StatusType.DECLARED,
-                    lineNumber = index,
-                )
-            )
-        } else if (i.name in r3Outs) {
-            tracked.add(
-                ContextUnderstanding(
-                    name = SuperRegisterType.R3,
-                    status = StatusType.DECLARED,
-                    lineNumber = index,
-                )
-            )
-        } else {
-            for (j in i.values.withIndex()) {
-                if (j.value is SuperRegisterType) {
+        for ((index, i) in globalInfo.withIndex()) {
+            when (i.name) {
+                "lit" -> {
                     tracked.add(
                         ContextUnderstanding(
-                            name = j.value as SuperRegisterType,
-                            status = StatusType.USE,
-                            lineNumber = index
+                            name = i.values[0] as SuperRegisterType, status = StatusType.DECLARED, lineNumber = index
                         )
                     )
                 }
+
+                in r4Outs -> {
+                    tracked.add(
+                        ContextUnderstanding(
+                            name = SuperRegisterType.R4,
+                            status = StatusType.DECLARED,
+                            lineNumber = index,
+                        )
+                    )
+                }
+
+                in r3Outs -> {
+                    tracked.add(
+                        ContextUnderstanding(
+                            name = SuperRegisterType.R3,
+                            status = StatusType.DECLARED,
+                            lineNumber = index,
+                        )
+                    )
+                }
+
+                else -> {
+                    for (j in i.values.withIndex()) {
+                        if (j.value is SuperRegisterType) {
+                            tracked.add(
+                                ContextUnderstanding(
+                                    name = j.value as SuperRegisterType, status = StatusType.USE, lineNumber = index
+                                )
+                            )
+                        }
+                    }
+                }
             }
         }
+        return tracked
     }
-    return tracked
-}
 
-fun reverseFindRedundancy(inp: MutableList<ContextUnderstanding>): MutableSet<Int> {
-    val uses = mutableSetOf<SuperRegisterType>()
-    val u2 = mutableSetOf<Int>()
-    inp.reverse()
-    for (i in inp) {
-        if (i.status == StatusType.USE) {
-            uses.add(i.name)
-        } else if (i.status == StatusType.DECLARED && uses.contains(i.name)) {
-            uses.remove(i.name)
-        } else {
-            u2.add(i.lineNumber)
+    private fun reverseFindRedundancy(inp: MutableList<ContextUnderstanding>): MutableSet<Int> {
+        val uses = mutableSetOf<SuperRegisterType>()
+        val u2 = mutableSetOf<Int>()
+        inp.reverse()
+        for (i in inp) {
+            if (i.status == StatusType.USE) {
+                uses.add(i.name)
+            } else if (i.status == StatusType.DECLARED && uses.contains(i.name)) {
+                uses.remove(i.name)
+            } else {
+                u2.add(i.lineNumber)
+            }
         }
+        return u2
     }
-    return u2
-}
 
-fun removeRedundancy(inp: MutableSet<Int>, instructs: List<InstructData>): List<InstructData> {
-    val n = instructs.toMutableList()
-    for (i in inp) {
-        n.removeAt(i)
+    private fun removeRedundancy(inp: MutableSet<Int>): List<InstructData> {
+        val n = globalInfo.toMutableList()
+        for (i in inp) {
+            n.removeAt(i)
+        }
+        return n
     }
-    return n
-}
 
-//}
+    fun removeRedundancy(): List<InstructData> {
+        var out = removeRedundancy(
+            inp = reverseFindRedundancy(parseRegisterStatuses())
+        )
+        while (true) {
+            val tmpOut = removeRedundancy(
+                inp = reverseFindRedundancy(parseRegisterStatuses())
+            )
+            if (tmpOut != out) {
+                out = tmpOut
+            } else {
+                break
+            }
+        }
+
+        return out
+    }
+}
 
 
 fun main() {
-    var out = removeRedundancy(
-        inp = reverseFindRedundancy(parseRegisterStatuses()), instructs = test
-    )
-    while (true) {
-        val tmpOut = removeRedundancy(
-            inp = reverseFindRedundancy(parseRegisterStatuses()), instructs = test
-        )
-        if (tmpOut != out) {
-            out = tmpOut
-        } else {
-            break
-        }
-    }
-    out.forEach(::println)
+    val g = General(globalInfo = test).removeRedundancy()
+
+    g.forEach(::println)
 }
