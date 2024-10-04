@@ -4,6 +4,10 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+debug.json
+main.kar
+main.mar
+hello.txt
 docs/gitTemp.md
 src/main/resources/debug/out/*
 
