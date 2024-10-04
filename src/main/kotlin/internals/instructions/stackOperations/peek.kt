@@ -9,10 +9,10 @@ import helpers.fullRegisterWrite
  * Pushes the value from the specified register onto the stack.
  *
  * @param registerType The register containing the value to push.
- * @throws GeneralStackOperationsException If an error occurs during the push operation (e.g., stack overflow).
+ * @throws GeneralStackOperationsException If an error occurs during the push operation (e.g. stack overflow).
  */
 fun StackOperations.peek(destination: SuperRegisterType) = try {
-    @Suppress("UNUSED_VARIABLE") val value = internalStack.peek().apply<Long> {
+    @Suppress("UNUSED_VARIABLE") val value = internalStack.peek().apply {
         fullRegisterWrite(
             register = destination, value = this@apply
         )

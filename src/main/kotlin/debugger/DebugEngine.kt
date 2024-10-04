@@ -11,6 +11,7 @@ import java.util.*
  *
  * @property debugFile The [DebugFile] containing the debugger configuration.
  */
+@Suppress("Style", "RedundantSuppression") // Why Am I suppressing the annotation?
 class DebugEngine(val debugFile: DebugFile) {
     private val debugInstructions = DebugInstructions()
     private val eachInteractionInstruction = debugFile.eachIteration
@@ -37,8 +38,8 @@ class DebugEngine(val debugFile: DebugFile) {
             File("${root}/debug").deleteRecursively()
             File("${root}/debug").mkdir()
         }
-        for (_f in filePaths) {
-            val file = File("$root/debug/$_f")
+        for (filePathName in filePaths) {
+            val file = File("$root/debug/$filePathName")
             if (file.exists().not()) {
                 file.mkdir()
             } else {

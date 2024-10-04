@@ -20,11 +20,11 @@ fun parser(file: File): List<InstructData> {
 
     // Read each line from the file and split it into tokens
     for (line in file.readLines()) {
-        val _lineParts = emptyList<String>().toMutableList()
+        val secretLineParts = emptyList<String>().toMutableList()
         for (token in line.split(' ')) {
-            _lineParts.add(token)
+            secretLineParts.add(token)
         }
-        tokens.add(_lineParts)
+        tokens.add(secretLineParts)
     }
 
     for (line in tokens) {

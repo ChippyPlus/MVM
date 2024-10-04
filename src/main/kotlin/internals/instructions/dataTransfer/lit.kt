@@ -12,9 +12,9 @@ import helpers.fullRegisterWrite
  * @throws GeneralDataTransferException If an error occurs during the load operation.
  */
 
-fun DataTransfer.lit(Source: SuperRegisterType, value: Long): Unit = try {
+fun DataTransfer.lit(source: SuperRegisterType, value: Long): Unit = try {
     fullRegisterWrite(
-        register = Source,
+        register = source,
         value = value
     )
 

@@ -66,6 +66,8 @@ class Compile {
         uneditedFile += transMapIDs.registers[value]
     }
 
+
+    @Suppress("unused") // will be used if needed
     private fun iadd(value: Any) {
         uneditedFile += transMapIDs.instructions[value]
     }

@@ -17,7 +17,6 @@ import kotlin.system.exitProcess
 const val STACK_LIMIT = 32
 const val MEMORY_LIMIT = 64
 val vm = Vm()
-
 val errors = VMErrors()
 val fileDescriptors = FileDescriptors()
 val register = Registers()

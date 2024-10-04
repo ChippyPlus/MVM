@@ -19,7 +19,7 @@ import kotlin.system.exitProcess
  *
  * @param register The register ([SuperRegisterType]) to read from.
  * @return The value stored in the register as a [Long].
- * @throws NullRegisterException If the register has not been initialized (has a null value).
+ * @throws NullRegisterException If the register has not been initialised (has a null value).
  */
 
 fun fullRegisterRead(register: SuperRegisterType): Long {

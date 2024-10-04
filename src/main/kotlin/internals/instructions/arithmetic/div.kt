@@ -12,16 +12,16 @@ import returnRegisters
  *
  * @param registerA The [SuperRegisterType] holding the dividend.
  * @param registerB The [SuperRegisterType] holding the divisor.
- * @throws GeneralArithmeticException If an arithmetic error occurs during the division (e.g., division by zero).
+ * @throws GeneralArithmeticException If an arithmetic error occurs during the division (e.g. division by zero).
  */
 fun Arithmetic.div(registerA: SuperRegisterType, registerB: SuperRegisterType): Unit = try {
-    val A: Long = fullRegisterRead(register = registerA)
-    val B: Long = fullRegisterRead(register = registerB)
+    val a: Long = fullRegisterRead(register = registerA)
+    val b: Long = fullRegisterRead(register = registerB)
     returnRegisters.run {
         write(
             registers = R4,
-            value = A.run {
-                div(other = B)
+            value = a.run {
+                div(other = b)
             },
         )
     }

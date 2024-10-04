@@ -7,7 +7,7 @@ import kotlin.system.exitProcess
 /**
  * Converts a [String] representation of a register to its corresponding [SuperRegisterType].
  *
- * @receiver The [String] to convert (e.g., "G1", "S2", "R3").
+ * @receiver The [String] to convert (e.g. "G1", "S2", "R3").
  * @return The corresponding [SuperRegisterType].
  * @throws InvalidRegisterException If the input string is not a valid register name.
  */

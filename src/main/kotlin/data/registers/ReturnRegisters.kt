@@ -21,7 +21,7 @@ class ReturnRegisters {
      *
      * @param registers The [ReturnRegisterType] to read from.
      * @return The value stored in the register as a [Long].
-     * @throws NullRegisterException If the register has not been initialized (has a null value).
+     * @throws NullRegisterException If the register has not been initialised (has a null value).
      */
     fun read(registers: ReturnRegisterType): Long {
         try {

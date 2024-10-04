@@ -11,6 +11,7 @@ import kotlin.system.exitProcess
  * @return The resulting [MemoryAddress].
  * @throws InvalidMemoryAddressException If the string cannot be parsed as a valid memory address (a [Long]).
  */
+@Suppress("unused") // Just in case
 fun String.toMemoryAddress(): MemoryAddress {
 
     try {

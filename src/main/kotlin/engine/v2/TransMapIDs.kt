@@ -32,6 +32,8 @@ class TransMapIDs {
         '-' to R3,
         '+' to R4
     )
+
+    @Suppress("unused") // Just incase I one day need it
     val uInstruction = mapOf(
         'a' to "mov",
         'b' to "lit",

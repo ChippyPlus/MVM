@@ -12,10 +12,10 @@ import helpers.fullRegisterWrite
  * @param destination The destination register.
  * @throws GeneralDataTransferException If an error occurs during the move operation.
  */
-fun DataTransfer.mov(Source: SuperRegisterType, Destination: SuperRegisterType): Unit = try {
-    @Suppress("UNUSED_VARIABLE") val value: Long = fullRegisterRead(register = Source).apply {
+fun DataTransfer.mov(source: SuperRegisterType, destination: SuperRegisterType): Unit = try {
+    @Suppress("UNUSED_VARIABLE") val value: Long = fullRegisterRead(register = source).apply {
         fullRegisterWrite(
-            register = Destination,
+            register = destination,
             value = this@apply,
         )
     }

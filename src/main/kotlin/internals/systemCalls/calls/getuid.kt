@@ -12,9 +12,9 @@ import java.io.InputStreamReader
  * System call number: 17
  */
 fun SystemCall.getUid() {
-    @Suppress("DEPRECATION") val p: Process = Runtime.getRuntime().exec("""id -u""")
-    @Suppress("RedundantExplicitType") val reader: BufferedReader = BufferedReader(InputStreamReader(p.inputStream))
-    @Suppress("UNUSED_VARIABLE") val `dontWorryAboutMe!!!`: Long = reader.readLine().toLong().apply {
+    val p: Process = Runtime.getRuntime().exec("""id -u""")
+    val reader: BufferedReader = BufferedReader(InputStreamReader(p.inputStream))
+    reader.readLine().toLong().apply {
         fullRegisterWrite(register = R2, value = this@apply)
     }
 }

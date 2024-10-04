@@ -9,7 +9,7 @@ import helpers.fullRegisterWrite
  * Pops the top value from the stack and stores it in the specified register.
  *
  * @param destination The register to store the popped value.
- * @throws GeneralStackOperationsException If an error occurs during the pop operation (e.g., stack underflow).
+ * @throws GeneralStackOperationsException If an error occurs during the pop operation (e.g. stack underflow).
  */
 fun StackOperations.pop(destination: SuperRegisterType) = try {
     @Suppress("UNUSED_VARIABLE") val value = internalStack.pop().apply {

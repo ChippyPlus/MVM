@@ -15,13 +15,13 @@ import returnRegisters
  * @throws GeneralArithmeticException If an arithmetic error occurs during the addition.
  */
 fun Arithmetic.add(registerA: SuperRegisterType, registerB: SuperRegisterType): Unit = try {
-    val A: Long = fullRegisterRead(register = registerA)
-    val B: Long = fullRegisterRead(register = registerB)
+    val a: Long = fullRegisterRead(register = registerA)
+    val b: Long = fullRegisterRead(register = registerB)
     returnRegisters.run {
         write(
             registers = R4,
-            value = A.run {
-                plus(other = B)
+            value = a.run {
+                plus(other = b)
             },
         )
     }

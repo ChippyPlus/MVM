@@ -85,7 +85,7 @@ class VMErrors {
     /**
      * Reports a general arithmetic exception.
      *
-     * @param message A description of the arithmetic error (e.g., "division by zero").
+     * @param message A description of the arithmetic error (e.g. "division by zero").
      */
     fun GeneralArithmeticException(message: String) {
         System.err.println("$prefix${vm.pc}: General Arithmetic Exception \"$message operation failed\"")

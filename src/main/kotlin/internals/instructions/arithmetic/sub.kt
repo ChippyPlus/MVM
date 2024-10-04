@@ -16,13 +16,13 @@ import returnRegisters
  */
 
 fun Arithmetic.sub(registerA: SuperRegisterType, registerB: SuperRegisterType): Unit = try {
-    val A: Long = fullRegisterRead(register = registerA)
-    val B: Long = fullRegisterRead(register = registerB)
+    val a: Long = fullRegisterRead(register = registerA)
+    val b: Long = fullRegisterRead(register = registerB)
     returnRegisters.run {
         write(
             registers = R4,
-            value = A.run {
-                minus(other = B)
+            value = a.run {
+                minus(other = b)
             },
         )
     }

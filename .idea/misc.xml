@@ -3,6 +3,11 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.12" />
   </component>
+  <component name="EntryPointsManager">
+    <entry_points version="2.0">
+      <entry_point TYPE="field" FQNAME="engine.v2.TransMapIDs uInstruction" />
+    </entry_points>
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$" />
