@@ -11,13 +11,11 @@ enum class StatusType {
 }
 
 
-
-
 data class ContextUnderstanding(val name: SuperRegisterType, var status: StatusType, val lineNumber: Int)
 
 
 class VarRedundancy(val globalInfo: List<InstructData>) {
-    private fun parseRegisterStatuses(): MutableList<ContextUnderstanding> {
+    fun parseRegisterStatuses(): MutableList<ContextUnderstanding> {
         val tracked = mutableListOf<ContextUnderstanding>()
 
         for ((index, i) in globalInfo.withIndex()) {
@@ -66,7 +64,35 @@ class VarRedundancy(val globalInfo: List<InstructData>) {
         return tracked
     }
 
-    private fun reverseFindRedundancy(inp: MutableList<ContextUnderstanding>): MutableSet<Int> {
+
+    fun removeRedundancy(inp: MutableSet<Int>): List<InstructData> {
+        val n = globalInfo.toMutableList()
+        for (i in inp) {
+            n.removeAt(i)
+        }
+        return n
+    }
+
+    fun cleanRedundancy(): List<InstructData> {
+        var out = removeRedundancy(
+            inp = reverseFindRedundancy(parseRegisterStatuses())
+        )
+        while (true) {
+            val tmpOut = removeRedundancy(
+                inp = reverseFindRedundancy(parseRegisterStatuses())
+            )
+            if (tmpOut != out) {
+
+                out = tmpOut
+            } else {
+                break
+            }
+        }
+        return out
+    }
+
+
+    fun reverseFindRedundancy(inp: MutableList<ContextUnderstanding>): MutableSet<Int> {
         val uses = mutableSetOf<SuperRegisterType>()
         val u2 = mutableSetOf<Int>()
         inp.reverse()
@@ -79,34 +105,17 @@ class VarRedundancy(val globalInfo: List<InstructData>) {
                 u2.add(i.lineNumber)
             }
         }
+
         return u2
     }
-
-    private fun removeRedundancy(inp: MutableSet<Int>): List<InstructData> {
-        val n = globalInfo.toMutableList()
-        for (i in inp) {
-            n.removeAt(i)
-        }
-        return n
-    }
-
-    fun removeRedundancy(): List<InstructData> {
-        var out = removeRedundancy(
-            inp = reverseFindRedundancy(parseRegisterStatuses())
-        )
-        while (true) {
-            val tmpOut = removeRedundancy(
-                inp = reverseFindRedundancy(parseRegisterStatuses())
-            )
-            if (tmpOut != out) {
-                out = tmpOut
-            } else {
-                break
-            }
-        }
-
-        return out
-    }
 }
+
+//fun main() {
+//    val x = VarRedundancy(globalInfo = parser(File("main.kar")))
+//    val y = x.parseRegisterStatuses()
+//    y.forEach(::println)
+//    val z = x.cleanRedundancy()
+//    println(z)
+//}
 
 

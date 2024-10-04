@@ -70,7 +70,7 @@ fun main(args: Array<String>) {
                 println("Usage: mvm tokenise <file.kar>")
                 exitProcess(1)
             }
-            VarRedundancy(globalInfo = parser(File(args[1]))).removeRedundancy().forEach(::println)
+            VarRedundancy(globalInfo = parser(File(args[1]))).cleanRedundancy().forEach(::println)
         }
 
         "compile" -> {
@@ -78,7 +78,7 @@ fun main(args: Array<String>) {
                 println("Usage: mvm compile <file.kar>")
                 exitProcess(1)
             }
-            val optimised = VarRedundancy(globalInfo = parser(File(args[1]))).removeRedundancy()
+            val optimised = VarRedundancy(globalInfo = parser(File(args[1]))).cleanRedundancy()
             val out = Compile().execute(optimised)
             val f = File(args[1].split(".")[0] + ".mar")
             f.createNewFile()

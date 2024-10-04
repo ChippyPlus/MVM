@@ -1,3 +1,3 @@
-STR S2 "Wow!!!! So cool!!!! I love this thing!!!"
-LIT S1 24
-SYSCALL
+LIT G1 10
+LIT G2 30
+PRINTR G1
