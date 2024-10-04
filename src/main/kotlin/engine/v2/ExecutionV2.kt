@@ -27,7 +27,7 @@ class ExecutionV2 {
 
         val transMapIDs = TransMapIDs()
         for (instruct in nf) {
-            vm.internalPc++
+            vm.pc++
             when (instruct[0]) {
                 'a' -> vm.dataTransfer.mov(getR(instruct[1]), getR(instruct[2]))
                 'b' -> vm.dataTransfer.lit(getR(instruct[1]), instruct.substring(2).toLong())
@@ -61,6 +61,7 @@ class ExecutionV2 {
                 else -> System.err.println("ERROR:${vm.internalPc}: Bad symbol at runtime in MAR \"${instruct[0]}\"")
             }
         }
+        vm.pc = 0
     }
 
     private fun getR(index: Char): SuperRegisterType {

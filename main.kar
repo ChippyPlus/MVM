@@ -1,3 +1,5 @@
-LIT G1 10
+Jmp 3
+LIT G1 20
 LIT G2 30
 PRINTR G1
+printr G2
