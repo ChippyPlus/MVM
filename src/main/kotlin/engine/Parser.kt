@@ -29,7 +29,9 @@ fun parser(file: File): List<InstructData> {
 
     for (line in tokens) {
         vm.pc++
-        when (val instruction = line[0].uppercase()) {
+        val instruction = line[0].uppercase()
+        println(instruction)
+        when (instruction) {
 
             "STRCPY" -> out.add(
                 InstructData(

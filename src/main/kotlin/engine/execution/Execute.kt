@@ -4,6 +4,7 @@ import data.registers.enumIdenifiers.SuperRegisterType
 import debugger.DebugEngine
 import engine.parser
 import errors
+import helpers.toSuperRegisterType
 import internals.instructions.arithmetic.*
 import internals.instructions.bitwise.*
 import internals.instructions.controlFlow.jmp
@@ -19,10 +20,7 @@ import internals.instructions.memory.store
 import internals.instructions.stackOperations.peek
 import internals.instructions.stackOperations.pop
 import internals.instructions.stackOperations.push
-import internals.instructions.strings.strcat
-import internals.instructions.strings.strcmp
-import internals.instructions.strings.strcpy
-import internals.instructions.strings.strlen
+import internals.instructions.strings.*
 import vm
 import java.io.File
 
@@ -53,6 +51,7 @@ class Execute {
             }
             val args = command[vm.pc - 1].values
             when (command[vm.pc - 1].name) {
+                "str" -> vm.strings.str(args[0].toString().toSuperRegisterType(), args[1].toString())
                 "strcmp" -> vm.strings.strcmp(
                     string1 = args[1] as SuperRegisterType, string2 = args[2] as SuperRegisterType
                 )
