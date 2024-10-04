@@ -10,6 +10,7 @@ import engine.v2.ExecutionV2
 import environment.VMErrors
 import internals.Vm
 import kotlinx.serialization.json.Json
+import optimisations.VarRedundancy
 import java.io.File
 import kotlin.system.exitProcess
 
@@ -63,12 +64,22 @@ fun main(args: Array<String>) {
             println(parser(File(args[1])))
         }
 
+
+        "otokenise" -> {
+            if (args.size < 2) {
+                println("Usage: mvm tokenise <file.kar>")
+                exitProcess(1)
+            }
+            println(VarRedundancy(globalInfo = parser(File(args[1]))).removeRedundancy())
+        }
+
         "compile" -> {
             if (args.size < 2) {
                 println("Usage: mvm compile <file.kar>")
                 exitProcess(1)
             }
-            val out = Compile().execute(parser(File(args[1])))
+            val optimised = VarRedundancy(globalInfo = parser(File(args[1]))).removeRedundancy()
+            val out = Compile().execute(optimised)
             val f = File(args[1].split(".")[0] + ".mar")
             f.createNewFile()
             f.writeText(out)
@@ -86,7 +97,7 @@ fun main(args: Array<String>) {
 
         "help" -> {
             println(
-                "mvm irun <file.kar> - Runs KAR code in interpreter mode\n" + "mvm compile <file.kar> - Compiles the KAR code into the byte code stored in file.mar\n" + "mvm crun <file.mar> - Runs compiled code\n" + "mvm run <file.kar> - Compiles and runs code without creating a file\n" + "mvm tokenise <file.kar> - Shows the tokenised version of the code to the terminal"
+                "mvm irun <file.kar> - Runs KAR code in interpreter mode\n" + "mvm compile <file.kar> - Compiles the KAR code into the byte code stored in file.mar\n" + "mvm crun <file.mar> - Runs compiled code\n" + "mvm run <file.kar> - Compiles and runs code without creating a file\n" + "mvm tokenise <file.kar> - Shows the tokenised version of the code to the terminal\n" + "mvm otokenise <file.kar> - Shows the optimised tokenised version of the code to the terminal\n"
             )
         }
 
