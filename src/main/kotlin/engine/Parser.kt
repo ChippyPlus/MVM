@@ -30,7 +30,6 @@ fun parser(file: File): List<InstructData> {
     for (line in tokens) {
         vm.pc++
         val instruction = line[0].uppercase()
-        println(instruction)
         when (instruction) {
 
             "STRCPY" -> out.add(
