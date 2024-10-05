@@ -52,7 +52,7 @@ class Execute {
             val args = command[vm.pc - 1].values
             when (command[vm.pc - 1].name) {
                 "gt" -> vm.arithmetic.gt(
-                    operand1 = args[1] as SuperRegisterType, operand2 = args[2] as SuperRegisterType
+                    operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
                 )
 
                 "lt" -> {
@@ -64,44 +64,44 @@ class Execute {
 
                 "str" -> vm.strings.str(args[0].toString().toSuperRegisterType(), args[1].toString())
                 "strcmp" -> vm.strings.strcmp(
-                    string1 = args[1] as SuperRegisterType, string2 = args[2] as SuperRegisterType
+                    string1 = args[0] as SuperRegisterType, string2 = args[1] as SuperRegisterType
                 )
 
                 "strcat" -> vm.strings.strcat(
-                    string1 = args[1] as SuperRegisterType, string2 = args[2] as SuperRegisterType
+                    string1 = args[0] as SuperRegisterType, string2 = args[1] as SuperRegisterType
                 )
 
                 "strcpy" -> vm.strings.strcpy(
-                    source = args[1] as SuperRegisterType, destination = args[2] as SuperRegisterType
+                    source = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
                 )
 
                 "cpy" -> vm.dataTransfer.cpy(
-                    register1 = args[1] as SuperRegisterType, register2 = args[2] as SuperRegisterType
+                    register1 = args[0] as SuperRegisterType, register2 = args[1] as SuperRegisterType
                 )
 
                 "add" -> vm.arithmetic.add(
-                    registerA = args[1] as SuperRegisterType, registerB = args[2] as SuperRegisterType
+                    registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
                 )
 
                 "sub" -> vm.arithmetic.sub(
-                    registerA = args[1] as SuperRegisterType, registerB = args[2] as SuperRegisterType
+                    registerA = args[0] as SuperRegisterType, registerB = args[2] as SuperRegisterType
                 )
 
 
                 "mul" -> vm.arithmetic.mul(
-                    registerA = args[1] as SuperRegisterType, registerB = args[2] as SuperRegisterType
+                    registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
                 )
 
                 "div" -> vm.arithmetic.div(
-                    registerA = args[1] as SuperRegisterType, registerB = args[2] as SuperRegisterType
+                    registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
                 )
 
                 "mod" -> vm.arithmetic.mod(
-                    registerA = args[1] as SuperRegisterType, registerB = args[2] as SuperRegisterType
+                    registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
                 )
 
                 "eq" -> vm.arithmetic.eq(
-                    operand1 = args[1] as SuperRegisterType, operand2 = args[2] as SuperRegisterType
+                    operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
                 )
 
                 "strlen" -> vm.strings.strlen(addressRegister = args[1] as SuperRegisterType)
