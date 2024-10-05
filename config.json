@@ -1,5 +1,5 @@
 {
     "stackSize": 12,
     "memorySize": 256,
-    "hertz": 0
+    "hertz": 1000
 }
