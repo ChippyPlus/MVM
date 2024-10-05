@@ -9,8 +9,6 @@ class Compile {
         for (instruction in input) {
             uneditedFile += transMapIDs.instructions[instruction.name]
             when (instruction.name) {
-
-
                 //  register add, register add
 
                 "add", "sub", "mul", "div", "mod", "mov", "and", "or", "xor", "shr", "shl", "strcmp", "strcat", "strcpy", "store", "lt", "gt" -> {

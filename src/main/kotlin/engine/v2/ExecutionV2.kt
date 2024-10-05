@@ -2,6 +2,7 @@ package engine.v2
 
 import data.registers.enumIdenifiers.SuperRegisterType
 import data.registers.enumIdenifiers.SuperRegisterType.*
+import hertz
 import internals.instructions.arithmetic.*
 import internals.instructions.bitwise.*
 import internals.instructions.controlFlow.jmp
@@ -18,6 +19,7 @@ import internals.instructions.stackOperations.pop
 import internals.instructions.stackOperations.push
 import internals.instructions.strings.*
 import vm
+import java.lang.Thread.sleep
 
 class ExecutionV2 {
     fun execute(f: String) {
@@ -27,6 +29,7 @@ class ExecutionV2 {
 
         val transMapIDs = TransMapIDs()
         for (instruct in nf) {
+            sleep(hertz)
             vm.pc++
             when (instruct[0]) {
                 'a' -> {

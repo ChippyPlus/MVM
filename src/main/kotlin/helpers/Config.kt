@@ -11,7 +11,7 @@ class Config(f: File) {
         content = Json.decodeFromString<ConfigStructure>(contents)
     }
 
-    //    val hertz = content?.hertz!!
+    val hertz = content?.hertz!!.toLong()
     val stackSize = content?.stackSize!!
     val memorySize = content?.memorySize!!
 }

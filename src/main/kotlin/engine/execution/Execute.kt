@@ -5,6 +5,7 @@ import debugger.DebugEngine
 import engine.parser
 import errors
 import helpers.toSuperRegisterType
+import hertz
 import internals.instructions.arithmetic.*
 import internals.instructions.bitwise.*
 import internals.instructions.controlFlow.jmp
@@ -23,6 +24,7 @@ import internals.instructions.stackOperations.push
 import internals.instructions.strings.*
 import vm
 import java.io.File
+import java.lang.Thread.sleep
 
 
 /**
@@ -40,6 +42,7 @@ class Execute {
 	 */
 	private fun run(command: List<InstructData>, usingDebugEngine: DebugEngine? = null) {
 		while (true) {
+			sleep(hertz)
 			vm.pc++
 			if (usingDebugEngine != null) {/* This is an optional thing and is checked over each iteration
  TODO fix the iteration performance oversight */

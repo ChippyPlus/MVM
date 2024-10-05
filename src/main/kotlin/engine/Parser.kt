@@ -211,11 +211,13 @@ fun parser(file: File): List<InstructData> {
 				)
 			)
 
-			"LIT" -> out.add(
+			"LIT" -> {
+				out.add(
 				InstructData(
 					name = "lit", arrayOf(line[1].toSuperRegisterType(), line[2].toLong())
 				)
-			)
+				)
+			}
 
 			"JMP" -> out.add(
 				InstructData(
