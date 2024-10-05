@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+java -jar "/Users/adam/Library/CloudStorage/OneDrive-WynbergBoys'HighSchool/Dev/kotlin/mvm/build/libs/MVM-1.0-SNAPSHOT.jar" "$@"
