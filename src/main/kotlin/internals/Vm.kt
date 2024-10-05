@@ -1,6 +1,6 @@
 package internals
 
-import STACK_LIMIT
+import config
 import internals.instructions.arithmetic.Arithmetic
 import internals.instructions.bitwise.Bitwise
 import internals.instructions.controlFlow.ControlFlow
@@ -15,7 +15,7 @@ open class Vm {
     val dataTransfer = DataTransfer()
     val arithmetic = Arithmetic()
     val bitwise = Bitwise()
-    val stackOperations = StackOperations(STACK_LIMIT)
+    val stackOperations = StackOperations(config?.stackSize ?: 12)
     val controlFlow = ControlFlow()
     val memory = Memory()
     val systemCall = SystemCall()
@@ -23,7 +23,6 @@ open class Vm {
     val strings = Strings()
     var pc = 0
 }
-
 
 
 

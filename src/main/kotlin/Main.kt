@@ -8,14 +8,15 @@ import engine.parser
 import engine.v2.Compile
 import engine.v2.ExecutionV2
 import environment.VMErrors
+import helpers.Config
 import internals.Vm
 import kotlinx.serialization.json.Json
 import optimisations.VarRedundancy
 import java.io.File
 import kotlin.system.exitProcess
 
-const val STACK_LIMIT = 32
-const val MEMORY_LIMIT = 64
+val config = if (File("./config.json").exists()) Config(File("./config.json")) else null
+val MEMORY_LIMIT = config?.memorySize ?: 256
 val vm = Vm()
 val errors = VMErrors()
 val fileDescriptors = FileDescriptors()
