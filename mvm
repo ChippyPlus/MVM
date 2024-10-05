@@ -1,15 +1,2 @@
-#!/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12
-from os import system
-from sys import argv as args
-
-
-def main(inp: list[str]):
-    command = "java -jar \"/Users/adam/Library/CloudStorage/OneDrive-WynbergBoys'HighSchool/Dev/kotlin/mvm/build/libs/MVM-1.0-SNAPSHOT.jar\""
-    for i in inp:
-        command += f" {i}"
-    system(command)
-
-
-if __name__ == "__main__":
-    args.remove(__file__)
-    main(args)
+#!/usr/bin/env bash
+java -jar "/Users/adam/Library/CloudStorage/OneDrive-WynbergBoys'HighSchool/Dev/kotlin/mvm/build/libs/MVM-1.0-SNAPSHOT.jar" "$@"
