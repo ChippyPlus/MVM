@@ -31,6 +31,18 @@ fun parser(file: File): List<InstructData> {
         vm.pc++
         when (val instruction = line[0].uppercase()) {
 
+            "LT" -> out.add(
+                InstructData(
+                    name = "lt", arrayOf(arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
+                )
+            )
+
+            "GT" -> out.add(
+                InstructData(
+                    name = "gt", arrayOf(arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
+                )
+            )
+
             "STRCPY" -> out.add(
                 InstructData(
                     name = "strcpy", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
