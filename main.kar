@@ -1,13 +1,5 @@
-LIT G1 148  // age
-LIT G2 18   // min/max age
-GT G2 G1
-jnz 11 R4
-str S2 "You are NOT allowed to drive!!!"
-LIT S1 24
-SYSCALL
-LIT S1 5
-LIT S2 0
+LIT S1 25
 SYSCALL
 LIT S1 24
-str S2 "You are allowed to drive!!!"
+MOV R2 S2
 SYSCALL

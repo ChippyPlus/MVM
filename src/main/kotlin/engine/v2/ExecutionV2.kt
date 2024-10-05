@@ -176,7 +176,7 @@ class ExecutionV2 {
                 }
 
                 else -> {
-                    System.err.println("ERROR:${vm.internalPc}: Bad symbol at runtime in MAR \"${instruct[0]}\"")
+                    System.err.println("ERROR:${vm.pc}: Bad symbol at runtime in MAR \"${instruct[0]}\"")
                 }
             }
         }
