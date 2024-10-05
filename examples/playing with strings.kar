@@ -16,5 +16,13 @@ PRINTR R4
 STRCMP S2 S3            // Compare the strings pointed to by S2 and S3.  Result in R4 (0 if equal, 1 if not equal)
 PRINTR R4             // Prints 1 because they're not the same string any more
 
-STRCPY S3 S2            // Now after this one
-STRCMP S2 S3            // They're the same now. Prints 0
+LIT G4 80               // Loading 80 into G4, This will be the address we copy the sting in S3 into
+STRCPY S3 G4            // Copy string in S3 into G4
+
+LIT S1 24               // Loads 24(the ID for writeIO) into S1
+SYSCALL                 // The syscall for writing to the screen.
+                        // Will write "Hello, world!"
+LIT S1 24
+MOV G4 S2               // Moves the string pointer from G4 into S2
+SYSCALL
+                        // Will write "Another string"
