@@ -7,7 +7,7 @@ import fileDescriptors
 import helpers.VMFile
 import helpers.fullRegisterRead
 import helpers.fullRegisterWrite
-import helpers.writeRegisterString
+import helpers.writeClosestString
 import internals.systemCalls.SystemCall
 
 
@@ -26,8 +26,8 @@ fun SystemCall.readFile(fd: SuperRegisterType, buffer: SuperRegisterType): Unit 
             "Expression 'fileDescriptors.getFileDescriptor(fd = fullRegisterRead(register = fd))' must not be null"
         )
     fullRegisterWrite(
-        register = R2, value = writeRegisterString(register = buffer,
-            string = with<VMFile, String>(receiver = f) { return@with this.file.run { return@run this.readText() } })
+        register = R2,
+        value = writeClosestString(string = f.file.readText())
     )
 
 
