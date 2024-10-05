@@ -33,13 +33,13 @@ fun parser(file: File): List<InstructData> {
 
             "LT" -> out.add(
                 InstructData(
-                    name = "lt", arrayOf(arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
+                    name = "lt", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
                 )
             )
 
             "GT" -> out.add(
                 InstructData(
-                    name = "gt", arrayOf(arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType()))
+                    name = "gt", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
                 )
             )
 

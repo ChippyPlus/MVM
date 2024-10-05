@@ -55,9 +55,12 @@ class Execute {
                     operand1 = args[1] as SuperRegisterType, operand2 = args[2] as SuperRegisterType
                 )
 
-                "lt" -> vm.arithmetic.lt(
-                    operand1 = args[1] as SuperRegisterType, operand2 = args[2] as SuperRegisterType
-                )
+                "lt" -> {
+//                    println(args.size)
+                    vm.arithmetic.lt(
+                        operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+                    )
+                }
 
                 "str" -> vm.strings.str(args[0].toString().toSuperRegisterType(), args[1].toString())
                 "strcmp" -> vm.strings.strcmp(
