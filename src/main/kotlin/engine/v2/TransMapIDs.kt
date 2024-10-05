@@ -63,7 +63,9 @@ class TransMapIDs {
         'z' to "strcmp",
         'A' to "strcat",
         'B' to "strcpy",
-        'C' to "printr"
+        'C' to "printr",
+        'D' to "gt",
+        'E' to "lt"
     )
 
     val instructions = mapOf(
@@ -95,7 +97,9 @@ class TransMapIDs {
         "strcmp" to 'z',
         "strcat" to 'A',
         "strcpy" to 'B',
-        "printr" to 'C'
+        "printr" to 'C',
+        "gt" to 'D',
+        "lt" to 'E'
 
 
     )

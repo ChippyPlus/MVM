@@ -13,7 +13,7 @@ class Compile {
 
                 //  register add, register add
 
-                "add", "sub", "mul", "div", "mod", "mov", "and", "or", "xor", "shr", "shl", "strcmp", "strcat", "strcpy", "store" -> {
+                "add", "sub", "mul", "div", "mod", "mov", "and", "or", "xor", "shr", "shl", "strcmp", "strcat", "strcpy", "store", "lt", "gt" -> {
                     radd(instruction.values[0]!!)
                     radd(instruction.values[1]!!)
                 }

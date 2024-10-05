@@ -58,6 +58,8 @@ class ExecutionV2 {
                 'A' -> vm.strings.strcat(getR(instruct[1]), getR(instruct[2]))
                 'B' -> vm.strings.strcpy(getR(instruct[1]), getR(instruct[2]))
                 'C' -> vm.ioAbstractions.printr(transMapIDs.uRegisters[instruct[1]]!!)
+                'D' -> vm.arithmetic.gt(getR(instruct[1]), getR(instruct[2]))
+                'E' -> vm.arithmetic.lt(getR(instruct[1]), getR(instruct[2]))
                 else -> System.err.println("ERROR:${vm.internalPc}: Bad symbol at runtime in MAR \"${instruct[0]}\"")
             }
         }
