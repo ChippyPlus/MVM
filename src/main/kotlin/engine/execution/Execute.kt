@@ -94,9 +94,9 @@ class Execute {
                 )
 
                 "strlen" -> vm.strings.strlen(addressRegister = args[1] as SuperRegisterType)
-                "lit" -> vm.dataTransfer.lit(Source = args[0] as SuperRegisterType, value = args[1] as Long)
+                "lit" -> vm.dataTransfer.lit(source = args[0] as SuperRegisterType, value = args[1] as Long)
                 "mov" -> vm.dataTransfer.mov(
-                    Source = args[0] as SuperRegisterType, Destination = args[1] as SuperRegisterType
+                    source = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
                 )
 
                 "jmp" -> vm.controlFlow.jmp(targetAddress = args[0] as Int - 1)

@@ -7,7 +7,7 @@ import helpers.fullRegisterWrite
 /**
  * Loads a literal value into a register.
  *
- * @param Source The destination register.
+ * @param source The destination register.
  * @param value The literal value to load.
  * @throws GeneralDataTransferException If an error occurs during the load operation.
  */
