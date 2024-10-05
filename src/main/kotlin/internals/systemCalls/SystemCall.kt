@@ -35,6 +35,7 @@ class SystemCall {
             16 -> getPid()
             17 -> getUid()
             24 -> writeIo(s2)
+            25 -> readIo()
             else -> errors.InvalidSystemCallException(fullRegisterRead(callId).toString())
         }
     }
