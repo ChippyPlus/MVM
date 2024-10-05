@@ -48,3 +48,5 @@
 | 27    | STRCAT           | A                 |
 | 28    | STRCPY           | B                 |
 | 29    | PRINTR           | C                 |
+| 30    | GT               | D                 |
+| 31    | LT               | E                 |
