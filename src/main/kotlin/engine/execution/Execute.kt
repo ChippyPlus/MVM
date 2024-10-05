@@ -84,7 +84,7 @@ class Execute {
                 )
 
                 "sub" -> vm.arithmetic.sub(
-                    registerA = args[0] as SuperRegisterType, registerB = args[2] as SuperRegisterType
+                    registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
                 )
 
 
@@ -104,7 +104,7 @@ class Execute {
                     operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
                 )
 
-                "strlen" -> vm.strings.strlen(addressRegister = args[1] as SuperRegisterType)
+                "strlen" -> vm.strings.strlen(addressRegister = args[0] as SuperRegisterType)
                 "lit" -> vm.dataTransfer.lit(source = args[0] as SuperRegisterType, value = args[1] as Long)
                 "mov" -> vm.dataTransfer.mov(
                     source = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
