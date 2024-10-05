@@ -1,8 +1,8 @@
 package internals.instructions.strings
 
 import data.registers.enumIdenifiers.SuperRegisterType
-import environment.VMErrors
 import errors
+import helpers.fullRegisterWrite
 import helpers.writeClosestString
 
 /**
@@ -13,14 +13,8 @@ import helpers.writeClosestString
  * @throws GeneralStringException If an error occurs while storing the string.
  */
 fun Strings.str(targetAddress: SuperRegisterType, string: String): Unit = try {
-    @Suppress("""UNUSED_VARIABLE""") val writeRegisterString: Long =
-        writeClosestString(register = targetAddress, string = string)
+    val location = writeClosestString(string = string)
+    fullRegisterWrite(targetAddress, location)
 } catch (_: Exception) {
-    @Suppress("RemoveExplicitTypeArguments") with<VMErrors, Unit>(receiver = errors) {
-        this.GeneralStringException(message = buildString {
-            append(/* str = */ buildString {
-                append("str")
-            })
-        })
-    }
+    errors.GeneralStringException(message = "str")
 }
