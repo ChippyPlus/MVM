@@ -2,7 +2,6 @@ package helpers
 
 import data.memory.MemoryAddress
 import data.memory.MemoryValue
-import data.registers.enumIdenifiers.SuperRegisterType
 import errors
 import internalMemory
 
@@ -17,7 +16,7 @@ import internalMemory
  * @return The starting memory address where the string was written.
  * @throws MemoryAllocationException If a contiguous block of free memory large enough to hold, the string cannot be found.
  */
-fun writeRegisterString(register: SuperRegisterType, string: String): Long {
+fun writeClosestString(string: String): Long {
     val possibleStarts = emptyMap<Long?, Any?>().toMutableMap()
 
     internalMemory.memory.forEach {
@@ -41,13 +40,11 @@ fun writeRegisterString(register: SuperRegisterType, string: String): Long {
         }
     }
 
-    if (spot != null) {
-        fullRegisterWrite(register, spot.toLong())
-    } else {
+    if (spot == null) {
         errors.MemoryAllocationException("Could not allocate memory for string: $string")
     }
 
-    // Write the string char's to memory, followed by a null-terminator
+    // Write the string char to memory, followed by a null-terminator
     for ((index, i) in (spot!! until (spot + allocMem)).withIndex()) {
         internalMemory.memory[MemoryAddress(i)] = MemoryValue(string[index].code.toLong())
     }

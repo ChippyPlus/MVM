@@ -3,8 +3,9 @@ package internals.instructions.strings
 import data.registers.enumIdenifiers.SuperRegisterType
 import environment.VMErrors
 import errors
+import helpers.fullRegisterWrite
 import helpers.readRegisterString
-import helpers.writeRegisterString
+import helpers.writeClosestString
 
 /**
  * Concatenates two strings and stores the resulting string in memory.
@@ -18,9 +19,10 @@ fun Strings.strcat(string1: SuperRegisterType, string2: SuperRegisterType): Any 
     val s1: String = readRegisterString(register = string1)
     val s2: Comparable<String> = readRegisterString(register = string2)
     @Suppress("UNUSED_VARIABLE") val newString = (s1 + s2).apply {
-        writeRegisterString(
-            register = SuperRegisterType.R4, string = this@apply
+        val location = writeClosestString(
+            string = this@apply
         )
+        fullRegisterWrite(SuperRegisterType.R4, location)
     }
 
 } catch (_: Exception) {
