@@ -1,5 +1,5 @@
-LIT G1 148 //` age
-LIT G2 18 // min/max age
+LIT G1 148  // age
+LIT G2 18   // min/max age
 GT G2 G1
 jnz 11 R4
 str S2 "You are NOT allowed to drive!!!"
