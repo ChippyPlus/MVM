@@ -1,0 +1,20 @@
+STR S2 "Hello, world!" // Store the string "Hello, world!" in the memory location pointed to by S2
+                        // The address of the string is automatically stored in S2.
+
+PRINTR S2             // Print the string at the address stored in S2.  S2 acts as a pointer
+
+STRLEN S2             // Calculate the length of the string pointed to by S2 and Store the result in R4
+PRINTR R4             // Print the string length (should be 13). Note that the Null terminator is not part of the string length
+
+
+
+STR S3 "Another string" // Store another string
+
+STRCAT S2 S3            // Concatenate the string pointed to by S3 to the string pointed to by S2.  Result in R4
+PRINTR R4
+
+STRCMP S2 S3            // Compare the strings pointed to by S2 and S3.  Result in R4 (0 if equal, 1 if not equal)
+PRINTR R4             // Prints 1 because they're not the same string any more
+
+STRCPY S3 S2            // Now after this one
+STRCMP S2 S3            // They're the same now. Prints 0
