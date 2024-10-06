@@ -79,8 +79,9 @@ fun main(args: Array<String>) {
                 println("Usage: mvm compile <file.kar>")
                 exitProcess(1)
             }
-            val optimised = VarRedundancy(globalInfo = parser(File(args[1]))).cleanRedundancy()
-            val out = Compile().execute(optimised)
+            val parsed = parser(File(args[1]))
+            val optimised = VarRedundancy(globalInfo = VarRedundancy(parsed).cleanRedundancy())
+            val out = Compile().execute(parsed)
             val f = File(args[1].split(".")[0] + ".mar")
             f.createNewFile()
             f.writeText(out)

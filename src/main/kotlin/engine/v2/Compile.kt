@@ -8,9 +8,9 @@ class Compile {
 	fun execute(input: List<InstructData>): String {
 		for (instruction in input) {
 			if (instruction.name == "emptyLine") {
-				continue
+				println("empt")
 			} else if (instruction.name == "comment") {
-				continue
+				println("comment")
 			}
 
 			uneditedFile += transMapIDs.instructions[instruction.name]
@@ -53,9 +53,8 @@ class Compile {
 					radd(instruction.values[0]!!)
 					uneditedFile += instruction.values[1]!! // This is a string btw
 				}
-
-
 			}
+
 			uneditedFile += (0).toChar()
 		}
 
