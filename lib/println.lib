@@ -1,4 +1,5 @@
-!println ARG1
+!println:1:ARG1
+
 LIT S1 24
 FUNC_ARG S2 ARG1
 STRLEN S2
