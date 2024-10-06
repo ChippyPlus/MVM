@@ -1,0 +1,4 @@
+!println ARG1
+LIT S1 24
+MOV ARG1 S1
+SYSCALL
