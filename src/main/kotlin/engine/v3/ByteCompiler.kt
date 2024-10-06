@@ -94,7 +94,7 @@ class ByteCompiler {
 fun main() {
 	val parsed = parser(File("main.kar"))
 	ByteCompiler().execute(parsed, File("main.mbin"))
-//	println("Compiled with 0 Issues!!!!!")
+	println("Compiled with 0 Issues!!!!!")
 	ByteExecutor().execute(
 		inputMarFile = File("main.mbin"),
 	)
