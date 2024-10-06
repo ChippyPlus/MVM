@@ -5,6 +5,7 @@ import internals.instructions.arithmetic.Arithmetic
 import internals.instructions.bitwise.Bitwise
 import internals.instructions.controlFlow.ControlFlow
 import internals.instructions.dataTransfer.DataTransfer
+import internals.instructions.functions.Functions
 import internals.instructions.ioAbstractions.IoAbstractions
 import internals.instructions.memory.Memory
 import internals.instructions.stackOperations.StackOperations
@@ -21,6 +22,7 @@ open class Vm {
     val systemCall = SystemCall()
     val ioAbstractions = IoAbstractions()
     val strings = Strings()
+    val functions = Functions()
     var pc = 0
 }
 

@@ -55,6 +55,8 @@ class Execute {
 			val args = command[vm.pc - 1].values
 			when (command[vm.pc - 1].name) {
 
+				"func_arg" -> vm.functions
+
 				"emptyLine", "comment" -> {}
 
 				"gt" -> vm.arithmetic.gt(
