@@ -1,3 +1,3 @@
 package helpers
 
-data class LibMetaData(val name: String, val args: List<String>)
+data class LibMetaData(val name: String, val version: Int, val args: List<String>)
