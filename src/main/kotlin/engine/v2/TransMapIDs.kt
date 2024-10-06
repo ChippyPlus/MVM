@@ -100,7 +100,5 @@ class TransMapIDs {
         "printr" to 'C',
         "gt" to 'D',
         "lt" to 'E'
-
-
     )
 }
