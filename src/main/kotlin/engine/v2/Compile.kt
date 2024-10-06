@@ -1,9 +1,9 @@
 package engine.v2
 
 import engine.execution.InstructData
+import engine.transMapIDs
 
 class Compile {
-	val transMapIDs = TransMapIDs()
 	var uneditedFile = ""
 	fun execute(input: List<InstructData>): String {
 		for (instruction in input) {

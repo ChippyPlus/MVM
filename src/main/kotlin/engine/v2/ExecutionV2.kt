@@ -2,6 +2,7 @@ package engine.v2
 
 import data.registers.enumIdenifiers.SuperRegisterType
 import data.registers.enumIdenifiers.SuperRegisterType.*
+import engine.TransMapIDs
 import hertz
 import internals.instructions.arithmetic.*
 import internals.instructions.bitwise.*
