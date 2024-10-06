@@ -40,7 +40,7 @@ class Execute {
 	 *
 	 * @param command The list of instructions to execute.
 	 */
-	private fun run(command: List<InstructData>, usingDebugEngine: DebugEngine? = null) {
+	fun run(command: List<InstructData>, usingDebugEngine: DebugEngine? = null) {
 		while (true) {
 			sleep(hertz)
 			vm.pc++
@@ -176,7 +176,7 @@ class Execute {
 	 * @param file The file containing the assembly code to execute.
 	 */
 	fun execute(file: File, usingDebugTools: DebugEngine? = null) {
-		val tokens = parser(file)
+		val tokens = parser(file.readLines())
 		this@Execute.run(command = tokens, usingDebugEngine = usingDebugTools)
 	}
 }

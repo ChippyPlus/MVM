@@ -54,7 +54,7 @@ fun main(args: Array<String>) {
                 println("Usage: mvm run <file.kar>")
                 exitProcess(1)
             }
-            ExecutionV2().execute(Compile().execute(parser(File(args[1]))))
+            ExecutionV2().execute(Compile().execute(parser(File(args[1]).readLines())))
         }
 
         "tokenise" -> {
@@ -62,7 +62,7 @@ fun main(args: Array<String>) {
                 println("Usage: mvm tokenise <file.kar>")
                 exitProcess(1)
             }
-            parser(File(args[1])).forEach(::println)
+            parser(File(args[1]).readLines()).forEach(::println)
         }
 
 
@@ -71,7 +71,7 @@ fun main(args: Array<String>) {
                 println("Usage: mvm tokenise <file.kar>")
                 exitProcess(1)
             }
-            VarRedundancy(globalInfo = parser(File(args[1]))).cleanRedundancy().forEach(::println)
+            VarRedundancy(globalInfo = parser(File(args[1]).readLines())).cleanRedundancy().forEach(::println)
         }
 
         "compile" -> {
@@ -79,7 +79,7 @@ fun main(args: Array<String>) {
                 println("Usage: mvm compile <file.kar>")
                 exitProcess(1)
             }
-            val optimised = VarRedundancy(globalInfo = parser(File(args[1]))).cleanRedundancy()
+            val optimised = VarRedundancy(globalInfo = parser(File(args[1]).readLines())).cleanRedundancy()
             val out = Compile().execute(optimised)
             val f = File(args[1].split(".")[0] + ".mar")
             f.createNewFile()
