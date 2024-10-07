@@ -1,14 +1,7 @@
-| Category            | Function Name | Description                                                    | Arguments                                                         | Return Value (Register)     | Notes                                                                           |
-|---------------------|---------------|----------------------------------------------------------------|-------------------------------------------------------------------|-----------------------------|---------------------------------------------------------------------------------|
-| **Mathematical**    | `sqrt`        | Calculates the square root of a number.                        | Number (Register)                                                 | R4                          | Could handle negative numbers by returning NaN or throwing an exception.        |
-| **String**          | `substring`   | Extracts a substring from a string.                            | String (Address in Register), Start (Register), Length (Register) | R4 (Address of new string)  | Ensure valid start and length arguments. Handle out-of-bounds errors.           |
-|                     | `find`        | Finds the index of the first occurrence of a substring.        | String (Address in Register), Substring (Address in Register)     | R4 (Index, -1 if not found) |                                                                                 |
-|                     | `toUpperCase` | Converts a string to uppercase.                                | String (Address in Register)                                      | R4 (Address of new string)  | Allocate memory for the new string.                                             |
-|                     | `toLowerCase` | Converts a string to lowercase.                                | String (Address in Register)                                      | R4 (Address of new string)  | Allocate memory for the new string.                                             |
-|                     | `println`     | Prints a string with a new line                                | String (Address in Register)                                      |                             | It will add a newline                                                           |
-| **Input/Output**    | `readInt`     | Reads an integer from standard input.                          | -                                                                 | R4                          | Could handle invalid input by returning an error code or throwing an exception. |
-|                     | `readFloat`   | Reads a floating-point number from standard input.             | -                                                                 | R4                          | Floating-point support would need to be added to MVM.  Handle invalid input.    |
-|                     | `readString`  | Reads a line of text from standard input.                      | -                                                                 | R4 (Address of string)      | Allocate memory for the string.                                                 |
-| **Data Structures** | `arrayCreate` | Creates a new array of a specified size (if arrays are added). | Size (Register), Element Size (Register)                          | R4 (Address of array)       | Dynamic memory allocation would be needed.                                      |
-|                     | `arrayGet`    | Gets an element from an array (if arrays are added).           | Array (Address in Register), Index (Register)                     | R4                          | Bounds checking on the index.                                                   |
-|                     | `arraySet`    | Sets an element in an array (if arrays are added).             | Array (Address in Register), Index (Register), Value (Register)   | -                           | Bounds checking.                                                                |
+work in progress?
+
+* neg
+* readln
+* println
+* inc
+* dec
