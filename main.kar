@@ -1,3 +1,4 @@
-LIT F1 999
-CALL dec
+LIT F1 1
+LIT F2 110
+CALL max
 prints
