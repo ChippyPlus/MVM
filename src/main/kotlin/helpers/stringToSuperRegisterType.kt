@@ -25,6 +25,10 @@ fun String.toSuperRegisterType(): SuperRegisterType {
         "R2" -> SuperRegisterType.R2
         "R3" -> SuperRegisterType.R3
         "R4" -> SuperRegisterType.R4
+        "F1" -> SuperRegisterType.F1
+        "F2" -> SuperRegisterType.F2
+        "F3" -> SuperRegisterType.F3
+        "F4" -> SuperRegisterType.F4
         else -> {
             errors.InvalidRegisterException(this)
             exitProcess(1) // Exit the program with the InvalidRegisterException error code(1)
