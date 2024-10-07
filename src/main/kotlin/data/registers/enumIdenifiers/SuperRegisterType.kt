@@ -6,7 +6,7 @@ package data.registers.enumIdenifiers
  * This enumeration allows for a unified way to refer to any register type, regardless of its specific category (General, System, or Return).
  */
 enum class SuperRegisterType {
-	G1, G2, G3, G4, S1, S2, S3, S4, R1, R2, R3, R4, F1, F2, F3, F4
+	G1, G2, G3, G4, S1, S2, S3, S4, R1, R2, R3, R4, F1, F2, F3, F4, IF1, IF2, IF3, IF4
 }
 
 /**
@@ -22,6 +22,23 @@ fun SuperRegisterType.toGeneralRegisterType(): GeneralRegisterType {
 		SuperRegisterType.G3 -> GeneralRegisterType.G3
 		SuperRegisterType.G4 -> GeneralRegisterType.G4
 		else -> error("Invalid SuperRegisterType \"$this\" for generalRegister")
+	}
+}
+
+
+/**
+ * Converts this [SuperRegisterType] to a [InternalFunctionRegisterType], if applicable.
+ *
+ * @return The corresponding [InternalFunctionRegisterType].
+ * @throws IllegalStateException if this [SuperRegisterType] is not a general-purpose register.
+ */
+fun SuperRegisterType.toInternalFunctionType(): InternalFunctionRegisterType {
+	return when (this) {
+		SuperRegisterType.IF1 -> InternalFunctionRegisterType.IF1
+		SuperRegisterType.IF2 -> InternalFunctionRegisterType.IF2
+		SuperRegisterType.IF3 -> InternalFunctionRegisterType.IF3
+		SuperRegisterType.IF4 -> InternalFunctionRegisterType.IF4
+		else -> error("Invalid SuperRegisterType \"$this\" for internalFunctionRegister")
 	}
 }
 
@@ -99,5 +116,9 @@ fun SuperRegisterType.toRegisterType(): Any {
 		SuperRegisterType.F2 -> FunctionRegisterType.F2
 		SuperRegisterType.F3 -> FunctionRegisterType.F3
 		SuperRegisterType.F4 -> FunctionRegisterType.F4
+		SuperRegisterType.IF1 -> InternalFunctionRegisterType.IF1
+		SuperRegisterType.IF2 -> InternalFunctionRegisterType.IF2
+		SuperRegisterType.IF3 -> InternalFunctionRegisterType.IF3
+		SuperRegisterType.IF4 -> InternalFunctionRegisterType.IF4
 	}
 }

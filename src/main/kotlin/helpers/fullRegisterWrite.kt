@@ -33,5 +33,10 @@ fun fullRegisterWrite(register: SuperRegisterType, value: Long) {
         SuperRegisterType.F2 -> functionRegisters.write(register.toFunctionRegisterType(), value)
         SuperRegisterType.F3 -> functionRegisters.write(register.toFunctionRegisterType(), value)
         SuperRegisterType.F4 -> functionRegisters.write(register.toFunctionRegisterType(), value)
+
+        SuperRegisterType.IF1 -> internalfunctionRegisters.write(register.toInternalFunctionType(), value)
+        SuperRegisterType.IF2 -> internalfunctionRegisters.write(register.toInternalFunctionType(), value)
+        SuperRegisterType.IF3 -> internalfunctionRegisters.write(register.toInternalFunctionType(), value)
+        SuperRegisterType.IF4 -> internalfunctionRegisters.write(register.toInternalFunctionType(), value)
     }
 }

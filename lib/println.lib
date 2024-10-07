@@ -1,5 +1,5 @@
-!println
 // needs arg F1, which is the string address
+
 LIT S1 24
 MOV F1 S2
 STRLEN S2

@@ -1,1 +1,2 @@
-call test
+str F1 "okay"
+call println

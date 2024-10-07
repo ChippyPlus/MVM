@@ -39,6 +39,11 @@ fun fullRegisterRead(register: SuperRegisterType): Long {
 			SuperRegisterType.F2 -> functionRegisters.read(register.toFunctionRegisterType())
 			SuperRegisterType.F3 -> functionRegisters.read(register.toFunctionRegisterType())
 			SuperRegisterType.F4 -> functionRegisters.read(register.toFunctionRegisterType())
+
+			SuperRegisterType.IF1 -> internalfunctionRegisters.read(register.toInternalFunctionType())
+			SuperRegisterType.IF2 -> internalfunctionRegisters.read(register.toInternalFunctionType())
+			SuperRegisterType.IF3 -> internalfunctionRegisters.read(register.toInternalFunctionType())
+			SuperRegisterType.IF4 -> internalfunctionRegisters.read(register.toInternalFunctionType())
 		}
 	} catch (e: NullPointerException) {
 		errors.NullRegisterException(register)
