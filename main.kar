@@ -1,4 +1,4 @@
 LIT F1 1
-LIT F2 110
+LIT F2 1
 CALL max
 prints
