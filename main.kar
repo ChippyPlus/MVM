@@ -1,5 +1,6 @@
-lit F1 31
-lit F2 31
-call min
+str F2 "I love dogs"
+str F1 "I love dogs"
+lit F2 111
+call findfirststring
 prints
 printr R4
