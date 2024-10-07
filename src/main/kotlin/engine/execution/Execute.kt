@@ -13,6 +13,7 @@ import internals.instructions.controlFlow.jmp
 import internals.instructions.controlFlow.jnz
 import internals.instructions.controlFlow.jz
 import internals.instructions.dataTransfer.cpy
+import internals.instructions.dataTransfer.inr
 import internals.instructions.dataTransfer.lit
 import internals.instructions.dataTransfer.mov
 import internals.instructions.ioAbstractions.printr
@@ -55,6 +56,10 @@ class Execute {
 			}
 			val args = command[vm.pc - 1].values
 			when (command[vm.pc - 1].name) {
+
+				"inr" -> {
+					vm.dataTransfer.inr((args[0] as String).toSuperRegisterType())
+				}
 
 				"call" -> {
 					ExecuteLib(args[0].toString()).execute()
