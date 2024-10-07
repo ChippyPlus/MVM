@@ -1,11 +1,11 @@
 // Makes a F1 negative
 LIT IF1 -1
 INR R4      // check if R4 is null
-JZ 8 IF4
+JZ 9 IF4
 MOV R4 IF2
 MUL IF1 F1
-MOV R4 F1
+PUSH R4
 MOV IF2 R4
-
+ret
 MUL IF1 F1
-MOV R4 F1
+PUSH R4
