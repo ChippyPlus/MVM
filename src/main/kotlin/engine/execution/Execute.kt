@@ -3,6 +3,7 @@ package engine.execution
 import data.registers.enumIdenifiers.SuperRegisterType
 import debugger.DebugEngine
 import engine.parser
+import environment.ExecuteLib
 import errors
 import helpers.toSuperRegisterType
 import hertz
@@ -55,7 +56,9 @@ class Execute {
 			val args = command[vm.pc - 1].values
 			when (command[vm.pc - 1].name) {
 
-				"func_arg" -> vm.functions
+				"call" -> {
+					ExecuteLib(args[0].toString()).execute()
+				}
 
 				"emptyLine", "comment" -> {}
 

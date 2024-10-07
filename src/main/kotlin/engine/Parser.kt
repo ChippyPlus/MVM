@@ -29,9 +29,9 @@ fun parser(file: List<String>): List<InstructData> {
 	for (line in tokens) {
 		vm.pc++
 		when (val instruction = line[0].uppercase()) {
-			"FUNC_ARG" -> out.add(
+			"CALL" -> out.add(
 				InstructData(
-					"func_arg", arrayOf(line[1].toSuperRegisterType(), line[2].toString())
+					"call", arrayOf(line[1])
 				)
 			)
 

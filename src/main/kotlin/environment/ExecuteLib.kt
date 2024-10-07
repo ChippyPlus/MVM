@@ -2,6 +2,7 @@ package environment
 
 import engine.execution.Execute
 import engine.parser
+import vm
 import java.io.File
 
 val libtest = """
@@ -22,7 +23,9 @@ class ExecuteLib(name: String) {
 
 
 	fun execute() {
+		val oldPc = vm.pc
 		Execute().run(parser(file.readLines().subList(1, file.readLines().size)))
+		vm.pc = oldPc
 	}
 }
 
