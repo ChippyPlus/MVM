@@ -38,6 +38,16 @@ class InternalFunctionRegisters {
 		}
 	}
 
+
+	fun readUnsafe(registers: InternalFunctionRegisterType): Long? {
+		return when (registers) {
+			InternalFunctionRegisterType.IF1 -> if1
+			InternalFunctionRegisterType.IF2 -> if2
+			InternalFunctionRegisterType.IF3 -> if3
+			InternalFunctionRegisterType.IF4 -> if4
+		}
+	}
+
 	/**
 	 * Writes a value to the specified general-purpoe register.
 	 *

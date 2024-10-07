@@ -5,6 +5,7 @@ import data.registers.enumIdenifiers.*
 import errors
 import functionRegisters
 import generalRegisters
+import internalFunctionRegisters
 import returnRegisters
 import systemRegisters
 import kotlin.system.exitProcess
@@ -40,10 +41,10 @@ fun fullRegisterRead(register: SuperRegisterType): Long {
 			SuperRegisterType.F3 -> functionRegisters.read(register.toFunctionRegisterType())
 			SuperRegisterType.F4 -> functionRegisters.read(register.toFunctionRegisterType())
 
-			SuperRegisterType.IF1 -> internalfunctionRegisters.read(register.toInternalFunctionType())
-			SuperRegisterType.IF2 -> internalfunctionRegisters.read(register.toInternalFunctionType())
-			SuperRegisterType.IF3 -> internalfunctionRegisters.read(register.toInternalFunctionType())
-			SuperRegisterType.IF4 -> internalfunctionRegisters.read(register.toInternalFunctionType())
+			SuperRegisterType.IF1 -> internalFunctionRegisters.read(register.toInternalFunctionType())
+			SuperRegisterType.IF2 -> internalFunctionRegisters.read(register.toInternalFunctionType())
+			SuperRegisterType.IF3 -> internalFunctionRegisters.read(register.toInternalFunctionType())
+			SuperRegisterType.IF4 -> internalFunctionRegisters.read(register.toInternalFunctionType())
 		}
 	} catch (e: NullPointerException) {
 		errors.NullRegisterException(register)

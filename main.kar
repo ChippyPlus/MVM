@@ -1,2 +1,3 @@
-str F1 "okay"
-call println
+lit F1 44
+call inc
+printr F1

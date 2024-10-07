@@ -3,6 +3,7 @@ package helpers
 import data.registers.enumIdenifiers.*
 import functionRegisters
 import generalRegisters
+import internalFunctionRegisters
 import returnRegisters
 import systemRegisters
 
@@ -34,9 +35,9 @@ fun fullRegisterWrite(register: SuperRegisterType, value: Long) {
         SuperRegisterType.F3 -> functionRegisters.write(register.toFunctionRegisterType(), value)
         SuperRegisterType.F4 -> functionRegisters.write(register.toFunctionRegisterType(), value)
 
-        SuperRegisterType.IF1 -> internalfunctionRegisters.write(register.toInternalFunctionType(), value)
-        SuperRegisterType.IF2 -> internalfunctionRegisters.write(register.toInternalFunctionType(), value)
-        SuperRegisterType.IF3 -> internalfunctionRegisters.write(register.toInternalFunctionType(), value)
-        SuperRegisterType.IF4 -> internalfunctionRegisters.write(register.toInternalFunctionType(), value)
+        SuperRegisterType.IF1 -> internalFunctionRegisters.write(register.toInternalFunctionType(), value)
+        SuperRegisterType.IF2 -> internalFunctionRegisters.write(register.toInternalFunctionType(), value)
+        SuperRegisterType.IF3 -> internalFunctionRegisters.write(register.toInternalFunctionType(), value)
+        SuperRegisterType.IF4 -> internalFunctionRegisters.write(register.toInternalFunctionType(), value)
     }
 }

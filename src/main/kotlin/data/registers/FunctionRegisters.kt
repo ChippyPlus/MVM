@@ -35,6 +35,18 @@ class FunctionRegisters {
 			errors.NullRegisterException(registers.toString().toSuperRegisterType())
 			exitProcess(11) // To satisfy the compiler. This shouldn't trigger
 		}
+
+
+	}
+
+
+	fun readUnsafe(registers: FunctionRegisterType): Long? {
+		return when (registers) {
+			FunctionRegisterType.F1 -> f1
+			FunctionRegisterType.F2 -> f2
+			FunctionRegisterType.F3 -> f3
+			FunctionRegisterType.F4 -> f4
+		}
 	}
 
 	/**
