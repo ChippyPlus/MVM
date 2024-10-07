@@ -1,0 +1,4 @@
+// Exits with the the exit code F1
+LIT S1 5
+MOV F1 S2
+SYSCALL // YAY!!!
