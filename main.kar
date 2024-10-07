@@ -1,3 +1,3 @@
 lit F1 44
-call dec
+call neg
 printr F1
