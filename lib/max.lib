@@ -3,7 +3,6 @@
 // returns 1 if F2 is bigger
 // returns 3 if equal
 
-
 EQ F1 F2
 JZ 11 R4
 GT F1 F2
