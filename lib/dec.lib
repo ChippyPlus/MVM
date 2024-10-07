@@ -1,10 +1,4 @@
-// Increment the value in F1 by 1 and over write
+// decrement the value in F1 by 1 and push
 LIT IF1 1
-INR R4      // check if R4 is null
-JZ 8 IF4
-MOV R4 IF2
 SUB F1 IF1
-MOV R4 F1
-MOV IF2 R4
-SUB F1 IF1
-MOV R4 F1
+PUSH R4
