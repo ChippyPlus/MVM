@@ -1,3 +1,5 @@
-lit F1 30
-call neg
+lit F1 31
+lit F2 31
+call min
 prints
+printr R4
