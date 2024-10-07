@@ -6,7 +6,7 @@ package data.registers.enumIdenifiers
  * This enumeration allows for a unified way to refer to any register type, regardless of its specific category (General, System, or Return).
  */
 enum class SuperRegisterType {
-    G1, G2, G3, G4, S1, S2, S3, S4, R1, R2, R3, R4;
+	G1, G2, G3, G4, S1, S2, S3, S4, R1, R2, R3, R4, F1, F2, F3, F4
 }
 
 /**
@@ -16,13 +16,13 @@ enum class SuperRegisterType {
  * @throws IllegalStateException if this [SuperRegisterType] is not a general-purpose register.
  */
 fun SuperRegisterType.toGeneralRegisterType(): GeneralRegisterType {
-    return when (this) {
-        SuperRegisterType.G1 -> GeneralRegisterType.G1
-        SuperRegisterType.G2 -> GeneralRegisterType.G2
-        SuperRegisterType.G3 -> GeneralRegisterType.G3
-        SuperRegisterType.G4 -> GeneralRegisterType.G4
-        else -> error("Invalid SuperRegisterType \"$this\" for generalRegister")
-    }
+	return when (this) {
+		SuperRegisterType.G1 -> GeneralRegisterType.G1
+		SuperRegisterType.G2 -> GeneralRegisterType.G2
+		SuperRegisterType.G3 -> GeneralRegisterType.G3
+		SuperRegisterType.G4 -> GeneralRegisterType.G4
+		else -> error("Invalid SuperRegisterType \"$this\" for generalRegister")
+	}
 }
 
 /**
@@ -32,13 +32,13 @@ fun SuperRegisterType.toGeneralRegisterType(): GeneralRegisterType {
  * @throws IllegalStateException if this [SuperRegisterType] is not a system register.
  */
 fun SuperRegisterType.toSystemRegisterType(): SystemRegisterType {
-    return when (this) {
-        SuperRegisterType.S1 -> SystemRegisterType.S1
-        SuperRegisterType.S2 -> SystemRegisterType.S2
-        SuperRegisterType.S3 -> SystemRegisterType.S3
-        SuperRegisterType.S4 -> SystemRegisterType.S4
-        else -> error("Invalid SuperRegisterType \"$this\" for systemRegister")
-    }
+	return when (this) {
+		SuperRegisterType.S1 -> SystemRegisterType.S1
+		SuperRegisterType.S2 -> SystemRegisterType.S2
+		SuperRegisterType.S3 -> SystemRegisterType.S3
+		SuperRegisterType.S4 -> SystemRegisterType.S4
+		else -> error("Invalid SuperRegisterType \"$this\" for systemRegister")
+	}
 }
 
 /**
@@ -48,14 +48,31 @@ fun SuperRegisterType.toSystemRegisterType(): SystemRegisterType {
  * @throws IllegalStateException if this [SuperRegisterType] is not a return register.
  */
 fun SuperRegisterType.toReturnRegisterType(): ReturnRegisterType {
-    return when (this) {
-        SuperRegisterType.R1 -> ReturnRegisterType.R1
-        SuperRegisterType.R2 -> ReturnRegisterType.R2
-        SuperRegisterType.R3 -> ReturnRegisterType.R3
-        SuperRegisterType.R4 -> ReturnRegisterType.R4
-        else -> error("Invalid SuperRegisterType \"$this\" for returnRegister")
-    }
+	return when (this) {
+		SuperRegisterType.R1 -> ReturnRegisterType.R1
+		SuperRegisterType.R2 -> ReturnRegisterType.R2
+		SuperRegisterType.R3 -> ReturnRegisterType.R3
+		SuperRegisterType.R4 -> ReturnRegisterType.R4
+		else -> error("Invalid SuperRegisterType \"$this\" for returnRegister")
+	}
 }
+
+/**
+ * Converts this [SuperRegisterType] to a [FunctionRegisterType], if applicable.
+ *
+ * @return The corresponding [FunctionRegisterType].
+ * @throws IllegalStateException if this [SuperRegisterType] is not a return register.
+ */
+fun SuperRegisterType.toFunctionRegisterType(): FunctionRegisterType {
+	return when (this) {
+		SuperRegisterType.F1 -> FunctionRegisterType.F1
+		SuperRegisterType.F2 -> FunctionRegisterType.F2
+		SuperRegisterType.F3 -> FunctionRegisterType.F3
+		SuperRegisterType.F4 -> FunctionRegisterType.F4
+		else -> error("Invalid SuperRegisterType \"$this\" for functionRegister")
+	}
+}
+
 
 /**
  * Converts this [SuperRegisterType] to its specific register type ([GeneralRegisterType], [SystemRegisterType], or [ReturnRegisterType]).
@@ -65,18 +82,22 @@ fun SuperRegisterType.toReturnRegisterType(): ReturnRegisterType {
  */
 @Suppress("unused")
 fun SuperRegisterType.toRegisterType(): Any {
-    return when (this) {
-        SuperRegisterType.G1 -> GeneralRegisterType.G1
-        SuperRegisterType.G2 -> GeneralRegisterType.G2
-        SuperRegisterType.G3 -> GeneralRegisterType.G3
-        SuperRegisterType.G4 -> GeneralRegisterType.G4
-        SuperRegisterType.S1 -> SystemRegisterType.S1
-        SuperRegisterType.S2 -> SystemRegisterType.S2
-        SuperRegisterType.S3 -> SystemRegisterType.S3
-        SuperRegisterType.S4 -> SystemRegisterType.S4
-        SuperRegisterType.R1 -> ReturnRegisterType.R1
-        SuperRegisterType.R2 -> ReturnRegisterType.R2
-        SuperRegisterType.R3 -> ReturnRegisterType.R3
-        SuperRegisterType.R4 -> ReturnRegisterType.R4
-    }
+	return when (this) {
+		SuperRegisterType.G1 -> GeneralRegisterType.G1
+		SuperRegisterType.G2 -> GeneralRegisterType.G2
+		SuperRegisterType.G3 -> GeneralRegisterType.G3
+		SuperRegisterType.G4 -> GeneralRegisterType.G4
+		SuperRegisterType.S1 -> SystemRegisterType.S1
+		SuperRegisterType.S2 -> SystemRegisterType.S2
+		SuperRegisterType.S3 -> SystemRegisterType.S3
+		SuperRegisterType.S4 -> SystemRegisterType.S4
+		SuperRegisterType.R1 -> ReturnRegisterType.R1
+		SuperRegisterType.R2 -> ReturnRegisterType.R2
+		SuperRegisterType.R3 -> ReturnRegisterType.R3
+		SuperRegisterType.R4 -> ReturnRegisterType.R4
+		SuperRegisterType.F1 -> FunctionRegisterType.F1
+		SuperRegisterType.F2 -> FunctionRegisterType.F2
+		SuperRegisterType.F3 -> FunctionRegisterType.F3
+		SuperRegisterType.F4 -> FunctionRegisterType.F4
+	}
 }
