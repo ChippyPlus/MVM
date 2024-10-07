@@ -127,13 +127,13 @@ class Execute {
 					source = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
 				)
 
-				"jmp" -> vm.controlFlow.jmp(targetAddress = args[0] as Int)
+				"jmp" -> vm.controlFlow.jmp(targetAddress = args[0] as Int - 2)
 				"jz" -> vm.controlFlow.jz(
-					targetAddress = args[0] as Int, testRegister = args[1] as SuperRegisterType
+					targetAddress = args[0] as Int - 2, testRegister = args[1] as SuperRegisterType
 				)
 
 				"jnz" -> vm.controlFlow.jnz(
-					targetAddress = args[0] as Int, testRegister = args[1] as SuperRegisterType
+					targetAddress = args[0] as Int - 2, testRegister = args[1] as SuperRegisterType
 				)
 
 				"peek" -> vm.stackOperations.peek(destination = args[0] as SuperRegisterType)
