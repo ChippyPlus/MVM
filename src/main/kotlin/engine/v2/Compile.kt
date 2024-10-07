@@ -8,9 +8,9 @@ class Compile {
 	fun execute(input: List<InstructData>): String {
 		for (instruction in input) {
 			if (instruction.name == "emptyLine") {
-				println("empt")
+				continue
 			} else if (instruction.name == "comment") {
-				println("comment")
+				continue
 			}
 
 			uneditedFile += transMapIDs.instructions[instruction.name]
