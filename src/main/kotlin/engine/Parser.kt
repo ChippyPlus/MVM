@@ -29,6 +29,12 @@ fun parser(file: List<String>): List<InstructData> {
 	for (line in tokens) {
 		vm.pc++
 		when (val instruction = line[0].uppercase()) {
+			"RET" -> out.add(
+				InstructData(
+					name = "ret",
+					values = arrayOf()
+				)
+			)
 
 			"INR" -> out.add(
 				InstructData(

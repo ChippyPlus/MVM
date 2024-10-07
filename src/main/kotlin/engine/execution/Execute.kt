@@ -56,6 +56,7 @@ class Execute {
 			}
 			val args = command[vm.pc - 1].values
 			when (command[vm.pc - 1].name) {
+				"ret" -> break
 
 				"inr" -> {
 					vm.dataTransfer.inr((args[0] as String).toSuperRegisterType())

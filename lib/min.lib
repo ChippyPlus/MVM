@@ -1,0 +1,13 @@
+// Compares which is smaller F1 or F2
+// returns 0 if F1 is smaller
+// returns 1 if F2 is smaller
+// returns 3 if equal
+
+
+EQ F1 F2
+JZ 11 R4
+LT F1 F2
+PRINTR R4
+RET
+LIT R4 3
+PRINTR R4
