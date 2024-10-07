@@ -53,7 +53,7 @@ class ReturnRegisters {
      * @param registers The [ReturnRegisterType] to write to.
      * @param value The [Long] value to write to the register.
      */
-    fun write(registers: ReturnRegisterType, value: Long) {
+    fun write(registers: ReturnRegisterType, value: Long?) {
         when (registers) {
             ReturnRegisterType.R1 -> r1 = value
             ReturnRegisterType.R2 -> r2 = value

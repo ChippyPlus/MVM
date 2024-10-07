@@ -53,7 +53,7 @@ class GeneralRegisters {
 	 * @param registers The [GeneralRegisterType] to write to.
 	 * @param value The [Long] value to write to the register.
 	 */
-	fun write(registers: GeneralRegisterType, value: Long) {
+	fun write(registers: GeneralRegisterType, value: Long?) {
 		when (registers) {
 			GeneralRegisterType.G1 -> g1 = value
 			GeneralRegisterType.G2 -> g2 = value

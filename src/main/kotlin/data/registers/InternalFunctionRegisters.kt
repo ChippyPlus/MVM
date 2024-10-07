@@ -54,7 +54,7 @@ class InternalFunctionRegisters {
 	 * @param registers The [InternalFunctionRegisterType] to write to.
 	 * @param value The [Long] value to write to the register.
 	 */
-	fun write(registers: InternalFunctionRegisterType, value: Long) {
+	fun write(registers: InternalFunctionRegisterType, value: Long?) {
 		when (registers) {
 			InternalFunctionRegisterType.IF1 -> if1 = value
 			InternalFunctionRegisterType.IF2 -> if2 = value

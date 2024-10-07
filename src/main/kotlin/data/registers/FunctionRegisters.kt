@@ -55,7 +55,7 @@ class FunctionRegisters {
 	 * @param registers The [FunctionRegisterType] to write to.
 	 * @param value The [Long] value to write to the register.
 	 */
-	fun write(registers: FunctionRegisterType, value: Long) {
+	fun write(registers: FunctionRegisterType, value: Long?) {
 		when (registers) {
 			FunctionRegisterType.F1 -> f1 = value
 			FunctionRegisterType.F2 -> f2 = value

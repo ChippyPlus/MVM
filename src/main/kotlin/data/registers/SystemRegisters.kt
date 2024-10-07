@@ -52,7 +52,7 @@ class SystemRegisters {
 	 * @param registers The [SystemRegisterType] to write to.
 	 * @param value The [Long] value to write to the register.
 	 */
-	fun write(registers: SystemRegisterType, value: Long) {
+	fun write(registers: SystemRegisterType, value: Long?) {
 		when (registers) {
 			SystemRegisterType.S1 -> s1 = value
 			SystemRegisterType.S2 -> s2 = value
