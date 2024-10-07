@@ -3,6 +3,7 @@ package engine.execution
 import data.registers.enumIdenifiers.SuperRegisterType
 import debugger.DebugEngine
 import engine.parser
+import environment.ExecuteLib
 import errors
 import helpers.toSuperRegisterType
 import hertz
@@ -12,6 +13,7 @@ import internals.instructions.controlFlow.jmp
 import internals.instructions.controlFlow.jnz
 import internals.instructions.controlFlow.jz
 import internals.instructions.dataTransfer.cpy
+import internals.instructions.dataTransfer.inr
 import internals.instructions.dataTransfer.lit
 import internals.instructions.dataTransfer.mov
 import internals.instructions.ioAbstractions.printr
@@ -40,7 +42,7 @@ class Execute {
 	 *
 	 * @param command The list of instructions to execute.
 	 */
-	private fun run(command: List<InstructData>, usingDebugEngine: DebugEngine? = null) {
+	fun run(command: List<InstructData>, usingDebugEngine: DebugEngine? = null) {
 		while (true) {
 			sleep(hertz)
 			vm.pc++
@@ -54,6 +56,14 @@ class Execute {
 			}
 			val args = command[vm.pc - 1].values
 			when (command[vm.pc - 1].name) {
+
+				"inr" -> {
+					vm.dataTransfer.inr((args[0] as String).toSuperRegisterType())
+				}
+
+				"call" -> {
+					ExecuteLib(args[0].toString()).execute()
+				}
 
 				"emptyLine", "comment" -> {}
 
@@ -176,7 +186,7 @@ class Execute {
 	 * @param file The file containing the assembly code to execute.
 	 */
 	fun execute(file: File, usingDebugTools: DebugEngine? = null) {
-		val tokens = parser(file)
+		val tokens = parser(file.readLines())
 		this@Execute.run(command = tokens, usingDebugEngine = usingDebugTools)
 	}
 }

@@ -5,7 +5,6 @@ import engine.execution.InstructData
 import errors
 import helpers.toSuperRegisterType
 import vm
-import java.io.File
 
 /**
  * Parses assembly code from a file and converts it into a list of instructions.
@@ -14,12 +13,12 @@ import java.io.File
  * @return A mutable list of [Instruction] objects representing the parsed instructions.
  * @throws InvalidInstructionException If an invalid instruction mnemonic is encountered.
  */
-fun parser(file: File): List<InstructData> {
+fun parser(file: List<String>): List<InstructData> {
 	val out = emptyArray<InstructData>().toMutableList()
 	val tokens = emptyList<MutableList<String>>().toMutableList()
 
 	// Read each line from the file and split it into tokens
-	for (line in file.readLines()) {
+	for (line in file) {
 		val secretLineParts = emptyList<String>().toMutableList()
 		for (token in line.split(' ')) {
 			secretLineParts.add(token)
@@ -30,6 +29,19 @@ fun parser(file: File): List<InstructData> {
 	for (line in tokens) {
 		vm.pc++
 		when (val instruction = line[0].uppercase()) {
+
+			"INR" -> out.add(
+				InstructData(
+					"inr", arrayOf(line[1])
+				)
+			)
+
+
+			"CALL" -> out.add(
+				InstructData(
+					"call", arrayOf(line[1])
+				)
+			)
 
 			"LT" -> out.add(
 				InstructData(
@@ -213,9 +225,9 @@ fun parser(file: File): List<InstructData> {
 
 			"LIT" -> {
 				out.add(
-				InstructData(
-					name = "lit", arrayOf(line[1].toSuperRegisterType(), line[2].toLong())
-				)
+					InstructData(
+						name = "lit", arrayOf(line[1].toSuperRegisterType(), line[2].toLong())
+					)
 				)
 			}
 

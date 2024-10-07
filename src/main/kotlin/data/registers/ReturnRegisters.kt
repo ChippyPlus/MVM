@@ -37,6 +37,16 @@ class ReturnRegisters {
         }
     }
 
+
+    fun readUnsafe(registers: ReturnRegisterType): Long? {
+        return when (registers) {
+            ReturnRegisterType.R1 -> r1
+            ReturnRegisterType.R2 -> r2
+            ReturnRegisterType.R3 -> r3
+            ReturnRegisterType.R4 -> r4
+        }
+    }
+
     /**
      * Writes a value to the specified return register.
      *

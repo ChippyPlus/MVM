@@ -1,10 +1,9 @@
 package helpers
 
-import data.registers.enumIdenifiers.SuperRegisterType
-import data.registers.enumIdenifiers.toGeneralRegisterType
-import data.registers.enumIdenifiers.toReturnRegisterType
-import data.registers.enumIdenifiers.toSystemRegisterType
+import data.registers.enumIdenifiers.*
+import functionRegisters
 import generalRegisters
+import internalFunctionRegisters
 import returnRegisters
 import systemRegisters
 
@@ -31,5 +30,14 @@ fun fullRegisterWrite(register: SuperRegisterType, value: Long) {
         SuperRegisterType.R2 -> returnRegisters.write(register.toReturnRegisterType(), value)
         SuperRegisterType.R3 -> returnRegisters.write(register.toReturnRegisterType(), value)
         SuperRegisterType.R4 -> returnRegisters.write(register.toReturnRegisterType(), value)
+        SuperRegisterType.F1 -> functionRegisters.write(register.toFunctionRegisterType(), value)
+        SuperRegisterType.F2 -> functionRegisters.write(register.toFunctionRegisterType(), value)
+        SuperRegisterType.F3 -> functionRegisters.write(register.toFunctionRegisterType(), value)
+        SuperRegisterType.F4 -> functionRegisters.write(register.toFunctionRegisterType(), value)
+
+        SuperRegisterType.IF1 -> internalFunctionRegisters.write(register.toInternalFunctionType(), value)
+        SuperRegisterType.IF2 -> internalFunctionRegisters.write(register.toInternalFunctionType(), value)
+        SuperRegisterType.IF3 -> internalFunctionRegisters.write(register.toInternalFunctionType(), value)
+        SuperRegisterType.IF4 -> internalFunctionRegisters.write(register.toInternalFunctionType(), value)
     }
 }

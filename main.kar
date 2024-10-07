@@ -1,14 +1,3 @@
-LIT S1 24
-STR S2 "Whats your name: "
-SYSCALL
-LIT S1 25
-
-
-
-SYSCALL
-LIT S1 24
-STR S2 "Hello, "
-SYSCALL
-LIT S1 24
-MOV R2 S2
-SYSCALL
+lit F1 44
+call neg
+printr F1
