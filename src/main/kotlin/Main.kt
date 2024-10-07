@@ -1,6 +1,10 @@
+
 import data.io.FileDescriptors
 import data.memory.InternalMemory
-import data.registers.Registers
+import data.registers.FunctionRegisters
+import data.registers.GeneralRegisters
+import data.registers.ReturnRegisters
+import data.registers.SystemRegisters
 import debugger.DebugEngine
 import debugger.encoding.DebugFile
 import engine.execution.Execute
@@ -21,11 +25,11 @@ val MEMORY_LIMIT = config?.memorySize ?: 256
 val vm = Vm()
 val errors = VMErrors()
 val fileDescriptors = FileDescriptors()
-val register = Registers()
 val internalMemory = InternalMemory()
-val systemRegisters = register.systemRegisters
-val returnRegisters = register.returnRegisters
-val generalRegisters = register.generalRegisters
+val systemRegisters = SystemRegisters()
+val returnRegisters = ReturnRegisters()
+val functionRegisters = FunctionRegisters()
+val generalRegisters = GeneralRegisters()
 val execute = Execute()
 fun main(args: Array<String>) {
     if (args.isEmpty()) {
