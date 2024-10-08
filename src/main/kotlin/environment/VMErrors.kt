@@ -258,4 +258,9 @@ class VMErrors {
 		System.err.println("$prefix${vm.pc}:Invalid Argument Format: Invalid type of \"$badType\", should be \"$shouldBe\"")
 		exitProcess(25)
 	}
+
+	fun MissingLibraryException(message: String) {
+		System.err.println("$prefix${vm.pc}: Missing library \"$message\"")
+		exitProcess(26)
+	}
 }

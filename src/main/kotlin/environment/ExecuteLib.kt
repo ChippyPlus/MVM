@@ -3,6 +3,7 @@ package environment
 import data.registers.enumIdenifiers.SuperRegisterType
 import engine.execution.Execute
 import engine.parser
+import errors
 import helpers.fullRegisterReadUnsafe
 import helpers.fullRegisterWriteUnsafe
 import kilb.Klib
@@ -25,7 +26,7 @@ class ExecuteLib(val name: String) {
 		val oldPc = vm.pc
 		val snapshot = snapShotRegisters()
 		if (!Klib().match(name)) {
-			error("Missing Library \"$name\" ")
+			errors.MissingLibraryException(name)
 		}
 		populateSnapShot(snapshot)
 		vm.pc = oldPc
