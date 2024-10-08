@@ -11,32 +11,37 @@ import kotlin.system.exitProcess
  * @return The corresponding [SuperRegisterType].
  * @throws InvalidRegisterException If the input string is not a valid register name.
  */
+fun String.toUnsafeSuperRegisterType(): SuperRegisterType {
+	return when (this.uppercase()) {
+		"G1" -> SuperRegisterType.G1
+		"G2" -> SuperRegisterType.G2
+		"G3" -> SuperRegisterType.G3
+		"G4" -> SuperRegisterType.G4
+		"S1" -> SuperRegisterType.S1
+		"S2" -> SuperRegisterType.S2
+		"S3" -> SuperRegisterType.S3
+		"S4" -> SuperRegisterType.S4
+		"R1" -> SuperRegisterType.R1
+		"R2" -> SuperRegisterType.R2
+		"R3" -> SuperRegisterType.R3
+		"R4" -> SuperRegisterType.R4
+		"F1" -> SuperRegisterType.F1
+		"F2" -> SuperRegisterType.F2
+		"F3" -> SuperRegisterType.F3
+		"F4" -> SuperRegisterType.F4
+		"IF1" -> SuperRegisterType.IF1
+		"IF2" -> SuperRegisterType.IF2
+		"IF3" -> SuperRegisterType.IF3
+		"IF4" -> SuperRegisterType.IF4
+		else -> error("bal")
+	}
+}
+
 fun String.toSuperRegisterType(): SuperRegisterType {
-    return when (this.uppercase()) {
-        "G1" -> SuperRegisterType.G1
-        "G2" -> SuperRegisterType.G2
-        "G3" -> SuperRegisterType.G3
-        "G4" -> SuperRegisterType.G4
-        "S1" -> SuperRegisterType.S1
-        "S2" -> SuperRegisterType.S2
-        "S3" -> SuperRegisterType.S3
-        "S4" -> SuperRegisterType.S4
-        "R1" -> SuperRegisterType.R1
-        "R2" -> SuperRegisterType.R2
-        "R3" -> SuperRegisterType.R3
-        "R4" -> SuperRegisterType.R4
-        "F1" -> SuperRegisterType.F1
-        "F2" -> SuperRegisterType.F2
-        "F3" -> SuperRegisterType.F3
-        "F4" -> SuperRegisterType.F4
-        "IF1" -> SuperRegisterType.IF1
-        "IF2" -> SuperRegisterType.IF2
-        "IF3" -> SuperRegisterType.IF3
-        "IF4" -> SuperRegisterType.IF4
-        else -> {
-            errors.InvalidRegisterException(this)
-            exitProcess(1) // Exit the program with the InvalidRegisterException error code(1)
-            // the `exitProcess(1)` is unreachable but the compiler complains about it
-        }
-    }
+	try {
+		return this.toUnsafeSuperRegisterType()
+	} catch (e: IllegalStateException) {
+		errors.InvalidRegisterException(this)
+		exitProcess(999)
+	}
 }
