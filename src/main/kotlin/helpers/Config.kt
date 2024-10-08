@@ -14,4 +14,5 @@ class Config(f: File) {
     val hertz = content?.hertz!!.toLong() / 2
     val stackSize = content?.stackSize!!
     val memorySize = content?.memorySize!!
+    val paths = content?.locations!!
 }
