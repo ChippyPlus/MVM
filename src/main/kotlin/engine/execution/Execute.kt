@@ -20,6 +20,7 @@ import internals.instructions.ioAbstractions.printr
 import internals.instructions.ioAbstractions.prints
 import internals.instructions.memory.load
 import internals.instructions.memory.store
+import internals.instructions.misc.help
 import internals.instructions.stackOperations.peek
 import internals.instructions.stackOperations.pop
 import internals.instructions.stackOperations.push
@@ -56,6 +57,8 @@ class Execute {
 			}
 			val args = command[vm.pc - 1].values
 			when (command[vm.pc - 1].name) {
+				"help" -> vm.misc.help((args[0] as String))
+
 				"ret" -> break
 
 				"inr" -> {

@@ -8,6 +8,7 @@ import internals.instructions.dataTransfer.DataTransfer
 import internals.instructions.functions.Functions
 import internals.instructions.ioAbstractions.IoAbstractions
 import internals.instructions.memory.Memory
+import internals.instructions.misc.Misc
 import internals.instructions.stackOperations.StackOperations
 import internals.instructions.strings.Strings
 import internals.systemCalls.SystemCall
@@ -23,6 +24,7 @@ open class Vm {
     val ioAbstractions = IoAbstractions()
     val strings = Strings()
     val functions = Functions()
+    val misc = Misc()
     var pc = 0
 }
 
