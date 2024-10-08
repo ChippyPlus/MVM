@@ -501,6 +501,16 @@
                 }
             ],
             "info": "Checks if a register is null or not."
+        },
+        {
+            "name": "help",
+            "arguments": [
+                {
+                    "name": "command",
+                    "info": "The instruction or function to give docs about."
+                }
+            ],
+            "info": "Shows some docs about a certain instruction or function from stdlib"
         }
     ]
 }
