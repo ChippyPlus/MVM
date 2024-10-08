@@ -80,5 +80,6 @@ def fmt(name, instruct):
 index = -1
 for i in x:
     index +=1
+    # noinspection PyUnresolvedReferences
     with open("/Users/adam/Library/CloudStorage/OneDrive-WynbergBoys'HighSchool/Dev/kotlin/mvm/src/test/kotlin/engine/v2/ParseInstructionSingleTest.kt",'a') as f:
         f.write(fmt(i.split()[0].lower(),y[index]))
