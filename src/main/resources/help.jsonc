@@ -100,6 +100,16 @@
     ],
     "instructions": [
         {
+            "name": "call",
+            "arguments": [
+                {
+                    "name": "function_name",
+                    "info": "This is the name of the function from stdlib or user defined"
+                }
+            ],
+            "info": "Called a function either defined in stdlib or by the user and generally returns the output to the stack"
+        },
+        {
             "name": "lit",
             "arguments": [
                 {
