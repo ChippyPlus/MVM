@@ -31,7 +31,7 @@ class SystemCall {
             3 -> openFile(s2)
             4 -> closeFile(s2)
             5 -> exit(s2)
-            14 -> getTimeOfday()
+			14 -> time()
             16 -> getPid()
             17 -> getUid()
             24 -> writeIo(s2)

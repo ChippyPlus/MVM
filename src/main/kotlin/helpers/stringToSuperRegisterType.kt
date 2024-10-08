@@ -12,7 +12,7 @@ import kotlin.system.exitProcess
  * @throws InvalidRegisterException If the input string is not a valid register name.
  */
 fun String.toSuperRegisterType(): SuperRegisterType {
-    return when (this) {
+    return when (this.uppercase()) {
         "G1" -> SuperRegisterType.G1
         "G2" -> SuperRegisterType.G2
         "G3" -> SuperRegisterType.G3

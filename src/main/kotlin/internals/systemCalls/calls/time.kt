@@ -13,7 +13,7 @@ import internals.systemCalls.SystemCall
  *
  * System call number: 14
  */
-fun SystemCall.getTimeOfday(): Unit = try {
+fun SystemCall.time(): Unit = try {
     fullRegisterWrite(register = SuperRegisterType.R2, value = System.currentTimeMillis())
 } catch (_: Exception) {
     errors.run<VMErrors, Unit> {

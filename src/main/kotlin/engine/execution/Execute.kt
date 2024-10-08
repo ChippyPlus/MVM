@@ -57,6 +57,11 @@ class Execute {
 			}
 			val args = command[vm.pc - 1].values
 			when (command[vm.pc - 1].name) {
+				"pow" -> vm.arithmetic.pow(
+					operand1 = args[0] as SuperRegisterType,
+					operand2 = args[1] as SuperRegisterType
+				)
+
 				"help" -> vm.misc.help((args[0] as String))
 
 				"ret" -> break

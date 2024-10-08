@@ -1,1 +1,4 @@
-Help inc
+lit f1 10
+CALL randmax
+prints
+jmp 2
