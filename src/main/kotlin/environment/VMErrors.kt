@@ -254,8 +254,8 @@ class VMErrors {
 		exitProcess(24)
 	}
 
-	fun InvalidArgumentFormatException(badType: String, shouldBe: Int) {
-		System.err.println("$prefix${vm.pc}:Invalid Argument Format: Invalid type of \"$badType\", should be $shouldBe")
+	fun InvalidArgumentFormatException(badType: String, shouldBe: String) {
+		System.err.println("$prefix${vm.pc}:Invalid Argument Format: Invalid type of \"$badType\", should be \"$shouldBe\"")
 		exitProcess(25)
 	}
 }
