@@ -5,6 +5,7 @@ import engine.execution.InstructData
 import errors
 import helpers.gatherHelp
 import helpers.toSuperRegisterType
+import helpers.toUnsafeSuperRegisterType
 import vm
 import kotlin.system.exitProcess
 
@@ -236,6 +237,15 @@ fun parser(file: List<String>): List<InstructData> {
 			val missingIndex = missingArgument.message!!.split(" ")[1].toByte() - 1
 			val info = gatherHelp(instruction).arguments[missingIndex]
 			errors.InvalidArgumentException(info = info)
+		} catch (e: NumberFormatException) {
+			try {
+				e.message!!.split(" ")[3].substring(1, e.message!!.split(" ").size - 1).toUnsafeSuperRegisterType()
+				errors.InvalidArgumentFormatException(badType = "Register", shouldBe = "Long")
+			} catch (e: IllegalStateException) {
+				errors.InvalidArgumentFormatException(
+					badType = "String", shouldBe = "Long"
+				)
+			}
 		}
 	}
 	vm.pc = 0
