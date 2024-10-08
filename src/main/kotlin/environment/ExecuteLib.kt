@@ -10,7 +10,7 @@ import java.io.File
 
 
 class ExecuteLib(name: String) {
-	private val file = File("./lib/$name.lib")
+	private val file = File("${vm.functions.stdlibPath}/$name.lib")
 
 	fun execute() {
 		val oldPc = vm.pc
