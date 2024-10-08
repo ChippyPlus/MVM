@@ -2,6 +2,7 @@ package environment
 
 import data.memory.MemoryAddress
 import data.registers.enumIdenifiers.SuperRegisterType
+import internals.instructions.misc.HelpJsonArguments
 import vm
 import kotlin.system.exitProcess
 
@@ -246,5 +247,15 @@ class VMErrors {
 	fun GeneralStringException(message: String) {
 		System.err.println("$prefix${vm.pc}: General Strings Exception \"$message operation failed\"")
 		exitProcess(23)
+	}
+
+	fun InvalidArgumentException(info: HelpJsonArguments) {
+		System.err.println("$prefix${vm.pc}:Missing argument: \"${info.name}\"")
+		exitProcess(24)
+	}
+
+	fun InvalidArgumentFormatException(badType: String, shouldBe: Int) {
+		System.err.println("$prefix${vm.pc}:Invalid Argument Format: Invalid type of \"$badType\", should be $shouldBe")
+		exitProcess(25)
 	}
 }

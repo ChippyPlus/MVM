@@ -3,6 +3,7 @@ package engine
 import data.registers.enumIdenifiers.SuperRegisterType
 import engine.execution.InstructData
 import errors
+import helpers.gatherHelp
 import helpers.toSuperRegisterType
 import vm
 import kotlin.system.exitProcess
@@ -30,204 +31,212 @@ fun parser(file: List<String>): List<InstructData> {
 
 	for (line in tokens) {
 		vm.pc++
-		out.add(
-			when (val instruction = line[0]) {
-				"pow" -> InstructData(
-					name = "pow", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
+		val instruction = if (line.isEmpty()) "" else line[0]
+		try {
+			out.add(
+				when (instruction) {
 
-				"help" -> InstructData(
-					name = "help", values = arrayOf(line[1])
-				)
-
-				"ret" -> InstructData(
-					name = "ret", values = arrayOf()
-				)
-
-				"inr" -> InstructData(
-					"inr", arrayOf(line[1])
-				)
-
-				"call" -> InstructData(
-					"call", arrayOf(line[1])
-				)
-
-				"lt" -> InstructData(
-					name = "lt", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-
-				"gt" -> InstructData(
-					name = "gt", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-
-				"strcpy" -> InstructData(
-					name = "strcpy", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-
-				"strcmp" -> InstructData(
-					name = "strcmp", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-
-				"strcat" -> InstructData(
-					name = "strcat", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-
-				"substr" -> InstructData(
-					name = "substr", arrayOf(
-						line[1].toSuperRegisterType(), line[2].toSuperRegisterType(), line[3].toSuperRegisterType()
+					"pow" -> InstructData(
+						name = "pow", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
 					)
-				)
 
-				"find" -> InstructData(
-					name = "find", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+					"help" -> InstructData(
+						name = "help", values = arrayOf(line[1])
+					)
 
-				)
+					"ret" -> InstructData(
+						name = "ret", values = arrayOf()
+					)
 
-				"cpy" -> InstructData(
-					name = "cpy", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
+					"inr" -> InstructData(
+						"inr", arrayOf(line[1])
+					)
 
-				"strlen" -> InstructData(
-					name = "strlen", arrayOf(line[1].toSuperRegisterType())
-				)
+					"call" -> InstructData(
+						"call", arrayOf(line[1])
+					)
 
-				"printr" -> InstructData(
-					name = "printr", arrayOf(line[1].toSuperRegisterType())
-				)
+					"lt" -> InstructData(
+						name = "lt", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+					)
 
-				"str" -> InstructData(
-					name = "str", arrayOf(line[1].toSuperRegisterType(), line.joinToString(" ").split("\"")[1])
-				)
+					"gt" -> InstructData(
+						name = "gt", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+					)
 
+					"strcpy" -> InstructData(
+						name = "strcpy", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+					)
 
-				"syscall" -> InstructData(
-					name = "syscall",
-					arrayOf(SuperRegisterType.S1, SuperRegisterType.S2, SuperRegisterType.S3, SuperRegisterType.S4)
+					"strcmp" -> InstructData(
+						name = "strcmp", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+					)
 
-				)
+					"strcat" -> InstructData(
+						name = "strcat", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+					)
 
-				"" -> InstructData(
-					name = "emptyLine", arrayOf()
-				)
+					"substr" -> InstructData(
+						name = "substr", arrayOf(
+							line[1].toSuperRegisterType(), line[2].toSuperRegisterType(), line[3].toSuperRegisterType()
+						)
+					)
 
+					"find" -> InstructData(
+						name = "find", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
 
-				"//" -> InstructData(
-					name = "comment", arrayOf()
-				)
+					)
 
-				"mod" -> InstructData(
-					name = "mod", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+					"cpy" -> InstructData(
+						name = "cpy", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+					)
 
-				)
+					"strlen" -> InstructData(
+						name = "strlen", arrayOf(line[1].toSuperRegisterType())
+					)
 
-				"eq" -> InstructData(
-					name = "eq", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
+					"printr" -> InstructData(
+						name = "printr", arrayOf(line[1].toSuperRegisterType())
+					)
 
-				"shl" -> InstructData(
-					name = "shl", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-
-
-				"shr" -> InstructData(
-					name = "shr", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-
-				"peek" -> InstructData(
-					name = "peek", arrayOf(line[1].toSuperRegisterType())
-				)
-
-				"pop" -> InstructData(
-					name = "pop", arrayOf(line[1].toSuperRegisterType())
-				)
-
-				"push" -> InstructData(
-					name = "push", arrayOf(line[1].toSuperRegisterType())
-				)
-
-				"prints" -> InstructData(
-					name = "prints", emptyArray()
-				)
-
-				"div",
-
-					-> InstructData(
-					name = "div", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
+					"str" -> InstructData(
+						name = "str", arrayOf(line[1].toSuperRegisterType(), line.joinToString(" ").split("\"")[1])
+					)
 
 
-				"and",
+					"syscall" -> InstructData(
+						name = "syscall",
+						arrayOf(SuperRegisterType.S1, SuperRegisterType.S2, SuperRegisterType.S3, SuperRegisterType.S4)
 
-					-> InstructData(
-					name = "and", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
+					)
 
-				"or",
+					"" -> InstructData(
+						name = "emptyLine", arrayOf()
+					)
 
-					-> InstructData(
-					name = "or", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
 
-				"xor" -> InstructData(
-					name = "xor", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
+					"//" -> InstructData(
+						name = "comment", arrayOf()
+					)
 
-				"not" -> InstructData(
-					name = "not", arrayOf(line[1].toSuperRegisterType())
-				)
+					"mod" -> InstructData(
+						name = "mod", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
 
-				"store" -> InstructData(
-					name = "store", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
+					)
 
-				"load" -> InstructData(
-					name = "load", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
+					"eq" -> InstructData(
+						name = "eq", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+					)
 
-				"lit" -> InstructData(
-					name = "lit", arrayOf(line[1].toSuperRegisterType(), line[2].toLong())
-				)
+					"shl" -> InstructData(
+						name = "shl", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+					)
 
-				"jmp" -> InstructData(
-					name = "jmp", arrayOf(line[1].toInt())
-				)
 
-				"jz" -> InstructData(
-					name = "jz", arrayOf(line[1].toInt(), line[2].toSuperRegisterType())
+					"shr" -> InstructData(
+						name = "shr", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+					)
 
-				)
+					"peek" -> InstructData(
+						name = "peek", arrayOf(line[1].toSuperRegisterType())
+					)
 
-				"jnz" -> InstructData(
-					name = "jnz", arrayOf(line[1].toInt(), line[2].toSuperRegisterType())
+					"pop" -> InstructData(
+						name = "pop", arrayOf(line[1].toSuperRegisterType())
+					)
 
-				)
+					"push" -> InstructData(
+						name = "push", arrayOf(line[1].toSuperRegisterType())
+					)
 
-				"mov" -> InstructData(
-					name = "mov", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+					"prints" -> InstructData(
+						name = "prints", emptyArray()
+					)
 
-				)
+					"div",
 
-				"add" -> InstructData(
-					name = "add", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+						-> InstructData(
+						name = "div", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+					)
 
-				)
 
-				"sub" -> InstructData(
-					name = "sub", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+					"and",
 
-				)
+						-> InstructData(
+						name = "and", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+					)
 
-				"mul" -> InstructData(
-					name = "mul", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+					"or",
 
-				)
+						-> InstructData(
+						name = "or", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+					)
 
-				else -> {
-					errors.InvalidInstructionException(instruction)
-					exitProcess(99) // for kotlin. Ughhhhhh
+					"xor" -> InstructData(
+						name = "xor", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+					)
+
+					"not" -> InstructData(
+						name = "not", arrayOf(line[1].toSuperRegisterType())
+					)
+
+					"store" -> InstructData(
+						name = "store", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+					)
+
+					"load" -> InstructData(
+						name = "load", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+					)
+
+					"lit" -> InstructData(
+						name = "lit", arrayOf(line[1].toSuperRegisterType(), line[2].toLong())
+					)
+
+					"jmp" -> InstructData(
+						name = "jmp", arrayOf(line[1].toInt())
+					)
+
+					"jz" -> InstructData(
+						name = "jz", arrayOf(line[1].toInt(), line[2].toSuperRegisterType())
+
+					)
+
+					"jnz" -> InstructData(
+						name = "jnz", arrayOf(line[1].toInt(), line[2].toSuperRegisterType())
+
+					)
+
+					"mov" -> InstructData(
+						name = "mov", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+
+					)
+
+					"add" -> InstructData(
+						name = "add", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+
+					)
+
+					"sub" -> InstructData(
+						name = "sub", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+
+					)
+
+					"mul" -> InstructData(
+						name = "mul", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+
+					)
+
+					else -> {
+						errors.InvalidInstructionException(instruction)
+						exitProcess(99) // for kotlin. Ughhhhhh
+					}
 				}
-			}
-		)
+			)
+		} catch (missingArgument: IndexOutOfBoundsException) {
+			val missingIndex = missingArgument.message!!.split(" ")[1].toByte() - 1
+			val info = gatherHelp(instruction).arguments[missingIndex]
+			errors.InvalidArgumentException(info = info)
+		}
 	}
 	vm.pc = 0
 	return out

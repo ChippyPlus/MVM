@@ -100,6 +100,20 @@
     ],
     "instructions": [
         {
+            "name": "lit",
+            "arguments": [
+                {
+                    "name": "register",
+                    "info": "The register to load the literal into"
+                },
+                {
+                    "name": "Long_literal",
+                    "info": "The value to load into the register"
+                }
+            ],
+            "info": "Loads a 64 bit integer into a register"
+        },
+        {
             "name": "add",
             "arguments": [
                 {
