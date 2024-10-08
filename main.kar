@@ -1,4 +1,6 @@
-lit f1 10
-CALL randmax
-prints
-jmp 2
+str f1 "34 98"
+lit g1 1
+CALL strtoint
+pop f1
+add f1 g1
+printr r4
