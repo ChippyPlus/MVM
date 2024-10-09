@@ -16,7 +16,7 @@ import internalMemory
  * @throws MemoryAllocationException If a contiguous block of free memory large enough to hold, the string cannot be found.
  */
 fun writeClosestString(string: String): Long {
-	val spot = findFreeMemory(string.length)
+	val spot = findFreeMemory(string.length.toLong())
 
 	// Write the string char to memory, followed by a null-terminator
 	for ((index, i) in (spot until (spot + string.length)).withIndex()) {

@@ -5,7 +5,7 @@ import internalMemory
 
 
 // should work with writeClosestString
-fun findFreeMemory(size: Int): Long {
+fun findFreeMemory(size: Long): Long {
 	val possibleStarts = emptyMap<Long?, Any?>().toMutableMap()
 
 	internalMemory.memory.forEach {
