@@ -108,7 +108,6 @@ fun parser(file: List<String>): List<InstructData> {
 								errors.InvalidArgumentFormatException(
 									"Any", shouldBe = "String"
 								)
-
 							}
 
 						)
