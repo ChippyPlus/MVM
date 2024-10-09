@@ -15,7 +15,10 @@ class ExecuteLib(val name: String) {
 
 
 	private fun findMarLib(name: String) {
-
+		if ('.' in name) {
+			println(name.split("."))
+			return
+		}
 		println(name)
 	}
 
