@@ -9,28 +9,50 @@ import helpers.fullRegisterWriteUnsafe
 import kilb.Klib
 import vm
 import java.io.File
+import kotlin.system.exitProcess
 
 
 class ExecuteLib(val name: String) {
 
 
-	private fun findMarLib(name: String) {
-		if ('.' in name) {
-			println(name.split("."))
-			return
+	private fun findMarLib(name: String): String? {
+		if (File("${vm.functions.stdlibPath}/$name.lib").exists()) {
+			val path = File("${vm.functions.stdlibPath}/$name.lib").absolutePath
+			return path
 		}
-		println(name)
+
+
+
+		if ('.' in name && File( // use FILE
+				"${vm.functions.stdlibPath}/${name.split('.')[0]}/${
+					name.split(
+						'.'
+					)[1]
+				}.lib"
+			).exists()
+		) {
+			val path = File(
+				"${vm.functions.stdlibPath}/${name.split('.')[0]}/${
+					name.split(
+						'.'
+					)[1]
+				}.lib"
+			).absolutePath
+			return path
+		}
+		return null
 	}
 
-	private val file = File("${vm.functions.stdlibPath}/$name.lib")
+	private val file = File(findMarLib(name) ?: run {
+		errors.MissingLibraryException(name)
+		exitProcess(1)
+	})
 
 	fun execute() {
-		findMarLib(name)
-		return
-		if (!file.exists()) {
-			executeKt()
-		} else {
+		if (findMarLib(name) != null) {
 			executeMar()
+		} else {
+			executeKt()
 		}
 	}
 
@@ -38,7 +60,7 @@ class ExecuteLib(val name: String) {
 		val oldPc = vm.pc
 		val snapshot = snapShotRegisters()
 		if (!Klib().match(name)) {
-			errors.MissingLibraryException(name)
+			errors.MissingLibraryException(name) // Kt should be the last resort
 		}
 		populateSnapShot(snapshot)
 		vm.pc = oldPc
