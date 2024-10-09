@@ -101,7 +101,17 @@ fun parser(file: List<String>): List<InstructData> {
 					)
 
 					"str" -> InstructData(
-						name = "str", arrayOf(line[1].toSuperRegisterType(), line.joinToString(" ").split("\"")[1])
+						name = "str", arrayOf(
+							line[1].toSuperRegisterType(), try {
+								line.joinToString(" ").split("\"")[1]
+							} catch (e: IndexOutOfBoundsException) {
+								errors.InvalidArgumentFormatException(
+									"Any", shouldBe = "String"
+								)
+
+							}
+
+						)
 					)
 
 

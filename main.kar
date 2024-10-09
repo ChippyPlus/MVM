@@ -1,3 +1,2 @@
-lit f1 22
+str f1 Bla
 call println
-prints
