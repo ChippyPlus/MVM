@@ -32,7 +32,7 @@ fun parser(file: List<String>): List<InstructData> {
 
 	for (line in tokens) {
 		vm.pc++
-		val instruction = if (line.isEmpty()) "" else line[0]
+		val instruction = if (line.isEmpty()) "" else line[0].lowercase()
 		try {
 			out.add(
 				when (instruction) {
