@@ -1,1 +1,3 @@
-call
+lit f1 22
+call math.inc
+prints

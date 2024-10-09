@@ -12,9 +12,18 @@ import java.io.File
 
 
 class ExecuteLib(val name: String) {
+
+
+	private fun findMarLib(name: String) {
+
+		println(name)
+	}
+
 	private val file = File("${vm.functions.stdlibPath}/$name.lib")
 
 	fun execute() {
+		findMarLib(name)
+		return
 		if (!file.exists()) {
 			executeKt()
 		} else {
