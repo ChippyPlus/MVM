@@ -155,7 +155,7 @@ class VMErrors {
 	 * @param message The null [MemoryAddress] that was accessed.
 	 */
 	fun NullAddressException(message: MemoryAddress) {
-		System.err.println("$prefix${vm.pc}: Null Address of \"$message\"")
+		System.err.println("$prefix${vm.pc}: Null Address of \"${message.address}\"")
 		exitProcess(14)
 	}
 

@@ -1,3 +1,3 @@
 lit f1 22
-call maths.inc
+call println
 prints
