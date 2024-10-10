@@ -37,6 +37,10 @@ fun parser(file: List<String>): List<InstructData> {
 			out.add(
 				when (instruction) {
 
+					"dealloc" -> {
+						InstructData(name = "dealloc", arrayOf(line[1].toSuperRegisterType()))
+					}
+
 					"pow" -> InstructData(
 						name = "pow", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
 					)
