@@ -50,10 +50,10 @@ fun SuperRegisterType.toInternalFunctionType(): InternalFunctionRegisterType {
  */
 fun SuperRegisterType.toSystemRegisterType(): SystemRegisterType {
 	return when (this) {
-		SuperRegisterType.S0 -> SystemRegisterType.S1
-		SuperRegisterType.S1 -> SystemRegisterType.S2
-		SuperRegisterType.S2 -> SystemRegisterType.S3
-		SuperRegisterType.S3 -> SystemRegisterType.S4
+		SuperRegisterType.S0 -> SystemRegisterType.S0
+		SuperRegisterType.S1 -> SystemRegisterType.S1
+		SuperRegisterType.S2 -> SystemRegisterType.S2
+		SuperRegisterType.S3 -> SystemRegisterType.S3
 		else -> error("Invalid SuperRegisterType \"$this\" for systemRegister")
 	}
 }
@@ -66,10 +66,16 @@ fun SuperRegisterType.toSystemRegisterType(): SystemRegisterType {
  */
 fun SuperRegisterType.toReturnRegisterType(): ReturnRegisterType {
 	return when (this) {
+		SuperRegisterType.R0 -> ReturnRegisterType.R0
 		SuperRegisterType.R1 -> ReturnRegisterType.R1
 		SuperRegisterType.R2 -> ReturnRegisterType.R2
 		SuperRegisterType.R3 -> ReturnRegisterType.R3
 		SuperRegisterType.R4 -> ReturnRegisterType.R4
+		SuperRegisterType.R5 -> ReturnRegisterType.R5
+		SuperRegisterType.R6 -> ReturnRegisterType.R6
+		SuperRegisterType.R7 -> ReturnRegisterType.R7
+		SuperRegisterType.R8 -> ReturnRegisterType.R8
+		SuperRegisterType.R9 -> ReturnRegisterType.R9
 		else -> error("Invalid SuperRegisterType \"$this\" for returnRegister")
 	}
 }
@@ -82,10 +88,16 @@ fun SuperRegisterType.toReturnRegisterType(): ReturnRegisterType {
  */
 fun SuperRegisterType.toFunctionRegisterType(): FunctionRegisterType {
 	return when (this) {
+		SuperRegisterType.F0 -> FunctionRegisterType.F1
 		SuperRegisterType.F1 -> FunctionRegisterType.F1
 		SuperRegisterType.F2 -> FunctionRegisterType.F2
 		SuperRegisterType.F3 -> FunctionRegisterType.F3
 		SuperRegisterType.F4 -> FunctionRegisterType.F4
+		SuperRegisterType.F5 -> FunctionRegisterType.F5
+		SuperRegisterType.F6 -> FunctionRegisterType.F6
+		SuperRegisterType.F7 -> FunctionRegisterType.F7
+		SuperRegisterType.F8 -> FunctionRegisterType.F8
+		SuperRegisterType.F9 -> FunctionRegisterType.F9
 		else -> error("Invalid SuperRegisterType \"$this\" for functionRegister")
 	}
 }
@@ -100,25 +112,54 @@ fun SuperRegisterType.toFunctionRegisterType(): FunctionRegisterType {
 @Suppress("unused")
 fun SuperRegisterType.toRegisterType(): Any {
 	return when (this) {
+		SuperRegisterType.G0 -> GeneralRegisterType.G0
 		SuperRegisterType.G1 -> GeneralRegisterType.G1
 		SuperRegisterType.G2 -> GeneralRegisterType.G2
 		SuperRegisterType.G3 -> GeneralRegisterType.G3
 		SuperRegisterType.G4 -> GeneralRegisterType.G4
-		SuperRegisterType.S0 -> SystemRegisterType.S1
-		SuperRegisterType.S1 -> SystemRegisterType.S2
-		SuperRegisterType.S2 -> SystemRegisterType.S3
-		SuperRegisterType.S3 -> SystemRegisterType.S4
+		SuperRegisterType.G5 -> GeneralRegisterType.G5
+		SuperRegisterType.G6 -> GeneralRegisterType.G6
+		SuperRegisterType.G7 -> GeneralRegisterType.G7
+		SuperRegisterType.G8 -> GeneralRegisterType.G8
+		SuperRegisterType.G9 -> GeneralRegisterType.G9
+
+
+		SuperRegisterType.S0 -> SystemRegisterType.S0
+		SuperRegisterType.S1 -> SystemRegisterType.S1
+		SuperRegisterType.S2 -> SystemRegisterType.S2
+		SuperRegisterType.S3 -> SystemRegisterType.S3
+
+		SuperRegisterType.R0 -> SuperRegisterType.R0
 		SuperRegisterType.R1 -> ReturnRegisterType.R1
 		SuperRegisterType.R2 -> ReturnRegisterType.R2
 		SuperRegisterType.R3 -> ReturnRegisterType.R3
 		SuperRegisterType.R4 -> ReturnRegisterType.R4
+		SuperRegisterType.R5 -> ReturnRegisterType.R5
+		SuperRegisterType.R6 -> ReturnRegisterType.R6
+		SuperRegisterType.R7 -> ReturnRegisterType.R7
+		SuperRegisterType.R8 -> ReturnRegisterType.R8
+		SuperRegisterType.R9 -> ReturnRegisterType.R9
+
+		SuperRegisterType.F0 -> FunctionRegisterType.F0
 		SuperRegisterType.F1 -> FunctionRegisterType.F1
 		SuperRegisterType.F2 -> FunctionRegisterType.F2
 		SuperRegisterType.F3 -> FunctionRegisterType.F3
 		SuperRegisterType.F4 -> FunctionRegisterType.F4
+		SuperRegisterType.F5 -> FunctionRegisterType.F5
+		SuperRegisterType.F6 -> FunctionRegisterType.F6
+		SuperRegisterType.F7 -> FunctionRegisterType.F7
+		SuperRegisterType.F8 -> FunctionRegisterType.F8
+		SuperRegisterType.F9 -> FunctionRegisterType.F9
+
+		SuperRegisterType.IF0 -> InternalFunctionRegisterType.IF0
 		SuperRegisterType.IF1 -> InternalFunctionRegisterType.IF1
 		SuperRegisterType.IF2 -> InternalFunctionRegisterType.IF2
 		SuperRegisterType.IF3 -> InternalFunctionRegisterType.IF3
 		SuperRegisterType.IF4 -> InternalFunctionRegisterType.IF4
+		SuperRegisterType.IF5 -> InternalFunctionRegisterType.IF5
+		SuperRegisterType.IF6 -> InternalFunctionRegisterType.IF6
+		SuperRegisterType.IF7 -> InternalFunctionRegisterType.IF7
+		SuperRegisterType.IF8 -> InternalFunctionRegisterType.IF8
+		SuperRegisterType.IF9 -> InternalFunctionRegisterType.IF9
 	}
 }
