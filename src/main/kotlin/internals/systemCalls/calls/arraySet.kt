@@ -9,11 +9,19 @@ import internalMemory
 import internals.systemCalls.SystemCall
 
 fun SystemCall.arraySet(arrayLocationV: SuperRegisterType, arrayIndexV: SuperRegisterType, valueV: SuperRegisterType) {
-	val metaData = internalMemory.read(MemoryAddress(registerRead(arrayLocationV))).value!!
+	val metaDataAddr = internalMemory.read(MemoryAddress(registerRead(arrayLocationV))).value!!
+	val metaDataSize = internalMemory.read(MemoryAddress(registerRead(arrayLocationV) + 1)).value!!
 	val index = registerRead(arrayIndexV)
 	val value = registerRead(valueV)
-	if (metaData < index) {
+	val maybeLastValue = MemoryValue(value).value
+	if (metaDataAddr < index) {
 		errors.InvalidMemoryAddressException(index.toString())
 	}
-	internalMemory.write(MemoryAddress(registerRead(arrayLocationV) + 1 + index), MemoryValue(value))
+	internalMemory.write(MemoryAddress(registerRead(arrayLocationV) + 2 + index), MemoryValue(value)) // write values
+
+	if (MemoryValue(value).value != maybeLastValue) {// write count if value was updated
+		internalMemory.write(MemoryAddress(registerRead(arrayLocationV) + 1), MemoryValue(metaDataSize + 1))
+	} else {
+		internalMemory.write(MemoryAddress(registerRead(arrayLocationV) + 1), MemoryValue(metaDataSize))
+	}
 }

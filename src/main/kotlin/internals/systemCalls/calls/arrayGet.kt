@@ -15,6 +15,6 @@ fun SystemCall.arrayGet(arrayLocationV: SuperRegisterType, arrayIndexV: SuperReg
 		errors.InvalidMemoryAddressException(index.toString())
 	}
 	registerWrite(
-		SuperRegisterType.R2, internalMemory.read(MemoryAddress(registerRead(arrayLocationV) + 1 + index)).value!!
+		SuperRegisterType.R2, internalMemory.read(MemoryAddress(registerRead(arrayLocationV) + 2 + index)).value!!
 	)
 }
