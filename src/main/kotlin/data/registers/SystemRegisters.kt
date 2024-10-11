@@ -25,12 +25,7 @@ class SystemRegisters {
 	 */
 	fun read(registers: SystemRegisterType): Long {
 		try {
-			return when (registers) {
-				SystemRegisterType.S1 -> s1!!
-				SystemRegisterType.S2 -> s2!!
-				SystemRegisterType.S3 -> s3!!
-				SystemRegisterType.S4 -> s4!!
-			}
+			return readUnsafe(registers)!!
 		} catch (e: NullPointerException) {
 			errors.NullRegisterException(registers.toString().toSuperRegisterType())
 			exitProcess(11) // To satisfy the compiler. This shouldn't trigger

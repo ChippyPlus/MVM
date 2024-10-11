@@ -11,10 +11,16 @@ import kotlin.system.exitProcess
  * General-purpose registers are used for a wide range of computations and data manipulation.
  */
 class GeneralRegisters {
+	var g0: Long? = null
 	var g1: Long? = null
 	var g2: Long? = null
 	var g3: Long? = null
 	var g4: Long? = null
+	var g5: Long? = null
+	var g6: Long? = null
+	var g7: Long? = null
+	var g8: Long? = null
+	var g9: Long? = null
 
 	/**
 	 * Reads the value from the specified general-purpose register.
@@ -25,24 +31,25 @@ class GeneralRegisters {
 	 */
 	fun read(registers: GeneralRegisterType): Long {
 		try {
-			return when (registers) {
-				GeneralRegisterType.G1 -> g1!!
-				GeneralRegisterType.G2 -> g2!!
-				GeneralRegisterType.G3 -> g3!!
-				GeneralRegisterType.G4 -> g4!!
-			}
+			return readUnsafe(registers)!!
 		} catch (e: NullPointerException) {
 			errors.NullRegisterException(registers.toString().toSuperRegisterType())
-			exitProcess(11) // To satisfy the compiler. This shouldn't trigger
+			exitProcess(0)
 		}
 	}
 
 	fun readUnsafe(registers: GeneralRegisterType): Long? {
 		return when (registers) {
+			GeneralRegisterType.G0 -> g0
 			GeneralRegisterType.G1 -> g1
 			GeneralRegisterType.G2 -> g2
 			GeneralRegisterType.G3 -> g3
 			GeneralRegisterType.G4 -> g4
+			GeneralRegisterType.G5 -> g5
+			GeneralRegisterType.G6 -> g6
+			GeneralRegisterType.G7 -> g7
+			GeneralRegisterType.G8 -> g8
+			GeneralRegisterType.G9 -> g9
 		}
 	}
 
@@ -55,10 +62,16 @@ class GeneralRegisters {
 	 */
 	fun write(registers: GeneralRegisterType, value: Long?) {
 		when (registers) {
+			GeneralRegisterType.G0 -> g0 = value
 			GeneralRegisterType.G1 -> g1 = value
 			GeneralRegisterType.G2 -> g2 = value
 			GeneralRegisterType.G3 -> g3 = value
 			GeneralRegisterType.G4 -> g4 = value
+			GeneralRegisterType.G5 -> g5 = value
+			GeneralRegisterType.G6 -> g6 = value
+			GeneralRegisterType.G7 -> g7 = value
+			GeneralRegisterType.G8 -> g8 = value
+			GeneralRegisterType.G9 -> g9 = value
 		}
 	}
 }

@@ -12,10 +12,16 @@ import kotlin.system.exitProcess
  * Internal Function Registers are used are only meant to be used by internal functions in the stdlib
  */
 class InternalFunctionRegisters {
+	var if0: Long? = null
 	var if1: Long? = null
 	var if2: Long? = null
 	var if3: Long? = null
 	var if4: Long? = null
+	var if5: Long? = null
+	var if6: Long? = null
+	var if7: Long? = null
+	var if8: Long? = null
+	var if9: Long? = null
 
 	/**
 	 * Reads the value from the specified general-purpose register.
@@ -26,25 +32,26 @@ class InternalFunctionRegisters {
 	 */
 	fun read(registers: InternalFunctionRegisterType): Long {
 		try {
-			return when (registers) {
-				InternalFunctionRegisterType.IF1 -> if1!!
-				InternalFunctionRegisterType.IF2 -> if2!!
-				InternalFunctionRegisterType.IF3 -> if3!!
-				InternalFunctionRegisterType.IF4 -> if4!!
-			}
+			return readUnsafe(registers)!!
 		} catch (e: NullPointerException) {
 			errors.NullRegisterException(registers.toString().toSuperRegisterType())
-			exitProcess(11) // To satisfy the compiler. This shouldn't trigger
+			exitProcess(0)
 		}
 	}
 
 
 	fun readUnsafe(registers: InternalFunctionRegisterType): Long? {
 		return when (registers) {
+			InternalFunctionRegisterType.IF0 -> if0
 			InternalFunctionRegisterType.IF1 -> if1
 			InternalFunctionRegisterType.IF2 -> if2
 			InternalFunctionRegisterType.IF3 -> if3
 			InternalFunctionRegisterType.IF4 -> if4
+			InternalFunctionRegisterType.IF5 -> if5
+			InternalFunctionRegisterType.IF6 -> if6
+			InternalFunctionRegisterType.IF7 -> if7
+			InternalFunctionRegisterType.IF8 -> if8
+			InternalFunctionRegisterType.IF9 -> if9
 		}
 	}
 
@@ -56,10 +63,16 @@ class InternalFunctionRegisters {
 	 */
 	fun write(registers: InternalFunctionRegisterType, value: Long?) {
 		when (registers) {
+			InternalFunctionRegisterType.IF0 -> if0 = value
 			InternalFunctionRegisterType.IF1 -> if1 = value
 			InternalFunctionRegisterType.IF2 -> if2 = value
 			InternalFunctionRegisterType.IF3 -> if3 = value
 			InternalFunctionRegisterType.IF4 -> if4 = value
+			InternalFunctionRegisterType.IF5 -> if5 = value
+			InternalFunctionRegisterType.IF6 -> if6 = value
+			InternalFunctionRegisterType.IF7 -> if7 = value
+			InternalFunctionRegisterType.IF8 -> if8 = value
+			InternalFunctionRegisterType.IF9 -> if9 = value
 		}
 	}
 }
