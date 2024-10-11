@@ -9,7 +9,6 @@ import helpers.registerWriteUnsafe
 import kilb.Klib
 import vm
 import java.io.File
-import kotlin.system.exitProcess
 
 
 class ExecuteLib(val name: String) {
@@ -20,7 +19,6 @@ class ExecuteLib(val name: String) {
 			val path = File("${vm.functions.stdlibPath}/$name.lib").absolutePath
 			return path
 		}
-
 
 
 		if ('.' in name && File( // use FILE
@@ -43,14 +41,11 @@ class ExecuteLib(val name: String) {
 		return null
 	}
 
-	private val file = File(findMarLib(name) ?: run {
-		errors.MissingLibraryException(name)
-		exitProcess(1)
-	})
 
 	fun execute() {
 		if (findMarLib(name) != null) {
-			executeMar()
+			val file = File(findMarLib(name)!!)
+			executeMar(file)
 		} else {
 			executeKt()
 		}
@@ -66,7 +61,7 @@ class ExecuteLib(val name: String) {
 		vm.pc = oldPc
 	}
 
-	private fun executeMar() {
+	private fun executeMar(file: File) {
 		val oldPc = vm.pc
 		val snapshot = snapShotRegisters()
 		Execute().run(parser(file.readLines().subList(1, file.readLines().size)))

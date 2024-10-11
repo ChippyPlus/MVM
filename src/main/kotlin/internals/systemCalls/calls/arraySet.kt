@@ -13,15 +13,18 @@ fun SystemCall.arraySet(arrayLocationV: SuperRegisterType, arrayIndexV: SuperReg
 	val metaDataSize = internalMemory.read(MemoryAddress(registerRead(arrayLocationV) + 1)).value!!
 	val index = registerRead(arrayIndexV)
 	val value = registerRead(valueV)
-	val maybeLastValue = MemoryValue(value).value
+	val maybeLastValue = internalMemory.readUnsafe(MemoryAddress(registerRead(arrayLocationV) + 2 + index)).value
 	if (metaDataAddr < index) {
 		errors.InvalidMemoryAddressException(index.toString())
 	}
-	internalMemory.write(MemoryAddress(registerRead(arrayLocationV) + 2 + index), MemoryValue(value)) // write values
 
-	if (MemoryValue(value).value != maybeLastValue) {// write count if value was updated
+	// technically this array cant get smaller without removing everything but yk. Womp womp
+	if (MemoryValue(maybeLastValue).value == null) {// write count if the value was updated
 		internalMemory.write(MemoryAddress(registerRead(arrayLocationV) + 1), MemoryValue(metaDataSize + 1))
 	} else {
 		internalMemory.write(MemoryAddress(registerRead(arrayLocationV) + 1), MemoryValue(metaDataSize))
 	}
+
+	internalMemory.write(MemoryAddress(registerRead(arrayLocationV) + 2 + index), MemoryValue(value)) // write values
+
 }

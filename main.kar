@@ -1,3 +1,31 @@
-lit f1 22
+lit f1 9
+
 call arrays.create
-call clean.array
+
+lit s0 27
+peek s1
+lit s2 0
+lit s3 111
+syscall
+
+lit s0 27
+peek s1
+lit s2 1
+lit s3 222
+syscall
+
+lit s0 27
+peek s1
+lit s2 2
+lit s3 333
+syscall
+
+lit s0 27
+peek s1
+lit s2 2
+lit s3 233
+syscall
+
+pop f1
+call arrays.size
+prints

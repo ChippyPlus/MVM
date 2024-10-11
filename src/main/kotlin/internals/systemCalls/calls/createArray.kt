@@ -19,6 +19,5 @@ fun SystemCall.createArray(size: SuperRegisterType) {
 	val spot = findFreeMemory(nSize + 2)
 	internalMemory.write(MemoryAddress(spot), MemoryValue(nSize))
 	internalMemory.write(MemoryAddress(spot + 1), MemoryValue(0))
-
 	registerWrite(SuperRegisterType.R2, spot)
 }
