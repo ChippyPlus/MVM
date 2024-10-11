@@ -12,7 +12,7 @@ import kotlin.system.exitProcess
  *
  * System call number: 5
  *
- * @param s2 The register containing the exit status code (stored in register S2).
+ * @param s2 The register containing the exit status code (stored in register S1).
  */
 @Suppress("RemoveExplicitTypeArguments")
 fun SystemCall.exit(s2: SuperRegisterType): Unit = try {

@@ -14,7 +14,7 @@ import java.io.File
  *
  * System call number: 3
  *
- * @param registerPath The register containing the path to the file to open (stored in register S2).
+ * @param registerPath The register containing the path to the file to open (stored in register S1).
  */
 fun SystemCall.openFile(registerPath: SuperRegisterType) {
     val path: String = readRegisterString(register = registerPath)

@@ -6,7 +6,7 @@ package data.registers.enumIdenifiers
  * This enumeration allows for a unified way to refer to any register type, regardless of its specific category (General, System, or Return).
  */
 enum class SuperRegisterType {
-	G1, G2, G3, G4, S1, S2, S3, S4, R1, R2, R3, R4, F1, F2, F3, F4, IF1, IF2, IF3, IF4
+	G0, G1, G2, G3, G4, G5, G6, G7, G8, G9, F0, F1, F2, F3, F4, F5, F6, F7, F8, F9, IF0, IF1, IF2, IF3, IF4, IF5, IF6, IF7, IF8, IF9, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, S0, S1, S2, S3
 }
 
 /**
@@ -50,10 +50,10 @@ fun SuperRegisterType.toInternalFunctionType(): InternalFunctionRegisterType {
  */
 fun SuperRegisterType.toSystemRegisterType(): SystemRegisterType {
 	return when (this) {
-		SuperRegisterType.S1 -> SystemRegisterType.S1
-		SuperRegisterType.S2 -> SystemRegisterType.S2
-		SuperRegisterType.S3 -> SystemRegisterType.S3
-		SuperRegisterType.S4 -> SystemRegisterType.S4
+		SuperRegisterType.S0 -> SystemRegisterType.S1
+		SuperRegisterType.S1 -> SystemRegisterType.S2
+		SuperRegisterType.S2 -> SystemRegisterType.S3
+		SuperRegisterType.S3 -> SystemRegisterType.S4
 		else -> error("Invalid SuperRegisterType \"$this\" for systemRegister")
 	}
 }
@@ -104,10 +104,10 @@ fun SuperRegisterType.toRegisterType(): Any {
 		SuperRegisterType.G2 -> GeneralRegisterType.G2
 		SuperRegisterType.G3 -> GeneralRegisterType.G3
 		SuperRegisterType.G4 -> GeneralRegisterType.G4
-		SuperRegisterType.S1 -> SystemRegisterType.S1
-		SuperRegisterType.S2 -> SystemRegisterType.S2
-		SuperRegisterType.S3 -> SystemRegisterType.S3
-		SuperRegisterType.S4 -> SystemRegisterType.S4
+		SuperRegisterType.S0 -> SystemRegisterType.S1
+		SuperRegisterType.S1 -> SystemRegisterType.S2
+		SuperRegisterType.S2 -> SystemRegisterType.S3
+		SuperRegisterType.S3 -> SystemRegisterType.S4
 		SuperRegisterType.R1 -> ReturnRegisterType.R1
 		SuperRegisterType.R2 -> ReturnRegisterType.R2
 		SuperRegisterType.R3 -> ReturnRegisterType.R3

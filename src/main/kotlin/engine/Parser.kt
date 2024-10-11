@@ -120,7 +120,7 @@ fun parser(file: List<String>): List<InstructData> {
 
 					"syscall" -> InstructData(
 						name = "syscall",
-						arrayOf(SuperRegisterType.S1, SuperRegisterType.S2, SuperRegisterType.S3, SuperRegisterType.S4)
+						arrayOf(SuperRegisterType.S0, SuperRegisterType.S1, SuperRegisterType.S2, SuperRegisterType.S3)
 
 					)
 

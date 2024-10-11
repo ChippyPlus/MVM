@@ -16,8 +16,8 @@ import internals.systemCalls.SystemCall
  *
  * System call number: 1
  *
- * @param fd The file descriptor of the file to read from (stored in register S2).
- * @param buffer The starting address of the buffer in memory to store the read data (stored in register S3).
+ * @param fd The file descriptor of the file to read from (stored in register S1).
+ * @param buffer The starting address of the buffer in memory to store the read data (stored in register S2).
  */
 @Suppress("RemoveExplicitTypeArguments")
 fun SystemCall.readFile(fd: SuperRegisterType, buffer: SuperRegisterType): Unit = try {

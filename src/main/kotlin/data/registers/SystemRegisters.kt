@@ -11,10 +11,10 @@ import kotlin.system.exitProcess
  * System registers are primarily used for handling system calls and storing system-related information.
  */
 class SystemRegisters {
+	var s0: Long? = null
 	var s1: Long? = null
 	var s2: Long? = null
 	var s3: Long? = null
-	var s4: Long? = null
 
 	/**
 	 * Reads the value from the specified system register.
@@ -34,10 +34,10 @@ class SystemRegisters {
 
 	fun readUnsafe(registers: SystemRegisterType): Long? {
 		return when (registers) {
+			SystemRegisterType.S0 -> s0
 			SystemRegisterType.S1 -> s1
 			SystemRegisterType.S2 -> s2
 			SystemRegisterType.S3 -> s3
-			SystemRegisterType.S4 -> s4
 		}
 	}
 
@@ -49,10 +49,10 @@ class SystemRegisters {
 	 */
 	fun write(registers: SystemRegisterType, value: Long?) {
 		when (registers) {
+			SystemRegisterType.S0 -> s0 = value
 			SystemRegisterType.S1 -> s1 = value
 			SystemRegisterType.S2 -> s2 = value
 			SystemRegisterType.S3 -> s3 = value
-			SystemRegisterType.S4 -> s4 = value
 		}
 	}
 }

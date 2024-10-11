@@ -53,7 +53,7 @@ class ParseInstructionSingleTest {
         val p = parser(
             File("src/test/resources/per instruction test/syscall")
         ).toString()
-        assertEquals("[InstructData(name=syscall, values=[S1, S2, S3, S4])]", p)
+		assertEquals("[InstructData(name=syscall, values=[S0, S1, S2, S3])]", p)
     }
 
     @Test
@@ -93,7 +93,7 @@ class ParseInstructionSingleTest {
         val p = parser(
             File("src/test/resources/per instruction test/push")
         ).toString()
-        assertEquals("[InstructData(name=push, values=[S1])]", p)
+		assertEquals("[InstructData(name=push, values=[S0])]", p)
     }
 
     @Test
@@ -117,7 +117,7 @@ class ParseInstructionSingleTest {
         val p = parser(
             File("src/test/resources/per instruction test/not")
         ).toString()
-        assertEquals("[InstructData(name=not, values=[S2])]", p)
+		assertEquals("[InstructData(name=not, values=[S1])]", p)
     }
 
     @Test
@@ -133,7 +133,7 @@ class ParseInstructionSingleTest {
         val p = parser(
             File("src/test/resources/per instruction test/add")
         ).toString()
-        assertEquals("[InstructData(name=add, values=[R1, S2])]", p)
+		assertEquals("[InstructData(name=add, values=[R1, S1])]", p)
     }
 
     @Test
@@ -149,7 +149,7 @@ class ParseInstructionSingleTest {
         val p = parser(
             File("src/test/resources/per instruction test/mul")
         ).toString()
-        assertEquals("[InstructData(name=mul, values=[G3, S4])]", p)
+		assertEquals("[InstructData(name=mul, values=[G3, S3])]", p)
     }
 
     @Test
@@ -181,7 +181,7 @@ class ParseInstructionSingleTest {
         val p = parser(
             File("src/test/resources/per instruction test/and")
         ).toString()
-        assertEquals("[InstructData(name=and, values=[S1, S2])]", p)
+		assertEquals("[InstructData(name=and, values=[S0, S1])]", p)
     }
 
     @Test
@@ -205,7 +205,7 @@ class ParseInstructionSingleTest {
         val p = parser(
             File("src/test/resources/per instruction test/shr")
         ).toString()
-        assertEquals("[InstructData(name=shr, values=[S1, S3])]", p)
+		assertEquals("[InstructData(name=shr, values=[S0, S2])]", p)
     }
 
     @Test
@@ -213,7 +213,7 @@ class ParseInstructionSingleTest {
         val p = parser(
             File("src/test/resources/per instruction test/shl")
         ).toString()
-        assertEquals("[InstructData(name=shl, values=[S1, G3])]", p)
+		assertEquals("[InstructData(name=shl, values=[S0, G3])]", p)
     }
 
     @Test
@@ -221,7 +221,7 @@ class ParseInstructionSingleTest {
         val p = parser(
             File("src/test/resources/per instruction test/strcmp")
         ).toString()
-        assertEquals("[InstructData(name=strcmp, values=[R3, S1])]", p)
+		assertEquals("[InstructData(name=strcmp, values=[R3, S0])]", p)
     }
 
     @Test
@@ -229,7 +229,7 @@ class ParseInstructionSingleTest {
         val p = parser(
             File("src/test/resources/per instruction test/strcat")
         ).toString()
-        assertEquals("[InstructData(name=strcat, values=[S2, G2])]", p)
+		assertEquals("[InstructData(name=strcat, values=[S1, G2])]", p)
     }
 
     @Test

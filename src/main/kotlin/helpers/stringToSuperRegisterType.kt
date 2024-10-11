@@ -7,7 +7,7 @@ import kotlin.system.exitProcess
 /**
  * Converts a [String] representation of a register to its corresponding [SuperRegisterType].
  *
- * @receiver The [String] to convert (e.g. "G1", "S2", "R3").
+ * @receiver The [String] to convert (e.g. "G1", "S1", "R3").
  * @return The corresponding [SuperRegisterType].
  * @throws InvalidRegisterException If the input string is not a valid register name.
  */
@@ -17,10 +17,10 @@ fun String.toUnsafeSuperRegisterType(): SuperRegisterType {
 		"G2" -> SuperRegisterType.G2
 		"G3" -> SuperRegisterType.G3
 		"G4" -> SuperRegisterType.G4
+		"S0" -> SuperRegisterType.S0
 		"S1" -> SuperRegisterType.S1
 		"S2" -> SuperRegisterType.S2
 		"S3" -> SuperRegisterType.S3
-		"S4" -> SuperRegisterType.S4
 		"R1" -> SuperRegisterType.R1
 		"R2" -> SuperRegisterType.R2
 		"R3" -> SuperRegisterType.R3

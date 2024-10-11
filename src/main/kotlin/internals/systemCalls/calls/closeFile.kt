@@ -13,7 +13,7 @@ import internals.systemCalls.SystemCall
  *
  * System call number: 4
  *
- * @param s2 The register containing the file descriptor to close (stored in register S2).
+ * @param s2 The register containing the file descriptor to close (stored in register S1).
  */
 fun SystemCall.closeFile(s2: SuperRegisterType): Unit = try {
     val fd: Long = fullRegisterRead(register = s2)

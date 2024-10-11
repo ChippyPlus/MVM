@@ -13,10 +13,10 @@ class SystemCall {
 	/**
 	 * Executes the system call specified by the call ID.
 	 *
-	 * @param callId The system call number, identifying the system call to execute (stored in register S1).
-	 * @param s2 The register containing the first argument to the system call (stored in register S2).
-	 * @param s3 The register containing the second argument to the system call (stored in register S3).
-	 * @param s4 The register containing the third argument to the system call (stored in register S4).
+	 * @param callId The system call number, identifying the system call to execute (stored in register S0).
+	 * @param s2 The register containing the first argument to the system call (stored in register S1).
+	 * @param s3 The register containing the second argument to the system call (stored in register S2).
+	 * @param s4 The register containing the third argument to the system call (stored in register S3).
 	 * @throws InvalidSystemCallException If the provided system call number is invalid.
 	 */
 	fun execute(

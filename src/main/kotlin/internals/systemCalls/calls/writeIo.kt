@@ -13,7 +13,7 @@ import internals.systemCalls.SystemCall
  *
  * System call number: 24
  *
- * @param address The register containing the memory address of the start of the string (stored in register S2).
+ * @param address The register containing the memory address of the start of the string (stored in register S1).
  */
 fun SystemCall.writeIo(address: SuperRegisterType) = try {
     var index: Int = 0
