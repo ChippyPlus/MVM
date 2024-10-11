@@ -43,6 +43,7 @@ class Execute {
 	fun run(command: List<InstructData>, usingDebugEngine: DebugEngine? = null) {
 		while (true) {
 			sleep(hertz)
+			// TODO add Klib function vm index here????
 			vm.pc++
 			if (usingDebugEngine != null) {/* This is an optional thing and is checked over each iteration
  TODO fix the iteration performance oversight */

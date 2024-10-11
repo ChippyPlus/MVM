@@ -12,14 +12,14 @@ import java.io.File
 
 
 class ExecuteLib(val name: String) {
-
-
+	var currentFunction = ""
+	var enabledFunction = false
+	var pc = 0
 	private fun findMarLib(name: String): String? {
 		if (File("${vm.functions.stdlibPath}/$name.lib").exists()) {
 			val path = File("${vm.functions.stdlibPath}/$name.lib").absolutePath
 			return path
 		}
-
 
 		if ('.' in name && File( // use FILE
 				"${vm.functions.stdlibPath}/${name.split('.')[0]}/${
@@ -45,7 +45,9 @@ class ExecuteLib(val name: String) {
 	fun execute() {
 		if (findMarLib(name) != null) {
 			val file = File(findMarLib(name)!!)
+			currentFunction = File(findMarLib(name)!!).name
 			executeMar(file)
+
 		} else {
 			executeKt()
 		}
@@ -57,6 +59,7 @@ class ExecuteLib(val name: String) {
 		if (!Klib().match(name)) {
 			errors.MissingLibraryException(name) // Kt should be the last resort
 		}
+		currentFunction = name
 		populateSnapShot(snapshot)
 		vm.pc = oldPc
 	}
