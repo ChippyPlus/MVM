@@ -1,7 +1,14 @@
 package kilb
 
+import data.registers.enumIdenifiers.SuperRegisterType
+import helpers.fullRegisterRead
+
 class Arrays {
-	// F1
-//	fun create()
-	// Actually I think its better as a syscall!!!!
+	/**
+	 * Like F1 = arrayRef
+	 */
+	fun size() {
+		val ref = fullRegisterRead(SuperRegisterType.F1)
+
+	}
 }

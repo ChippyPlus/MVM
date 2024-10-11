@@ -1,2 +1,3 @@
-str f1 "I hate niggas"
-call clean.string
+lit f1 22
+call arrays.create
+cal clean.array
