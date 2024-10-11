@@ -3,7 +3,6 @@ package engine.execution
 import data.registers.enumIdenifiers.SuperRegisterType
 import debugger.DebugEngine
 import engine.parser
-import environment.ExecuteLib
 import errors
 import helpers.toSuperRegisterType
 import hertz
@@ -22,6 +21,7 @@ import internals.instructions.stackOperations.peek
 import internals.instructions.stackOperations.pop
 import internals.instructions.stackOperations.push
 import internals.instructions.strings.*
+import libExecute
 import vm
 import java.io.File
 import java.lang.Thread.sleep
@@ -61,8 +61,7 @@ class Execute {
 				)
 
 				"pow" -> vm.arithmetic.pow(
-					operand1 = args[0] as SuperRegisterType,
-					operand2 = args[1] as SuperRegisterType
+					operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
 				)
 
 				"help" -> vm.misc.help((args[0] as String))
@@ -74,7 +73,7 @@ class Execute {
 				}
 
 				"call" -> {
-					ExecuteLib(args[0].toString()).execute()
+					libExecute.execute(args[0].toString())
 				}
 
 				"emptyLine", "comment" -> {}

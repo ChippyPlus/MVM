@@ -11,10 +11,9 @@ import vm
 import java.io.File
 
 
-class ExecuteLib(val name: String) {
+class ExecuteLib {
 	var currentFunction = ""
 	var enabledFunction = false
-	var pc = 0
 	private fun findMarLib(name: String): String? {
 		if (File("${vm.functions.stdlibPath}/$name.lib").exists()) {
 			val path = File("${vm.functions.stdlibPath}/$name.lib").absolutePath
@@ -42,18 +41,21 @@ class ExecuteLib(val name: String) {
 	}
 
 
-	fun execute() {
+	fun execute(name: String) {
 		if (findMarLib(name) != null) {
 			val file = File(findMarLib(name)!!)
+			enabledFunction = true
+			val pastVm = vm.pc
 			currentFunction = File(findMarLib(name)!!).name
 			executeMar(file)
+			enabledFunction = false
 
 		} else {
-			executeKt()
+			executeKt(name)
 		}
 	}
 
-	private fun executeKt() {
+	private fun executeKt(name: String) {
 		val oldPc = vm.pc
 		val snapshot = snapShotRegisters()
 		if (!Klib().match(name)) {
@@ -88,7 +90,4 @@ class ExecuteLib(val name: String) {
 
 }
 
-fun main() {
-	val e = ExecuteLib("test")
-	e.execute()
-}
+

@@ -7,6 +7,7 @@ import engine.execution.Execute
 import engine.parser
 import engine.v2.Compile
 import engine.v2.ExecutionV2
+import environment.ExecuteLib
 import environment.VMErrors
 import helpers.Config
 import internals.Vm
@@ -19,6 +20,7 @@ val config = if (File("./config.json").exists()) Config(File("./config.json")) e
 val hertz = config?.hertz ?: 0L
 val MEMORY_LIMIT = config?.memorySize ?: 256
 val vm = Vm()
+val libExecute = ExecuteLib()
 val errors = VMErrors()
 val fileDescriptors = FileDescriptors()
 val internalMemory = InternalMemory()

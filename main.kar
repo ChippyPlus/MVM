@@ -1,16 +1,4 @@
-lit f1 30
-call arrays.create
-peek f1
-lit f2 10
-call arrays.append
-lit f2 11
-call arrays.append
-lit f2 12
-call arrays.append
-lit f2 13
-call arrays.append
 
-lit f1 0
-lit f2 2
-call arrays.get
-prints
+call test
+
+
