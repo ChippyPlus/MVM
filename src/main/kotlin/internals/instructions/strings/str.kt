@@ -2,7 +2,7 @@ package internals.instructions.strings
 
 import data.registers.enumIdenifiers.SuperRegisterType
 import errors
-import helpers.fullRegisterWrite
+import helpers.registerWrite
 import helpers.writeClosestString
 
 /**
@@ -14,7 +14,7 @@ import helpers.writeClosestString
  */
 fun Strings.str(targetAddress: SuperRegisterType, string: String): Unit = try {
     val location = writeClosestString(string = string)
-    fullRegisterWrite(targetAddress, location)
+    registerWrite(targetAddress, location)
 } catch (_: Exception) {
     errors.GeneralStringException(message = "str")
 }

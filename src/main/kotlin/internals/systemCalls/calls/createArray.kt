@@ -4,15 +4,15 @@ import data.memory.MemoryAddress
 import data.memory.MemoryValue
 import data.registers.enumIdenifiers.SuperRegisterType
 import helpers.findFreeMemory
-import helpers.fullRegisterRead
-import helpers.fullRegisterWrite
+import helpers.registerRead
+import helpers.registerWrite
 import internalMemory
 import internals.systemCalls.SystemCall
 
 
 fun SystemCall.createArray(size: SuperRegisterType) {
-	val nSize = fullRegisterRead(size)
+	val nSize = registerRead(size)
 	val spot = findFreeMemory(nSize + 1)
 	internalMemory.write(MemoryAddress(spot), MemoryValue(nSize))
-	fullRegisterWrite(SuperRegisterType.R2, spot)
+	registerWrite(SuperRegisterType.R2, spot)
 }

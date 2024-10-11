@@ -7,7 +7,7 @@ import internalFunctionRegisters
 import returnRegisters
 import systemRegisters
 
-fun fullRegisterReadUnsafe(register: SuperRegisterType): Long? {
+fun registerReadUnsafe(register: SuperRegisterType): Long? {
 	return when (register) {
 		SuperRegisterType.G0 -> generalRegisters.readUnsafe(register.toGeneralRegisterType())
 		SuperRegisterType.G1 -> generalRegisters.readUnsafe(register.toGeneralRegisterType())

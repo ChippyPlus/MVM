@@ -3,8 +3,8 @@ package internals.instructions.memory
 import data.memory.MemoryAddress
 import data.registers.enumIdenifiers.SuperRegisterType
 import errors
-import helpers.fullRegisterRead
-import helpers.fullRegisterWrite
+import helpers.registerRead
+import helpers.registerWrite
 import internalMemory
 
 /**
@@ -15,8 +15,8 @@ import internalMemory
  * @throws GeneralMemoryException If an error occurs during the memory load operation.
  */
 fun Memory.load(memoryAddress: SuperRegisterType, destination: SuperRegisterType): Unit = try {
-    fullRegisterWrite(
-        register = destination, value = internalMemory.read(MemoryAddress(fullRegisterRead(memoryAddress))).value!!
+    registerWrite(
+        register = destination, value = internalMemory.read(MemoryAddress(registerRead(memoryAddress))).value!!
     )
 } catch (_: Exception) {
     errors.run { this@run.GeneralMemoryException(message = "load") }

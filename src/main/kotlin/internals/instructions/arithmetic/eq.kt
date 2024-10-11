@@ -3,8 +3,8 @@ package internals.instructions.arithmetic
 import data.registers.enumIdenifiers.SuperRegisterType
 import data.registers.enumIdenifiers.SuperRegisterType.R4
 import errors
-import helpers.fullRegisterRead
-import helpers.fullRegisterWrite
+import helpers.registerRead
+import helpers.registerWrite
 
 /**
  * Compares the values in two registers for equality and sets the `R4` register accordingly.
@@ -17,12 +17,12 @@ import helpers.fullRegisterWrite
  * @throws GeneralArithmeticException If an error occurs during the comparison.
  */
 fun Arithmetic.eq(operand1: SuperRegisterType, operand2: SuperRegisterType) = try {
-    if (fullRegisterRead(register = operand1) == fullRegisterRead(register = operand2)) {
-        fullRegisterWrite(
+    if (registerRead(register = operand1) == registerRead(register = operand2)) {
+        registerWrite(
             register = R4, value = 0
         )
     } else {
-        fullRegisterWrite(
+        registerWrite(
             register = R4, value = 1
         )
     }

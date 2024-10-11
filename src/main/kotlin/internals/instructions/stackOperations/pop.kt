@@ -3,7 +3,7 @@ package internals.instructions.stackOperations
 import data.registers.enumIdenifiers.SuperRegisterType
 import environment.VMErrors
 import errors
-import helpers.fullRegisterWrite
+import helpers.registerWrite
 
 /**
  * Pops the top value from the stack and stores it in the specified register.
@@ -13,7 +13,7 @@ import helpers.fullRegisterWrite
  */
 fun StackOperations.pop(destination: SuperRegisterType) = try {
     @Suppress("UNUSED_VARIABLE") val value = internalStack.pop().apply {
-        fullRegisterWrite(
+        registerWrite(
             register = destination,
             value = this@apply
         )

@@ -5,8 +5,8 @@ import data.registers.enumIdenifiers.SuperRegisterType.R2
 import errors
 import fileDescriptors
 import helpers.VMFile
-import helpers.fullRegisterRead
-import helpers.fullRegisterWrite
+import helpers.registerRead
+import helpers.registerWrite
 import helpers.writeClosestString
 import internals.systemCalls.SystemCall
 
@@ -19,13 +19,12 @@ import internals.systemCalls.SystemCall
  * @param fd The file descriptor of the file to read from (stored in register S1).
  * @param buffer The starting address of the buffer in memory to store the read data (stored in register S2).
  */
-@Suppress("RemoveExplicitTypeArguments")
-fun SystemCall.readFile(fd: SuperRegisterType, buffer: SuperRegisterType): Unit = try {
+fun SystemCall.readFile(fd: SuperRegisterType): Unit = try {
     val f: VMFile =
-        fileDescriptors.getFileDescriptor(fd = fullRegisterRead(register = fd)) ?: throw NullPointerException(
+        fileDescriptors.getFileDescriptor(fd = registerRead(register = fd)) ?: throw NullPointerException(
             "Expression 'fileDescriptors.getFileDescriptor(fd = fullRegisterRead(register = fd))' must not be null"
         )
-    fullRegisterWrite(
+    registerWrite(
         register = R2,
         value = writeClosestString(string = f.file.readText())
     )

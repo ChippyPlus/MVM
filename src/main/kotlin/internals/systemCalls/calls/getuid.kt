@@ -1,7 +1,7 @@
 package internals.systemCalls.calls
 
 import data.registers.enumIdenifiers.SuperRegisterType.R2
-import helpers.fullRegisterWrite
+import helpers.registerWrite
 import internals.systemCalls.SystemCall
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -15,6 +15,6 @@ fun SystemCall.getUid() {
     val p: Process = Runtime.getRuntime().exec("""id -u""")
     val reader: BufferedReader = BufferedReader(InputStreamReader(p.inputStream))
     reader.readLine().toLong().apply {
-        fullRegisterWrite(register = R2, value = this@apply)
+        registerWrite(register = R2, value = this@apply)
     }
 }

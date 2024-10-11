@@ -3,7 +3,7 @@ package internals.systemCalls.calls
 import data.registers.enumIdenifiers.SuperRegisterType.R2
 import environment.VMErrors
 import errors
-import helpers.fullRegisterWrite
+import helpers.registerWrite
 import internals.systemCalls.SystemCall
 
 /**
@@ -13,7 +13,7 @@ import internals.systemCalls.SystemCall
  */
 @Suppress("RemoveExplicitTypeArguments")
 fun SystemCall.getPid(): Unit = try {
-    fullRegisterWrite(
+    registerWrite(
         register = R2, value = ProcessHandle.current().pid()
     )
 } catch (_: Exception) {

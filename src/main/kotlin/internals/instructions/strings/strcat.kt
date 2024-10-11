@@ -3,8 +3,8 @@ package internals.instructions.strings
 import data.registers.enumIdenifiers.SuperRegisterType
 import environment.VMErrors
 import errors
-import helpers.fullRegisterWrite
 import helpers.readRegisterString
+import helpers.registerWrite
 import helpers.writeClosestString
 
 /**
@@ -22,7 +22,7 @@ fun Strings.strcat(string1: SuperRegisterType, string2: SuperRegisterType): Any 
         val location = writeClosestString(
             string = this@apply
         )
-        fullRegisterWrite(SuperRegisterType.R4, location)
+        registerWrite(SuperRegisterType.R4, location)
     }
 
 } catch (_: Exception) {

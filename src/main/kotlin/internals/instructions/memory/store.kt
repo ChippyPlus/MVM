@@ -6,7 +6,7 @@ import data.memory.MemoryValue
 import data.registers.enumIdenifiers.SuperRegisterType
 import environment.VMErrors
 import errors
-import helpers.fullRegisterRead
+import helpers.registerRead
 import internalMemory
 
 /**
@@ -21,8 +21,8 @@ fun Memory.store(source: SuperRegisterType, destination: SuperRegisterType) = tr
     with<InternalMemory, Unit>(receiver = internalMemory) {
         @Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
         this@with!!.write(
-            address = MemoryAddress(fullRegisterRead(destination)),
-            value = MemoryValue(fullRegisterRead(source))
+            address = MemoryAddress(registerRead(destination)),
+            value = MemoryValue(registerRead(source))
         )
     }
 } catch (_: Exception) {

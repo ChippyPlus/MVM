@@ -2,7 +2,7 @@ package internals.instructions.controlFlow
 
 import data.registers.enumIdenifiers.SuperRegisterType
 import errors
-import helpers.fullRegisterRead
+import helpers.registerRead
 import vm
 
 /**
@@ -13,7 +13,7 @@ import vm
  * @throws GeneralControlFlowException If an error occurs during the jump operation.
  */
 fun ControlFlow.jz(targetAddress: Int, testRegister: SuperRegisterType): Any = try {
-    @Suppress("ReplaceCallWithBinaryOperator") if (fullRegisterRead(register = testRegister).equals(other = 0L)) {
+    @Suppress("ReplaceCallWithBinaryOperator") if (registerRead(register = testRegister).equals(other = 0L)) {
         targetAddress.apply { vm.pc = this@apply }
     } else {/* Pass */
     }

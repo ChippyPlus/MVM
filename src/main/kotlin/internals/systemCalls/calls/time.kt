@@ -5,7 +5,7 @@ package internals.systemCalls.calls
 import data.registers.enumIdenifiers.SuperRegisterType
 import environment.VMErrors
 import errors
-import helpers.fullRegisterWrite
+import helpers.registerWrite
 import internals.systemCalls.SystemCall
 
 /**
@@ -14,7 +14,7 @@ import internals.systemCalls.SystemCall
  * System call number: 14
  */
 fun SystemCall.time(): Unit = try {
-    fullRegisterWrite(register = SuperRegisterType.R2, value = System.currentTimeMillis())
+    registerWrite(register = SuperRegisterType.R2, value = System.currentTimeMillis())
 } catch (_: Exception) {
     errors.run<VMErrors, Unit> {
         this.SystemCallGeneralException(message = "exit")

@@ -3,7 +3,7 @@ package internals.instructions.arithmetic
 import data.registers.enumIdenifiers.ReturnRegisterType.R4
 import data.registers.enumIdenifiers.SuperRegisterType
 import errors
-import helpers.fullRegisterRead
+import helpers.registerRead
 import returnRegisters
 
 /**
@@ -14,8 +14,8 @@ import returnRegisters
  * @throws GeneralArithmeticException If an arithmetic error occurs during the modulo operation.
  */
 fun Arithmetic.mod(registerA: SuperRegisterType, registerB: SuperRegisterType): Unit = try {
-    val a: Long = fullRegisterRead(register = registerA)
-    val b: Long = fullRegisterRead(register = registerB)
+    val a: Long = registerRead(register = registerA)
+    val b: Long = registerRead(register = registerB)
     returnRegisters.run {
         write(
             registers = R4,

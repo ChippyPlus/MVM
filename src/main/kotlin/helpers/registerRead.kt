@@ -16,9 +16,9 @@ import kotlin.system.exitProcess
  * @throws NullRegisterException If the register has not been initialised (has a null value).
  */
 
-fun fullRegisterRead(register: SuperRegisterType): Long {
+fun registerRead(register: SuperRegisterType): Long {
 	return try {
-		fullRegisterReadUnsafe(register)!!
+		registerReadUnsafe(register)!!
 	} catch (e: NullPointerException) {
 		errors.NullRegisterException(register)
 		exitProcess(11)

@@ -4,8 +4,8 @@ import data.registers.enumIdenifiers.SuperRegisterType
 import engine.execution.Execute
 import engine.parser
 import errors
-import helpers.fullRegisterReadUnsafe
-import helpers.fullRegisterWriteUnsafe
+import helpers.registerReadUnsafe
+import helpers.registerWriteUnsafe
 import kilb.Klib
 import vm
 import java.io.File
@@ -77,14 +77,14 @@ class ExecuteLib(val name: String) {
 	private fun snapShotRegisters(): MutableMap<SuperRegisterType, Long?> {
 		val allRegisters = mutableMapOf<SuperRegisterType, Long?>()
 		for (i in SuperRegisterType.entries) {
-			allRegisters[i] = fullRegisterReadUnsafe(i)
+			allRegisters[i] = registerReadUnsafe(i)
 		}
 		return allRegisters
 	}
 
 	private fun populateSnapShot(snapShotRegisters: MutableMap<SuperRegisterType, Long?>) {
 		for (i in snapShotRegisters) {
-			fullRegisterWriteUnsafe(i.key, i.value)
+			registerWriteUnsafe(i.key, i.value)
 		}
 	}
 

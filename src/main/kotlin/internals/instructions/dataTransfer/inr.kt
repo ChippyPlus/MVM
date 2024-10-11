@@ -1,15 +1,15 @@
 package internals.instructions.dataTransfer
 
 import data.registers.enumIdenifiers.SuperRegisterType
-import helpers.fullRegisterReadUnsafe
-import helpers.fullRegisterWrite
+import helpers.registerReadUnsafe
+import helpers.registerWrite
 
 
 // is null register
 fun DataTransfer.inr(register: SuperRegisterType) {
-	if (fullRegisterReadUnsafe(register) == null) {
-		fullRegisterWrite(SuperRegisterType.IF4, 0)
+	if (registerReadUnsafe(register) == null) {
+		registerWrite(SuperRegisterType.IF4, 0)
 	} else {
-		fullRegisterWrite(SuperRegisterType.IF4, 1)
+		registerWrite(SuperRegisterType.IF4, 1)
 	}
 }

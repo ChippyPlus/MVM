@@ -2,7 +2,7 @@ package internals.instructions.dataTransfer
 
 import data.registers.enumIdenifiers.SuperRegisterType
 import errors
-import helpers.fullRegisterWrite
+import helpers.registerWrite
 
 /**
  * Loads a literal value into a register.
@@ -13,7 +13,7 @@ import helpers.fullRegisterWrite
  */
 
 fun DataTransfer.lit(source: SuperRegisterType, value: Long): Unit = try {
-    fullRegisterWrite(
+    registerWrite(
         register = source,
         value = value
     )

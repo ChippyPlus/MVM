@@ -7,7 +7,7 @@ import internalFunctionRegisters
 import returnRegisters
 import systemRegisters
 
-fun fullRegisterWriteUnsafe(register: SuperRegisterType, value: Long?) {
+fun registerWriteUnsafe(register: SuperRegisterType, value: Long?) {
 	when (register) {
 		SuperRegisterType.G0 -> generalRegisters.write(register.toGeneralRegisterType(), value)
 		SuperRegisterType.G1 -> generalRegisters.write(register.toGeneralRegisterType(), value)

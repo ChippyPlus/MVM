@@ -11,6 +11,6 @@ import data.registers.enumIdenifiers.SuperRegisterType
  * @param register The register ([SuperRegisterType]) to write to.
  * @param value The [Long] value to write to the register.
  */
-fun fullRegisterWrite(register: SuperRegisterType, value: Long) {
-    fullRegisterWriteUnsafe(register, value)
+fun registerWrite(register: SuperRegisterType, value: Long) {
+    registerWriteUnsafe(register, value)
 }
