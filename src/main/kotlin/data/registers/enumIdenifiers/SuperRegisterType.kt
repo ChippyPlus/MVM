@@ -17,10 +17,16 @@ enum class SuperRegisterType {
  */
 fun SuperRegisterType.toGeneralRegisterType(): GeneralRegisterType {
 	return when (this) {
+		SuperRegisterType.G0 -> GeneralRegisterType.G0
 		SuperRegisterType.G1 -> GeneralRegisterType.G1
 		SuperRegisterType.G2 -> GeneralRegisterType.G2
 		SuperRegisterType.G3 -> GeneralRegisterType.G3
 		SuperRegisterType.G4 -> GeneralRegisterType.G4
+		SuperRegisterType.G5 -> GeneralRegisterType.G5
+		SuperRegisterType.G6 -> GeneralRegisterType.G6
+		SuperRegisterType.G7 -> GeneralRegisterType.G7
+		SuperRegisterType.G8 -> GeneralRegisterType.G8
+		SuperRegisterType.G9 -> GeneralRegisterType.G9
 		else -> error("Invalid SuperRegisterType \"$this\" for generalRegister")
 	}
 }
@@ -34,10 +40,16 @@ fun SuperRegisterType.toGeneralRegisterType(): GeneralRegisterType {
  */
 fun SuperRegisterType.toInternalFunctionType(): InternalFunctionRegisterType {
 	return when (this) {
+		SuperRegisterType.IF0 -> InternalFunctionRegisterType.IF0
 		SuperRegisterType.IF1 -> InternalFunctionRegisterType.IF1
 		SuperRegisterType.IF2 -> InternalFunctionRegisterType.IF2
 		SuperRegisterType.IF3 -> InternalFunctionRegisterType.IF3
 		SuperRegisterType.IF4 -> InternalFunctionRegisterType.IF4
+		SuperRegisterType.IF5 -> InternalFunctionRegisterType.IF5
+		SuperRegisterType.IF6 -> InternalFunctionRegisterType.IF6
+		SuperRegisterType.IF7 -> InternalFunctionRegisterType.IF7
+		SuperRegisterType.IF8 -> InternalFunctionRegisterType.IF8
+		SuperRegisterType.IF9 -> InternalFunctionRegisterType.IF9
 		else -> error("Invalid SuperRegisterType \"$this\" for internalFunctionRegister")
 	}
 }
