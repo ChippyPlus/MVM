@@ -1,3 +1,13 @@
-lit f1 5
-call sq
+// Create an array of size 10
+LIT F1 10          // Array size in S1
+call arrays.create    // Create the array (System call ID determined by your implementation)
+
+// Store the value 50 at index smallest index
+
+PEEK F1        // Put the array address from the stack into F1
+LIT F2 50       // Value to store
+CALL array.append // store value (with index offset and base address)
+
+LIT F2 0
+CALL array.get
 prints

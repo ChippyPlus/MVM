@@ -63,137 +63,215 @@ class Execute {
 			}
 			when (command[vm.pc - 1].name) {
 
-				"dealloc" -> vm.dataTransfer.dealloc(
-					memAddress = args[0] as SuperRegisterType
-				)
+				"dealloc" -> {
+					vm.dataTransfer.dealloc(
+						memAddress = args[0] as SuperRegisterType
+					)
+				}
 
-				"pow" -> vm.arithmetic.pow(
-					operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
-				)
+				"pow" -> {
+					vm.arithmetic.pow(
+						operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+					)
+				}
 
-				"help" -> vm.misc.help((args[0] as String))
+				"help" -> {
+					vm.misc.help((args[0] as String))
+				}
 
-				"ret" -> break
-
+				"ret" -> {
+					break
+				}
 				"inr" -> {
 					vm.dataTransfer.inr((args[0] as String).toSuperRegisterType())
 				}
-
 				"call" -> {
 					vm.libPc = vm.pc
 					vm.pc = -1
 					libExecute.execute(args[0].toString())
 				}
-
 				"emptyLine", "comment" -> {}
-
-				"gt" -> vm.arithmetic.gt(
-					operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
-				)
-
+				"gt" -> {
+					vm.arithmetic.gt(
+						operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+					)
+				}
 				"lt" -> {
 //                    println(args.size)
 					vm.arithmetic.lt(
 						operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
 					)
 				}
+				"str" -> {
+					vm.strings.str(args[0].toString().toSuperRegisterType(), args[1].toString())
+				}
 
-				"str" -> vm.strings.str(args[0].toString().toSuperRegisterType(), args[1].toString())
-				"strcmp" -> vm.strings.strcmp(
-					string1 = args[0] as SuperRegisterType, string2 = args[1] as SuperRegisterType
-				)
+				"strcmp" -> {
+					vm.strings.strcmp(
+						string1 = args[0] as SuperRegisterType, string2 = args[1] as SuperRegisterType
+					)
+				}
 
-				"strcat" -> vm.strings.strcat(
-					string1 = args[0] as SuperRegisterType, string2 = args[1] as SuperRegisterType
-				)
+				"strcat" -> {
+					vm.strings.strcat(
+						string1 = args[0] as SuperRegisterType, string2 = args[1] as SuperRegisterType
+					)
+				}
 
-				"strcpy" -> vm.strings.strcpy(
-					source = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
-				)
+				"strcpy" -> {
+					vm.strings.strcpy(
+						source = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
+					)
+				}
 
-				"cpy" -> vm.dataTransfer.cpy(
-					register1 = args[0] as SuperRegisterType, register2 = args[1] as SuperRegisterType
-				)
+				"cpy" -> {
+					vm.dataTransfer.cpy(
+						register1 = args[0] as SuperRegisterType, register2 = args[1] as SuperRegisterType
+					)
+				}
 
-				"add" -> vm.arithmetic.add(
-					registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
-				)
+				"add" -> {
+					vm.arithmetic.add(
+						registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
+					)
+				}
 
-				"sub" -> vm.arithmetic.sub(
-					registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
-				)
+				"sub" -> {
+					vm.arithmetic.sub(
+						registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
+					)
+				}
 
+				"mul" -> {
+					vm.arithmetic.mul(
+						registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
+					)
+				}
 
-				"mul" -> vm.arithmetic.mul(
-					registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
-				)
+				"div" -> {
+					vm.arithmetic.div(
+						registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
+					)
+				}
 
-				"div" -> vm.arithmetic.div(
-					registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
-				)
+				"mod" -> {
+					vm.arithmetic.mod(
+						registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
+					)
+				}
 
-				"mod" -> vm.arithmetic.mod(
-					registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
-				)
+				"eq" -> {
+					vm.arithmetic.eq(
+						operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+					)
+				}
 
-				"eq" -> vm.arithmetic.eq(
-					operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
-				)
+				"strlen" -> {
+					vm.strings.strlen(addressRegister = args[0] as SuperRegisterType)
+				}
 
-				"strlen" -> vm.strings.strlen(addressRegister = args[0] as SuperRegisterType)
-				"lit" -> vm.dataTransfer.lit(source = args[0] as SuperRegisterType, value = args[1] as Long)
-				"mov" -> vm.dataTransfer.mov(
-					source = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
-				)
+				"lit" -> {
+					vm.dataTransfer.lit(source = args[0] as SuperRegisterType, value = args[1] as Long)
+				}
 
-				"jmp" -> vm.controlFlow.jmp(targetAddress = args[0] as Int - 2)
-				"jz" -> vm.controlFlow.jz(
-					targetAddress = args[0] as Int - 2, testRegister = args[1] as SuperRegisterType
-				)
+				"mov" -> {
+					vm.dataTransfer.mov(
+						source = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
+					)
+				}
 
-				"jnz" -> vm.controlFlow.jnz(
-					targetAddress = args[0] as Int - 2, testRegister = args[1] as SuperRegisterType
-				)
+				"jmp" -> {
+					vm.controlFlow.jmp(targetAddress = args[0] as Int - 2)
+				}
 
-				"peek" -> vm.stackOperations.peek(destination = args[0] as SuperRegisterType)
-				"pop" -> vm.stackOperations.pop(destination = args[0] as SuperRegisterType)
-				"push" -> vm.stackOperations.push(registerType = args[0] as SuperRegisterType)
-				"store" -> vm.memory.store(
-					source = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
-				)
+				"jz" -> {
+					vm.controlFlow.jz(
+						targetAddress = args[0] as Int - 2, testRegister = args[1] as SuperRegisterType
+					)
+				}
 
-				"load" -> vm.memory.load(
-					memoryAddress = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
-				)
+				"jnz" -> {
+					vm.controlFlow.jnz(
+						targetAddress = args[0] as Int - 2, testRegister = args[1] as SuperRegisterType
+					)
+				}
 
-				"shl" -> vm.bitwise.shl(
-					operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
-				)
+				"peek" -> {
+					vm.stackOperations.peek(destination = args[0] as SuperRegisterType)
+				}
 
-				"shr" -> vm.bitwise.shr(
-					operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
-				)
+				"pop" -> {
+					vm.stackOperations.pop(destination = args[0] as SuperRegisterType)
+				}
 
-				"and" -> vm.bitwise.and(
-					operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
-				)
+				"push" -> {
+					vm.stackOperations.push(registerType = args[0] as SuperRegisterType)
+				}
 
-				"not" -> vm.bitwise.not(operand = args[0] as SuperRegisterType)
-				"or" -> vm.bitwise.or(operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType)
-				"xor" -> vm.bitwise.xor(
-					operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
-				)
+				"store" -> {
+					vm.memory.store(
+						source = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
+					)
+				}
 
-				"syscall" -> vm.systemCall.execute(
-					callId = args[0] as SuperRegisterType,
-					s2 = args[1] as SuperRegisterType,
-					s3 = args[2] as SuperRegisterType,
-					s4 = args[3] as SuperRegisterType
-				)
+				"load" -> {
+					vm.memory.load(
+						memoryAddress = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
+					)
+				}
 
-				"prints" -> vm.ioAbstractions.prints()
-				"printr" -> vm.ioAbstractions.printr(register = args[0] as SuperRegisterType)
-				else -> errors.InvalidInstructionException(command[vm.pc - 1].name)
+				"shl" -> {
+					vm.bitwise.shl(
+						operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+					)
+				}
+
+				"shr" -> {
+					vm.bitwise.shr(
+						operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+					)
+				}
+
+				"and" -> {
+					vm.bitwise.and(
+						operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+					)
+				}
+
+				"not" -> {
+					vm.bitwise.not(operand = args[0] as SuperRegisterType)
+				}
+
+				"or" -> {
+					vm.bitwise.or(operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType)
+				}
+
+				"xor" -> {
+					vm.bitwise.xor(
+						operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+					)
+				}
+
+				"syscall" -> {
+					vm.systemCall.execute(
+						callId = args[0] as SuperRegisterType,
+						s2 = args[1] as SuperRegisterType,
+						s3 = args[2] as SuperRegisterType,
+						s4 = args[3] as SuperRegisterType
+					)
+				}
+
+				"prints" -> {
+					vm.ioAbstractions.prints()
+				}
+
+				"printr" -> {
+					vm.ioAbstractions.printr(register = args[0] as SuperRegisterType)
+				}
+
+				else -> {
+					errors.InvalidInstructionException(command[vm.pc - 1].name)
+				}
 			}
 
 		}
