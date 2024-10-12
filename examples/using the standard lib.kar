@@ -1,0 +1,5 @@
+
+// This is using built in function calls
+str f1 "Hello, World!" // As we see here we use F registers at the arguments to functions
+call println  // calling PRINTLN, will add a \n to f1 and output
+

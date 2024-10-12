@@ -1,0 +1,4 @@
+lit g1 20
+lit g2 59
+add g1 g2
+printr r4

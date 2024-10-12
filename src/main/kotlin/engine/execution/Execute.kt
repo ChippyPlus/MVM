@@ -41,23 +41,26 @@ class Execute {
 	 * @param command The list of instructions to execute.
 	 */
 	fun run(command: List<InstructData>, usingDebugEngine: DebugEngine? = null) {
+
 		while (true) {
 			sleep(hertz)
 			// TODO add Klib function vm index here????
 
 			vm.pc++
 
-
-
-
 			if (usingDebugEngine != null) {
 				usingDebugEngine.eachInteraction()
 				usingDebugEngine.lineSpecific()
 			}
-			if (vm.pc - 1L == command.size.toLong()) {
+			if (vm.pc - 1 == command.size) {
 				break
 			}
-			val args = command[vm.pc - 1].values
+
+			val args = try {
+				command[vm.pc - 1].values
+			} catch (e: IndexOutOfBoundsException) {
+				break
+			}
 			when (command[vm.pc - 1].name) {
 
 				"dealloc" -> vm.dataTransfer.dealloc(
@@ -78,6 +81,7 @@ class Execute {
 
 				"call" -> {
 					vm.libPc = vm.pc
+					vm.pc = -1
 					libExecute.execute(args[0].toString())
 				}
 
