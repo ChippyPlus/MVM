@@ -68,7 +68,7 @@ class ExecuteLib {
 	private fun executeMar(file: File) {
 		val oldPc = vm.pc
 		val snapshot = snapShotRegisters()
-		Execute().run(parser(file.readLines().subList(1, file.readLines().size)), usedByLib = true)
+		Execute().run(parser(file.readLines().subList(1, file.readLines().size)))
 		populateSnapShot(snapshot)
 		vm.pc = oldPc
 	}

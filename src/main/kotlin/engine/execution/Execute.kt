@@ -40,16 +40,12 @@ class Execute {
 	 *
 	 * @param command The list of instructions to execute.
 	 */
-	fun run(command: List<InstructData>, usingDebugEngine: DebugEngine? = null, usedByLib: Boolean = false) {
+	fun run(command: List<InstructData>, usingDebugEngine: DebugEngine? = null) {
 		while (true) {
 			sleep(hertz)
 			// TODO add Klib function vm index here????
 
-			if (usedByLib) {
-				vm.libPc++
-			} else {
-				vm.pc++
-			}
+			vm.pc++
 
 
 
@@ -81,6 +77,7 @@ class Execute {
 				}
 
 				"call" -> {
+					vm.libPc = vm.pc
 					libExecute.execute(args[0].toString())
 				}
 
@@ -206,6 +203,6 @@ class Execute {
 	 */
 	fun execute(file: File, usingDebugTools: DebugEngine? = null) {
 		val tokens = parser(file.readLines())
-		this@Execute.run(command = tokens, usingDebugEngine = usingDebugTools)
+		this.run(command = tokens, usingDebugEngine = usingDebugTools)
 	}
 }
