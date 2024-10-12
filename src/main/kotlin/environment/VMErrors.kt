@@ -267,7 +267,7 @@ class VMErrors {
 
 private fun VMErrors.prefix(): String {
 	if (libExecute.enabledFunction) {
-		return "ERROR in \"${libExecute.currentFunction}\" :${vm.pc}:${libExecute}"
+		return "ERROR in ${libExecute.currentFunction.removeSuffix(".lib")}:${vm.pc - vm.libPc}:${vm.pc}"
 	} else {
 		return "ERROR:${vm.pc}"
 	}

@@ -40,13 +40,21 @@ class Execute {
 	 *
 	 * @param command The list of instructions to execute.
 	 */
-	fun run(command: List<InstructData>, usingDebugEngine: DebugEngine? = null) {
+	fun run(command: List<InstructData>, usingDebugEngine: DebugEngine? = null, usedByLib: Boolean = false) {
 		while (true) {
 			sleep(hertz)
 			// TODO add Klib function vm index here????
-			vm.pc++
-			if (usingDebugEngine != null) {/* This is an optional thing and is checked over each iteration
- TODO fix the iteration performance oversight */
+
+			if (usedByLib) {
+				vm.libPc++
+			} else {
+				vm.pc++
+			}
+
+
+
+
+			if (usingDebugEngine != null) {
 				usingDebugEngine.eachInteraction()
 				usingDebugEngine.lineSpecific()
 			}

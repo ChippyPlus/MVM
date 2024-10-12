@@ -45,7 +45,6 @@ class ExecuteLib {
 		if (findMarLib(name) != null) {
 			val file = File(findMarLib(name)!!)
 			enabledFunction = true
-			val pastVm = vm.pc
 			currentFunction = File(findMarLib(name)!!).name
 			executeMar(file)
 			enabledFunction = false
@@ -69,7 +68,7 @@ class ExecuteLib {
 	private fun executeMar(file: File) {
 		val oldPc = vm.pc
 		val snapshot = snapShotRegisters()
-		Execute().run(parser(file.readLines().subList(1, file.readLines().size)))
+		Execute().run(parser(file.readLines().subList(1, file.readLines().size)), usedByLib = true)
 		populateSnapShot(snapshot)
 		vm.pc = oldPc
 	}
