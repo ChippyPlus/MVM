@@ -58,7 +58,7 @@ class Execute {
 
 			val args = try {
 				command[vm.pc - 1].values
-			} catch (e: IndexOutOfBoundsException) {
+			} catch (_: IndexOutOfBoundsException) {
 				break
 			}
 			when (command[vm.pc - 1].name) {
@@ -82,26 +82,30 @@ class Execute {
 				"ret" -> {
 					break
 				}
+
 				"inr" -> {
 					vm.dataTransfer.inr((args[0] as String).toSuperRegisterType())
 				}
+
 				"call" -> {
 					vm.libPc = vm.pc
-					vm.pc = -1
 					libExecute.execute(args[0].toString())
 				}
+
 				"emptyLine", "comment" -> {}
 				"gt" -> {
 					vm.arithmetic.gt(
 						operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
 					)
 				}
+
 				"lt" -> {
 //                    println(args.size)
 					vm.arithmetic.lt(
 						operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
 					)
 				}
+
 				"str" -> {
 					vm.strings.str(args[0].toString().toSuperRegisterType(), args[1].toString())
 				}
