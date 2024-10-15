@@ -1,8 +1,6 @@
 package environment
 
-import environment.libEx.executeKt
-import environment.libEx.executeMar
-import environment.libEx.findMarLib
+import environment.libEx.*
 import java.io.File
 
 
@@ -17,7 +15,6 @@ class ExecuteLib {
 			currentFunction = File(findMarLib(name)!!).name
 			executeMar(file)
 			enabledFunction = false
-
 		} else {
 			executeKt(name)
 		}
