@@ -1,49 +1,58 @@
 package environment.fileSystem
 
-import androidx.sqlite.*
+import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import androidx.sqlite.execSQL
+import androidx.sqlite.use
+
+data class F(val id: Long, val name: String, val content: String?, val parent: String, val meta: String)
 
 
-class Fs() {
-	val databaseConnection = BundledSQLiteDriver().open("src/main/resources/fs.db")
-
-	init {
-		databaseConnection.execSQL( // make the main table
-			"CREATE TABLE IF NOT EXISTS fs (name TEXT PRIMARY KEY, content TEXT, directory, data TEXT)"
-		)
-	}
-
-
-}
-
+val databaseConnection: SQLiteConnection = BundledSQLiteDriver().open("src/main/resources/fs.db")
 
 fun main() {
-	val fs = Fs()
-	fs.newFile("init")
-	fs.newFile("run_me.kar")
-	fs.readAllNames()
-
-
-	fs.databaseConnection.close()
+	Fs().make("meowSection", "info", 'd')
+	databaseConnection.close()
 }
 
 
-fun Fs.readAllNames() {
-	databaseConnection.prepare("SELECT * FROM fs").use { row ->
-		while (row.step()) {
-			println("Action item: ${row.getText(0)}")
+class Fs
+
+fun Fs.make(name: String, parent: String, type: Char) {
+	val p = parse()
+	val hashCode1 = arrayOf(name, parent).contentHashCode()
+
+	for (i in p) {
+		val (_, internal_name, _, internal_parent) = i
+		val hashCode = arrayOf(internal_name, internal_parent).contentHashCode()
+
+		if (hashCode == hashCode1) {
+			println("ERROR, File already exists")
+			return
 		}
 	}
+	databaseConnection.execSQL("insert into vfs (id,name,content,parent,data) VALUES (${hashCode1}, '$name',NULL,'$parent','$type')")
 }
 
-fun Fs.newFile(name: String) {
-	databaseConnection.prepare(
-		"INSERT OR IGNORE INTO fs (name, content, directory, data) VALUES (? ,?, ?, ?)"
-	).use { stmt ->
-		stmt.bindText(index = 1, value = name)
-		stmt.bindText(index = 2, value = "")
-		stmt.bindText(index = 3, value = ".")
-		stmt.bindText(index = 4, value = "f")
-		stmt.step()
+fun Fs.parse(): MutableSet<F> {
+	val into = mutableSetOf<F>()
+	databaseConnection.prepare("SELECT * FROM vfs").use {
+		val names = it.getColumnNames()
+		while (it.step()) {
+			val tmpL = mutableListOf<Any?>()
+			for (i in names.indices) {
+				tmpL.add(it.getText(i).ifEmpty { null })
+			}
+			into.add(
+				F(
+					id = (tmpL[0] as String).toLong(),
+					name = tmpL[1] as String,
+					content = tmpL[2] as String?,
+					parent = tmpL[3] as String,
+					meta = tmpL[4] as String
+				)
+			)
+		}
 	}
+	return into
 }

@@ -21,7 +21,9 @@ repositories {
 }
 
 dependencies {
-	implementation("androidx.sqlite:sqlite-bundled:2.5.0-alpha09") // sql
+	implementation("org.jetbrains.kotlinx:dataframe-jdbc:0.14.0")
+	implementation("androidx.sqlite:sqlite-bundled:2.5.0-alpha09")
+	implementation("org.xerial:sqlite-jdbc:3.41.2.2")// sql
 	testImplementation(kotlin("test"))
 	implementation(kotlin("stdlib"))
 	implementation(kotlin("reflect")) // Just in case
