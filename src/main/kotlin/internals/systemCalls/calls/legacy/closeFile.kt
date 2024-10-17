@@ -1,4 +1,4 @@
-package internals.systemCalls.calls
+package internals.systemCalls.calls.legacy
 
 import data.registers.enumIdenifiers.SuperRegisterType
 import errors
@@ -13,7 +13,8 @@ import internals.systemCalls.SystemCall
  *
  * @param s2 The register containing the file descriptor to close (stored in register S1).
  */
-fun SystemCall.closeFile(s2: SuperRegisterType): Unit = try {
+@Deprecated("Using new VFS")
+private fun SystemCall.closeFile_old(s2: SuperRegisterType): Unit = try {
 	val fd: Long = registerRead(register = s2)
 
 	if (fileDescriptors.fds.remove(fd)?.equals(null)
