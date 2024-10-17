@@ -268,6 +268,10 @@ class VMErrors {
 		exitProcess(27)
 	}
 
+	fun FileNotFoundException(message: String) {
+		System.err.println("${prefix()}: File Not Found Exception: \"$message\"")
+		exitProcess(28)
+	}
 }
 
 
