@@ -1,17 +1,25 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+val kotlinVersion = "2.1.0-Beta2"
+val coroutinesVersion = "1.9.0"
+val serializationVersion = "1.7.1"
+
+
 plugins {
-	kotlin("jvm") version "2.1.0-Beta1"
-	kotlin("plugin.serialization") version "2.0.20"
+	id("org.jetbrains.kotlin.jvm") version "2.1.0-Beta2"
+	id("org.jetbrains.kotlin.plugin.serialization") version "2.1.0-Beta2"
 	application
 }
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
 
+group = "org.example"
+version = "1.0"
 
 kotlin {
 	jvmToolchain(17)
 	compilerOptions.suppressWarnings = true
-	kotlin.compilerOptions.freeCompilerArgs.add("-Xmulti-dollar-interpolation") // I want that cool stuff
+	compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
+	compilerOptions.freeCompilerArgs.add("-Xmulti-dollar-interpolation") // I want that cool stuff
 }
 
 
@@ -20,16 +28,14 @@ repositories {
 }
 
 dependencies {
-//	implementation("com.google.protobuf:protobuf-java-util:4.28.2") // for VFS
-//	implementation("com.google.protobuf:protobuf-kotlin:4.28.2")      // for VFS
-
-	implementation("org.jetbrains.kotlinx:kotlinx-serialization-protobuf:1.7.1")
-
-	testImplementation(kotlin("test"))
-	implementation(kotlin("stdlib"))
-	implementation(kotlin("reflect"))
-	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.1")
-	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
+	implementation("com.google.protobuf:protobuf-java-util:4.28.2")   // Deprecated in favour of kotlinx.serialization
+	implementation("com.google.protobuf:protobuf-kotlin:4.28.2")      // Deprecated in favour of kotlinx.serialization
+	testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlinVersion")
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-protobuf:$serializationVersion")
+	implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
+	implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
 }
 
 tasks.jar {
