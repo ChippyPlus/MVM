@@ -1,6 +1,6 @@
 @file:Suppress("RedundantExplicitType")
 
-package internals.systemCalls.calls
+package internals.systemCalls.calls.legacy
 
 import data.memory.MemoryAddress
 import data.memory.MemoryValue
@@ -20,6 +20,7 @@ import internals.systemCalls.SystemCall
  * @param fd The file descriptor of the file to write to (stored in register S1).
  * @param buffer The starting address of the buffer in memory containing the data to write (stored in register S2).
  */
+@Deprecated("Using new VFS")
 fun SystemCall.writeFile(fd: SuperRegisterType, buffer: SuperRegisterType): Unit = try {
     val f: VMFile = fileDescriptors.getFileDescriptor(fd = registerRead(register = fd))!!
     var index: Int = 0

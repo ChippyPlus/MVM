@@ -4,6 +4,7 @@ import data.registers.enumIdenifiers.SuperRegisterType
 import errors
 import helpers.registerRead
 import internals.systemCalls.calls.*
+import internals.systemCalls.calls.legacy.readFile
 
 /**
  * Handles the execution of system calls within the virtual machine.
@@ -26,8 +27,8 @@ class SystemCall {
 		s4: SuperRegisterType,
 	) {
 		when (registerRead(callId).toInt()) {
-			1 -> readFile(s2)
-			2 -> writeFile(s2, s3)
+			1 -> newFile(s2)
+			2 -> readFile(s2, s3)
 			3 -> openFile(s2)
 			4 -> closeFile(s2)
 			5 -> exit(s2)
