@@ -38,27 +38,19 @@ class Vfs {
 	@OptIn(ExperimentalSerializationApi::class, ExperimentalStdlibApi::class)
 	fun new(name: String): Unit? {
 		val rendered = renderVfs().toMutableSet()
-		if (name !in deStructureRenderToNames(rendered)) {
+		if (name in deStructureRenderToNames(rendered)) {
 			return null
 		}
 
-		for (i in rendered) {
-			if (i.name == name) {
-				rendered.remove(i)
-				rendered.add(
-					Formats.Vfile(
-						name = name,
-						content = null,
-					)
-				)
-				File("src/main/resources/vfs.fs").writeText(
-					ProtoBuf.encodeToByteArray(value = rendered).toHexString()
-				)
-				return Unit
-			}
-		}
-
-		File("src/main/resources/vfs.fs").writeText(ProtoBuf.encodeToByteArray(value = rendered).toHexString())
+		rendered.add(
+			Formats.Vfile(
+				name = name,
+				content = null,
+			)
+		)
+		File("src/main/resources/vfs.fs").writeText(
+			ProtoBuf.encodeToByteArray(value = rendered).toHexString()
+		)
 		return Unit
 	}
 

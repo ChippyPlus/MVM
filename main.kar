@@ -1,14 +1,3 @@
-LIT F1 10
-call arrays.creat
-
-
-PEEK F1
-LIT F2 50
-CALL array.append
-
-LIT F2 0
-CALL array.get
-prints
-
-lit f2 20
-printr f2
+lit s0 1
+str s1 "TestMe.txt"
+syscall
