@@ -28,13 +28,10 @@ class Instruction {
 
     data class Strlen(val addressRegister: SuperRegisterType)
 
-    // TODO it um. its here ioAbstractions.printr
     data class Printr(val register: SuperRegisterType)
 
-    // TODO it um. its here instructions.strings.Str
     data class Str(val targetAddress: SuperRegisterType, val string: String)
 
-    // TODO make a description!!!! Its a modulus operator
     data class Mod(val operand1: SuperRegisterType, val operand2: SuperRegisterType)
 
     /** Represents an EQ instruction, which checks if the value in [operand1] == [operand2]

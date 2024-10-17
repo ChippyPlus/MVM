@@ -7,7 +7,6 @@ import java.io.File
 
 fun gatherHelp(string: String): HelpJsonPartial {
 	var usable: HelpJsonPartial? = null
-	// TODO add help config here!!!!
 	val f = Json.decodeFromString<HelpJsonEntire>(File("src/main/resources/help.jsonc").readText())
 	for (i in f.stdlib) {
 		if (i.name == string) {

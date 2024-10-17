@@ -2,6 +2,7 @@ package engine.v2
 
 import data.registers.enumIdenifiers.SuperRegisterType
 import data.registers.enumIdenifiers.SuperRegisterType.*
+import errors
 import hertz
 import internals.instructions.arithmetic.*
 import internals.instructions.bitwise.*
@@ -179,8 +180,7 @@ class ExecutionV2 {
 				}
 
 				else -> {
-					//TODO Make it its own erro
-					System.err.println("ERROR:${vm.pc - 1}: Bad symbol at runtime in MAR \"${instruct[0]}\"")
+					errors.BadSymbolAtRuntimeException(instruct[0].toString())
 				}
 			}
 		}

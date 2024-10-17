@@ -44,7 +44,6 @@ class Execute {
 
 		while (true) {
 			sleep(hertz)
-			// TODO add Klib function vm index here????
 
 			vm.pc++
 

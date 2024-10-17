@@ -272,6 +272,11 @@ class VMErrors {
 		System.err.println("${prefix()}: File Not Found Exception: \"$message\"")
 		exitProcess(28)
 	}
+
+	fun BadSymbolAtRuntimeException(message: String) {
+		System.err.println("ERROR:${vm.pc - 1}: Bad Symbol at Runtime Exception in MAR \"${message}\"")
+		exitProcess(29)
+	}
 }
 
 
