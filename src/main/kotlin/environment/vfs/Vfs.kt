@@ -22,15 +22,17 @@ class Vfs {
 
 
 	@OptIn(ExperimentalSerializationApi::class, ExperimentalStdlibApi::class)
-	fun delete(name: String) {
+	fun delete(name: String): Unit? {
 		val rendered = renderVfs().toMutableSet()
-		rendered.add(
-			Formats.Vfile(
-				name = name,
-				content = null,
-			)
-		)
-		File("src/main/resources/vfs.fs").writeText(ProtoBuf.encodeToByteArray(value = rendered).toHexString())
+		for (i in rendered) {
+			if (i.name == name) {
+				rendered.remove(i)
+				File("src/main/resources/vfs.fs").writeText(ProtoBuf.encodeToByteArray(value = rendered).toHexString())
+				return Unit
+			}
+
+		}
+		return null
 	}
 
 	@OptIn(ExperimentalSerializationApi::class, ExperimentalStdlibApi::class)
@@ -43,7 +45,15 @@ class Vfs {
 		for (i in rendered) {
 			if (i.name == name) {
 				rendered.remove(i)
-				File("src/main/resources/vfs.fs").writeText(ProtoBuf.encodeToByteArray(value = rendered).toHexString())
+				rendered.add(
+					Formats.Vfile(
+						name = name,
+						content = null,
+					)
+				)
+				File("src/main/resources/vfs.fs").writeText(
+					ProtoBuf.encodeToByteArray(value = rendered).toHexString()
+				)
 				return Unit
 			}
 		}
@@ -63,7 +73,9 @@ class Vfs {
 			if (i.name == name) {
 				rendered.remove(i)
 				rendered.add(Formats.Vfile(i.name, content))
-				File("src/main/resources/vfs.fs").writeText(ProtoBuf.encodeToByteArray(value = rendered).toHexString())
+				File("src/main/resources/vfs.fs").writeText(
+					ProtoBuf.encodeToByteArray(value = rendered).toHexString()
+				)
 				return Unit
 			}
 		}

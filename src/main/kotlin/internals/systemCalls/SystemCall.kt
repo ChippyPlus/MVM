@@ -4,7 +4,6 @@ import data.registers.enumIdenifiers.SuperRegisterType
 import errors
 import helpers.registerRead
 import internals.systemCalls.calls.*
-import internals.systemCalls.calls.legacy.closeFile
 
 /**
  * Handles the execution of system calls within the virtual machine.
@@ -30,7 +29,8 @@ class SystemCall {
 			1 -> newFile(s2)
 			2 -> readFile(s2)
 			3 -> writeFile(s2, s3)
-			4 -> closeFile(s2)
+			4 -> listFiles()
+			5 -> deleteFile(s2)
 			5 -> exit(s2)
 			14 -> time()
 			16 -> getPid()
