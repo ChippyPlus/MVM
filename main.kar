@@ -2,6 +2,7 @@ lit s0 3
 str s1 "TestMe.txt"
 str s2 "Hello this is a test, repeat this is a test!"
 syscall
+
 lit s0 2
 str s1 "TestMe.txt"
 syscall
