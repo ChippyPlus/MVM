@@ -249,19 +249,25 @@ class VMErrors {
 	}
 
 	fun InvalidArgumentException(info: HelpJsonArguments) {
-		System.err.println("${prefix()}:Missing argument: \"${info.name}\"")
+		System.err.println("${prefix()}:Missing argument Exception: \"${info.name}\"")
 		exitProcess(24)
 	}
 
 	fun InvalidArgumentFormatException(badType: String, shouldBe: String) {
-		System.err.println("${prefix()}:Invalid Argument Format: Invalid type of \"$badType\", should be \"$shouldBe\"")
+		System.err.println("${prefix()}:Invalid Argument Format Exception: Invalid type of \"$badType\", should be \"$shouldBe\"")
 		exitProcess(25)
 	}
 
 	fun MissingLibraryException(message: String) {
-		System.err.println("${prefix()}: Missing library \"$message\"")
+		System.err.println("${prefix()}: Missing Library Exception \"$message\"")
 		exitProcess(26)
 	}
+
+	fun FileAlreadyExistsException(message: String) {
+		System.err.println("${prefix()}: File Already Exists Exception: \"$message\"")
+		exitProcess(27)
+	}
+
 }
 
 
