@@ -20,7 +20,7 @@ import internals.systemCalls.SystemCall
  * @param buffer The starting address of the buffer in memory to store the read data (stored in register S2).
  */
 @Deprecated("Using new VFS")
-fun SystemCall.readFile(fd: SuperRegisterType): Unit = try {
+fun SystemCall.readFile_old(fd: SuperRegisterType): Unit = try {
 	val f: VMFile =
 		fileDescriptors.getFileDescriptor(fd = registerRead(register = fd)) ?: throw NullPointerException(
 			"Expression 'fileDescriptors.getFileDescriptor(fd = fullRegisterRead(register = fd))' must not be null"

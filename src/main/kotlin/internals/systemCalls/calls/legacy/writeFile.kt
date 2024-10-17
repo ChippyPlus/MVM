@@ -21,7 +21,7 @@ import internals.systemCalls.SystemCall
  * @param buffer The starting address of the buffer in memory containing the data to write (stored in register S2).
  */
 @Deprecated("Using new VFS")
-fun SystemCall.writeFile(fd: SuperRegisterType, buffer: SuperRegisterType): Unit = try {
+fun SystemCall.writeFile_old(fd: SuperRegisterType, buffer: SuperRegisterType): Unit = try {
     val f: VMFile = fileDescriptors.getFileDescriptor(fd = registerRead(register = fd))!!
     var index: Int = 0
     var string: String = buildString {}
