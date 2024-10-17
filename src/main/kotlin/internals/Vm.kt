@@ -1,6 +1,7 @@
 package internals
 
 import config
+import environment.vfs.Vfs
 import internals.instructions.arithmetic.Arithmetic
 import internals.instructions.bitwise.Bitwise
 import internals.instructions.controlFlow.ControlFlow
@@ -27,6 +28,7 @@ open class Vm {
 	val misc = Misc()
 	var pc = 0
 	var libPc = 0
+	val vfs = Vfs()
 }
 
 
