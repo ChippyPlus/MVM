@@ -13,12 +13,12 @@ include:
   - name: InconsistentCommentForJavaParameter
   - name: LocalVariableName
   - name: ObjectPrivatePropertyName
+  - name: KotlinConstantConditions
   - name: ObjectPropertyName
   - name: PackageName
   - name: PrivatePropertyName
   - name: PropertyName
   - name: TestFunctionName
-  - name: KotlinConstantConditions
   - name: NonNullableBooleanPropertyInExternalInterface
   - name: RedundantUnitExpression
   - name: RemoveRedundantBackticks

@@ -1,0 +1,12 @@
+// needs arg F1, which is the string address
+LIT S0 24
+MOV F1 S1
+STRLEN S1
+ADD R4 F1
+LIT G1 10
+LIT G2 0
+LIT G3 1
+STORE G1 R4
+ADD G3 R4
+STORE G2 R4
+SYSCALL
