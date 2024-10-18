@@ -2,10 +2,10 @@ package reflection
 
 import engine.execution.InstructData
 
-val instructionBuffer = InstructionBuffer()
+val reflectInstruction = ReflectInstruction()
 
 
-class InstructionBuffer {
+class ReflectInstruction {
 	private var command: InstructData? = null
 
 	operator fun set(type: ReflectionInstructionType, value: Any?) {

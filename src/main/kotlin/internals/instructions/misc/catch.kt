@@ -1,9 +1,9 @@
 package internals.instructions.misc
 
-import engine.parser
+import reflection.reflectInstruction
 import vm
 
 fun Misc.catch() {
 	val currentUnaffected = vm.pc
-	val problemLine = parser()
+	val problemLine = reflectInstruction
 }

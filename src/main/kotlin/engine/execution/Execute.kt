@@ -23,7 +23,7 @@ import internals.instructions.stackOperations.push
 import internals.instructions.strings.*
 import libExecute
 import reflection.ReflectionInstructionType
-import reflection.instructionBuffer
+import reflection.reflectInstruction
 import vm
 import java.io.File
 import java.lang.Thread.sleep
@@ -58,7 +58,7 @@ class Execute {
 			}
 
 			val args = try {
-				instructionBuffer[ReflectionInstructionType.Command] = command[vm.pc - 1]
+				reflectInstruction[ReflectionInstructionType.Command] = command[vm.pc - 1]
 				command[vm.pc - 1].values
 			} catch (_: IndexOutOfBoundsException) {
 				break
