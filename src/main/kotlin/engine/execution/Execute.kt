@@ -22,9 +22,11 @@ import internals.instructions.stackOperations.pop
 import internals.instructions.stackOperations.push
 import internals.instructions.strings.*
 import libExecute
+import reflection.instructionBuffer
 import vm
 import java.io.File
 import java.lang.Thread.sleep
+import java.sql.Ref
 
 
 /**
@@ -57,6 +59,7 @@ class Execute {
 
 			val args = try {
 				command[vm.pc - 1].values
+				instructionBuffer[Ref] command[vm.pc - 1]
 			} catch (_: IndexOutOfBoundsException) {
 				break
 			}
