@@ -1,10 +1,10 @@
 package engine.execution
 
-import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.RegisterType
 import debugger.DebugEngine
 import engine.parser
 import errors
-import helpers.toSuperRegisterType
+import helpers.toRegisterType
 import hertz
 import internals.instructions.arithmetic.*
 import internals.instructions.bitwise.*
@@ -64,13 +64,13 @@ class Execute {
 
 				"dealloc" -> {
 					vm.dataTransfer.dealloc(
-						memAddress = args[0] as SuperRegisterType
+						memAddress = args[0] as RegisterType
 					)
 				}
 
 				"pow" -> {
 					vm.arithmetic.pow(
-						operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+						registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
 					)
 				}
 
@@ -83,7 +83,7 @@ class Execute {
 				}
 
 				"inr" -> {
-					vm.dataTransfer.inr((args[0] as String).toSuperRegisterType())
+					vm.dataTransfer.inr((args[0] as String).toRegisterType())
 				}
 
 				"call" -> {
@@ -94,92 +94,92 @@ class Execute {
 				"emptyLine", "comment" -> {}
 				"gt" -> {
 					vm.arithmetic.gt(
-						operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+						operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
 					)
 				}
 
 				"lt" -> {
 //                    println(args.size)
 					vm.arithmetic.lt(
-						operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+						operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
 					)
 				}
 
 				"str" -> {
-					vm.strings.str(args[0].toString().toSuperRegisterType(), args[1].toString())
+					vm.strings.str(args[0].toString().toRegisterType(), args[1].toString())
 				}
 
 				"strcmp" -> {
 					vm.strings.strcmp(
-						string1 = args[0] as SuperRegisterType, string2 = args[1] as SuperRegisterType
+						string1 = args[0] as RegisterType, string2 = args[1] as RegisterType
 					)
 				}
 
 				"strcat" -> {
 					vm.strings.strcat(
-						string1 = args[0] as SuperRegisterType, string2 = args[1] as SuperRegisterType
+						string1 = args[0] as RegisterType, string2 = args[1] as RegisterType
 					)
 				}
 
 				"strcpy" -> {
 					vm.strings.strcpy(
-						source = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
+						source = args[0] as RegisterType, destination = args[1] as RegisterType
 					)
 				}
 
 				"cpy" -> {
 					vm.dataTransfer.cpy(
-						register1 = args[0] as SuperRegisterType, register2 = args[1] as SuperRegisterType
+						register1 = args[0] as RegisterType, register2 = args[1] as RegisterType
 					)
 				}
 
 				"add" -> {
 					vm.arithmetic.add(
-						registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
+						registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
 					)
 				}
 
 				"sub" -> {
 					vm.arithmetic.sub(
-						registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
+						registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
 					)
 				}
 
 				"mul" -> {
 					vm.arithmetic.mul(
-						registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
+						registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
 					)
 				}
 
 				"div" -> {
 					vm.arithmetic.div(
-						registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
+						registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
 					)
 				}
 
 				"mod" -> {
 					vm.arithmetic.mod(
-						registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
+						registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
 					)
 				}
 
 				"eq" -> {
 					vm.arithmetic.eq(
-						operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+						operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
 					)
 				}
 
 				"strlen" -> {
-					vm.strings.strlen(addressRegister = args[0] as SuperRegisterType)
+					vm.strings.strlen(addressRegister = args[0] as RegisterType)
 				}
 
 				"lit" -> {
-					vm.dataTransfer.lit(source = args[0] as SuperRegisterType, value = args[1] as Long)
+					vm.dataTransfer.lit(source = args[0] as RegisterType, value = args[1] as Long)
 				}
 
 				"mov" -> {
 					vm.dataTransfer.mov(
-						source = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
+						source = args[0] as RegisterType, destination = args[1] as RegisterType
 					)
 				}
 
@@ -189,78 +189,78 @@ class Execute {
 
 				"jz" -> {
 					vm.controlFlow.jz(
-						targetAddress = args[0] as Int - 2, testRegister = args[1] as SuperRegisterType
+						targetAddress = args[0] as Int - 2, testRegister = args[1] as RegisterType
 					)
 				}
 
 				"jnz" -> {
 					vm.controlFlow.jnz(
-						targetAddress = args[0] as Int - 2, testRegister = args[1] as SuperRegisterType
+						targetAddress = args[0] as Int - 2, testRegister = args[1] as RegisterType
 					)
 				}
 
 				"peek" -> {
-					vm.stackOperations.peek(destination = args[0] as SuperRegisterType)
+					vm.stackOperations.peek(destination = args[0] as RegisterType)
 				}
 
 				"pop" -> {
-					vm.stackOperations.pop(destination = args[0] as SuperRegisterType)
+					vm.stackOperations.pop(destination = args[0] as RegisterType)
 				}
 
 				"push" -> {
-					vm.stackOperations.push(registerType = args[0] as SuperRegisterType)
+					vm.stackOperations.push(registerType = args[0] as RegisterType)
 				}
 
 				"store" -> {
 					vm.memory.store(
-						source = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
+						source = args[0] as RegisterType, destination = args[1] as RegisterType
 					)
 				}
 
 				"load" -> {
 					vm.memory.load(
-						memoryAddress = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
+						memoryAddress = args[0] as RegisterType, destination = args[1] as RegisterType
 					)
 				}
 
 				"shl" -> {
 					vm.bitwise.shl(
-						operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+						operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
 					)
 				}
 
 				"shr" -> {
 					vm.bitwise.shr(
-						operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+						operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
 					)
 				}
 
 				"and" -> {
 					vm.bitwise.and(
-						operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+						operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
 					)
 				}
 
 				"not" -> {
-					vm.bitwise.not(operand = args[0] as SuperRegisterType)
+					vm.bitwise.not(operand = args[0] as RegisterType)
 				}
 
 				"or" -> {
-					vm.bitwise.or(operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType)
+					vm.bitwise.or(operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType)
 				}
 
 				"xor" -> {
 					vm.bitwise.xor(
-						operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+						operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
 					)
 				}
 
 				"syscall" -> {
 					vm.systemCall.execute(
-						callId = args[0] as SuperRegisterType,
-						s2 = args[1] as SuperRegisterType,
-						s3 = args[2] as SuperRegisterType,
-						s4 = args[3] as SuperRegisterType
+						callId = args[0] as RegisterType,
+						s2 = args[1] as RegisterType,
+						s3 = args[2] as RegisterType,
+						s4 = args[3] as RegisterType
 					)
 				}
 
@@ -269,7 +269,7 @@ class Execute {
 				}
 
 				"printr" -> {
-					vm.ioAbstractions.printr(register = args[0] as SuperRegisterType)
+					vm.ioAbstractions.printr(register = args[0] as RegisterType)
 				}
 
 				else -> {

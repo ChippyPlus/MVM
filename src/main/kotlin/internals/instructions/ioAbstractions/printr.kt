@@ -1,8 +1,8 @@
 package internals.instructions.ioAbstractions
 
-import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.RegisterType
 import errors
-import helpers.registerRead
+import registers
 
 
 /**
@@ -10,8 +10,8 @@ import helpers.registerRead
  *
  * @throws GeneralIoAbstractionsException If an error occurs during the printing operation.
  */
-fun IoAbstractions.printr(register: SuperRegisterType): Unit = try {
-    println(message = registerRead(register = register))
+fun IoAbstractions.printr(register: RegisterType): Unit = try {
+    println(message = registers.read(register = register))
 } catch (_: Exception) {
     errors.run { GeneralIoAbstractionsException(message = "printr") }
 }

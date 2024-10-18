@@ -1,8 +1,8 @@
 package internals.instructions.dataTransfer
-import data.registers.enumIdenifiers.SuperRegisterType
+
+import data.registers.RegisterType
 import errors
-import helpers.registerRead
-import helpers.registerWrite
+import registers
 
 /**
  * Moves the value from the source register to the destination register.
@@ -11,15 +11,12 @@ import helpers.registerWrite
  * @param destination The destination register.
  * @throws GeneralDataTransferException If an error occurs during the move operation.
  */
-fun DataTransfer.mov(source: SuperRegisterType, destination: SuperRegisterType): Unit = try {
-    @Suppress("UNUSED_VARIABLE") val value: Long = registerRead(register = source).apply {
-        registerWrite(
-            register = destination,
-            value = this@apply,
-        )
-    }
+fun DataTransfer.mov(source: RegisterType, destination: RegisterType): Unit = try {
+
+	val value: Long = registers.read(source)
+	registers.write(register = destination, value = value)
 } catch (_: Exception) {
-    errors.run {
-        this@run.GeneralDataTransferException(message = "mov")
-    }
+	errors.run {
+		this@run.GeneralDataTransferException(message = "Mov")
+	}
 }

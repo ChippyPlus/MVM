@@ -1,21 +1,15 @@
 package internals.instructions.arithmetic
 
-import data.registers.enumIdenifiers.ReturnRegisterType.R4
-import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.RegisterType
 import errors
-import helpers.registerRead
-import returnRegisters
+import registers
 import kotlin.math.pow
 
 
-fun Arithmetic.pow(operand1: SuperRegisterType, operand2: SuperRegisterType): Unit = try {
-	val a: Long = registerRead(register = operand1)
-	val b: Long = registerRead(register = operand2)
-	returnRegisters.run {
-		write(
-			registers = R4, value = b.toDouble().pow(a.toDouble()).toLong()
-		)
-	}
+fun Arithmetic.pow(registerA: RegisterType, registerB: RegisterType): Unit = try {
+	val a: Long = registers.read(register = registerA)
+	val b: Long = registers.read(register = registerB)
+	registers.write(RegisterType.R4, a.toDouble().pow(b.toDouble()).toLong())
 } catch (e: Exception) {
 	errors.run { this@run.GeneralArithmeticException(message = "pow") }
 }

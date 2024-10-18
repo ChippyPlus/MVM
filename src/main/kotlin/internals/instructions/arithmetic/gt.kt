@@ -1,19 +1,18 @@
 package internals.instructions.arithmetic
 
-import data.registers.enumIdenifiers.SuperRegisterType
-import data.registers.enumIdenifiers.SuperRegisterType.R4
+import data.registers.RegisterType
+import data.registers.RegisterType.R4
 import errors
-import helpers.registerRead
-import helpers.registerWrite
+import registers
 
 
-fun Arithmetic.gt(operand1: SuperRegisterType, operand2: SuperRegisterType) = try {
-    if (registerRead(register = operand1) > registerRead(register = operand2)) {
-        registerWrite(
+fun Arithmetic.gt(operand1: RegisterType, operand2: RegisterType) = try {
+    if (registers.read(register = operand1) > registers.read(register = operand2)) {
+        registers.write(
             register = R4, value = 0
         )
     } else {
-        registerWrite(
+        registers.write(
             register = R4, value = 1
         )
     }

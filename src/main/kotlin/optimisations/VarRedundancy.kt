@@ -1,6 +1,6 @@
 package optimisations
 
-import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.RegisterType
 import engine.execution.InstructData
 import r3Outs
 import r4Outs
@@ -11,7 +11,7 @@ enum class StatusType {
 }
 
 
-data class ContextUnderstanding(val name: SuperRegisterType, var status: StatusType, val lineNumber: Int)
+data class ContextUnderstanding(val name: RegisterType, var status: StatusType, val lineNumber: Int)
 
 
 class VarRedundancy(val globalInfo: List<InstructData>) {
@@ -23,7 +23,7 @@ class VarRedundancy(val globalInfo: List<InstructData>) {
                 "lit" -> {
                     tracked.add(
                         ContextUnderstanding(
-                            name = i.values[0] as SuperRegisterType, status = StatusType.DECLARED, lineNumber = index
+                            name = i.values[0] as RegisterType, status = StatusType.DECLARED, lineNumber = index
                         )
                     )
                 }
@@ -31,7 +31,7 @@ class VarRedundancy(val globalInfo: List<InstructData>) {
                 in r4Outs -> {
                     tracked.add(
                         ContextUnderstanding(
-                            name = SuperRegisterType.R4,
+                            name = RegisterType.R4,
                             status = StatusType.DECLARED,
                             lineNumber = index,
                         )
@@ -41,7 +41,7 @@ class VarRedundancy(val globalInfo: List<InstructData>) {
                 in r3Outs -> {
                     tracked.add(
                         ContextUnderstanding(
-                            name = SuperRegisterType.R3,
+                            name = RegisterType.R3,
                             status = StatusType.DECLARED,
                             lineNumber = index,
                         )
@@ -50,10 +50,10 @@ class VarRedundancy(val globalInfo: List<InstructData>) {
 
                 else -> {
                     for (j in i.values.withIndex()) {
-                        if (j.value is SuperRegisterType) {
+                        if (j.value is RegisterType) {
                             tracked.add(
                                 ContextUnderstanding(
-                                    name = j.value as SuperRegisterType, status = StatusType.USE, lineNumber = index
+                                    name = j.value as RegisterType, status = StatusType.USE, lineNumber = index
                                 )
                             )
                         }
@@ -93,7 +93,7 @@ class VarRedundancy(val globalInfo: List<InstructData>) {
 
 
     fun reverseFindRedundancy(inp: MutableList<ContextUnderstanding>): MutableSet<Int> {
-        val uses = mutableSetOf<SuperRegisterType>()
+        val uses = mutableSetOf<RegisterType>()
         val u2 = mutableSetOf<Int>()
         inp.reverse()
         for (i in inp) {

@@ -1,13 +1,11 @@
 package internals.instructions.memory
 
-import data.memory.InternalMemory
 import data.memory.MemoryAddress
 import data.memory.MemoryValue
-import data.registers.enumIdenifiers.SuperRegisterType
-import environment.VMErrors
+import data.registers.RegisterType
 import errors
-import helpers.registerRead
 import internalMemory
+import registers
 
 /**
  * Stores a value from a register into memory.
@@ -16,16 +14,13 @@ import internalMemory
  * @param destination The register holding the memory address to store the value.
  * @throws GeneralMemoryException If an error occurs during the memory store operation.
  */
-fun Memory.store(source: SuperRegisterType, destination: SuperRegisterType) = try {
-    @Suppress("RemoveExplicitTypeArguments")
-    with<InternalMemory, Unit>(receiver = internalMemory) {
-        @Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
-        this@with!!.write(
-            address = MemoryAddress(registerRead(destination)),
-            value = MemoryValue(registerRead(source))
-        )
-    }
+fun Memory.store(source: RegisterType, destination: RegisterType) = try {
+	with(receiver = internalMemory) {
+		this@with.write(
+			address = MemoryAddress(registers.read(destination)),
+			value = MemoryValue(registers.read(source))
+		)
+	}
 } catch (_: Exception) {
-    @Suppress("RemoveExplicitTypeArguments")
-    with<VMErrors, Unit>(receiver = errors) { this@with.GeneralMemoryException("store") }
+	errors.GeneralDataTransferException("Store")
 }

@@ -4,13 +4,13 @@ package internals.systemCalls.calls.legacy
 
 import data.memory.MemoryAddress
 import data.memory.MemoryValue
-import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.RegisterType
 import errors
 import fileDescriptors
 import helpers.VMFile
-import helpers.registerRead
 import internalMemory
 import internals.systemCalls.SystemCall
+import registers
 
 /**
  * Writes data from a buffer in memory to a file.
@@ -21,15 +21,15 @@ import internals.systemCalls.SystemCall
  * @param buffer The starting address of the buffer in memory containing the data to write (stored in register S2).
  */
 @Deprecated("Using new VFS")
-private fun SystemCall.writeFile_old(fd: SuperRegisterType, buffer: SuperRegisterType): Unit = try {
-    val f: VMFile = fileDescriptors.getFileDescriptor(fd = registerRead(register = fd))!!
+private fun SystemCall.writeFile_old(fd: RegisterType, buffer: RegisterType): Unit = try {
+    val f: VMFile = fileDescriptors.getFileDescriptor(fd = registers.read(register = fd))!!
     var index: Int = 0
     var string: String = buildString {}
     while (true) {
 
         val byte: MemoryValue = internalMemory.read(
             address = MemoryAddress(
-                address = registerRead(register = buffer).plus(index)
+                address = registers.read(register = buffer).plus(index)
             )
         )
         if (byte.value!!.equals(other = 0L)) {

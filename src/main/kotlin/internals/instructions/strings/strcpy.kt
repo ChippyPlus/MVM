@@ -1,11 +1,11 @@
 package internals.instructions.strings
 
 import data.memory.MemoryAddress
-import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.RegisterType
 import errors
 import helpers.readRegisterString
-import helpers.registerRead
 import helpers.writeStringSpecInMemory
+import registers
 
 /**
  * Copies a string from one memory location to another.
@@ -15,12 +15,12 @@ import helpers.writeStringSpecInMemory
  * @throws GeneralStringException If an error occurs during the string copy.
  */
 
-fun Strings.strcpy(source: SuperRegisterType, destination: SuperRegisterType): Unit = try {
+fun Strings.strcpy(source: RegisterType, destination: RegisterType): Unit = try {
     val string: String = readRegisterString(register = source)
-    val destinationAddress: Long = registerRead(register = destination)
+    val destinationAddress: Long = registers.read(register = destination)
     writeStringSpecInMemory(
         string = string, destinationAddress = MemoryAddress(address = destinationAddress)
     )
 } catch (_: Exception) {
-    with(receiver = errors) { this@with.GeneralStringException(message = "strcpy") }
+    errors.GeneralStringException(message = "Strcpy")
 }

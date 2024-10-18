@@ -1,11 +1,11 @@
 package engine
 
-import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.RegisterType
 import engine.execution.InstructData
 import errors
 import helpers.gatherHelp
-import helpers.toSuperRegisterType
-import helpers.toUnsafeSuperRegisterType
+import helpers.toRegisterType
+import helpers.toUnsafeRegisterType
 import vm
 import kotlin.system.exitProcess
 
@@ -54,9 +54,9 @@ fun parser(file: List<String>): List<InstructData> {
 					"substr" -> {
 						InstructData(
 							name = "substr", arrayOf(
-								line[1].toSuperRegisterType(),
-								line[2].toSuperRegisterType(),
-								line[3].toSuperRegisterType()
+								line[1].toRegisterType(),
+								line[2].toRegisterType(),
+								line[3].toRegisterType()
 							)
 						)
 					}
@@ -65,7 +65,7 @@ fun parser(file: List<String>): List<InstructData> {
 					"str" -> {
 						InstructData(
 							name = "str", arrayOf(
-								line[1].toSuperRegisterType(), try {
+								line[1].toRegisterType(), try {
 									line.joinToString(" ").split("\"")[1]
 								} catch (e: IndexOutOfBoundsException) {
 									errors.InvalidArgumentFormatException(
@@ -81,7 +81,7 @@ fun parser(file: List<String>): List<InstructData> {
 					"syscall" -> {
 						InstructData(
 							name = "syscall", arrayOf(
-								SuperRegisterType.S0, SuperRegisterType.S1, SuperRegisterType.S2, SuperRegisterType.S3
+								RegisterType.S0, RegisterType.S1, RegisterType.S2, RegisterType.S3
 							)
 
 						)
@@ -106,7 +106,7 @@ fun parser(file: List<String>): List<InstructData> {
 					"lt", "gt", "pow",
 						-> {
 						InstructData(
-							name = instruction, arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+							name = instruction, arrayOf(line[1].toRegisterType(), line[2].toRegisterType())
 
 						)
 					}
@@ -123,19 +123,19 @@ fun parser(file: List<String>): List<InstructData> {
 					// Register
 					"not", "printr", "peek", "pop", "push", "strlen", "inr", "dealloc" -> {
 						InstructData(
-							name = instruction, arrayOf(line[1].toSuperRegisterType())
+							name = instruction, arrayOf(line[1].toRegisterType())
 						)
 					}
 
 					"store", "load" -> {
 						InstructData(
-							name = instruction, arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
+							name = instruction, arrayOf(line[1].toRegisterType(), line[2].toRegisterType())
 						)
 					}
 
 					"lit" -> {
 						InstructData(
-							name = "lit", arrayOf(line[1].toSuperRegisterType(), line[2].toLong())
+							name = "lit", arrayOf(line[1].toRegisterType(), line[2].toLong())
 						)
 					}
 
@@ -149,7 +149,7 @@ fun parser(file: List<String>): List<InstructData> {
 					// Long register
 					"jz", "jnz" -> {
 						InstructData(
-							name = instruction, arrayOf(line[1].toInt(), line[2].toSuperRegisterType())
+							name = instruction, arrayOf(line[1].toInt(), line[2].toRegisterType())
 
 						)
 					}
@@ -169,7 +169,7 @@ fun parser(file: List<String>): List<InstructData> {
 
 		} catch (e: NumberFormatException) {
 			try {
-				e.message!!.split(" ")[3].substring(1, e.message!!.split(" ").size - 1).toUnsafeSuperRegisterType()
+				e.message!!.split(" ")[3].substring(1, e.message!!.split(" ").size - 1).toUnsafeRegisterType()
 				errors.InvalidArgumentFormatException(badType = "Register", shouldBe = "Long")
 			} catch (_: IllegalStateException) {
 				errors.InvalidArgumentFormatException(

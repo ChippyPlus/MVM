@@ -1,20 +1,19 @@
 package internals.systemCalls.calls
 
 import data.memory.MemoryAddress
-import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.RegisterType
 import errors
-import helpers.registerRead
-import helpers.registerWrite
 import internalMemory
 import internals.systemCalls.SystemCall
+import registers
 
-fun SystemCall.arrayGet(arrayLocationV: SuperRegisterType, arrayIndexV: SuperRegisterType) {
-	val metaData = internalMemory.read(MemoryAddress(registerRead(arrayLocationV))).value!!
-	val index = registerRead(arrayIndexV)
+fun SystemCall.arrayGet(arrayLocationV: RegisterType, arrayIndexV: RegisterType) {
+	val metaData = internalMemory.read(MemoryAddress(registers.read(arrayLocationV))).value!!
+	val index = registers.read(arrayIndexV)
 	if (metaData < index) {
 		errors.InvalidMemoryAddressException(index.toString())
 	}
-	registerWrite(
-		SuperRegisterType.R2, internalMemory.read(MemoryAddress(registerRead(arrayLocationV) + 2 + index)).value!!
+	registers.write(
+		RegisterType.R2, internalMemory.read(MemoryAddress(registers.read(arrayLocationV) + 2 + index)).value!!
 	)
 }

@@ -1,9 +1,8 @@
 package internals.instructions.dataTransfer
 
-import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.RegisterType
 import errors
-import helpers.registerRead
-import helpers.registerWrite
+import registers
 
 /**
  * Copies the value from one register to another.
@@ -12,14 +11,10 @@ import helpers.registerWrite
  * @param register2 The destination register.
  * @throws GeneralDataTransferException If an error occurs during the copy operation.
  */
-fun DataTransfer.cpy(register1: SuperRegisterType, register2: SuperRegisterType): Any = try {
-    run {
-        return@run registerRead(register = register1).apply {
-            registerWrite(
-                register = register2, value = this@apply
-            )
-        }
-    }
+fun DataTransfer.cpy(register1: RegisterType, register2: RegisterType): Any = try {
+	val value: Long = registers.read(register1)
+	registers.write(register = register2, value = value)
+
 } catch (_: Exception) {
-    errors.run { this@run.GeneralDataTransferException(message = "Cpy") }
+	errors.run { this@run.GeneralDataTransferException(message = "Cpy") }
 }

@@ -1,32 +1,21 @@
 package internals.instructions.arithmetic
 
-import data.registers.enumIdenifiers.ReturnRegisterType.R4
-import data.registers.enumIdenifiers.SuperRegisterType
-import environment.VMErrors
+import data.registers.RegisterType
 import errors
-import helpers.registerRead
-import returnRegisters
+import registers
 
 /**
  * Subtracts the value in registerB from registerA and stores the result in the `R4` register.
  *
- * @param registerA The [SuperRegisterType] holding the minuend.
- * @param registerB The [SuperRegisterType] holding the subtrahend.
+ * @param registerA The [RegisterType] holding the minuend.
+ * @param registerB The [RegisterType] holding the subtrahend.
  * @throws GeneralArithmeticException If an arithmetic error occurs during the subtraction.
  */
 
-fun Arithmetic.sub(registerA: SuperRegisterType, registerB: SuperRegisterType): Unit = try {
-    val a: Long = registerRead(register = registerA)
-    val b: Long = registerRead(register = registerB)
-    returnRegisters.run {
-        write(
-            registers = R4,
-            value = a.run {
-                minus(other = b)
-            },
-        )
-    }
+fun Arithmetic.sub(registerA: RegisterType, registerB: RegisterType): Unit = try {
+	val a: Long = registers.read(register = registerA)
+	val b: Long = registers.read(register = registerB)
+	registers.write(RegisterType.R4, a - b)
 } catch (e: Exception) {
-    @Suppress("RemoveExplicitTypeArguments")
-    errors.run<VMErrors, Unit> { this@run.GeneralArithmeticException(message = "sub") }
+	errors.run { this@run.GeneralArithmeticException(message = "sub") }
 }

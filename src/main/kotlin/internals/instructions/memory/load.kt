@@ -1,11 +1,10 @@
 package internals.instructions.memory
 
 import data.memory.MemoryAddress
-import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.RegisterType
 import errors
-import helpers.registerRead
-import helpers.registerWrite
 import internalMemory
+import registers
 
 /**
  * Loads a value from memory into a register.
@@ -14,10 +13,11 @@ import internalMemory
  * @param destination The destination register to store the loaded value.
  * @throws GeneralMemoryException If an error occurs during the memory load operation.
  */
-fun Memory.load(memoryAddress: SuperRegisterType, destination: SuperRegisterType): Unit = try {
-    registerWrite(
-        register = destination, value = internalMemory.read(MemoryAddress(registerRead(memoryAddress))).value!!
+fun Memory.load(memoryAddress: RegisterType, destination: RegisterType): Unit = try {
+    registers.write(
+        register = destination, value = internalMemory.read(MemoryAddress(registers.read(memoryAddress))).value!!
     )
 } catch (_: Exception) {
-    errors.run { this@run.GeneralMemoryException(message = "load") }
+    errors.GeneralDataTransferException("Load")
+
 }

@@ -5,12 +5,10 @@ import data.memory.MemoryAddress
 import debugger.encoding.EachInstruction
 import errors
 import fileDescriptors
-import generalRegisters
 import internalMemory
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import returnRegisters
-import systemRegisters
+import registers
 import vm
 import java.io.File
 import java.nio.file.Paths
@@ -29,21 +27,13 @@ class DebugInstructions {
 	 *
 	 * @param mode The execution mode, determining the output directory (Line or Iterator).
 	 */
-	fun registers(mode: DebugInstructionModes) {
-		val data = mapOf(
-			"G1" to generalRegisters.g1,
-			"G2" to generalRegisters.g2,
-			"G3" to generalRegisters.g3,
-			"G4" to generalRegisters.g4,
-			"S0" to systemRegisters.s0,
-			"S1" to systemRegisters.s1,
-			"S2" to systemRegisters.s2,
-			"S3" to systemRegisters.s3,
-			"R1" to returnRegisters.r1,
-			"R2" to returnRegisters.r2,
-			"R3" to returnRegisters.r3,
-			"R4" to returnRegisters.r4
-		)
+	fun registersD(mode: DebugInstructionModes) {
+		val data = mutableMapOf<String, Long?>()
+
+		for (i in registers.registers) {
+			data[i.key.toString()] = i.value
+		}
+
 		val location = when (mode) {
 			DebugInstructionModes.Iterator -> "each"
 			DebugInstructionModes.Line -> "lineSpecific"

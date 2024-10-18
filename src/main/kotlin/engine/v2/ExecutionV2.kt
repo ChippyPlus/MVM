@@ -1,7 +1,7 @@
 package engine.v2
 
-import data.registers.enumIdenifiers.SuperRegisterType
-import data.registers.enumIdenifiers.SuperRegisterType.*
+import data.registers.RegisterType
+import data.registers.RegisterType.*
 import errors
 import hertz
 import internals.instructions.arithmetic.*
@@ -187,7 +187,7 @@ class ExecutionV2 {
 		vm.pc = 0
 	}
 
-	private fun getR(index: Char): SuperRegisterType {
+	private fun getR(index: Char): RegisterType {
 		val transMapIDs = TransMapIDs()
 		return transMapIDs.uRegisters[index]!!
 	}

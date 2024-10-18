@@ -1,20 +1,22 @@
 package internals.instructions.bitwise
 
-import data.registers.enumIdenifiers.SuperRegisterType
-import data.registers.enumIdenifiers.SuperRegisterType.R3
+import data.registers.RegisterType
+import data.registers.RegisterType.R3
 import errors
-import helpers.registerRead
-import helpers.registerWrite
+import registers
 
 /**
  * Performs a bitwise NOT operation on the values in a register and stores the result in the `R3` register.
- * @param operand1 The [SuperRegisterType] holding operand.
+ * @param operand1 The [RegisterType] holding operand.
  * @throws GeneralBitwiseException If an error occurs during the bitwise AND operation.
  */
-fun Bitwise.not(operand: SuperRegisterType) = try {
-    registerWrite(
-        register = R3, value = registerRead(register = operand).inv()
+fun Bitwise.not(operand: RegisterType) = try {
+    registers.write(
+        R3, value =
+        registers.read(operand).inv()
+
     )
+
 } catch (_: Exception) {
     with(errors) {
         this@with.GeneralBitwiseException("not")

@@ -1,13 +1,13 @@
 package environment.libEx
 
-import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.RegisterType
 import environment.ExecuteLib
-import helpers.registerReadUnsafe
+import registers
 
-fun ExecuteLib.snapShotRegisters(): MutableMap<SuperRegisterType, Long?> {
-	val allRegisters = mutableMapOf<SuperRegisterType, Long?>()
-	for (i in SuperRegisterType.entries) {
-		allRegisters[i] = registerReadUnsafe(i)
+fun ExecuteLib.snapShotRegisters(): MutableMap<RegisterType, Long?> {
+	val allRegisters = mutableMapOf<RegisterType, Long?>()
+	for (i in RegisterType.entries) {
+		allRegisters[i] = registers.readUnsafe(i)
 	}
 	return allRegisters
 }

@@ -1,8 +1,8 @@
 package internals.instructions.controlFlow
 
-import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.RegisterType
 import errors
-import helpers.registerRead
+import registers
 import vm
 
 /**
@@ -12,10 +12,11 @@ import vm
  * @param testRegister The register to check for a zero value.
  * @throws GeneralControlFlowException If an error occurs during the jump operation.
  */
-fun ControlFlow.jz(targetAddress: Int, testRegister: SuperRegisterType): Any = try {
-    @Suppress("ReplaceCallWithBinaryOperator") if (registerRead(register = testRegister).equals(other = 0L)) {
-        targetAddress.apply { vm.pc = this@apply }
-    } else {/* Pass */
+fun ControlFlow.jz(targetAddress: Int, testRegister: RegisterType): Any = try {
+    if (registers.read(testRegister) == 0L) {
+        vm.pc = targetAddress
+    } else {
+        // I'm not sure why I need this else block
     }
 
 } catch (_: Exception) {

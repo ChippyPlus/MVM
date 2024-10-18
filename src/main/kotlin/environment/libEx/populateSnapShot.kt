@@ -1,11 +1,11 @@
 package environment.libEx
 
-import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.RegisterType
 import environment.ExecuteLib
-import helpers.registerWriteUnsafe
+import registers
 
-fun ExecuteLib.populateSnapShot(snapShotRegisters: MutableMap<SuperRegisterType, Long?>) {
+fun ExecuteLib.populateSnapShot(snapShotRegisters: MutableMap<RegisterType, Long?>) {
 	for (i in snapShotRegisters) {
-		registerWriteUnsafe(i.key, i.value)
+		registers.writeUnsafe(i.key, i.value)
 	}
 }

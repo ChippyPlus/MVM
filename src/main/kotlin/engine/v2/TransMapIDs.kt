@@ -1,11 +1,11 @@
 package engine.v2
 
-import data.registers.enumIdenifiers.SuperRegisterType
-import data.registers.enumIdenifiers.SuperRegisterType.*
+import data.registers.RegisterType
+import data.registers.RegisterType.*
 
 class TransMapIDs {
 
-	val uRegisters = mutableMapOf<Char, SuperRegisterType>()
+	val uRegisters = mutableMapOf<Char, RegisterType>()
 
 	init {
 		for (i in uRegisters) {

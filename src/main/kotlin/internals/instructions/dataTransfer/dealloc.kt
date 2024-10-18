@@ -2,11 +2,15 @@ package internals.instructions.dataTransfer
 
 import data.memory.MemoryAddress
 import data.memory.MemoryValue
-import data.registers.enumIdenifiers.SuperRegisterType
-import helpers.registerRead
+import data.registers.RegisterType
+import errors
 import internalMemory
+import registers
 
 
-fun DataTransfer.dealloc(memAddress: SuperRegisterType) {
-	internalMemory.write(MemoryAddress(registerRead(memAddress)), MemoryValue(null))
+fun DataTransfer.dealloc(memAddress: RegisterType) = try {
+	internalMemory.write(MemoryAddress(registers.read(memAddress)), MemoryValue(null))
+} catch (e: Exception) {
+	errors.run { this.GeneralDataTransferException(message = "Dealloc") }
+
 }

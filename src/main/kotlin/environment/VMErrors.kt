@@ -1,7 +1,7 @@
 package environment
 
 import data.memory.MemoryAddress
-import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.RegisterType
 import internals.instructions.misc.HelpJsonArguments
 import libExecute
 import vm
@@ -141,9 +141,9 @@ class VMErrors {
 	/**
 	 * Reports a null register exception.
 	 *
-	 * @param message The [SuperRegisterType] of the register that was null.
+	 * @param message The [RegisterType] of the register that was null.
 	 */
-	fun NullRegisterException(message: SuperRegisterType) {
+	fun NullRegisterException(message: RegisterType) {
 		System.err.println("${prefix()}: Null Register of \"$message\"")
 		exitProcess(13)
 	}

@@ -1,15 +1,15 @@
 package internals.systemCalls.calls
 
-import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.RegisterType
 import errors
-import helpers.registerWrite
 import helpers.writeClosestString
 import internals.systemCalls.SystemCall
+import registers
 
 fun SystemCall.readIo() = try {
     val inp = readln()
     val location = writeClosestString(inp)
-    registerWrite(SuperRegisterType.R2, location)
+    registers.write(RegisterType.R2, location)
 } catch (e: Exception) {
     errors.SystemCallGeneralException("readIo")
 }

@@ -1,23 +1,20 @@
 package internals.systemCalls.calls
 
-import data.registers.enumIdenifiers.SuperRegisterType.R2
-import environment.VMErrors
+import data.registers.RegisterType.R2
 import errors
-import helpers.registerWrite
 import internals.systemCalls.SystemCall
+import registers
 
 /**
  * Retrieves the process ID of the current process.
  *
  * System call number: 16
  */
-@Suppress("RemoveExplicitTypeArguments")
 fun SystemCall.getPid(): Unit = try {
-    registerWrite(
-        register = R2, value = ProcessHandle.current().pid()
-    )
+	registers.write(
+		register = R2, value = ProcessHandle.current().pid()
+	)
 } catch (_: Exception) {
-    errors.run<VMErrors, Unit> {
-        this.SystemCallGeneralException(message = "exit")
-    }
+	errors.SystemCallGeneralException(message = "exit")
+
 }

@@ -95,7 +95,7 @@ class DebugEngine(val debugFile: DebugFile) {
 	 */
 	fun execute(internalInstruction: List<String>, mode: DebugInstructionModes) {
 		when (internalInstruction[0]) {
-			"registers" -> debugInstructions.registers(mode)
+			"registers" -> debugInstructions.registersD(mode)
 			"memoryRange" -> debugInstructions.memoryRange(
 				internalInstruction[1].toLong(), internalInstruction[2].toLong(), mode
 			)

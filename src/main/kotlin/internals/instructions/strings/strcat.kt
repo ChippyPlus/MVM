@@ -1,11 +1,10 @@
 package internals.instructions.strings
 
-import data.registers.enumIdenifiers.SuperRegisterType
-import environment.VMErrors
+import data.registers.RegisterType
 import errors
 import helpers.readRegisterString
-import helpers.registerWrite
 import helpers.writeClosestString
+import registers
 
 /**
  * Concatenates two strings and stores the resulting string in memory.
@@ -15,18 +14,17 @@ import helpers.writeClosestString
  * @param string2 The register containing the memory address of the second string.
  * @throws GeneralStringException If an error occurs during the string concatenation.
  */
-fun Strings.strcat(string1: SuperRegisterType, string2: SuperRegisterType): Any = try {
-    val s1: String = readRegisterString(register = string1)
-    val s2: Comparable<String> = readRegisterString(register = string2)
-    @Suppress("UNUSED_VARIABLE") val newString = (s1 + s2).apply {
-        val location = writeClosestString(
-            string = this@apply
-        )
-        registerWrite(SuperRegisterType.R4, location)
-    }
+fun Strings.strcat(string1: RegisterType, string2: RegisterType): Any = try {
+	val s1: String = readRegisterString(register = string1)
+	val s2: Comparable<String> = readRegisterString(register = string2)
+
+	val location = writeClosestString(
+		string = (s1 + s2)
+	)
+	registers.write(RegisterType.R4, location)
+
 
 } catch (_: Exception) {
-    @Suppress("RemoveExplicitTypeArguments") with<VMErrors, Unit>(receiver = errors) {
-        GeneralStringException("strcat")
-    }
+	errors.GeneralStringException("strcat")
+
 }

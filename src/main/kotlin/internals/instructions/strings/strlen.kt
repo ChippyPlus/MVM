@@ -1,13 +1,11 @@
 package internals.instructions.strings
 
 import data.memory.MemoryAddress
-import data.registers.enumIdenifiers.SuperRegisterType
-import data.registers.enumIdenifiers.SuperRegisterType.R4
-import environment.VMErrors
+import data.registers.RegisterType
+import data.registers.RegisterType.R4
 import errors
-import helpers.registerRead
-import helpers.registerWrite
 import internalMemory
+import registers
 
 /**
  * Calculates the length of a null-terminated string and stores it in the `R4` register.
@@ -15,18 +13,18 @@ import internalMemory
  * @param addressRegister The register containing the memory address of the first character of the string.
  * @throws GeneralStringException If an error occurs during the string length calculation.
  */
-fun Strings.strlen(addressRegister: SuperRegisterType): Unit = try {
-    var index: Long = 0L
-    while (true) {
-        val byte = internalMemory.read(
-            address = MemoryAddress(address = registerRead(addressRegister) + index)
-        )
-        if (byte.value?.equals(0L) ?: (false)) {
-            break
-        }
-        index ++
-    }
-    registerWrite(register = R4, value = index)
+fun Strings.strlen(addressRegister: RegisterType): Unit = try {
+	var index: Long = 0L
+	while (true) {
+		val byte = internalMemory.read(
+			address = MemoryAddress(address = registers.read(addressRegister) + index)
+		)
+		if (byte.value?.equals(0L) ?: (false)) {
+			break
+		}
+		index++
+	}
+	registers.write(register = R4, value = index)
 } catch (_: Exception) {
-    @Suppress("RemoveExplicitTypeArguments") errors.run<VMErrors, Unit> { this.GeneralStringException(message = "strlen") }
+	errors.GeneralStringException(message = "strlen")
 }

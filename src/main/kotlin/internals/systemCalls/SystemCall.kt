@@ -1,9 +1,9 @@
 package internals.systemCalls
 
-import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.RegisterType
 import errors
-import helpers.registerRead
 import internals.systemCalls.calls.*
+import registers
 
 /**
  * Handles the execution of system calls within the virtual machine.
@@ -20,12 +20,12 @@ class SystemCall {
 	 * @throws InvalidSystemCallException If the provided system call number is invalid.
 	 */
 	fun execute(
-		callId: SuperRegisterType,
-		s2: SuperRegisterType,
-		s3: SuperRegisterType,
-		s4: SuperRegisterType,
+		callId: RegisterType,
+		s2: RegisterType,
+		s3: RegisterType,
+		s4: RegisterType,
 	) {
-		when (registerRead(callId).toInt()) {
+		when (registers.read(callId).toInt()) {
 			1 -> newFile(s2)
 			2 -> readFile(s2)
 			3 -> writeFile(s2, s3)
@@ -40,7 +40,7 @@ class SystemCall {
 			26 -> createArray(s2)
 			27 -> arraySet(s2, s3, s4)
 			28 -> arrayGet(s2, s3)
-			else -> errors.InvalidSystemCallException(registerRead(callId).toString())
+			else -> errors.InvalidSystemCallException(registers.read(callId).toString())
 		}
 	}
 }

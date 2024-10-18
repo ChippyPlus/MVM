@@ -1,6 +1,6 @@
 import data.io.FileDescriptors
 import data.memory.InternalMemory
-import data.registers.*
+import data.registers.Registers
 import debugger.DebugEngine
 import debugger.encoding.DebugFile
 import engine.execution.Execute
@@ -24,11 +24,8 @@ val libExecute = ExecuteLib()
 val errors = VMErrors()
 val fileDescriptors = FileDescriptors()
 val internalMemory = InternalMemory()
-val systemRegisters = SystemRegisters()
-val returnRegisters = ReturnRegisters()
-val functionRegisters = FunctionRegisters()
-val generalRegisters = GeneralRegisters()
-val internalFunctionRegisters = InternalFunctionRegisters()
+val registers = Registers()
+
 val execute = Execute()
 fun main(args: Array<String>) {
 	if (args.isEmpty()) {

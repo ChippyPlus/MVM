@@ -2,11 +2,11 @@
 
 package internals.systemCalls.calls
 
-import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.RegisterType
 import environment.VMErrors
 import errors
-import helpers.registerWrite
 import internals.systemCalls.SystemCall
+import registers
 
 /**
  * Gets the current system time in milliseconds.
@@ -14,7 +14,7 @@ import internals.systemCalls.SystemCall
  * System call number: 14
  */
 fun SystemCall.time(): Unit = try {
-    registerWrite(register = SuperRegisterType.R2, value = System.currentTimeMillis())
+    registers.write(register = RegisterType.R2, value = System.currentTimeMillis())
 } catch (_: Exception) {
     errors.run<VMErrors, Unit> {
         this.SystemCallGeneralException(message = "exit")
