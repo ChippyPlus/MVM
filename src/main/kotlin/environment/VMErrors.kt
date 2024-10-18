@@ -2,8 +2,11 @@ package environment
 
 import data.memory.MemoryAddress
 import data.registers.enumIdenifiers.SuperRegisterType
+import engine.execution.InstructData
 import internals.instructions.misc.HelpJsonArguments
 import libExecute
+import reflection.ReflectionInstructionType
+import reflection.reflectInstruction
 import vm
 import kotlin.system.exitProcess
 
@@ -279,6 +282,17 @@ class VMErrors {
 	}
 }
 
+
+private fun throwErroredLamda(function: () -> Unit) {
+	val cm = reflectInstruction.get(ReflectionInstructionType.Command) as InstructData
+	if (cm.name != "catch") {
+
+	}
+
+}
+
+
+private fun exit() {}
 
 private fun VMErrors.prefix(): String {
 	return if (libExecute.enabledFunction) {

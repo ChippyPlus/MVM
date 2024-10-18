@@ -1,10 +1,2 @@
-lit s0 3
-str s1 "TestMe.txt"
-str s2 "Hello this is a test, repeat this is a test!"
-syscall
-
-lit s0 2
-str s1 "TestMe.txt"
-syscall
-cpy r2 f1
-call println
+lis f1 10
+catch invalidinstruction // TODO when catch error call this function
