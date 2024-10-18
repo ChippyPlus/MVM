@@ -21,7 +21,7 @@ MVM is a simple, stack-based virtual machine that executes a custom assembly lan
 ## Documentation
 For documentation please check the wiki tab!!!   
 Over here -> [wiki tab](https://github.com/ChippyPlus/MVM/wiki)!!!
-And getting started available here -> [Getting started](https://github.com/ChippyPlus/MVM/wiki/Getting-Started)!!!!
+
 
 
 ## Features
@@ -31,8 +31,7 @@ And getting started available here -> [Getting started](https://github.com/Chipp
 - **Error Handling:** The VM uses custom exception types to handle runtime errors, providing specific error messages and exit codes.
 
 ## Getting Started
-TODO make a simple way to run the VM. For now you can just run the Main.kt file in Intellij IDEA
-
+Look over here [Getting started](https://github.com/ChippyPlus/MVM/wiki/Getting-Started)!!!!
 
 ## Example of the VM byte code   
 
