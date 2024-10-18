@@ -1,0 +1,22 @@
+name: Dependency Submission
+
+on:
+  push:
+    branches: [ 'master' ]
+
+permissions:
+  contents: write
+
+jobs:
+  dependency-submission:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'corretto-17'
+          java-version: 17
+      - name: Generate and submit dependency graph
+        uses: gradle/actions/dependency-submission@v4
