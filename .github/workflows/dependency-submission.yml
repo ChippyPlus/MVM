@@ -16,7 +16,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'corretto-17'
+          distribution: 'corretto'
           java-version: 17
       - name: Generate and submit dependency graph
         uses: gradle/actions/dependency-submission@v4
