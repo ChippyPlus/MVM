@@ -1,0 +1,3 @@
+package environment.errorsCatchable
+
+class MainData
