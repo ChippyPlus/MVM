@@ -9,7 +9,13 @@ import kotlin.math.pow
 fun Arithmetic.pow(registerA: RegisterType, registerB: RegisterType): Unit = try {
 	val a: Long = registers.read(register = registerA)
 	val b: Long = registers.read(register = registerB)
-	registers.write(RegisterType.R4, a.toDouble().pow(b.toDouble()).toLong())
+	val out = a.toDouble().pow(b.toDouble()).toLong()
+	registers.write(RegisterType.R4, out)
+
+	zeroFlag(out)
+	signFlag(out)
+
+
 } catch (e: Exception) {
 	errors.run { this@run.GeneralArithmeticException(message = "pow") }
 }

@@ -3,6 +3,7 @@ package internals.instructions.arithmetic
 import data.registers.RegisterType
 import data.registers.RegisterType.R4
 import errors
+import helpers.toLong
 import registers
 
 /**
@@ -17,10 +18,10 @@ import registers
  */
 fun Arithmetic.eq(operand1: RegisterType, operand2: RegisterType) = try {
 	if (registers.read(register = operand1) == registers.read(register = operand2)) {
-		registers.write(R4, 0)
+		registers.write(R4, true.toLong())
 	} else {
-		registers.write(R4, 1)
+		registers.write(R4, false.toLong())
 	}
 } catch (e: Exception) {
-	errors.run { this@run.GeneralArithmeticException(message = "eq") }
+	errors.GeneralArithmeticException(message = "eq")
 }

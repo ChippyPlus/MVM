@@ -5,9 +5,9 @@ enum class IntelRegisters {
 	ZF, SF, GF, EF, NF, STF, MAF, SCSF
 }
 
-
+val intelNames = IntelNames()
 class IntelNames {
-	fun mapToRegister(registers: IntelRegisters) = when (registers) {
+	operator fun get(registers: IntelRegisters) = when (registers) {
 		IntelRegisters.ZF -> RegisterType.I0
 		IntelRegisters.SF -> RegisterType.I1
 		IntelRegisters.GF -> RegisterType.I2

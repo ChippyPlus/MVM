@@ -16,6 +16,7 @@ import optimisations.VarRedundancy
 import java.io.File
 import kotlin.system.exitProcess
 
+
 val config = if (File("./config.json").exists()) Config(File("./config.json")) else null
 val hertz = config?.hertz ?: 0L
 val MEMORY_LIMIT = config?.memorySize ?: 256

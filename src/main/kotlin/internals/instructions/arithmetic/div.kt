@@ -15,7 +15,12 @@ import registers
 fun Arithmetic.div(registerA: RegisterType, registerB: RegisterType): Unit = try {
 	val a: Long = registers.read(register = registerA)
 	val b: Long = registers.read(register = registerB)
-	registers.write(RegisterType.R4, a / b)
+	val out = a / b
+	registers.write(RegisterType.R4, out)
+
+	zeroFlag(out)
+	signFlag(out)
+
 } catch (e: Exception) {
 	@Suppress("RemoveExplicitTypeArguments")
 	errors.run<VMErrors, Unit> { this@run.GeneralArithmeticException(message = "div") }
