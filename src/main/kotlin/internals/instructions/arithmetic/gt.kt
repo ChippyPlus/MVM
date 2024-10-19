@@ -17,5 +17,6 @@ fun Arithmetic.gt(operand1: RegisterType, operand2: RegisterType) = try {
 	)
 
 } catch (e: Exception) {
-	errors.run { this@run.GeneralArithmeticException(message = "gt") }
+	errors.GeneralArithmeticException(message = "gt")
+
 }

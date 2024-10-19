@@ -17,5 +17,6 @@ fun Arithmetic.pow(registerA: RegisterType, registerB: RegisterType): Unit = try
 
 
 } catch (e: Exception) {
-	errors.run { this@run.GeneralArithmeticException(message = "pow") }
+	errors.GeneralArithmeticException(message = "pow")
+
 }

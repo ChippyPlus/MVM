@@ -22,5 +22,6 @@ fun Arithmetic.sub(registerA: RegisterType, registerB: RegisterType): Unit = try
 	signFlag(out)
 
 } catch (e: Exception) {
-	errors.run { this@run.GeneralArithmeticException(message = "sub") }
+	errors.GeneralArithmeticException(message = "sub")
+
 }

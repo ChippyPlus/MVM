@@ -21,5 +21,6 @@ fun Arithmetic.mod(registerA: RegisterType, registerB: RegisterType): Unit = try
 	signFlag(out)
 
 } catch (e: Exception) {
-    errors.run { this@run.GeneralArithmeticException(message = "mod") }
+	errors.GeneralArithmeticException(message = "mod")
+
 }

@@ -1,7 +1,6 @@
 package internals.instructions.arithmetic
 
 import data.registers.RegisterType
-import environment.VMErrors
 import errors
 import registers
 
@@ -22,6 +21,6 @@ fun Arithmetic.div(registerA: RegisterType, registerB: RegisterType): Unit = try
 	signFlag(out)
 
 } catch (e: Exception) {
-	@Suppress("RemoveExplicitTypeArguments")
-	errors.run<VMErrors, Unit> { this@run.GeneralArithmeticException(message = "div") }
+	errors.GeneralArithmeticException(message = "div")
+
 }

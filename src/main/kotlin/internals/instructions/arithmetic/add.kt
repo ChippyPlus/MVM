@@ -1,7 +1,6 @@
 package internals.instructions.arithmetic
 
 import data.registers.RegisterType
-import environment.VMErrors
 import errors
 import registers
 
@@ -22,7 +21,6 @@ fun Arithmetic.add(registerA: RegisterType, registerB: RegisterType): Unit = try
 	signFlag(out)
 
 
-
 } catch (e: Exception) {
-	@Suppress("RemoveExplicitTypeArguments") errors.run<VMErrors, Unit> { this@run.GeneralArithmeticException(message = "add") }
+	errors.GeneralArithmeticException(message = "add")
 }
