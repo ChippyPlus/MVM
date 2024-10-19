@@ -13,6 +13,6 @@ class IntelNames {
 		IntelRegisters.SF -> RegisterType.I1
 		IntelRegisters.GF -> RegisterType.I2
 		IntelRegisters.EF -> RegisterType.I3
-		IntelRegisters.SCSF -> RegisterType.I4
+		IntelRegisters.SCSF -> RegisterType.I4 // todo, actually implement
 	}
 }
