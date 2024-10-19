@@ -12,6 +12,8 @@ import kotlin.system.exitProcess
  * @throws InvalidRegisterException If the input string is not a valid register name.
  */
 fun String.toUnsafeRegisterType(): RegisterType? {
+
+
 	return when (this.lowercase()) {
 		"g0" -> RegisterType.G0
 		"g1" -> RegisterType.G1
@@ -61,6 +63,19 @@ fun String.toUnsafeRegisterType(): RegisterType? {
 		"if7" -> RegisterType.IF7
 		"if8" -> RegisterType.IF8
 		"if9" -> RegisterType.IF9
+
+		"i0" -> RegisterType.I0
+		"i1" -> RegisterType.I1
+		"i2" -> RegisterType.I2
+		"i3" -> RegisterType.I3
+		"i4" -> RegisterType.I4
+		"i5" -> RegisterType.I5
+		"i6" -> RegisterType.I6
+		"i7" -> RegisterType.I7
+		"i8" -> RegisterType.I8
+		"i9" -> RegisterType.I9
+
+
 		else -> null
 	}
 }
