@@ -6,5 +6,6 @@ import helpers.readRegisterString
 import internals.systemCalls.SystemCall
 import vm
 
-fun SystemCall.newFile(name: RegisterType) =
+fun SystemCall.newFile(name: RegisterType) = call("newFile") {
 	vm.vfs.new(readRegisterString(name)) ?: errors.FileAlreadyExistsException(readRegisterString(name))
+}

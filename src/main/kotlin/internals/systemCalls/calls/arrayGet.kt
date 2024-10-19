@@ -7,7 +7,7 @@ import internalMemory
 import internals.systemCalls.SystemCall
 import registers
 
-fun SystemCall.arrayGet(arrayLocationV: RegisterType, arrayIndexV: RegisterType) {
+fun SystemCall.arrayGet(arrayLocationV: RegisterType, arrayIndexV: RegisterType) = call("arrayGet") {
 	val metaData = internalMemory.read(MemoryAddress(registers.read(arrayLocationV))).value!!
 	val index = registers.read(arrayIndexV)
 	if (metaData < index) {
@@ -16,4 +16,5 @@ fun SystemCall.arrayGet(arrayLocationV: RegisterType, arrayIndexV: RegisterType)
 	registers.write(
 		RegisterType.R2, internalMemory.read(MemoryAddress(registers.read(arrayLocationV) + 2 + index)).value!!
 	)
+
 }

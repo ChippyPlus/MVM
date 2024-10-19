@@ -9,7 +9,7 @@ import registers
 import vm
 
 
-fun SystemCall.readFile(name: RegisterType) {
+fun SystemCall.readFile(name: RegisterType) = call("readFile") {
 	val _name = readRegisterString(name)
 	val out = (vm.vfs.read(_name) ?: errors.FileNotFoundException(_name)) as String
 	val spot = writeClosestString(out)

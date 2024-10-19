@@ -1,5 +1,8 @@
 package data.registers
 
+import errors
+import kotlin.system.exitProcess
+
 class Registers {
 	val registers = mutableMapOf<RegisterType, Long?>()
 
@@ -11,7 +14,12 @@ class Registers {
 
 	fun readUnsafe(register: RegisterType): Long? = registers[register]
 
-	fun read(register: RegisterType): Long = registers[register]!!
+	fun read(register: RegisterType): Long = try {
+		registers[register]!!
+	} catch (_: NullPointerException) {
+		errors.NullRegisterException(register)
+		exitProcess(9)
+	}
 
 	fun write(register: RegisterType, value: Long) {
 		registers[register] = value

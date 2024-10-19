@@ -76,7 +76,7 @@ class Vfs {
 
 
 	@OptIn(ExperimentalSerializationApi::class)
-	private fun renderVfs(): Set<Formats.Vfile> =
+	fun renderVfs(): Set<Formats.Vfile> =
 		ProtoBuf.decodeFromHexString<Set<Formats.Vfile>>(hex = File("src/main/resources/vfs.fs").readText())
 
 	private fun deStructureRenderToNames(render: Set<Formats.Vfile>): Set<String> {
@@ -94,4 +94,9 @@ class Vfs {
 
 
 	}
+}
+
+
+fun main() {
+	Vfs().renderVfs().forEach(::println)
 }

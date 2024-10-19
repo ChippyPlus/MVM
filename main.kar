@@ -1,6 +1,5 @@
-lit g1 10
-lit g2 1
-
-eq g1 g2
-
-printr i3
+lit s0 2
+str s1 "www"
+syscall
+cpy r2 f1
+call println

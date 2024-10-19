@@ -1,6 +1,0 @@
-
-lit s0 28
-mov f1 s1
-mov f2 s2
-syscall
-push r2

@@ -1,9 +1,13 @@
 package internals.systemCalls
 
+import data.registers.IntelRegisters
 import data.registers.RegisterType
+import data.registers.intelNames
 import errors
+import helpers.toLong
 import internals.systemCalls.calls.*
 import registers
+import kotlin.system.exitProcess
 
 /**
  * Handles the execution of system calls within the virtual machine.
@@ -41,6 +45,23 @@ class SystemCall {
 			27 -> arraySet(s2, s3, s4)
 			28 -> arrayGet(s2, s3)
 			else -> errors.InvalidSystemCallException(registers.read(callId).toString())
+		}
+	}
+
+
+	inline fun call(name: String, function: () -> Unit?) {
+
+		val functionResult = try {
+			function()
+		} catch (_: Exception) {
+			errors.SystemCallGeneralException(message = name)
+			exitProcess(29384)
+		}
+
+		if (functionResult != null) {
+			registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+		} else {
+			registers.write(intelNames[IntelRegisters.ENSF], false.toLong())
 		}
 	}
 }

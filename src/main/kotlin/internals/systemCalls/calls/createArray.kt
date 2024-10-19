@@ -13,7 +13,7 @@ import registers
  * Format
  * Array Max size | Current size | values...
  */
-fun SystemCall.createArray(size: RegisterType) {
+fun SystemCall.createArray(size: RegisterType) = call("createArray") {
 	val nSize = registers.read(size)
 	val spot = findFreeMemory(nSize + 2)
 	internalMemory.write(MemoryAddress(spot), MemoryValue(nSize))

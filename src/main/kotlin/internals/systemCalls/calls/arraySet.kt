@@ -8,7 +8,10 @@ import internalMemory
 import internals.systemCalls.SystemCall
 import registers
 
-fun SystemCall.arraySet(arrayLocationV: RegisterType, arrayIndexV: RegisterType, valueV: RegisterType) {
+fun SystemCall.arraySet(arrayLocationV: RegisterType, arrayIndexV: RegisterType, valueV: RegisterType) =
+	call("arraySet") {
+
+
 	val metaDataAddr = internalMemory.read(MemoryAddress(registers.read(arrayLocationV))).value!!
 	val metaDataSize = internalMemory.read(MemoryAddress(registers.read(arrayLocationV) + 1)).value!!
 	val index = registers.read(arrayIndexV)

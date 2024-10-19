@@ -1,7 +1,6 @@
 package internals.systemCalls.calls
 
 import data.registers.RegisterType.R2
-import errors
 import internals.systemCalls.SystemCall
 import registers
 
@@ -10,11 +9,8 @@ import registers
  *
  * System call number: 16
  */
-fun SystemCall.getPid(): Unit = try {
+fun SystemCall.getPid() = call("getPid") {
 	registers.write(
 		register = R2, value = ProcessHandle.current().pid()
 	)
-} catch (_: Exception) {
-	errors.SystemCallGeneralException(message = "exit")
-
 }

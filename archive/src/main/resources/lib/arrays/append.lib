@@ -1,9 +1,0 @@
-// f1 = array location
-// f2 = value
-lit s0 27
-call arrays.size
-cpy f1 s1
-pop s2
-mov f2 s3
-syscall
-
