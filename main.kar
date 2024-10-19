@@ -1,10 +1,6 @@
-lit s0 3
-str s1 "TestMe.txt"
-str s2 "Hello this is a test, repeat this is a test!"
-syscall
+lit g1 10
+lit g2 1
 
-lit s0 2
-str s1 "TestMe.txt"
-syscall
-cpy r2 f1
-call println
+eq g1 g2
+
+printr i3
