@@ -1,7 +1,8 @@
 package internals.instructions.arithmetic
 
+import data.registers.IntelRegisters
 import data.registers.RegisterType
-import data.registers.RegisterType.R4
+import data.registers.intelNames
 import errors
 import helpers.toLong
 import registers
@@ -17,11 +18,13 @@ import registers
  * @throws GeneralArithmeticException If an error occurs during the comparison.
  */
 fun Arithmetic.eq(operand1: RegisterType, operand2: RegisterType) = try {
-	if (registers.read(register = operand1) == registers.read(register = operand2)) {
-		registers.write(R4, true.toLong())
-	} else {
-		registers.write(R4, false.toLong())
-	}
+
+	val out = registers.read(register = operand1) == registers.read(register = operand2)
+
+	registers.write(
+		intelNames[IntelRegisters.EF], if (out) true.toLong() else false.toLong()
+	)
+
 } catch (e: Exception) {
 	errors.GeneralArithmeticException(message = "eq")
 }
