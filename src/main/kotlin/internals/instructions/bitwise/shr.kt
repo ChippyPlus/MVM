@@ -1,8 +1,6 @@
 package internals.instructions.bitwise
 
 import data.registers.RegisterType
-import data.registers.RegisterType.R3
-import errors
 import registers
 
 /**
@@ -14,13 +12,6 @@ import registers
  * @throws GeneralBitwiseException If an error occurs during the right shift operation.
  */
 
-fun Bitwise.shr(operand1: RegisterType, operand2: RegisterType): Unit = try {
-
-	registers.write(
-		R3, value =
-		registers.read(operand1) shr registers.read(operand2).toInt()
-
-	)
-} catch (_: Exception) {
-	errors.run { this@run.GeneralBitwiseException(message = "shr") }
+fun Bitwise.shr(operand1: RegisterType, operand2: RegisterType) = call("shr") {
+	registers.read(operand1) shr registers.read(operand2).toInt()
 }

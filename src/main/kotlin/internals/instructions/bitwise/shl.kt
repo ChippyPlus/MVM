@@ -2,8 +2,6 @@ package internals.instructions.bitwise
 
 
 import data.registers.RegisterType
-import data.registers.RegisterType.R3
-import errors
 import registers
 
 /**
@@ -14,12 +12,7 @@ import registers
  * @param operand2 The [RegisterType] holding the shift amount.
  * @throws GeneralBitwiseException If an error occurs during the left shift operation.
  */
-fun Bitwise.shl(operand1: RegisterType, operand2: RegisterType): Unit = try {
-    registers.write(
-        R3, value =
-        registers.read(operand1) and registers.read(operand2)
+fun Bitwise.shl(operand1: RegisterType, operand2: RegisterType) = call("shl") {
+	registers.read(operand1) shl registers.read(operand2).toInt()
 
-    )
-} catch (_: Exception) {
-    errors.run { this@run.GeneralBitwiseException(message = "shl") }
 }

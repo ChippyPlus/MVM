@@ -1,8 +1,6 @@
 package internals.instructions.bitwise
 
 import data.registers.RegisterType
-import data.registers.RegisterType.R3
-import errors
 import registers
 
 /**
@@ -10,15 +8,6 @@ import registers
  * @param operand1 The [RegisterType] holding operand.
  * @throws GeneralBitwiseException If an error occurs during the bitwise AND operation.
  */
-fun Bitwise.not(operand: RegisterType) = try {
-    registers.write(
-        R3, value =
-        registers.read(operand).inv()
-
-    )
-
-} catch (_: Exception) {
-    with(errors) {
-        this@with.GeneralBitwiseException("not")
-    }
+fun Bitwise.not(operand: RegisterType) = call("not") {
+	registers.read(operand).inv()
 }
