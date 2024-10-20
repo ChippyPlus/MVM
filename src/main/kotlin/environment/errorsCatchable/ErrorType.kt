@@ -1,6 +1,6 @@
 package environment.errorsCatchable
 
-enum class ErrorType(val code: Byte) {
+enum class ErrorType(val code: Long) {
 	FILE_NOT_FOUND(0),
 	FILE_ALREADY_EXISTS(1),
 	LONG_OVERFLOW(2),

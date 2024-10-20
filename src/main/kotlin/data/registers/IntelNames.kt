@@ -10,7 +10,40 @@ package data.registers
  * * ESF - Error Specific Flag
  */
 enum class IntelRegisters {
-	ZF, SF, GF, EF, SCSF, ENSF, ESF
+	/**
+	 * ZF - Zero Flag
+	 */
+	ZF,
+
+	/**
+	 * SF - Sign Flag
+	 */
+	SF,
+
+	/**
+	 * GF - Greater Flag
+	 */
+	GF,
+
+	/**
+	 * EF - Equal Flag
+	 */
+	EF,
+
+	/**
+	 * SCSF - System Call Success Flag
+	 */
+	SCSF,
+
+	/**
+	 * ENSF - Error Non-Specific Flag
+	 */
+	ENSF,
+
+	/**
+	 * ESF - Error Specific Flag
+	 */
+	ESF
 }
 
 val intelNames = IntelNames()

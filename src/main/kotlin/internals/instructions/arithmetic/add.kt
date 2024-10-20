@@ -1,7 +1,6 @@
 package internals.instructions.arithmetic
 
 import data.registers.RegisterType
-import errors
 import registers
 
 /**
@@ -11,7 +10,7 @@ import registers
  * @param registerB The [RegisterType] holding the second operand.
  * @throws GeneralArithmeticException If an arithmetic error occurs during the addition.
  */
-fun Arithmetic.add(registerA: RegisterType, registerB: RegisterType): Unit = try {
+fun Arithmetic.add(registerA: RegisterType, registerB: RegisterType) = call("add") {
 	val a: Long = registers.read(register = registerA)
 	val b: Long = registers.read(register = registerB)
 	val out = a + b
@@ -21,6 +20,4 @@ fun Arithmetic.add(registerA: RegisterType, registerB: RegisterType): Unit = try
 	signFlag(out)
 
 
-} catch (e: Exception) {
-	errors.GeneralArithmeticException(message = "add")
 }

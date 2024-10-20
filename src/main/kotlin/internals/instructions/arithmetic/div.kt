@@ -1,7 +1,9 @@
 package internals.instructions.arithmetic
 
+import data.registers.IntelRegisters
 import data.registers.RegisterType
-import errors
+import data.registers.intelNames
+import environment.errorsCatchable.ErrorType
 import registers
 
 /**
@@ -11,16 +13,18 @@ import registers
  * @param registerB The [RegisterType] holding the divisor.
  * @throws GeneralArithmeticException If an arithmetic error occurs during the division (e.g. division by zero).
  */
-fun Arithmetic.div(registerA: RegisterType, registerB: RegisterType): Unit = try {
+fun Arithmetic.div(registerA: RegisterType, registerB: RegisterType) = call("div") {
 	val a: Long = registers.read(register = registerA)
 	val b: Long = registers.read(register = registerB)
-	val out = a / b
-	registers.write(RegisterType.R4, out)
 
-	zeroFlag(out)
-	signFlag(out)
+	try {
+		val out = a / b
+		registers.write(RegisterType.R4, out)
+	} catch (_: ArithmeticException) {
+		intelNames[IntelRegisters.ESF]
+		registers.write(intelNames[IntelRegisters.ESF], ErrorType.DIVIDE_BY_0.code)
+		return@call null
+	}
 
-} catch (e: Exception) {
-	errors.GeneralArithmeticException(message = "div")
 
 }
