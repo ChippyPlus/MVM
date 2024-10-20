@@ -19,50 +19,6 @@ version = "1.0"
 
 
 
-sourceSets {
-	create("server") {
-		kotlin.srcDir("src/server/kotlin")
-		resources.srcDir("src/server/resources")
-
-		dependencies {
-			implementation("io.ktor:ktor-server-core-jvm")
-			implementation("io.ktor:ktor-server-netty-jvm")
-			implementation("ch.qos.logback:logback-classic:$logbackVersion")
-			implementation("io.ktor:ktor-server-config-yaml")
-		}
-
-
-	}
-	create("client") {
-		kotlin.srcDir("src/client/kotlin")
-		resources.srcDir("src/client/resources")
-	}
-}
-
-
-
-dependencies {
-	sourceSets.named("server") {
-		implementation("io.ktor:ktor-server-core-jvm")
-		implementation("io.ktor:ktor-server-netty-jvm")
-		implementation("ch.qos.logback:logback-classic:$logbackVersion")
-		implementation("io.ktor:ktor-server-config-yaml")
-
-	}
-}
-
-application {
-	sourceSets.named("server") {
-		mainClass.set("io.ktor.server.netty.EngineMain")
-
-		val isDevelopment: Boolean = project.ext.has("development")
-		applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
-	}
-}
-
-
-
-
 
 kotlin {
 	jvmToolchain(17)
@@ -85,10 +41,10 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
 	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
-//	"server"("io.ktor:ktor-server-core-jvm")
-//	"server"("io.ktor:ktor-server-netty-jvm")
-//	"server"("ch.qos.logback:logback-classic:$logbackVersion")
-//	"server"("io.ktor:ktor-server-config-yaml")
+	implementation("io.ktor:ktor-server-core-jvm")
+	implementation("io.ktor:ktor-server-netty-jvm")
+	implementation("ch.qos.logback:logback-classic:$logbackVersion")
+	implementation("io.ktor:ktor-server-config-yaml")
 }
 
 tasks.jar {
