@@ -13,6 +13,10 @@
           </set>
         </option>
       </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/server" />
+        <option name="gradleJvm" value="corretto-17" />
+      </GradleProjectSettings>
     </option>
     <option name="parallelModelFetch" value="true" />
   </component>
