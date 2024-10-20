@@ -16,6 +16,11 @@
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/server" />
         <option name="gradleJvm" value="corretto-17" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/server" />
+          </set>
+        </option>
       </GradleProjectSettings>
     </option>
     <option name="parallelModelFetch" value="true" />
