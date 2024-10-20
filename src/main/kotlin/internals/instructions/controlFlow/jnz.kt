@@ -23,6 +23,6 @@ fun ControlFlow.jnz(targetAddress: Int, testRegister: RegisterType): Any = try {
 
 } catch (_: Exception) {
 	errors.run {
-		this@run.GeneralControlFlowException(message = "Jnz")
+		this.GeneralControlFlowException(message = "Jnz")
 	}
 }

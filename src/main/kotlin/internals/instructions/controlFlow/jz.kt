@@ -13,14 +13,13 @@ import vm
  * @throws GeneralControlFlowException If an error occurs during the jump operation.
  */
 fun ControlFlow.jz(targetAddress: Int, testRegister: RegisterType): Any = try {
-    if (registers.read(testRegister) == 0L) {
-        vm.pc = targetAddress
-    } else {
-        // I'm not sure why I need this else block
-    }
+	if (registers.read(testRegister) == 0L) {
+		vm.pc = targetAddress
+	} else {
+		// I'm not sure why I need this else block
+	}
 
 } catch (_: Exception) {
-    errors.run {
-        this@run.GeneralControlFlowException(message = "Jz")
-    }
+	errors.GeneralControlFlowException(message = "Jz")
+
 }

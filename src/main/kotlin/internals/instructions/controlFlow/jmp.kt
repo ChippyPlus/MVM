@@ -12,5 +12,5 @@ import vm
 fun ControlFlow.jmp(targetAddress: Int): Any = try {
     targetAddress.apply { vm.pc = this@apply }
 } catch (_: Exception) {
-    errors.run { this@run.GeneralControlFlowException(message = "Jmp") }
+    errors.GeneralControlFlowException(message = "Jmp")
 }
