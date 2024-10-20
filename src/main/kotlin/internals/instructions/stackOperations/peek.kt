@@ -1,7 +1,10 @@
 package internals.instructions.stackOperations
 
+import data.registers.IntelRegisters
 import data.registers.RegisterType
+import data.registers.intelNames
 import errors
+import helpers.toLong
 import registers
 
 /**
@@ -12,9 +15,13 @@ import registers
  */
 fun StackOperations.peek(destination: RegisterType) = try {
 	registers.write(
+		intelNames[IntelRegisters.ENSF], true.toLong()
+	) // Its above the next expr because internal stack may throw its own errors
+
+	registers.write(
 		register = destination, value = internalStack.peek()
 	)
 
 } catch (_: Exception) {
-	errors.GeneralDataTransferException("Peek")
+	errors.GeneralStackOperationsException("Peek")
 }

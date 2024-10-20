@@ -1,8 +1,11 @@
 package internals.instructions.memory
 
 import data.memory.MemoryAddress
+import data.registers.IntelRegisters
 import data.registers.RegisterType
+import data.registers.intelNames
 import errors
+import helpers.toLong
 import internalMemory
 import registers
 
@@ -14,10 +17,12 @@ import registers
  * @throws GeneralMemoryException If an error occurs during the memory load operation.
  */
 fun Memory.load(memoryAddress: RegisterType, destination: RegisterType): Unit = try {
-    registers.write(
-        register = destination, value = internalMemory.read(MemoryAddress(registers.read(memoryAddress))).value!!
-    )
+	registers.write(
+		register = destination, value = internalMemory.read(MemoryAddress(registers.read(memoryAddress))).value!!
+	)
+	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+
 } catch (_: Exception) {
-    errors.GeneralDataTransferException("Load")
+	errors.GeneralMemoryException("Load")
 
 }

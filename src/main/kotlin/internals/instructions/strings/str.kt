@@ -1,7 +1,10 @@
 package internals.instructions.strings
 
+import data.registers.IntelRegisters
 import data.registers.RegisterType
+import data.registers.intelNames
 import errors
+import helpers.toLong
 import helpers.writeClosestString
 import registers
 
@@ -13,8 +16,11 @@ import registers
  * @throws GeneralStringException If an error occurs while storing the string.
  */
 fun Strings.str(targetAddress: RegisterType, string: String): Unit = try {
-    val location = writeClosestString(string = string)
-    registers.write(register = targetAddress, value = location)
+	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+
+	val location = writeClosestString(string = string)
+	registers.write(register = targetAddress, value = location)
+
 } catch (_: Exception) {
-    errors.GeneralStringException(message = "str")
+	errors.GeneralStringException(message = "str")
 }

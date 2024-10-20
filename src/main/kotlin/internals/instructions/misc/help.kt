@@ -1,8 +1,12 @@
 package internals.instructions.misc
 
 
+import data.registers.IntelRegisters
+import data.registers.intelNames
 import helpers.gatherHelp
+import helpers.toLong
 import kotlinx.serialization.Serializable
+import registers
 
 
 fun Misc.help(registerString: String) {
@@ -12,6 +16,8 @@ fun Misc.help(registerString: String) {
 		println("Argument - ${j.name}: ${j.info} ")
 	}
 	println("Description - ${i.info}")
+	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+
 }
 
 

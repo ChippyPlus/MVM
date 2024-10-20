@@ -1,8 +1,11 @@
 package internals.instructions.strings
 
+import data.registers.IntelRegisters
 import data.registers.RegisterType
+import data.registers.intelNames
 import errors
 import helpers.readRegisterString
+import helpers.toLong
 import registers
 
 /**
@@ -16,6 +19,8 @@ import registers
  * @throws GeneralStringException If an error occurs during the string comparison.
  */
 fun Strings.strcmp(string1: RegisterType, string2: RegisterType) = try {
+	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+
 	val s1 = readRegisterString(string1)
 	val s2 = readRegisterString(string2)
 	if (s1 == s2) {
