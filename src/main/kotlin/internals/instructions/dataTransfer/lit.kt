@@ -1,7 +1,6 @@
 package internals.instructions.dataTransfer
 
 import data.registers.RegisterType
-import errors
 import registers
 
 /**
@@ -12,11 +11,8 @@ import registers
  * @throws GeneralDataTransferException If an error occurs during the load operation.
  */
 
-fun DataTransfer.lit(source: RegisterType, value: Long): Unit = try {
+fun DataTransfer.lit(source: RegisterType, value: Long) = call("lit") {
 	registers.write(
 		register = source, value = value
 	)
-
-} catch (_: Exception) {
-	errors.run { this.GeneralDataTransferException(message = "Lit") }
 }

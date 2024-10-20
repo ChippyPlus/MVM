@@ -24,7 +24,6 @@ open class Bitwise {
 			)
 			registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
 
-
 		} catch (e: Exception) {
 			errors.run { this@run.GeneralBitwiseException(message = name) }
 		}

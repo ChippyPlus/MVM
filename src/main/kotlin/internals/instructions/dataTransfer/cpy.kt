@@ -1,7 +1,6 @@
 package internals.instructions.dataTransfer
 
 import data.registers.RegisterType
-import errors
 import registers
 
 /**
@@ -11,10 +10,7 @@ import registers
  * @param register2 The destination register.
  * @throws GeneralDataTransferException If an error occurs during the copy operation.
  */
-fun DataTransfer.cpy(register1: RegisterType, register2: RegisterType): Any = try {
+fun DataTransfer.cpy(register1: RegisterType, register2: RegisterType) = call("cpy") {
 	val value: Long = registers.read(register1)
 	registers.write(register = register2, value = value)
-
-} catch (_: Exception) {
-	errors.run { this@run.GeneralDataTransferException(message = "Cpy") }
 }
