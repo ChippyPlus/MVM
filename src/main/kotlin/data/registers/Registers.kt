@@ -1,5 +1,6 @@
 package data.registers
 
+import environment.errorsCatchable.ErrorType
 import errors
 import kotlin.system.exitProcess
 
@@ -15,7 +16,15 @@ class Registers {
 	fun readUnsafe(register: RegisterType): Long? = registers[register]
 
 	fun read(register: RegisterType): Long = try {
-		registers[register]!!
+		val value = registers[register]!!
+		if (value > Long.MAX_VALUE) {
+			write(intelNames[IntelRegisters.ESF], ErrorType.LONG_OVERFLOW.code)
+		} else if (value < Long.MIN_VALUE) {
+			write(intelNames[IntelRegisters.ESF], ErrorType.LONG_UNDERFLOW.code)
+		}
+
+		value
+
 	} catch (_: NullPointerException) {
 		errors.NullRegisterException(register)
 		exitProcess(9)
