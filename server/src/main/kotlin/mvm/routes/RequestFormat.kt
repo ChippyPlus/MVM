@@ -14,6 +14,14 @@ data class RequestFormat(
 )
 
 
+val pDown = RequestPackage(
+	repository = "kar-main",
+	module = "stdlib",
+	version = "1.0",
+	name = "println",
+)
+
+
 @Serializable
 val pRequestFormat = RequestFormat(
 	repository = "kar-main", module = "stdlib", `package` = PackageFormat(

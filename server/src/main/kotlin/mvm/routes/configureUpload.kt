@@ -10,7 +10,6 @@ import kotlinx.serialization.Serializable
 data class RequestPackage(
 	val repository: String,
 	val module: String,
-	val `package`: String,
 	val name: String,
 	val version: String,
 )

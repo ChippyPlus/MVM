@@ -7,15 +7,19 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import mvm.routes.pRequestFormat
+import mvm.PackageFormat
+import mvm.routes.pDown
 
+
+private val json = Json { prettyPrint = true }
 
 suspend fun main() {
 	val client = HttpClient(CIO) {
 
 
-	install(ContentNegotiation) {
+		install(ContentNegotiation) {
 			json(Json {
 				prettyPrint = true // Optional: For better readability in logs
 				ignoreUnknownKeys = true // Optional: Ignore unknown keys in the response
@@ -23,10 +27,13 @@ suspend fun main() {
 		}
 	}
 
-	val response: HttpResponse = client.post("http://localhost:8080/api/v1/repo/upload") {
+	val response: HttpResponse = client.get("http://localhost:8080/api/v1/repo/download") {
 		contentType(ContentType.Application.Json)
-		setBody(pRequestFormat)
+		setBody(pDown)
 	}
 
-	println(response.bodyAsText())
+	val x = json.decodeFromString<PackageFormat>(response.bodyAsText())
+	println(
+		json.encodeToString<PackageFormat>(x)
+	)
 }
