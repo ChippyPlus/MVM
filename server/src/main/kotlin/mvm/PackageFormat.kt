@@ -5,37 +5,37 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class RepositoryFormat(
-	val repository: String,
-	val modules: List<ModuleFormat>,
+	var repository: String,
+	var modules: List<ModuleFormat>,
 )
 
 
 @Serializable
 data class ModuleFormat(
-	val module: String,
-	val packages: List<PackageFormat>,
+	var module: String,
+	var packages: List<PackageFormat>,
 )
 
 
 @Serializable
 data class PackageFormat(
-	val name: String,
-	val code: String,
-	val version: String,
-	val help: HelpFormat,
-	val dependencies: List<String>,
+	var name: String,
+	var code: String,
+	var version: String,
+	var help: HelpFormat,
+	var dependencies: List<String>,
 )
 
 
 @Serializable
 data class HelpFormat(
-	val name: String,
-	val arguments: List<ArgumentsFormat>,
-	val info: String,
+	var name: String,
+	var arguments: List<ArgumentsFormat>,
+	var info: String,
 )
 
 @Serializable
 data class ArgumentsFormat(
-	val name: String,
-	val info: String,
+	var name: String,
+	var info: String,
 )
