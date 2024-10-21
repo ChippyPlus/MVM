@@ -49,54 +49,6 @@
                             "info": "Writes a string to the screen with a new line"
                         },
                         "dependencies": []
-                    },
-                    {
-                        "name": "println",
-                        "code": "LIT S0 24\nMOV F1 S1\nSTRLEN S1\nADD R4 F1\nLIT G1 10\nLIT G2 0\nLIT G3 1\nSTORE G1 R4\nADD G3 R4\nSTORE G2 R4\nSYSCALL",
-                        "version": "1.0",
-                        "help": {
-                            "name": "println",
-                            "arguments": [
-                                {
-                                    "name": "F1",
-                                    "info": "The string to print to the screen"
-                                }
-                            ],
-                            "info": "Writes a string to the screen with a new line"
-                        },
-                        "dependencies": []
-                    },
-                    {
-                        "name": "println",
-                        "code": "LIT S0 24\nMOV F1 S1\nSTRLEN S1\nADD R4 F1\nLIT G1 10\nLIT G2 0\nLIT G3 1\nSTORE G1 R4\nADD G3 R4\nSTORE G2 R4\nSYSCALL",
-                        "version": "1.0",
-                        "help": {
-                            "name": "println",
-                            "arguments": [
-                                {
-                                    "name": "F1",
-                                    "info": "The string to print to the screen"
-                                }
-                            ],
-                            "info": "Writes a string to the screen with a new line"
-                        },
-                        "dependencies": []
-                    },
-                    {
-                        "name": "println",
-                        "code": "LIT S0 24\nMOV F1 S1\nSTRLEN S1\nADD R4 F1\nLIT G1 10\nLIT G2 0\nLIT G3 1\nSTORE G1 R4\nADD G3 R4\nSTORE G2 R4\nSYSCALL",
-                        "version": "1.0",
-                        "help": {
-                            "name": "println",
-                            "arguments": [
-                                {
-                                    "name": "F1",
-                                    "info": "The string to print to the screen"
-                                }
-                            ],
-                            "info": "Writes a string to the screen with a new line"
-                        },
-                        "dependencies": []
                     }
                 ]
             }
