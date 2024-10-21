@@ -1,0 +1,101 @@
+2024-10-21 18:33:52.671 [main] INFO  Application - Autoreload is disabled because the development mode is off.
+2024-10-21 18:33:52.821 [main] INFO  Application - Application started in 0.315 seconds.
+2024-10-21 18:33:52.926 [DefaultDispatcher-worker-1] INFO  Application - Responding at http://localhost:8080
+2024-10-21 18:34:23.016 [main] INFO  Application - Autoreload is disabled because the development mode is off.
+2024-10-21 18:34:23.190 [main] INFO  Application - Application started in 0.31 seconds.
+2024-10-21 18:34:23.209 [main] DEBUG i.n.u.i.l.InternalLoggerFactory - Using SLF4J as the default logging framework
+2024-10-21 18:34:23.228 [main] DEBUG i.n.util.internal.PlatformDependent0 - -Dio.netty.noUnsafe: false
+2024-10-21 18:34:23.228 [main] DEBUG i.n.util.internal.PlatformDependent0 - Java version: 17
+2024-10-21 18:34:23.230 [main] DEBUG i.n.util.internal.PlatformDependent0 - sun.misc.Unsafe.theUnsafe: available
+2024-10-21 18:34:23.230 [main] DEBUG i.n.util.internal.PlatformDependent0 - sun.misc.Unsafe base methods: all available
+2024-10-21 18:34:23.230 [main] DEBUG i.n.util.internal.PlatformDependent0 - sun.misc.Unsafe.storeFence: available
+2024-10-21 18:34:23.231 [main] DEBUG i.n.util.internal.PlatformDependent0 - java.nio.Buffer.address: available
+2024-10-21 18:34:23.231 [main] DEBUG i.n.util.internal.PlatformDependent0 - direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+2024-10-21 18:34:23.231 [main] DEBUG i.n.util.internal.PlatformDependent0 - java.nio.Bits.unaligned: available, true
+2024-10-21 18:34:23.232 [main] DEBUG i.n.util.internal.PlatformDependent0 - jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$7 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @363ee3a2
+2024-10-21 18:34:23.232 [main] DEBUG i.n.util.internal.PlatformDependent0 - java.nio.DirectByteBuffer.<init>(long, {int,long}): unavailable
+2024-10-21 18:34:23.232 [main] DEBUG i.n.util.internal.PlatformDependent - sun.misc.Unsafe: available
+2024-10-21 18:34:23.233 [main] DEBUG i.n.util.internal.PlatformDependent - -Dio.netty.tmpdir: /var/folders/rn/46ls8mxs23qc70v9vk2wl20c0000gn/T (java.io.tmpdir)
+2024-10-21 18:34:23.233 [main] DEBUG i.n.util.internal.PlatformDependent - -Dio.netty.bitMode: 64 (sun.arch.data.model)
+2024-10-21 18:34:23.233 [main] DEBUG i.n.util.internal.PlatformDependent - Platform: MacOS
+2024-10-21 18:34:23.234 [main] DEBUG i.n.util.internal.PlatformDependent - -Dio.netty.maxDirectMemory: -1 bytes
+2024-10-21 18:34:23.234 [main] DEBUG i.n.util.internal.PlatformDependent - -Dio.netty.uninitializedArrayAllocationThreshold: -1
+2024-10-21 18:34:23.234 [main] DEBUG io.netty.util.internal.CleanerJava9 - java.nio.ByteBuffer.cleaner(): available
+2024-10-21 18:34:23.234 [main] DEBUG i.n.util.internal.PlatformDependent - -Dio.netty.noPreferDirect: false
+2024-10-21 18:34:23.237 [main] DEBUG i.n.u.internal.NativeLibraryLoader - -Dio.netty.native.workdir: /var/folders/rn/46ls8mxs23qc70v9vk2wl20c0000gn/T (io.netty.tmpdir)
+2024-10-21 18:34:23.237 [main] DEBUG i.n.u.internal.NativeLibraryLoader - -Dio.netty.native.deleteLibAfterLoading: true
+2024-10-21 18:34:23.237 [main] DEBUG i.n.u.internal.NativeLibraryLoader - -Dio.netty.native.tryPatchShadedId: true
+2024-10-21 18:34:23.237 [main] DEBUG i.n.u.internal.NativeLibraryLoader - -Dio.netty.native.detectNativeLibraryDuplicates: true
+2024-10-21 18:34:23.262 [main] DEBUG i.n.c.MultithreadEventLoopGroup - -Dio.netty.eventLoopThreads: 16
+2024-10-21 18:34:23.266 [main] DEBUG i.n.u.concurrent.GlobalEventExecutor - -Dio.netty.globalEventExecutor.quietPeriodSeconds: 1
+2024-10-21 18:34:23.268 [main] DEBUG i.n.u.i.InternalThreadLocalMap - -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+2024-10-21 18:34:23.268 [main] DEBUG i.n.u.i.InternalThreadLocalMap - -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+2024-10-21 18:34:23.270 [main] DEBUG io.netty.channel.nio.NioEventLoop - -Dio.netty.noKeySetOptimization: false
+2024-10-21 18:34:23.270 [main] DEBUG io.netty.channel.nio.NioEventLoop - -Dio.netty.selectorAutoRebuildThreshold: 512
+2024-10-21 18:34:23.273 [main] DEBUG i.n.util.internal.PlatformDependent - org.jctools-core.MpscChunkedArrayQueue: available
+2024-10-21 18:34:23.288 [main] DEBUG io.netty.channel.DefaultChannelId - -Dio.netty.processId: 17963 (auto-detected)
+2024-10-21 18:34:23.291 [main] DEBUG io.netty.util.NetUtil - -Djava.net.preferIPv4Stack: false
+2024-10-21 18:34:23.291 [main] DEBUG io.netty.util.NetUtil - -Djava.net.preferIPv6Addresses: false
+2024-10-21 18:34:23.295 [main] DEBUG i.netty.util.NetUtilInitializations - Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1%lo0)
+2024-10-21 18:34:23.296 [main] DEBUG io.netty.util.NetUtil - Failed to get SOMAXCONN from sysctl and file /proc/sys/net/core/somaxconn. Default: 128
+2024-10-21 18:34:23.297 [main] DEBUG io.netty.channel.DefaultChannelId - -Dio.netty.machineId: ba:e1:26:ff:fe:5e:bc:43 (auto-detected)
+2024-10-21 18:34:23.302 [main] DEBUG io.netty.util.ResourceLeakDetector - -Dio.netty.leakDetection.level: simple
+2024-10-21 18:34:23.302 [main] DEBUG io.netty.util.ResourceLeakDetector - -Dio.netty.leakDetection.targetRecords: 4
+2024-10-21 18:34:23.316 [main] DEBUG i.n.buffer.PooledByteBufAllocator - -Dio.netty.allocator.numHeapArenas: 16
+2024-10-21 18:34:23.316 [main] DEBUG i.n.buffer.PooledByteBufAllocator - -Dio.netty.allocator.numDirectArenas: 16
+2024-10-21 18:34:23.316 [main] DEBUG i.n.buffer.PooledByteBufAllocator - -Dio.netty.allocator.pageSize: 8192
+2024-10-21 18:34:23.316 [main] DEBUG i.n.buffer.PooledByteBufAllocator - -Dio.netty.allocator.maxOrder: 9
+2024-10-21 18:34:23.316 [main] DEBUG i.n.buffer.PooledByteBufAllocator - -Dio.netty.allocator.chunkSize: 4194304
+2024-10-21 18:34:23.316 [main] DEBUG i.n.buffer.PooledByteBufAllocator - -Dio.netty.allocator.smallCacheSize: 256
+2024-10-21 18:34:23.316 [main] DEBUG i.n.buffer.PooledByteBufAllocator - -Dio.netty.allocator.normalCacheSize: 64
+2024-10-21 18:34:23.317 [main] DEBUG i.n.buffer.PooledByteBufAllocator - -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+2024-10-21 18:34:23.317 [main] DEBUG i.n.buffer.PooledByteBufAllocator - -Dio.netty.allocator.cacheTrimInterval: 8192
+2024-10-21 18:34:23.317 [main] DEBUG i.n.buffer.PooledByteBufAllocator - -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+2024-10-21 18:34:23.317 [main] DEBUG i.n.buffer.PooledByteBufAllocator - -Dio.netty.allocator.useCacheForAllThreads: false
+2024-10-21 18:34:23.317 [main] DEBUG i.n.buffer.PooledByteBufAllocator - -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+2024-10-21 18:34:23.317 [main] DEBUG i.n.buffer.PooledByteBufAllocator - -Dio.netty.allocator.disableCacheFinalizersForFastThreadLocalThreads: false
+2024-10-21 18:34:23.329 [main] DEBUG io.netty.buffer.ByteBufUtil - -Dio.netty.allocator.type: pooled
+2024-10-21 18:34:23.329 [main] DEBUG io.netty.buffer.ByteBufUtil - -Dio.netty.threadLocalDirectBufferSize: 0
+2024-10-21 18:34:23.329 [main] DEBUG io.netty.buffer.ByteBufUtil - -Dio.netty.maxThreadLocalCharBufferSize: 16384
+2024-10-21 18:34:23.330 [main] DEBUG i.n.b.ChannelInitializerExtensions - -Dio.netty.bootstrap.extensions: null
+2024-10-21 18:34:23.338 [DefaultDispatcher-worker-2] INFO  Application - Responding at http://localhost:8080
+2024-10-21 18:34:29.536 [main] TRACE i.k.c.p.c.ContentNegotiation - Adding Accept=application header for http://localhost:8080/api/v1/repo/upload
+2024-10-21 18:34:29.562 [main] TRACE i.k.c.p.c.ContentNegotiation - Converted request body using io.ktor.serialization.kotlinx.KotlinxSerializationConverter@5dda6f9 for http://localhost:8080/api/v1/repo/upload
+2024-10-21 18:34:29.563 [main] TRACE i.ktor.client.plugins.HttpPlainText - Adding Accept-Charset=UTF-8 to http://localhost:8080/api/v1/repo/upload
+2024-10-21 18:34:29.563 [main] TRACE i.k.c.plugins.defaultTransformers - Transformed with default transformers request body for http://localhost:8080/api/v1/repo/upload from class io.ktor.http.content.TextContent
+2024-10-21 18:34:29.621 [eventLoopGroupProxy-3-1] DEBUG io.netty.buffer.AbstractByteBuf - -Dio.netty.buffer.checkAccessible: true
+2024-10-21 18:34:29.622 [eventLoopGroupProxy-3-1] DEBUG io.netty.buffer.AbstractByteBuf - -Dio.netty.buffer.checkBounds: true
+2024-10-21 18:34:29.622 [eventLoopGroupProxy-3-1] DEBUG i.n.util.ResourceLeakDetectorFactory - Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@5d398a42
+2024-10-21 18:34:29.646 [eventLoopGroupProxy-3-1] DEBUG io.netty.util.Recycler - -Dio.netty.recycler.maxCapacityPerThread: 4096
+2024-10-21 18:34:29.646 [eventLoopGroupProxy-3-1] DEBUG io.netty.util.Recycler - -Dio.netty.recycler.ratio: 8
+2024-10-21 18:34:29.646 [eventLoopGroupProxy-3-1] DEBUG io.netty.util.Recycler - -Dio.netty.recycler.chunkSize: 32
+2024-10-21 18:34:29.646 [eventLoopGroupProxy-3-1] DEBUG io.netty.util.Recycler - -Dio.netty.recycler.blocking: false
+2024-10-21 18:34:29.646 [eventLoopGroupProxy-3-1] DEBUG io.netty.util.Recycler - -Dio.netty.recycler.batchFastThreadLocalOnly: true
+2024-10-21 18:34:29.676 [eventLoopGroupProxy-4-1] TRACE io.ktor.server.routing.Routing - Trace for [api, v1, repo, upload]
+/, segment:0 -> SUCCESS @ /
+  /api, segment:1 -> SUCCESS @ /api
+    /api/v1, segment:2 -> SUCCESS @ /api/v1
+      /api/v1/repo, segment:3 -> SUCCESS @ /api/v1/repo
+        /api/v1/repo/upload, segment:4 -> SUCCESS @ /api/v1/repo/upload
+          /api/v1/repo/upload/(method:POST), segment:4 -> SUCCESS @ /api/v1/repo/upload/(method:POST)
+  /(authenticate myauth1), segment:0 -> SUCCESS @ /(authenticate myauth1)
+    /(authenticate myauth1)/protected, segment:0 -> FAILURE "Selector didn't match" @ /(authenticate myauth1)/protected
+  /(authenticate myauth2), segment:0 -> SUCCESS @ /(authenticate myauth2)
+    /(authenticate myauth2)/protected, segment:0 -> FAILURE "Selector didn't match" @ /(authenticate myauth2)/protected
+  /json, segment:0 -> FAILURE "Selector didn't match" @ /json
+  /html-dsl, segment:0 -> FAILURE "Selector didn't match" @ /html-dsl
+  /styles.css, segment:0 -> FAILURE "Selector didn't match" @ /styles.css
+  /html-css-dsl, segment:0 -> FAILURE "Selector didn't match" @ /html-css-dsl
+  /, segment:0 -> SUCCESS @ /
+    /(method:GET), segment:0 -> FAILURE "Selector didn't match" @ /(method:GET)
+  /static, segment:0 -> FAILURE "Selector didn't match" @ /static
+  /articles, segment:0 -> FAILURE "Selector didn't match" @ /articles
+Matched routes:
+  "" -> "api" -> "v1" -> "repo" -> "upload" -> "(method:POST)"
+Routing resolve result:
+  SUCCESS @ /api/v1/repo/upload/(method:POST)
+2024-10-21 18:34:29.687 [eventLoopGroupProxy-4-1] TRACE i.k.server.engine.DefaultTransform - No Default Transformations found for class io.ktor.utils.io.ByteChannel and expected type TypeInfo(mvm.routes.RequestFormat) for call /api/v1/repo/upload
+2024-10-21 18:34:29.715 [eventLoopGroupProxy-4-1] TRACE i.k.s.p.c.ContentNegotiation - Skipping because body is already converted.
+2024-10-21 18:34:29.735 [DefaultDispatcher-worker-2] TRACE i.k.client.plugins.HttpCallValidator - Validating response for request http://localhost:8080/api/v1/repo/upload
+2024-10-21 18:34:29.735 [DefaultDispatcher-worker-2] TRACE i.k.c.p.DefaultResponseValidation - Skipping default response validation for http://localhost:8080/api/v1/repo/upload
+2024-10-21 18:34:29.742 [DefaultDispatcher-worker-2] TRACE i.k.c.plugins.defaultTransformers - Transformed with default transformers response body for http://localhost:8080/api/v1/repo/upload to class kotlinx.io.Source
