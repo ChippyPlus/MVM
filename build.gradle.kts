@@ -17,16 +17,6 @@ version = "1.0"
 
 
 
-sourceSets {
-	create("server") {
-		kotlin.srcDir("src/server/kotlin")
-		resources.srcDir("src/server/resources")
-	}
-	create("client") {
-		kotlin.srcDir("src/client/kotlin")
-		resources.srcDir("src/client/resources")
-	}
-}
 
 kotlin {
 	jvmToolchain(17)
