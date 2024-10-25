@@ -1,2 +1,3 @@
-lit g1 10
+lit g1 1003
+help settype
 printr g1

@@ -7,6 +7,7 @@ import helpers.gatherHelp
 import helpers.toLong
 import kotlinx.serialization.Serializable
 import registers
+import kotlin.system.exitProcess
 
 
 fun Misc.help(registerString: String) {
@@ -17,6 +18,7 @@ fun Misc.help(registerString: String) {
 	}
 	println("Description - ${i.info}")
 	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+	exitProcess(0)
 
 }
 
