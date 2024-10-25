@@ -277,6 +277,11 @@ class VMErrors {
 		System.err.println("ERROR:${vm.pc - 1}: Bad Symbol at Runtime Exception in MAR \"${message}\"")
 		exitProcess(29)
 	}
+
+	fun InvalidTypeException(message: String) {
+		System.err.println("${prefix()}: Invalid Type Exception: \"$message\"")
+		exitProcess(30)
+	}
 }
 
 

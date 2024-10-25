@@ -1,7 +1,7 @@
 package engine
 
-import data.registers.RegisterDataType
 import data.registers.RegisterType
+import data.registers.toRegisterDataType
 import engine.execution.InstructData
 import errors
 import helpers.gatherHelp
@@ -40,13 +40,9 @@ fun parser(file: List<String>): List<InstructData> {
 					"settype" -> InstructData(
 						name = "settype",
 						values = arrayOf(
-							line[1].toRegisterType(), when (line[2].lowercase()) {
-								"byte" -> RegisterDataType.RByte
-								"short" -> RegisterDataType.RShort
-								"int" -> RegisterDataType.RInt
-								"long" -> RegisterDataType.RLong
-								else -> errors.InvalidArgumentException(gatherHelp(instruction).arguments[1])
-							}
+							line[1].toRegisterType(),
+							line[2].toRegisterDataType()
+								?: errors.InvalidArgumentException(gatherHelp(instruction).arguments[1])
 						)
 					)
 
