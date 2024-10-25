@@ -1,5 +1,6 @@
 package engine
 
+import data.registers.RegisterDataType
 import data.registers.RegisterType
 import engine.execution.InstructData
 import errors
@@ -35,6 +36,20 @@ fun parser(file: List<String>): List<InstructData> {
 		try {
 			out.add(
 				element = when (instruction) {
+
+					"settype" -> InstructData(
+						name = "settype",
+						values = arrayOf(
+							line[1].toRegisterType(), when (line[2].lowercase()) {
+								"byte" -> RegisterDataType.RByte
+								"short" -> RegisterDataType.RShort
+								"int" -> RegisterDataType.RInt
+								"long" -> RegisterDataType.RLong
+								else -> errors.InvalidArgumentException(gatherHelp(instruction).arguments[1])
+							}
+						)
+					)
+
 
 					"help" -> {
 						InstructData(

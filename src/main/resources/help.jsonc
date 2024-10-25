@@ -100,6 +100,20 @@
     ],
     "instructions": [
         {
+            "name": "settype",
+            "arguments": [
+                {
+                    "name": "register",
+                    "info": "The register to adjust the size of"
+                },
+                {
+                    "name": "type",
+                    "info": "The size(type) to set the register to, the options are: BYTE, SHORT, INT, LONG"
+                }
+            ],
+            "info": "Takes a register and changes the size of it during the runtime"
+        },
+        {
             "name": "call",
             "arguments": [
                 {
