@@ -1,5 +1,6 @@
 package engine.execution
 
+import data.registers.RegisterDataType
 import data.registers.RegisterType
 import debugger.DebugEngine
 import engine.parser
@@ -61,6 +62,14 @@ class Execute {
 				break
 			}
 			when (command[vm.pc - 1].name) {
+
+				"settype" -> {
+					vm.dataTransfer.settype(
+						register = args[0] as RegisterType,
+						type = args[1] as RegisterDataType
+					)
+				}
+
 
 				"dealloc" -> {
 					vm.dataTransfer.dealloc(
