@@ -31,7 +31,7 @@ class DebugInstructions {
 		val data = mutableMapOf<String, Long?>()
 
 		for (i in registers.registers) {
-			data[i.key.toString()] = i.value
+			data[i.key.toString()] = i.value.read()
 		}
 
 		val location = when (mode) {

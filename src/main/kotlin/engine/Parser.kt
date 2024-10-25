@@ -139,14 +139,14 @@ fun parser(file: List<String>): List<InstructData> {
 						)
 					}
 
-					// Long
+					// RLong
 					"jmp" -> {
 						InstructData(
 							name = "jmp", arrayOf(line[1].toInt())
 						)
 					}
 
-					// Long register
+					// RLong register
 					"jz", "jnz" -> {
 						InstructData(
 							name = instruction, arrayOf(line[1].toInt(), line[2].toRegisterType())
@@ -170,10 +170,10 @@ fun parser(file: List<String>): List<InstructData> {
 		} catch (e: NumberFormatException) {
 			try {
 				e.message!!.split(" ")[3].substring(1, e.message!!.split(" ").size - 1).toUnsafeRegisterType()
-				errors.InvalidArgumentFormatException(badType = "Register", shouldBe = "Long")
+				errors.InvalidArgumentFormatException(badType = "Register", shouldBe = "RLong")
 			} catch (_: IllegalStateException) {
 				errors.InvalidArgumentFormatException(
-					badType = "String", shouldBe = "Long"
+					badType = "String", shouldBe = "RLong"
 				)
 			}
 		}

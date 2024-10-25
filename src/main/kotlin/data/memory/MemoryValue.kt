@@ -3,7 +3,7 @@ package data.memory
 
 /**
  * Represents a value stored in a memory address within the virtual machine.
- * @property value The numerical value stored at the memory address, which is a 64-bit signed integer (Long).
+ * @property value The numerical value stored at the memory address, which is a 64-bit signed integer (RLong).
  *                 A value of `null` indicates that the memory address has not been initialised.
  */
 @JvmInline

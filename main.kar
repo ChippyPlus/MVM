@@ -1,5 +1,2 @@
-lit s0 2
-str s1 "www"
-syscall
-cpy r2 f1
-call println
+lit g1 10
+printr g1

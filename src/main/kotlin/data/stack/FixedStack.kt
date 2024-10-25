@@ -3,6 +3,7 @@ package data.stack
 import data.registers.IntelRegisters
 import data.registers.intelNames
 import environment.errorsCatchable.ErrorType
+import environment.errorsCatchable.nonBlockError
 import helpers.toLong
 import registers
 
@@ -26,7 +27,8 @@ class FixedStack(private val maxSize: Int) {
 	fun push(element: Long) {
 		if (isFull()) {
 			registers.write(intelNames[IntelRegisters.ENSF], false.toLong())
-			registers.write(intelNames[IntelRegisters.ESF], ErrorType.STACK_OVERFLOW.code)
+			nonBlockError(ErrorType.STACK_OVERFLOW)
+
 			return
 		}
 		topIndex++
@@ -42,7 +44,7 @@ class FixedStack(private val maxSize: Int) {
 	fun pop(): Long {
 		if (isEmpty()) {
 			registers.write(intelNames[IntelRegisters.ENSF], false.toLong())
-			registers.write(intelNames[IntelRegisters.ESF], ErrorType.STACK_UNDERFLOW.code)
+			nonBlockError(ErrorType.STACK_UNDERFLOW)
 			return 0
 		}
 		val element = stack[topIndex]
@@ -69,7 +71,7 @@ class FixedStack(private val maxSize: Int) {
 	fun peek(): Long {
 		if (isEmpty()) {
 			registers.write(intelNames[IntelRegisters.ENSF], false.toLong())
-			registers.write(intelNames[IntelRegisters.ESF], ErrorType.STACK_UNDERFLOW.code)
+			nonBlockError(ErrorType.STACK_UNDERFLOW)
 			return 0
 
 		}

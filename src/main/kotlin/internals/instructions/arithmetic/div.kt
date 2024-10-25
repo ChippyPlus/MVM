@@ -4,6 +4,7 @@ import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
 import environment.errorsCatchable.ErrorType
+import environment.errorsCatchable.nonBlockError
 import registers
 
 /**
@@ -22,7 +23,7 @@ fun Arithmetic.div(registerA: RegisterType, registerB: RegisterType) = call("div
 		registers.write(RegisterType.R4, out)
 	} catch (_: ArithmeticException) {
 		intelNames[IntelRegisters.ESF]
-		registers.write(intelNames[IntelRegisters.ESF], ErrorType.DIVIDE_BY_0.code)
+		nonBlockError(ErrorType.DIVIDE_BY_0)
 		return@call null
 	}
 

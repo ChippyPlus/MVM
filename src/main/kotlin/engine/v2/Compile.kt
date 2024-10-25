@@ -16,7 +16,6 @@ class Compile {
 			uneditedFile += transMapIDs.instructions[instruction.name]
 			when (instruction.name) {
 				//  register add, register add
-				"comment", "emptyLine" -> {}
 				"add", "sub", "mul", "div", "mod", "mov", "and", "or", "xor", "shr", "shl", "strcmp", "strcat", "strcpy", "store", "lt", "gt" -> {
 					radd(instruction.values[0]!!)
 					radd(instruction.values[1]!!)
