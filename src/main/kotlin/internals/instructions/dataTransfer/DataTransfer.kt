@@ -19,7 +19,6 @@ open class DataTransfer {
 		try {
 			val out = function()
 
-
 			if (out != null) {
 				registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
 			} else {

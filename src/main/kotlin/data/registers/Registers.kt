@@ -36,6 +36,9 @@ class Registers {
 		exitProcess(9)
 	}
 
+
+	fun readData(register: RegisterType) = registers[register]!!
+
 	fun write(register: RegisterType, value: Long) {
 		registers[register]!!.write(value)
 	}
