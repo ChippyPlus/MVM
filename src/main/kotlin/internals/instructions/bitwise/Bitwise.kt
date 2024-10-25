@@ -4,7 +4,7 @@ import data.registers.IntelRegisters
 import data.registers.RegisterType.R3
 import data.registers.intelNames
 import errors
-import helpers.toLong
+import helpers.toDouble
 import registers
 
 
@@ -22,7 +22,7 @@ open class Bitwise {
 			registers.write(
 				R3, value = out
 			)
-			registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+			registers.write(intelNames[IntelRegisters.ENSF], true.toDouble())
 
 		} catch (e: Exception) {
 			errors.run { this@run.GeneralBitwiseException(message = name) }

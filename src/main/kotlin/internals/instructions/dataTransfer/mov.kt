@@ -11,6 +11,6 @@ import registers
  * @throws GeneralDataTransferException If an error occurs during the move operation.
  */
 fun DataTransfer.mov(source: RegisterType, destination: RegisterType) = call("mov") {
-	val value: Long = registers.read(source)
+	val value: Long = registers.read(source).toLong()
 	registers.write(register = destination, value = value)
 }

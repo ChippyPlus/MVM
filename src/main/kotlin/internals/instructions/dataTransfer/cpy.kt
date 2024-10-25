@@ -11,6 +11,6 @@ import registers
  * @throws GeneralDataTransferException If an error occurs during the copy operation.
  */
 fun DataTransfer.cpy(register1: RegisterType, register2: RegisterType) = call("cpy") {
-	val value: Long = registers.read(register1)
+	val value: Long = registers.read(register1).toLong()
 	registers.write(register = register2, value = value)
 }

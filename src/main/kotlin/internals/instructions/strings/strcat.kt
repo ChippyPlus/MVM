@@ -5,7 +5,7 @@ import data.registers.RegisterType
 import data.registers.intelNames
 import errors
 import helpers.readRegisterString
-import helpers.toLong
+import helpers.toDouble
 import helpers.writeClosestString
 import registers
 
@@ -19,7 +19,7 @@ import registers
  */
 fun Strings.strcat(string1: RegisterType, string2: RegisterType): Any = try {
 
-	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+	registers.write(intelNames[IntelRegisters.ENSF], true.toDouble())
 
 	val s1: String = readRegisterString(register = string1)
 	val s2: Comparable<String> = readRegisterString(register = string2)

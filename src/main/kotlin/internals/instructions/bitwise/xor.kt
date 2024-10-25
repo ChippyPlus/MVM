@@ -12,6 +12,6 @@ import registers
  * @throws GeneralBitwiseException If an error occurs during the bitwise XOR operation.
  */
 fun Bitwise.xor(operand1: RegisterType, operand2: RegisterType) = call("xor") {
-	registers.read(operand1) xor registers.read(operand2)
+	registers.read(operand1).toLong() xor registers.read(operand2).toLong()
 
 }

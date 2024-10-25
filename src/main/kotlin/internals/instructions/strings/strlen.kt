@@ -6,7 +6,7 @@ import data.registers.RegisterType
 import data.registers.RegisterType.R4
 import data.registers.intelNames
 import errors
-import helpers.toLong
+import helpers.toDouble
 import internalMemory
 import registers
 
@@ -17,12 +17,12 @@ import registers
  * @throws GeneralStringException If an error occurs during the string length calculation.
  */
 fun Strings.strlen(addressRegister: RegisterType): Unit = try {
-	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+	registers.write(intelNames[IntelRegisters.ENSF], true.toDouble())
 
 	var index: Long = 0L
 	while (true) {
 		val byte = internalMemory.read(
-			address = MemoryAddress(address = registers.read(addressRegister) + index)
+			address = MemoryAddress(address = registers.read(addressRegister).toLong() + index)
 		)
 		if (byte.value?.equals(0L) ?: (false)) {
 			break

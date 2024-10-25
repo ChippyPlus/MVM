@@ -6,7 +6,7 @@ import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
 import errors
-import helpers.toLong
+import helpers.toDouble
 import internalMemory
 import registers
 
@@ -20,10 +20,11 @@ import registers
 fun Memory.store(source: RegisterType, destination: RegisterType) = try {
 	with(receiver = internalMemory) {
 		this@with.write(
-			address = MemoryAddress(registers.read(destination)), value = MemoryValue(registers.read(source))
+			address = MemoryAddress(registers.read(destination).toLong()),
+			value = MemoryValue(registers.read(source).toLong())
 		)
 	}
-	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+	registers.write(intelNames[IntelRegisters.ENSF], true.toDouble())
 
 } catch (_: Exception) {
 	errors.GeneralMemoryException("Store")

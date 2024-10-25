@@ -4,7 +4,7 @@ import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
 import errors
-import helpers.toLong
+import helpers.toDouble
 import helpers.writeClosestString
 import registers
 
@@ -16,7 +16,7 @@ import registers
  * @throws GeneralStringException If an error occurs while storing the string.
  */
 fun Strings.str(targetAddress: RegisterType, string: String): Unit = try {
-	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+	registers.write(intelNames[IntelRegisters.ENSF], true.toDouble())
 
 	val location = writeClosestString(string = string)
 	registers.write(register = targetAddress, value = location)

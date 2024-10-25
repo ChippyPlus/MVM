@@ -22,14 +22,14 @@ import registers
  */
 @Deprecated("Using new VFS")
 private fun SystemCall.writeFile_old(fd: RegisterType, buffer: RegisterType): Unit = try {
-    val f: VMFile = fileDescriptors.getFileDescriptor(fd = registers.read(register = fd))!!
+    val f: VMFile = fileDescriptors.getFileDescriptor(fd = registers.read(register = fd).toLong())!!
     var index: Int = 0
     var string: String = buildString {}
     while (true) {
 
         val byte: MemoryValue = internalMemory.read(
             address = MemoryAddress(
-                address = registers.read(register = buffer).plus(index)
+                address = registers.read(register = buffer).plus(index).toLong()
             )
         )
         if (byte.value!!.equals(other = 0L)) {

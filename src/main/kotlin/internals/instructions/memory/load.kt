@@ -5,7 +5,7 @@ import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
 import errors
-import helpers.toLong
+import helpers.toDouble
 import internalMemory
 import registers
 
@@ -18,9 +18,10 @@ import registers
  */
 fun Memory.load(memoryAddress: RegisterType, destination: RegisterType): Unit = try {
 	registers.write(
-		register = destination, value = internalMemory.read(MemoryAddress(registers.read(memoryAddress))).value!!
+		register = destination,
+		value = internalMemory.read(MemoryAddress(registers.read(memoryAddress).toLong())).value!!
 	)
-	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+	registers.write(intelNames[IntelRegisters.ENSF], true.toDouble())
 
 } catch (_: Exception) {
 	errors.GeneralMemoryException("Load")

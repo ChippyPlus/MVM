@@ -4,7 +4,7 @@ import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
 import errors
-import helpers.toLong
+import helpers.toDouble
 import registers
 
 /**
@@ -15,7 +15,7 @@ import registers
  */
 fun StackOperations.pop(destination: RegisterType) = try {
     registers.write(
-        intelNames[IntelRegisters.ENSF], true.toLong()
+        intelNames[IntelRegisters.ENSF], true.toDouble()
     ) // Its above the next expr because the internal stack may throw its own errors
 
 

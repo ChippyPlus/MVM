@@ -15,7 +15,7 @@ import registers
  */
 @Deprecated("Using new VFS")
 private fun SystemCall.closeFile_old(s2: RegisterType): Unit = try {
-	val fd: Long = registers.read(register = s2)
+	val fd: Long = registers.read(register = s2).toLong()
 
 	if (fileDescriptors.fds.remove(fd)?.equals(null)
 			?: throw NullPointerException("Expression 'fileDescriptors.fds.remove(fd)?.equals(null)' must not be null")

@@ -4,7 +4,7 @@ import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
 import errors
-import helpers.toLong
+import helpers.toDouble
 import registers
 
 
@@ -16,10 +16,10 @@ import registers
  */
 fun StackOperations.push(registerType: RegisterType) = try {
 	registers.write(
-		intelNames[IntelRegisters.ENSF], true.toLong()
+		intelNames[IntelRegisters.ENSF], true.toDouble()
 	) // Its above the next expr because internal stack may throw its own errors
 
-	internalStack.push(element = registers.read(register = registerType))
+	internalStack.push(element = registers.read(register = registerType).toLong())
 } catch (_: Exception) {
 	errors.GeneralStackOperationsException("Push")
 

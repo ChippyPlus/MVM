@@ -15,7 +15,7 @@ fun readRegisterString(register: RegisterType): String {
 	var index = 0
 	var string = ""
 	while (true) {
-		val byte = internalMemory.read(MemoryAddress(registers.read(register) + index))
+		val byte = internalMemory.read(MemoryAddress(registers.read(register).toLong() + index))
 		if (byte.value == 0L) break
 		string += byte.value!!.toInt().toChar()
 		index++

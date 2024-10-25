@@ -15,8 +15,8 @@ import registers
  * @throws GeneralArithmeticException If an arithmetic error occurs during the division (e.g. division by zero).
  */
 fun Arithmetic.div(registerA: RegisterType, registerB: RegisterType) = call("div") {
-	val a: Long = registers.read(register = registerA)
-	val b: Long = registers.read(register = registerB)
+	val a = registers.read(register = registerA).toLong()
+	val b = registers.read(register = registerB).toLong()
 
 	try {
 		val out = a / b

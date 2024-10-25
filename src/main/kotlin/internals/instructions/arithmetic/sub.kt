@@ -12,8 +12,8 @@ import registers
  */
 
 fun Arithmetic.sub(registerA: RegisterType, registerB: RegisterType) = call("sub") {
-	val a: Long = registers.read(register = registerA)
-	val b: Long = registers.read(register = registerB)
+	val a = registers.read(register = registerA).toLong()
+	val b = registers.read(register = registerB).toLong()
 	val out = a - b
 	registers.write(RegisterType.R4, out)
 

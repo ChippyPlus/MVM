@@ -4,7 +4,7 @@ import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
 import errors
-import helpers.toLong
+import helpers.toDouble
 import registers
 
 
@@ -15,7 +15,7 @@ import registers
  */
 fun IoAbstractions.printr(register: RegisterType): Unit = try {
 	println(message = registers.read(register = register))
-	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+	registers.write(intelNames[IntelRegisters.ENSF], true.toDouble())
 
 } catch (_: Exception) {
 	errors.GeneralIoAbstractionsException(message = "printr")

@@ -4,7 +4,7 @@ import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
 import errors
-import helpers.toLong
+import helpers.toDouble
 import registers
 import kotlin.math.sign
 
@@ -15,23 +15,32 @@ import kotlin.math.sign
  * This class provides functions for performing arithmetic operations on register values.
  */
 open class Arithmetic {
-	fun zeroFlag(out: Long) {
-		if (out == 0L) registers.write(
-			intelNames[IntelRegisters.ZF], true.toLong()
+	fun zeroFlag(out: Double) {
+		if (out.toLong() == 0L) registers.write(
+			intelNames[IntelRegisters.ZF], true.toDouble()
 		)
 		else registers.write(
-			intelNames[IntelRegisters.ZF], false.toLong()
+			intelNames[IntelRegisters.ZF], false.toDouble()
 		)
 	}
 
+	fun zeroFlag(out: Long) {
+		zeroFlag(out.toDouble())
+	}
+
 	fun signFlag(out: Long) {
-		if (out.sign == -1) {
+		signFlag(out.toDouble())
+	}
+
+
+	fun signFlag(out: Double) {
+		if (out.sign.toInt() == -1) {
 			registers.write(
-				intelNames[IntelRegisters.SF], true.toLong()
+				intelNames[IntelRegisters.SF], true.toDouble()
 			)
 		} else {
 			registers.write(
-				intelNames[IntelRegisters.SF], false.toLong()
+				intelNames[IntelRegisters.SF], false.toDouble()
 			)
 		}
 	}
@@ -51,9 +60,9 @@ open class Arithmetic {
 
 
 		if (out != null) {
-			registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+			registers.write(intelNames[IntelRegisters.ENSF], true.toDouble())
 		} else {
-			registers.write(intelNames[IntelRegisters.ENSF], false.toLong())
+			registers.write(intelNames[IntelRegisters.ENSF], false.toDouble())
 		}
 	}
 }

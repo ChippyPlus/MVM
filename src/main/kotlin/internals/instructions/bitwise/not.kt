@@ -9,5 +9,5 @@ import registers
  * @throws GeneralBitwiseException If an error occurs during the bitwise AND operation.
  */
 fun Bitwise.not(operand: RegisterType) = call("not") {
-	registers.read(operand).inv()
+	registers.read(operand).toLong().inv()
 }

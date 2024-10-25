@@ -11,6 +11,6 @@ import registers
  * @throws GeneralBitwiseException If an error occurs during the bitwise OR operation.
  */
 fun Bitwise.or(operand1: RegisterType, operand2: RegisterType) = call("or") {
-	registers.read(operand1) or registers.read(operand2)
+	registers.read(operand1).toLong() or registers.read(operand2).toLong()
 
 }

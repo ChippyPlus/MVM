@@ -22,7 +22,7 @@ import registers
 @Deprecated("Using new VFS")
 private fun SystemCall.readFile_old(fd: RegisterType): Unit = try {
 	val f: VMFile =
-		fileDescriptors.getFileDescriptor(fd = registers.read(register = fd)) ?: throw NullPointerException(
+		fileDescriptors.getFileDescriptor(fd = registers.read(register = fd).toLong()) ?: throw NullPointerException(
 			"Expression 'fileDescriptors.getFileDescriptor(fd = fullRegisterRead(register = fd))' must not be null"
 		)
 	registers.write(

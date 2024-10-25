@@ -3,7 +3,7 @@ package internals.instructions.dataTransfer
 import data.registers.IntelRegisters
 import data.registers.intelNames
 import errors
-import helpers.toLong
+import helpers.toDouble
 import registers
 
 
@@ -20,9 +20,9 @@ open class DataTransfer {
 			val out = function()
 
 			if (out != null) {
-				registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+				registers.write(intelNames[IntelRegisters.ENSF], true.toDouble())
 			} else {
-				registers.write(intelNames[IntelRegisters.ENSF], false.toLong())
+				registers.write(intelNames[IntelRegisters.ENSF], false.toDouble())
 			}
 		} catch (e: Exception) {
 			errors.GeneralDataTransferException(message = name)

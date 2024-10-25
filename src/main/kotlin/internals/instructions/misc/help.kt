@@ -4,7 +4,7 @@ package internals.instructions.misc
 import data.registers.IntelRegisters
 import data.registers.intelNames
 import helpers.gatherHelp
-import helpers.toLong
+import helpers.toDouble
 import kotlinx.serialization.Serializable
 import registers
 import kotlin.system.exitProcess
@@ -17,7 +17,7 @@ fun Misc.help(registerString: String) {
 		println("Argument - ${j.name}: ${j.info} ")
 	}
 	println("Description - ${i.info}")
-	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+	registers.write(intelNames[IntelRegisters.ENSF], true.toDouble())
 	exitProcess(0)
 
 }

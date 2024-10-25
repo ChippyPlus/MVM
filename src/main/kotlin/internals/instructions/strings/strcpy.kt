@@ -6,7 +6,7 @@ import data.registers.RegisterType
 import data.registers.intelNames
 import errors
 import helpers.readRegisterString
-import helpers.toLong
+import helpers.toDouble
 import helpers.writeStringSpecInMemory
 import registers
 
@@ -19,10 +19,10 @@ import registers
  */
 
 fun Strings.strcpy(source: RegisterType, destination: RegisterType): Unit = try {
-    registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+    registers.write(intelNames[IntelRegisters.ENSF], true.toDouble())
 
     val string: String = readRegisterString(register = source)
-    val destinationAddress: Long = registers.read(register = destination)
+    val destinationAddress: Long = registers.read(register = destination).toLong()
     writeStringSpecInMemory(
         string = string, destinationAddress = MemoryAddress(address = destinationAddress)
     )

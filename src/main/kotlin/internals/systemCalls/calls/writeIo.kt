@@ -19,7 +19,7 @@ fun SystemCall.writeIo(address: RegisterType) = call("writeIo") {
 	while (true) {
 
 		val byte: MemoryValue = internalMemory.read(
-			address = MemoryAddress(address = registers.read(register = address).plus(index))
+			address = MemoryAddress(address = registers.read(register = address).toLong() + index)
 		)
 		if (byte.value!!.equals(0L)) {
 			break

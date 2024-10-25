@@ -13,5 +13,5 @@ import registers
  */
 
 fun Bitwise.shr(operand1: RegisterType, operand2: RegisterType) = call("shr") {
-	registers.read(operand1) shr registers.read(operand2).toInt()
+	registers.read(operand1).toLong() shr registers.read(operand2).toInt()
 }

@@ -6,8 +6,8 @@ import kotlin.math.pow
 
 
 fun Arithmetic.pow(registerA: RegisterType, registerB: RegisterType) = call("pow") {
-	val a: Long = registers.read(register = registerA)
-	val b: Long = registers.read(register = registerB)
+	val a = registers.read(register = registerA).toLong()
+	val b = registers.read(register = registerB).toLong()
 	val out = a.toDouble().pow(b.toDouble()).toLong()
 	registers.write(RegisterType.R4, out)
 }

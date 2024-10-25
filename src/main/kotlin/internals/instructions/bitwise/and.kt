@@ -11,5 +11,5 @@ import registers
  * @throws GeneralBitwiseException If an error occurs during the bitwise AND operation.
  */
 fun Bitwise.and(operand1: RegisterType, operand2: RegisterType) = call("and") {
-	registers.read(operand1) and registers.read(operand2)
+	registers.read(operand1).toLong() and registers.read(operand2).toLong()
 }

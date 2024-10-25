@@ -40,39 +40,35 @@ data class RegisterData(var data: Double?, var dataType: RegisterDataType) {
 	}
 
 
-	fun write(dataIn: Float?) {
-		data = dataIn?.toDouble()
-	}
-
-	fun write(dataIn: Long?) {
+	fun write(dataIn: Double?) {
 		data = when (dataType) {
-			RegisterDataType.RByte -> dataCheck(RegisterDataType.RByte) { dataIn?.toByte() } as Byte?
-			RegisterDataType.RShort -> dataCheck(RegisterDataType.RShort) { dataIn?.toShort() } as Short?
-			RegisterDataType.RInt -> dataCheck(RegisterDataType.RInt) { dataIn!!.toInt() } as Int?
-			RegisterDataType.RLong -> dataCheck(RegisterDataType.RLong) { dataIn!!.toLong() } as Long?
-			RegisterDataType.RFloat -> dataCheck(RegisterDataType.RFloat) { dataIn!!.toFloat() } as Float?
+			RegisterDataType.RByte -> dataIn?.toInt()?.toByte()
+			RegisterDataType.RShort -> dataIn?.toInt()?.toShort()
+			RegisterDataType.RInt -> dataIn!!.toInt()
+			RegisterDataType.RLong -> dataIn!!.toLong()
+			RegisterDataType.RFloat -> dataIn!!.toFloat()
 		}?.toDouble()
 	}
 
 	fun setType(type: RegisterDataType) {
 		dataType = type
 		data = when (type) {
-			RegisterDataType.RByte -> data?.let { it.toInt().toByte() }
-			RegisterDataType.RShort -> data?.let { it.toInt().toShort() }
+			RegisterDataType.RByte -> data?.toInt()?.toByte()
+			RegisterDataType.RShort -> data?.toInt()?.toShort()
 			RegisterDataType.RInt -> data?.toInt()
 			RegisterDataType.RLong -> data
 			RegisterDataType.RFloat -> data?.toFloat()
 		}?.toDouble()
 	}
 
-	fun read(): Long? {
+	fun read(): Double? {
 		val out: Number? = when (dataType) {
-			RegisterDataType.RByte -> data?.let { it.toInt().toByte() }
-			RegisterDataType.RShort -> data?.let { it.toInt().toShort() }
+			RegisterDataType.RByte -> data?.toInt()?.toByte()
+			RegisterDataType.RShort -> data?.toInt()?.toShort()
 			RegisterDataType.RInt -> data?.toInt()
-			RegisterDataType.RLong -> data
+			RegisterDataType.RLong -> data?.toLong()
 			RegisterDataType.RFloat -> data?.toFloat()
 		}
-		return out?.toLong()
+		return out?.toDouble()
 	}
 }

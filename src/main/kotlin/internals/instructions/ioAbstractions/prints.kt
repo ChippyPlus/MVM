@@ -3,7 +3,7 @@ package internals.instructions.ioAbstractions
 import data.registers.IntelRegisters
 import data.registers.intelNames
 import errors
-import helpers.toLong
+import helpers.toDouble
 import registers
 import vm
 
@@ -14,7 +14,7 @@ import vm
  */
 fun IoAbstractions.prints(): Unit = try {
 	println(vm.stackOperations.internalStack.peek())
-	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+	registers.write(intelNames[IntelRegisters.ENSF], true.toDouble())
 } catch (_: Exception) {
 	errors.GeneralIoAbstractionsException(message = "prints")
 }

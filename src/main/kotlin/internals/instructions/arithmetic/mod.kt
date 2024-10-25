@@ -11,8 +11,8 @@ import registers
  * @throws GeneralArithmeticException If an arithmetic error occurs during the modulo operation.
  */
 fun Arithmetic.mod(registerA: RegisterType, registerB: RegisterType) = call("mod") {
-	val a: Long = registers.read(register = registerA)
-	val b: Long = registers.read(register = registerB)
+	val a = registers.read(register = registerA).toLong()
+	val b = registers.read(register = registerB).toLong()
 	val out = a % b
 	registers.write(RegisterType.R4, out)
 }

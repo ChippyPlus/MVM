@@ -4,7 +4,7 @@ import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
 import errors
-import helpers.toLong
+import helpers.toDouble
 import internals.systemCalls.calls.*
 import registers
 import kotlin.system.exitProcess
@@ -59,9 +59,9 @@ class SystemCall {
 		}
 
 		if (functionResult != null) {
-			registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+			registers.write(intelNames[IntelRegisters.ENSF], true.toDouble())
 		} else {
-			registers.write(intelNames[IntelRegisters.ENSF], false.toLong())
+			registers.write(intelNames[IntelRegisters.ENSF], false.toDouble())
 		}
 	}
 }

@@ -28,7 +28,7 @@ class DebugInstructions {
 	 * @param mode The execution mode, determining the output directory (Line or Iterator).
 	 */
 	fun registersD(mode: DebugInstructionModes) {
-		val data = mutableMapOf<String, Long?>()
+		val data = mutableMapOf<String, Double?>()
 
 		for (i in registers.registers) {
 			data[i.key.toString()] = i.value.read()
@@ -55,12 +55,12 @@ class DebugInstructions {
 	 * @throws MemoryAllocationException If the end address is out of the allocated memory bounds.
 	 */
 	fun memoryRange(a: Long, b: Long, mode: DebugInstructionModes) {
-		val memMap = emptyMap<String, Long?>().toMutableMap()
+		val memMap = emptyMap<String, Double?>().toMutableMap()
 		if (MEMORY_LIMIT <= b) {
 			errors.MemoryAllocationException("Debugger/memoryRange is accessing non-existent memory \"$b\"")
 		}
 		for (address in a..b) {
-			memMap[address.toString()] = internalMemory.memory[MemoryAddress(address)]?.value
+			memMap[address.toString()] = internalMemory.memory[MemoryAddress(address)]?.value?.toDouble()
 		}
 		val location = when (mode) {
 			DebugInstructionModes.Iterator -> "each"
@@ -78,8 +78,8 @@ class DebugInstructions {
 	 * @param mode The execution mode, determining the output directory (Line or Iterator).
 	 */
 	fun descriptors(mode: DebugInstructionModes) {
-		val data = emptyMap<String, Long?>().toMutableMap()
-		fileDescriptors.fds.forEach { data[it.key.toString()] = it.key }
+		val data = emptyMap<String, Double?>().toMutableMap()
+		fileDescriptors.fds.forEach { data[it.key.toString()] = it.key.toDouble() }
 		val location = when (mode) {
 			DebugInstructionModes.Iterator -> "each"
 			DebugInstructionModes.Line -> "lineSpecific"
@@ -98,7 +98,7 @@ class DebugInstructions {
 	 * @param mode The execution mode, determining the output directory (Line or Iterator).
 	 */
 	fun stack(mode: DebugInstructionModes) {
-		val data = mapOf("current" to vm.stackOperations.internalStack.inspect()[0])
+		val data = mapOf("current" to vm.stackOperations.internalStack.inspect()[0]?.toDouble()).toMutableMap()
 		val location = when (mode) {
 			DebugInstructionModes.Iterator -> "each"
 			DebugInstructionModes.Line -> "lineSpecific"
