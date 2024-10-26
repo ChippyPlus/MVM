@@ -21,6 +21,8 @@ import internals.instructions.stackOperations.peek
 import internals.instructions.stackOperations.pop
 import internals.instructions.stackOperations.push
 import internals.instructions.strings.*
+import internals.instructions.xFloats.ftoi
+import internals.instructions.xFloats.itof
 import internals.instructions.xFloats.xAdd
 import internals.instructions.xFloats.xLit
 import libExecute
@@ -60,6 +62,14 @@ class Execute {
 			}
 			when (command[vm.pc - 1].name) {
 
+
+				"ftoi" -> {
+					vm.xFloats.ftoi(args[0] as RegisterType, args[1] as RegisterType)
+				}
+
+				"itof" -> {
+					vm.xFloats.itof(args[0] as RegisterType, args[1] as RegisterType)
+				}
 
 				"xlit" -> {
 					vm.xFloats.xLit(args[0] as RegisterType, args[1] as Float)
