@@ -75,16 +75,16 @@ fun String.toUnsafeRegisterType(): RegisterType? {
 		"i8" -> RegisterType.I8
 		"i9" -> RegisterType.I9
 
-		"x0" -> RegisterType.I0
-		"x1" -> RegisterType.I1
-		"x2" -> RegisterType.I2
-		"x3" -> RegisterType.I3
-		"x4" -> RegisterType.I4
-		"x5" -> RegisterType.I5
-		"x6" -> RegisterType.I6
-		"x7" -> RegisterType.I7
-		"x8" -> RegisterType.I8
-		"x9" -> RegisterType.I9
+		"x0" -> RegisterType.X0
+		"x1" -> RegisterType.X1
+		"x2" -> RegisterType.X2
+		"x3" -> RegisterType.X3
+		"x4" -> RegisterType.X4
+		"x5" -> RegisterType.X5
+		"x6" -> RegisterType.X6
+		"x7" -> RegisterType.X7
+		"x8" -> RegisterType.X8
+		"x9" -> RegisterType.X9
 
 
 		else -> null
