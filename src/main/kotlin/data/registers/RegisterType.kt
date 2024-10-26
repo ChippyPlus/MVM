@@ -27,14 +27,14 @@ enum class RegisterDataType {
 }
 
 
-data class RegisterData(var data: Number?, var dataType: RegisterDataType) {
+data class RegisterData(var data: Long?, var dataType: RegisterDataType) {
 
 	fun read(): Long? {
 		return when (dataType) {
 			RByte -> data?.toByte()
 			RShort -> data?.toShort()
 			RInt -> data?.toInt()
-			RLong -> data?.toLong()
+			RLong -> data
 			RFloat -> data?.toFloat()
 		}?.toLong()
 	}
@@ -56,7 +56,11 @@ data class RegisterData(var data: Number?, var dataType: RegisterDataType) {
 
 
 	fun readFloat(): Float? {
-		return data?.toFloat()
+		return try {
+			Float.fromBits(data!!.toInt())
+		} catch (_: NullPointerException) {
+			null
+		}
 	}
 
 	fun writeFloat(value: Float?) {
@@ -64,14 +68,13 @@ data class RegisterData(var data: Number?, var dataType: RegisterDataType) {
 			data = null
 			return
 		}
-
 		data = when (dataType) {
 			RByte -> value.toInt().toByte()
 			RShort -> value.toInt().toShort()
 			RInt -> value.toInt()
 			RLong -> value.toLong()
 			RFloat -> value.toFloat()
-		}.toFloat()
+		}.toFloat().toBits().toLong()
 	}
 
 	fun settype(newType: RegisterDataType) {

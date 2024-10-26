@@ -12,6 +12,7 @@ import internals.instructions.memory.Memory
 import internals.instructions.misc.Misc
 import internals.instructions.stackOperations.StackOperations
 import internals.instructions.strings.Strings
+import internals.instructions.xFloats.XFloats
 import internals.systemCalls.SystemCall
 
 open class Vm {
@@ -26,6 +27,7 @@ open class Vm {
 	val strings = Strings()
 	val functions = Functions()
 	val misc = Misc()
+	val xFloats = XFloats()
 	var pc = 0
 	var libPc = 0
 	val vfs = Vfs()

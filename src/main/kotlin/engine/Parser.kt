@@ -37,13 +37,18 @@ fun parser(file: List<String>): List<InstructData> {
 			out.add(
 				element = when (instruction) {
 
+					"xlit" -> {
+						InstructData(name = "xlit", values = arrayOf(line[1].toRegisterType(), line[2].toFloat()))
+					}
+
+
+
 
 					"settype" -> {
 						InstructData(
 							name = "settype", values = arrayOf(line[1].toRegisterType(), line[2].toRegisterDataType())
 						)
 					}
-
 
 
 					"help" -> {
@@ -64,9 +69,7 @@ fun parser(file: List<String>): List<InstructData> {
 					"substr" -> {
 						InstructData(
 							name = "substr", arrayOf(
-								line[1].toRegisterType(),
-								line[2].toRegisterType(),
-								line[3].toRegisterType()
+								line[1].toRegisterType(), line[2].toRegisterType(), line[3].toRegisterType()
 							)
 						)
 					}
@@ -113,7 +116,7 @@ fun parser(file: List<String>): List<InstructData> {
 					"mod", "add", "sub", "mul", "div", "eq",
 					"shl", "shr", "mov", "cpy", "and", "or",
 					"xor", "find", "strcat", "strcmp", "strcpy",
-					"lt", "gt", "pow",
+					"lt", "gt", "pow", "xadd", "xmul", "xdiv", "xpow",
 						-> {
 						InstructData(
 							name = instruction, arrayOf(line[1].toRegisterType(), line[2].toRegisterType())

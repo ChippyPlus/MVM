@@ -1,5 +1,4 @@
-settype r3 BYTE
-lit g1 20
-lit g2 5
-shl g1 g2
-printr r3
+XLIT X1 3.14
+XLIT X2 1.0
+XADD X1 X2
+PRINTR R5

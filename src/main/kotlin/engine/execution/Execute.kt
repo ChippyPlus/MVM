@@ -21,6 +21,8 @@ import internals.instructions.stackOperations.peek
 import internals.instructions.stackOperations.pop
 import internals.instructions.stackOperations.push
 import internals.instructions.strings.*
+import internals.instructions.xFloats.xAdd
+import internals.instructions.xFloats.xLit
 import libExecute
 import registers
 import vm
@@ -57,6 +59,15 @@ class Execute {
 				break
 			}
 			when (command[vm.pc - 1].name) {
+
+
+				"xlit" -> {
+					vm.xFloats.xLit(args[0] as RegisterType, args[1] as Float)
+				}
+
+				"xadd" -> {
+					vm.xFloats.xAdd(args[0] as RegisterType, args[1] as RegisterType)
+				}
 
 
 				"settype" -> {
