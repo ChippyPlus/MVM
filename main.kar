@@ -1,3 +1,3 @@
-lit g1 1003
+lit g1 2000
 settype g1 BYTE
 printr g1

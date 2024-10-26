@@ -1,6 +1,7 @@
 package engine
 
 import data.registers.RegisterType
+import data.registers.toRegisterDataType
 import engine.execution.InstructData
 import errors
 import helpers.gatherHelp
@@ -35,6 +36,15 @@ fun parser(file: List<String>): List<InstructData> {
 		try {
 			out.add(
 				element = when (instruction) {
+
+
+					"settype" -> {
+						InstructData(
+							name = "settype", values = arrayOf(line[1].toRegisterType(), line[2].toRegisterDataType())
+						)
+					}
+
+
 
 					"help" -> {
 						InstructData(

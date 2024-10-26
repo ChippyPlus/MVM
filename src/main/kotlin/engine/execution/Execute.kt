@@ -1,5 +1,6 @@
 package engine.execution
 
+import data.registers.RegisterDataType
 import data.registers.RegisterType
 import engine.parser
 import errors
@@ -21,6 +22,7 @@ import internals.instructions.stackOperations.pop
 import internals.instructions.stackOperations.push
 import internals.instructions.strings.*
 import libExecute
+import registers
 import vm
 import java.io.File
 import java.lang.Thread.sleep
@@ -55,6 +57,11 @@ class Execute {
 				break
 			}
 			when (command[vm.pc - 1].name) {
+
+
+				"settype" -> {
+					registers.registers[(args[0] as RegisterType)]!!.settype(args[1] as RegisterDataType)
+				}
 
 				"dealloc" -> {
 					vm.dataTransfer.dealloc(
