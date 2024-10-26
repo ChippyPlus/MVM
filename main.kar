@@ -1,5 +1,3 @@
-lit s0 2
-str s1 "www"
-syscall
-cpy r2 f1
-call println
+lit g1 1003
+settype g1 BYTE
+printr g1
