@@ -1,6 +1,8 @@
 package data.registers
 
 import data.registers.RegisterDataType.*
+import errors
+import kotlin.system.exitProcess
 
 /**
  * Represents a supertype encompassing all register types in the virtual machine.
@@ -17,17 +19,18 @@ fun String.toRegisterDataType() = when (this.lowercase()) {
 	"int" -> RInt
 	"long" -> RLong
 	"float" -> RFloat
+	"double" -> RDouble
 	else -> null
 
 }
 
 
 enum class RegisterDataType {
-	RByte, RShort, RInt, RLong, RFloat
+	RByte, RShort, RInt, RLong, RFloat, RDouble
 }
 
 
-data class RegisterData(var data: Long?, var dataType: RegisterDataType) {
+data class RegisterData(val name: RegisterType, var data: Long?, var dataType: RegisterDataType) {
 
 	fun read(): Long? {
 		return when (dataType) {
@@ -36,6 +39,7 @@ data class RegisterData(var data: Long?, var dataType: RegisterDataType) {
 			RInt -> data?.toInt()
 			RLong -> data
 			RFloat -> data?.toFloat()
+			RDouble -> data?.toDouble()
 		}?.toLong()
 	}
 
@@ -51,17 +55,45 @@ data class RegisterData(var data: Long?, var dataType: RegisterDataType) {
 			RInt -> value.toInt()
 			RLong -> value.toLong()
 			RFloat -> value.toFloat()
+			RDouble -> value.toDouble()
 		}.toLong()
 	}
 
 
-	fun readFloat(): Float? {
+	fun readDouble(): Double {
+		return try {
+			Double.fromBits(data!!)
+		} catch (_: NullPointerException) {
+			errors.NullRegisterException(name)
+			exitProcess(1)
+		}
+	}
+
+	fun readFloat(): Float {
 		return try {
 			Float.fromBits(data!!.toInt())
 		} catch (_: NullPointerException) {
-			null
+			errors.NullRegisterException(name)
+			exitProcess(1)
 		}
 	}
+
+	fun writeDouble(value: Double?) {
+		if (value == null) {
+			data = null
+			return
+		}
+		data = when (dataType) {
+			RByte -> value.toInt().toByte()
+			RShort -> value.toInt().toShort()
+			RInt -> value.toInt()
+			RLong -> value.toLong()
+			RFloat -> value.toFloat()
+			RDouble -> value.toDouble()
+
+		}.toDouble().toBits()
+	}
+
 
 	fun writeFloat(value: Float?) {
 		if (value == null) {
@@ -74,6 +106,8 @@ data class RegisterData(var data: Long?, var dataType: RegisterDataType) {
 			RInt -> value.toInt()
 			RLong -> value.toLong()
 			RFloat -> value.toFloat()
+			RDouble -> value.toDouble()
+
 		}.toFloat().toBits().toLong()
 	}
 
@@ -84,6 +118,7 @@ data class RegisterData(var data: Long?, var dataType: RegisterDataType) {
 			RInt -> RInt
 			RLong -> RLong
 			RFloat -> RFloat
+			RDouble -> RDouble
 		}
 
 	}

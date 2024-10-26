@@ -5,5 +5,5 @@ import registers
 
 fun XFloats.itof(register: RegisterType, registerX: RegisterType) {
 	val valueLong = registers.read(register)
-	registers.writeFloat(registerX, valueLong.toFloat())
+	registers.writeX(registerX, valueLong.toFloat())
 }

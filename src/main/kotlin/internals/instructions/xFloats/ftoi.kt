@@ -4,6 +4,6 @@ import data.registers.RegisterType
 import registers
 
 fun XFloats.ftoi(registerX: RegisterType, register: RegisterType) {
-	val valueFloat = registers.readFloat(registerX)
+	val valueFloat = registers.readX(registerX)
 	registers.write(register, valueFloat.toLong())
 }
