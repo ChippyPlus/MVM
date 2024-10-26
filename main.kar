@@ -1,3 +1,5 @@
-lit g1 2000
-settype g1 BYTE
-printr g1
+settype r3 BYTE
+lit g1 20
+lit g2 5
+shl g1 g2
+printr r3

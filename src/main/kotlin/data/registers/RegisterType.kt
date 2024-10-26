@@ -30,7 +30,13 @@ enum class RegisterDataType {
 data class RegisterData(var data: Number?, var dataType: RegisterDataType) {
 
 	fun read(): Long? {
-		return data?.toLong()
+		return when (dataType) {
+			RByte -> data?.toByte()
+			RShort -> data?.toShort()
+			RInt -> data?.toInt()
+			RLong -> data?.toLong()
+			RFloat -> data?.toFloat()
+		}?.toLong()
 	}
 
 	fun write(value: Long?) {
