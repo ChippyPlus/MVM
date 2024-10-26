@@ -1,8 +1,7 @@
+
 import data.io.FileDescriptors
 import data.memory.InternalMemory
 import data.registers.Registers
-import debugger.DebugEngine
-import debugger.encoding.DebugFile
 import engine.execution.Execute
 import engine.parser
 import engine.v2.Compile
@@ -11,7 +10,6 @@ import environment.ExecuteLib
 import environment.VMErrors
 import helpers.Config
 import internals.Vm
-import kotlinx.serialization.json.Json
 import optimisations.VarRedundancy
 import java.io.File
 import kotlin.system.exitProcess
@@ -89,14 +87,6 @@ fun main(args: Array<String>) {
 			println("Compiled with 0 Issues!!!!!")
 		}
 
-		"debug" -> {// TODO Make this an option
-			if (args.size < 3) {
-				println("Usage: mvm debug <debugFile.json> <file.kar>")
-				exitProcess(1)
-			}
-			val debugEngine = DebugEngine(Json.decodeFromString<DebugFile>(File(args[1]).readText()))
-			execute.execute(File(args[2]), debugEngine)
-		}
 
 		"help" -> {
 			println(

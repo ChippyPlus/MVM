@@ -1,7 +1,6 @@
 package engine.execution
 
 import data.registers.RegisterType
-import debugger.DebugEngine
 import engine.parser
 import errors
 import helpers.toRegisterType
@@ -40,17 +39,12 @@ class Execute {
 	 *
 	 * @param command The list of instructions to execute.
 	 */
-	fun run(command: List<InstructData>, usingDebugEngine: DebugEngine? = null) {
+	fun run(command: List<InstructData>) {
 
 		while (true) {
 			sleep(hertz)
 
 			vm.pc++
-
-			if (usingDebugEngine != null) {
-				usingDebugEngine.eachInteraction()
-				usingDebugEngine.lineSpecific()
-			}
 			if (vm.pc - 1 == command.size) {
 				break
 			}
@@ -286,8 +280,8 @@ class Execute {
 	 *
 	 * @param file The file containing the assembly code to execute.
 	 */
-	fun execute(file: File, usingDebugTools: DebugEngine? = null) {
+	fun execute(file: File) {
 		val tokens = parser(file.readLines())
-		this.run(command = tokens, usingDebugEngine = usingDebugTools)
+		this.run(command = tokens)
 	}
 }
