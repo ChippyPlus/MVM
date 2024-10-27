@@ -79,6 +79,7 @@ data class RegisterData(val name: RegisterType, var data: Long?, var dataType: R
 	}
 
 	fun writeDouble(value: Double?) {
+		println()
 		if (value == null) {
 			data = null
 			return

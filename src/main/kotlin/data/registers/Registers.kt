@@ -11,7 +11,11 @@ class Registers {
 
 
 			registers[register] = RegisterData(
+
+
 				name = register, data = null, dataType = if (register.name.startsWith('X')) {
+					RegisterDataType.RFloat
+				} else if (register.name == "R5") {
 					RegisterDataType.RFloat
 				} else {
 					RegisterDataType.RLong
