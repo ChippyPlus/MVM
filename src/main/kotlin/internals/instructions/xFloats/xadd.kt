@@ -1,23 +1,18 @@
 package internals.instructions.xFloats
 
+import data.registers.FDRegister
 import data.registers.RegisterType
-import errors
 import registers
-import kotlin.system.exitProcess
 
 fun XFloats.xAdd(operand1: RegisterType, operand2: RegisterType) {
 	val o1 = registers.readX(operand1)
 	val o2 = registers.readX(operand2)
 
-	val out = if (o1 is Double && o2 is Double) {
-		o1 + o2
-	} else if (o1 is Float && o2 is Float) {
-		o1 + o2
+	if (o1.isDouble && o2.isDouble) {
+		val out = (Double.fromBits(o1.value) + Double.fromBits(o2.value)).toBits()
+		registers.writeX(RegisterType.R5, FDRegister(true, out))
 	} else {
-		errors.InvalidRegisterTypeException("$operand1 and $operand2 are not the same type")
-		exitProcess(1)
+		val out = (Float.fromBits(o1.value.toInt()) + Float.fromBits(o2.value.toInt())).toBits().toLong()
+		registers.writeX(RegisterType.R5, FDRegister(false, out))
 	}
-
-
-	registers.writeX(RegisterType.R5, out)
 }

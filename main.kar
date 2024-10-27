@@ -1,9 +1,5 @@
-
-settype x1 double
-settype x2 double
-settype r5 double
 XLIT X1 0.1
 XLIT X2 0.2
 XADD X1 X2
 cpy r5 f1
-call strings.cheekydouble
+call strings.cheekyfloat

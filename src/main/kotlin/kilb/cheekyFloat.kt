@@ -6,5 +6,5 @@ import registers
 
 // turns F1 into a renderable float
 fun Klib.cheekyFloat() {
-	println(registers.readFloat(RegisterType.F1))
+	println(Float.fromBits(registers.readX(RegisterType.F1).value.toInt()))
 }

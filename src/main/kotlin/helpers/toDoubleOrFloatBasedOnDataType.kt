@@ -4,14 +4,14 @@ import data.registers.RegisterDataType
 import data.registers.RegisterType
 import registers
 
-fun String.toDoubleOrFloatBasedOnDataType(register: RegisterType): Number {
+fun String.toDoubleOrFloatBasedOnDataType(register: RegisterType): Long {
 	return when (registers.registers[register]!!.dataType) {
 		RegisterDataType.RFloat -> {
-			this.toFloat()
+			this.toFloat().toBits().toLong()
 		}
 
 		RegisterDataType.RDouble -> {
-			this.toDouble()
+			this.toDouble().toBits()
 		}
 
 		else -> {

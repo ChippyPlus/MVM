@@ -3,6 +3,10 @@ package data.registers
 import errors
 import kotlin.system.exitProcess
 
+
+data class FDRegister(val isDouble: Boolean, val value: Long)
+
+
 class Registers {
 	val registers = mutableMapOf<RegisterType, RegisterData>()
 
@@ -27,59 +31,24 @@ class Registers {
 	fun readUnsafe(register: RegisterType): Long? = registers[register]!!.read()
 
 
-	fun readFloatUnsafe(registerX: RegisterType): Float {
-		return registers[registerX]!!.readFloat()
-	}
-
-	fun readFloat(registerX: RegisterType) = try {
-		readFloatUnsafe(registerX)
-	} catch (_: NullPointerException) {
-		errors.NullRegisterException(registerX)
-		exitProcess(1)
-	}
-
-	fun readDoubleUnsafe(registerX: RegisterType): Double {
-		return registers[registerX]!!.readDouble()
-	}
-
-	fun readDouble(registerX: RegisterType) = try {
-		readDoubleUnsafe(registerX)
-	} catch (_: NullPointerException) {
-		errors.NullRegisterException(registerX)
-		exitProcess(1)
-	}
-
-
-	fun writeX(registerX: RegisterType, value: Number) {
-		if (registers[registerX]!!.dataType == RegisterDataType.RFloat) {
-			writeFloatUnsafe(registerX, value as Float)
-		} else if (registers[registerX]!!.dataType == RegisterDataType.RDouble) {
-			writeDoubleUnsafe(registerX, value as Double)
-		}
-	}
-
-	fun readX(registerX: RegisterType): Number {
+	fun readX(registerX: RegisterType): FDRegister {
 		return if (registers[registerX]!!.dataType == RegisterDataType.RFloat) {
-			readFloatUnsafe(registerX)
+			FDRegister(false, registers[registerX]!!.data!!)
 		} else {
-			readDoubleUnsafe(registerX)
+			FDRegister(true, registers[registerX]!!.data!!)
+		}
+	}
+
+	fun writeX(registerX: RegisterType, valueX: FDRegister) {
+		if (valueX.isDouble) {
+			write(registerX, valueX.value)
 		}
 	}
 
 
-	fun writeDoubleUnsafe(registerX: RegisterType, valueX: Double?) {
-		registers[registerX]!!.writeDouble(valueX)
+	fun writeX(registerX: RegisterType, valueX: Long) {
+		write(registerX, valueX)
 	}
-
-	fun writeDouble(registerX: RegisterType, valueX: Double) = writeDoubleUnsafe(registerX, valueX)
-
-
-	fun writeFloatUnsafe(registerX: RegisterType, valueX: Float?) {
-		registers[registerX]!!.writeFloat(valueX)
-	}
-
-	fun writeFloat(registerX: RegisterType, valueX: Float) = writeFloatUnsafe(registerX, valueX)
-
 
 	fun read(register: RegisterType): Long = try {
 		val value = registers[register]!!.read()
