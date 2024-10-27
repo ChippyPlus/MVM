@@ -4,6 +4,7 @@ import data.registers.RegisterDataType
 import data.registers.RegisterType
 import engine.parser
 import errors
+import helpers.toDoubleOrFloatBasedOnDataType
 import helpers.toRegisterType
 import hertz
 import internals.instructions.arithmetic.*
@@ -72,7 +73,10 @@ class Execute {
 				}
 
 				"xlit" -> {
-					vm.xFloats.xLit(args[0] as RegisterType, args[1] as Float)
+					vm.xFloats.xLit(
+						args[0] as RegisterType,
+						(args[1] as String).toDoubleOrFloatBasedOnDataType(args[0] as RegisterType)
+					)
 				}
 
 				"xadd" -> {

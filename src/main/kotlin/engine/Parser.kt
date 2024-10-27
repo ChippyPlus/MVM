@@ -39,7 +39,7 @@ fun parser(file: List<String>): List<InstructData> {
 
 
 					"xlit" -> {
-						InstructData(name = "xlit", values = arrayOf(line[1].toRegisterType(), line[2].toFloat()))
+						InstructData(name = "xlit", values = arrayOf(line[1].toRegisterType(), line[2]))
 					}
 
 

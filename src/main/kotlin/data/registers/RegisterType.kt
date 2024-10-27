@@ -121,6 +121,14 @@ data class RegisterData(val name: RegisterType, var data: Long?, var dataType: R
 			RDouble -> RDouble
 		}
 
+//		data = when(newType) {
+//			RByte -> data?.toByte()
+//			RShort -> data?.toShort()
+//			RInt -> data?.toInt()
+//			RLong -> data?.toLong()
+//			RFloat -> data?.toFloat()?.toBits()
+//			RDouble -> data?.toDouble()?.toBits()
+//		}?.toLong()
 	}
 
 }
