@@ -51,11 +51,6 @@ class Registers {
 
 
 	fun writeX(registerX: RegisterType, value: Number) {
-		println(value)
-		println(registers[registerX])
-		println("Is double: ${value is Double}")
-		println("Is float: ${value is Float}")
-
 		if (registers[registerX]!!.dataType == RegisterDataType.RFloat) {
 			writeFloatUnsafe(registerX, value as Float)
 		} else if (registers[registerX]!!.dataType == RegisterDataType.RDouble) {

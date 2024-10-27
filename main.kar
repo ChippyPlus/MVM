@@ -6,4 +6,4 @@ XLIT X1 0.1
 XLIT X2 0.2
 XADD X1 X2
 cpy r5 f1
-call strings.cheekyfloat
+call strings.cheekydouble
