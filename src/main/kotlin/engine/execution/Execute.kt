@@ -76,6 +76,10 @@ class Execute {
 					)
 				}
 
+				"xpow" -> {
+					vm.xFloats.xPow(args[0] as RegisterType, args[1] as RegisterType)
+				}
+
 				"xsub" -> {
 					vm.xFloats.xSub(args[0] as RegisterType, args[1] as RegisterType)
 				}
