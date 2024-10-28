@@ -4,6 +4,11 @@ import data.registers.RegisterType
 import registers
 
 fun XFloats.ftoi(registerX: RegisterType, register: RegisterType) {
-	val valueFloat = registers.readX(registerX)
-	registers.write(register, valueFloat.value)
+	val valueLong = registers.readX(registerX)
+
+	if (valueLong.isDouble) {
+		registers.writeX(registerX, Double.fromBits(valueLong.value).toLong())
+	} else {
+		registers.writeX(registerX, Float.fromBits(valueLong.value.toInt()).toLong())
+	}
 }
