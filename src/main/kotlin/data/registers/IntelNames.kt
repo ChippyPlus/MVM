@@ -54,7 +54,7 @@ class IntelNames {
 		IntelRegisters.SF -> RegisterType.I2
 		IntelRegisters.GF -> RegisterType.I3
 		IntelRegisters.EF -> RegisterType.I4
-		IntelRegisters.SCSF -> RegisterType.I5 // todo, actually implement
+		IntelRegisters.SCSF -> RegisterType.I5
 		IntelRegisters.ENSF -> RegisterType.I6
 		IntelRegisters.ESF -> RegisterType.I7
 

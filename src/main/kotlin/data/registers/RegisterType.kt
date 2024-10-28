@@ -1,8 +1,6 @@
 package data.registers
 
 import data.registers.RegisterDataType.*
-import errors
-import kotlin.system.exitProcess
 
 /**
  * Represents a supertype encompassing all register types in the virtual machine.
@@ -60,56 +58,8 @@ data class RegisterData(val name: RegisterType, var data: Long?, var dataType: R
 	}
 
 
-	fun readDouble(): Double {
-		return try {
-			Double.fromBits(data!!)
-		} catch (_: NullPointerException) {
-			errors.NullRegisterException(name)
-			exitProcess(1)
-		}
-	}
-
-	fun readFloat(): Float {
-		return try {
-			Float.fromBits(data!!.toInt())
-		} catch (_: NullPointerException) {
-			errors.NullRegisterException(name)
-			exitProcess(1)
-		}
-	}
-
-	fun writeDouble(value: Double?) {
-		if (value == null) {
-			data = null
-			return
-		}
-		data = when (dataType) {
-			RByte -> value.toInt().toByte()
-			RShort -> value.toInt().toShort()
-			RInt -> value.toInt()
-			RLong -> value.toLong()
-			RFloat -> value.toFloat()
-			RDouble -> value.toDouble()
-
-		}.toDouble().toBits()
-	}
 
 
-	fun writeFloat(value: Float?) {
-		if (value == null) {
-			data = null
-			return
-		}
-		data = when (dataType) {
-			RByte -> value.toInt().toByte()
-			RShort -> value.toInt().toShort()
-			RInt -> value.toInt()
-			RLong -> value.toLong()
-			RFloat -> value.toFloat()
-			RDouble -> value.toDouble()
-
-		}.toFloat().toBits().toLong()
-	}
 
 	fun settype(newType: RegisterDataType) {
 		dataType = when (newType) {
@@ -121,14 +71,6 @@ data class RegisterData(val name: RegisterType, var data: Long?, var dataType: R
 			RDouble -> RDouble
 		}
 
-//		data = when(newType) {
-//			RByte -> data?.toByte()
-//			RShort -> data?.toShort()
-//			RInt -> data?.toInt()
-//			RLong -> data?.toLong()
-//			RFloat -> data?.toFloat()?.toBits()
-//			RDouble -> data?.toDouble()?.toBits()
-//		}?.toLong()
 	}
 
 }

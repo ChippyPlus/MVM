@@ -93,7 +93,7 @@ fun parser(file: List<String>): List<InstructData> {
 					"syscall" -> {
 						InstructData(
 							name = "syscall", arrayOf(
-								RegisterType.S0, RegisterType.S1, RegisterType.S2, RegisterType.S3
+								RegisterType.S1, RegisterType.S2, RegisterType.S3, RegisterType.S4
 							)
 
 						)
