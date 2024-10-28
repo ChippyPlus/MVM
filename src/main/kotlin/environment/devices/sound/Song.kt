@@ -1,21 +1,23 @@
 package environment.devices.sound
 
-class Song(vararg notesInit: Notes) {
-	val songArray = mutableListOf<Notes>()
+class Song(vararg noteInit: Note) {
+	val songArray = mutableListOf<Note>()
+	private var index = 0
 
 	init {
-		for (note in notesInit) {
+		for (note in noteInit) {
 			songArray += note
 		}
 	}
 
-	operator fun plusAssign(note: Notes) {
+
+	operator fun plusAssign(note: Note) {
 		songArray.add(note)
 	}
 
 	override fun toString(): String = songArray.joinToString()
 
 
-	fun show(): List<Notes> = songArray
+	fun show(): List<Note> = songArray
 
 }

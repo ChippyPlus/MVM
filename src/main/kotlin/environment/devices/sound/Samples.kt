@@ -3,150 +3,150 @@ package environment.devices.sound
 
 class Samples {
 	class Samples {
-		val ascendingScale = Song(Notes.C, Notes.D, Notes.E, Notes.F, Notes.G, Notes.A, Notes.B)
-		val simpleStaccato = Song(Notes.C, Notes.C, Notes.D, Notes.D, Notes.E, Notes.E)
-		val descendingScale = Song(Notes.G, Notes.F, Notes.E, Notes.D, Notes.C)
-		val simpleArpeggio = Song(Notes.C, Notes.E, Notes.G, Notes.C)
-		val minorArpeggio = Song(Notes.D, Notes.F, Notes.A, Notes.C)
-		val majorArpeggio = Song(Notes.E, Notes.G, Notes.B, Notes.D)
-		val minorSeventhChord = Song(Notes.F, Notes.A, Notes.C, Notes.E)
-		val majorSeventhChord = Song(Notes.G, Notes.B, Notes.D, Notes.F)
-		val minorNinthChord = Song(Notes.A, Notes.C, Notes.E, Notes.G)
-		val majorNinthChord = Song(Notes.B, Notes.D, Notes.F, Notes.A)
+		val ascendingScale = Song(Note.C, Note.D, Note.E, Note.F, Note.G, Note.A, Note.B)
+		val simpleStaccato = Song(Note.C, Note.C, Note.D, Note.D, Note.E, Note.E)
+		val descendingScale = Song(Note.G, Note.F, Note.E, Note.D, Note.C)
+		val simpleArpeggio = Song(Note.C, Note.E, Note.G, Note.C)
+		val minorArpeggio = Song(Note.D, Note.F, Note.A, Note.C)
+		val majorArpeggio = Song(Note.E, Note.G, Note.B, Note.D)
+		val minorSeventhChord = Song(Note.F, Note.A, Note.C, Note.E)
+		val majorSeventhChord = Song(Note.G, Note.B, Note.D, Note.F)
+		val minorNinthChord = Song(Note.A, Note.C, Note.E, Note.G)
+		val majorNinthChord = Song(Note.B, Note.D, Note.F, Note.A)
 		val descendingChromaticScale =
-			Song(Notes.C, Notes.D, Notes.E, Notes.F, Notes.G, Notes.F, Notes.E, Notes.D, Notes.C)
+			Song(Note.C, Note.D, Note.E, Note.F, Note.G, Note.F, Note.E, Note.D, Note.C)
 		val ascendingChromaticScale =
-			Song(Notes.C, Notes.D, Notes.E, Notes.F, Notes.G, Notes.G, Notes.F, Notes.E, Notes.D, Notes.C)
+			Song(Note.C, Note.D, Note.E, Note.F, Note.G, Note.G, Note.F, Note.E, Note.D, Note.C)
 		val chromaticScaleUpAndDown =
-			Song(Notes.C, Notes.D, Notes.E, Notes.F, Notes.G, Notes.A, Notes.G, Notes.F, Notes.E, Notes.D, Notes.C)
+			Song(Note.C, Note.D, Note.E, Note.F, Note.G, Note.A, Note.G, Note.F, Note.E, Note.D, Note.C)
 		val wholeToneScale = Song(
-			Notes.C,
-			Notes.D,
-			Notes.E,
-			Notes.F,
-			Notes.G,
-			Notes.A,
-			Notes.B,
-			Notes.A,
-			Notes.G,
-			Notes.F,
-			Notes.E,
-			Notes.D,
-			Notes.C
+			Note.C,
+			Note.D,
+			Note.E,
+			Note.F,
+			Note.G,
+			Note.A,
+			Note.B,
+			Note.A,
+			Note.G,
+			Note.F,
+			Note.E,
+			Note.D,
+			Note.C
 		)
-		val repeatedNotes = Song(
-			Notes.C,
-			Notes.C,
-			Notes.D,
-			Notes.D,
-			Notes.E,
-			Notes.E,
-			Notes.F,
-			Notes.F,
-			Notes.G,
-			Notes.G,
-			Notes.A,
-			Notes.A,
-			Notes.B,
-			Notes.B
+		val repeatedNote = Song(
+			Note.C,
+			Note.C,
+			Note.D,
+			Note.D,
+			Note.E,
+			Note.E,
+			Note.F,
+			Note.F,
+			Note.G,
+			Note.G,
+			Note.A,
+			Note.A,
+			Note.B,
+			Note.B
 		)
 		val descendingChromaticWithRepeatedNotes = Song(
-			Notes.C,
-			Notes.D,
-			Notes.E,
-			Notes.F,
-			Notes.G,
-			Notes.A,
-			Notes.B,
-			Notes.C,
-			Notes.B,
-			Notes.A,
-			Notes.G,
-			Notes.F,
-			Notes.E,
-			Notes.D,
-			Notes.C
+			Note.C,
+			Note.D,
+			Note.E,
+			Note.F,
+			Note.G,
+			Note.A,
+			Note.B,
+			Note.C,
+			Note.B,
+			Note.A,
+			Note.G,
+			Note.F,
+			Note.E,
+			Note.D,
+			Note.C
 		)
 		val descendingChromaticWithTriplets = Song(
-			Notes.C,
-			Notes.D,
-			Notes.E,
-			Notes.F,
-			Notes.G,
-			Notes.A,
-			Notes.B,
-			Notes.C,
-			Notes.C,
-			Notes.B,
-			Notes.A,
-			Notes.G,
-			Notes.F,
-			Notes.E,
-			Notes.D,
-			Notes.C
+			Note.C,
+			Note.D,
+			Note.E,
+			Note.F,
+			Note.G,
+			Note.A,
+			Note.B,
+			Note.C,
+			Note.C,
+			Note.B,
+			Note.A,
+			Note.G,
+			Note.F,
+			Note.E,
+			Note.D,
+			Note.C
 		)
 		val descendingChromaticWithQuadruplets = Song(
-			Notes.C,
-			Notes.D,
-			Notes.E,
-			Notes.F,
-			Notes.G,
-			Notes.A,
-			Notes.B,
-			Notes.C,
-			Notes.C,
-			Notes.C,
-			Notes.B,
-			Notes.A,
-			Notes.G,
-			Notes.F,
-			Notes.E,
-			Notes.D,
-			Notes.C
+			Note.C,
+			Note.D,
+			Note.E,
+			Note.F,
+			Note.G,
+			Note.A,
+			Note.B,
+			Note.C,
+			Note.C,
+			Note.C,
+			Note.B,
+			Note.A,
+			Note.G,
+			Note.F,
+			Note.E,
+			Note.D,
+			Note.C
 		)
 		val ascendingAndDescendingScales = Song(
-			Notes.C,
-			Notes.D,
-			Notes.E,
-			Notes.F,
-			Notes.G,
-			Notes.A,
-			Notes.B,
-			Notes.C,
-			Notes.D,
-			Notes.C,
-			Notes.B,
-			Notes.A,
-			Notes.G,
-			Notes.F,
-			Notes.E,
-			Notes.D,
-			Notes.C
+			Note.C,
+			Note.D,
+			Note.E,
+			Note.F,
+			Note.G,
+			Note.A,
+			Note.B,
+			Note.C,
+			Note.D,
+			Note.C,
+			Note.B,
+			Note.A,
+			Note.G,
+			Note.F,
+			Note.E,
+			Note.D,
+			Note.C
 		)
 		val fullChromaticScaleUpAndDown = Song(
-			Notes.C,
-			Notes.D,
-			Notes.E,
-			Notes.F,
-			Notes.G,
-			Notes.A,
-			Notes.B,
-			Notes.C,
-			Notes.D,
-			Notes.E,
-			Notes.F,
-			Notes.G,
-			Notes.F,
-			Notes.E,
-			Notes.D,
-			Notes.C,
-			Notes.B,
-			Notes.A,
-			Notes.G,
-			Notes.F,
-			Notes.E,
-			Notes.D,
-			Notes.C
+			Note.C,
+			Note.D,
+			Note.E,
+			Note.F,
+			Note.G,
+			Note.A,
+			Note.B,
+			Note.C,
+			Note.D,
+			Note.E,
+			Note.F,
+			Note.G,
+			Note.F,
+			Note.E,
+			Note.D,
+			Note.C,
+			Note.B,
+			Note.A,
+			Note.G,
+			Note.F,
+			Note.E,
+			Note.D,
+			Note.C
 		)
 	}
 }

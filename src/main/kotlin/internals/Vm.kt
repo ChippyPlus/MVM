@@ -1,6 +1,7 @@
 package internals
 
 import config
+import environment.devices.Devices
 import environment.vfs.Vfs
 import internals.instructions.arithmetic.Arithmetic
 import internals.instructions.bitwise.Bitwise
@@ -16,6 +17,9 @@ import internals.instructions.xFloats.XFloats
 import internals.systemCalls.SystemCall
 
 open class Vm {
+
+	val devices = Devices()
+
 	val dataTransfer = DataTransfer()
 	val arithmetic = Arithmetic()
 	val bitwise = Bitwise()
