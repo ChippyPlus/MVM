@@ -1,6 +1,5 @@
 package environment.devices.sound
 
-import environment.sound.sampleRate
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.io.ByteArrayOutputStream
@@ -8,6 +7,9 @@ import javax.sound.sampled.AudioFormat
 import javax.sound.sampled.AudioSystem
 import javax.sound.sampled.Clip
 import kotlin.math.sin
+
+const val sampleRate = 44100
+
 
 class Sound {
 	fun play(frequency: Float, duration: Float) {
