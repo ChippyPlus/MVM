@@ -144,7 +144,7 @@ class ExecutionV2 {
 				}
 
 				'w' -> {
-					vm.systemCall.execute(S0, S1, S2, S3)
+					vm.systemCall.execute(S1, S2, S3, S4)
 				}
 
 				'x' -> {

@@ -1,84 +1,84 @@
 // compare 0 - 48
-lit if1 48
-EQ if1 f1 // Compare F1 to 0
+lit g1 48
+EQ g1 f1 // Compare F1 to 0
 JNZ 10 r4
-lit if1 0
-push if1
+lit g1 0
+push g1
 ret
 
 
-lit if1 49
-eq if1 f1 // compare f1 to 1
+lit g1 49
+eq g1 f1 // compare f1 to 1
 JNZ 18 r4
-lit if1 1
-push if1
+lit g1 1
+push g1
 ret
 
 
-lit if1 50
-eq if1 f1 // compare f1 to 1
+lit g1 50
+eq g1 f1 // compare f1 to 1
 JNZ 26 r4
-lit if1 2
-push if1
+lit g1 2
+push g1
 ret
 
 
-lit if1 51
-eq if1 f1 // compare f1 to 1
+lit g1 51
+eq g1 f1 // compare f1 to 1
 JNZ 34 r4
-lit if1 3
-push if1
+lit g1 3
+push g1
 ret
 
 
-lit if1 52
-eq if1 f1 // compare f1 to 1
+lit g1 52
+eq g1 f1 // compare f1 to 1
 JNZ 42 r4
-lit if1 4
-push if1
+lit g1 4
+push g1
 ret
 
 
-lit if1 53
-eq if1 f1 // compare f1 to 1
+lit g1 53
+eq g1 f1 // compare f1 to 1
 JNZ 50 r4
-lit if1 5
-push if1
+lit g1 5
+push g1
 ret
 
 
-lit if1 54
-eq if1 f1 // compare f1 to 1
+lit g1 54
+eq g1 f1 // compare f1 to 1
 JNZ 58 r4
-lit if1 6
-push if1
+lit g1 6
+push g1
 ret
 
 
-lit if1 55
-eq if1 f1 // compare f1 to 1
+lit g1 55
+eq g1 f1 // compare f1 to 1
 JNZ 66 r4
-lit if1 7
-push if1
+lit g1 7
+push g1
 ret
 
 
-lit if1 56
-eq if1 f1 // compare f1 to 1
+lit g1 56
+eq g1 f1 // compare f1 to 1
 JNZ 74 r4
-lit if1 8
-push if1
+lit g1 8
+push g1
 ret
 
 
-lit if1 57
-eq if1 f1 // compare f1 to 1
+lit g1 57
+eq g1 f1 // compare f1 to 1
 JNZ 82 r4
-lit if1 9
-push if1
+lit g1 9
+push g1
 ret
 
 
-lit if1 -1
-push if1
+lit g1 -1
+push g1
 ret

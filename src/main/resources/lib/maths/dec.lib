@@ -1,4 +1,4 @@
 // decrement the value in F1 by 1 and push
-LIT IF1 1
-SUB F1 IF1
+LIT G1 1
+SUB F1 G1
 PUSH R4

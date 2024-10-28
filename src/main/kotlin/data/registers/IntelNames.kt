@@ -50,13 +50,13 @@ val intelNames = IntelNames()
 
 class IntelNames {
 	operator fun get(registers: IntelRegisters) = when (registers) {
-		IntelRegisters.ZF -> RegisterType.I0
-		IntelRegisters.SF -> RegisterType.I1
-		IntelRegisters.GF -> RegisterType.I2
-		IntelRegisters.EF -> RegisterType.I3
-		IntelRegisters.SCSF -> RegisterType.I4 // todo, actually implement
-		IntelRegisters.ENSF -> RegisterType.I5
-		IntelRegisters.ESF -> RegisterType.I6
+		IntelRegisters.ZF -> RegisterType.I1
+		IntelRegisters.SF -> RegisterType.I2
+		IntelRegisters.GF -> RegisterType.I3
+		IntelRegisters.EF -> RegisterType.I4
+		IntelRegisters.SCSF -> RegisterType.I5 // todo, actually implement
+		IntelRegisters.ENSF -> RegisterType.I6
+		IntelRegisters.ESF -> RegisterType.I7
 
 	}
 }

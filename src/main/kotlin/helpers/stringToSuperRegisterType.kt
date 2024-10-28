@@ -15,7 +15,6 @@ fun String.toUnsafeRegisterType(): RegisterType? {
 
 
 	return when (this.lowercase()) {
-		"g0" -> RegisterType.G0
 		"g1" -> RegisterType.G1
 		"g2" -> RegisterType.G2
 		"g3" -> RegisterType.G3
@@ -24,14 +23,12 @@ fun String.toUnsafeRegisterType(): RegisterType? {
 		"g6" -> RegisterType.G6
 		"g7" -> RegisterType.G7
 		"g8" -> RegisterType.G8
-		"g9" -> RegisterType.G9
 
-		"s0" -> RegisterType.S0
 		"s1" -> RegisterType.S1
 		"s2" -> RegisterType.S2
 		"s3" -> RegisterType.S3
+		"s4" -> RegisterType.S4
 
-		"r0" -> RegisterType.R0
 		"r1" -> RegisterType.R1
 		"r2" -> RegisterType.R2
 		"r3" -> RegisterType.R3
@@ -40,9 +37,7 @@ fun String.toUnsafeRegisterType(): RegisterType? {
 		"r6" -> RegisterType.R6
 		"r7" -> RegisterType.R7
 		"r8" -> RegisterType.R8
-		"r9" -> RegisterType.R9
 
-		"f0" -> RegisterType.F0
 		"f1" -> RegisterType.F1
 		"f2" -> RegisterType.F2
 		"f3" -> RegisterType.F3
@@ -51,9 +46,7 @@ fun String.toUnsafeRegisterType(): RegisterType? {
 		"f6" -> RegisterType.F6
 		"f7" -> RegisterType.F7
 		"f8" -> RegisterType.F8
-		"f9" -> RegisterType.F9
 
-		"if0" -> RegisterType.IF0
 		"if1" -> RegisterType.IF1
 		"if2" -> RegisterType.IF2
 		"if3" -> RegisterType.IF3
@@ -62,9 +55,7 @@ fun String.toUnsafeRegisterType(): RegisterType? {
 		"if6" -> RegisterType.IF6
 		"if7" -> RegisterType.IF7
 		"if8" -> RegisterType.IF8
-		"if9" -> RegisterType.IF9
 
-		"i0" -> RegisterType.I0
 		"i1" -> RegisterType.I1
 		"i2" -> RegisterType.I2
 		"i3" -> RegisterType.I3
@@ -73,9 +64,7 @@ fun String.toUnsafeRegisterType(): RegisterType? {
 		"i6" -> RegisterType.I6
 		"i7" -> RegisterType.I7
 		"i8" -> RegisterType.I8
-		"i9" -> RegisterType.I9
 
-		"x0" -> RegisterType.X0
 		"x1" -> RegisterType.X1
 		"x2" -> RegisterType.X2
 		"x3" -> RegisterType.X3
@@ -84,7 +73,6 @@ fun String.toUnsafeRegisterType(): RegisterType? {
 		"x6" -> RegisterType.X6
 		"x7" -> RegisterType.X7
 		"x8" -> RegisterType.X8
-		"x9" -> RegisterType.X9
 
 
 		else -> null
