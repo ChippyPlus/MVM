@@ -115,7 +115,7 @@ fun parser(file: List<String>): List<InstructData> {
 					"mod", "add", "sub", "mul", "div", "eq",
 					"shl", "shr", "mov", "cpy", "and", "or",
 					"xor", "find", "strcat", "strcmp", "strcpy",
-					"lt", "gt", "pow", "xadd", "xmul", "xdiv", "xpow",
+					"lt", "gt", "pow", "xadd", "xsub", "xmul", "xdiv", "xpow",
 					"itof", "ftoi",
 						-> {
 						InstructData(

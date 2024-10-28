@@ -22,10 +22,7 @@ import internals.instructions.stackOperations.peek
 import internals.instructions.stackOperations.pop
 import internals.instructions.stackOperations.push
 import internals.instructions.strings.*
-import internals.instructions.xFloats.ftoi
-import internals.instructions.xFloats.itof
-import internals.instructions.xFloats.xAdd
-import internals.instructions.xFloats.xLit
+import internals.instructions.xFloats.*
 import libExecute
 import registers
 import vm
@@ -77,6 +74,18 @@ class Execute {
 						args[0] as RegisterType,
 						(args[1] as String).toDoubleOrFloatBasedOnDataType(args[0] as RegisterType)
 					)
+				}
+
+				"xsub" -> {
+					vm.xFloats.xSub(args[0] as RegisterType, args[1] as RegisterType)
+				}
+
+				"xmul" -> {
+					vm.xFloats.xMul(args[0] as RegisterType, args[1] as RegisterType)
+				}
+
+				"xdiv" -> {
+					vm.xFloats.xDiv(args[0] as RegisterType, args[1] as RegisterType)
 				}
 
 				"xadd" -> {
