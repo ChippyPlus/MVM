@@ -1,5 +1,2 @@
-XLIT X1 0.1
-XLIT X2 0.2
-XADD X1 X2
-cpy r5 f1
+lit f1 25
 call strings.cheekyfloat

@@ -40,9 +40,7 @@ class Registers {
 	}
 
 	fun writeX(registerX: RegisterType, valueX: FDRegister) {
-		if (valueX.isDouble) {
-			write(registerX, valueX.value)
-		}
+		write(registerX, valueX.value)
 	}
 
 
