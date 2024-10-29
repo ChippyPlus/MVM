@@ -1,8 +1,4 @@
-help printr
-str f1 "Hello, World!"
-call println
-xlit x1 0.2
-xlit x2 3.14
-xadd x1 x2
-cpy r5 f1
-call strings.cheekyfloat
+settype f1 float
+xlit f1 10
+printr f1
+call arrays.create

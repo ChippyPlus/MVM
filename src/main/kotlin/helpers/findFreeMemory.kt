@@ -1,35 +1,29 @@
 package helpers
 
+import MEMORY_LIMIT
+import data.memory.MemoryAddress
 import errors
 import internalMemory
+import kotlin.system.exitProcess
 
 
 // should work with writeClosestString
 fun findFreeMemory(size: Long): Long {
-	val possibleStarts = emptyMap<Long?, Any?>().toMutableMap()
+	var currentAddress = 0L
+	var freeCount = 0L
 
-	internalMemory.memory.forEach {
-		possibleStarts[it.key.address] = it.value.value
-	}
-	possibleStarts.filter { it.value == 0 }
-
-	// Find a SPOT for a starting address for the string
-	var spot: Long? = null
-	for (i in possibleStarts.keys) {
-		var count = 0L
-		for (j in 0L..size) {
-			if (possibleStarts[i!! + j] == null) {
-				count++
+	while (currentAddress + size <= MEMORY_LIMIT) {
+		if (internalMemory.memory[MemoryAddress(currentAddress)]?.value == null) {
+			freeCount++
+			if (freeCount == size + 1L) { // Found enough contiguous free space (including null terminator)
+				return currentAddress - size
 			}
+		} else {
+			freeCount = 0L // Reset the count if we encounter an allocated word
 		}
-		if (count == size + 1L) {
-			spot = i
-			break
-		}
+		currentAddress++
 	}
 
-	if (spot == null) {
-		errors.MemoryAllocationException("Could not allocate memory")
-	}
-	return spot!!
+	errors.MemoryAllocationException("Could not allocate memory")
+	exitProcess(1)
 }
