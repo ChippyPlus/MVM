@@ -1,8 +1,8 @@
-help printr
-str f1 "Hello, World!"
-call println
-xlit x1 0.2
-xlit x2 3.14
-xadd x1 x2
-cpy r5 f1
-call strings.cheekyfloat
+lit s1 7
+settype s4 float
+settype s3 float
+settype s2 float
+xlit s2 740
+xlit s3 15
+xlit s4 1
+syscall

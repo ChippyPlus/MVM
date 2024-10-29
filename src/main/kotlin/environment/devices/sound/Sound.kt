@@ -29,7 +29,6 @@ class Sound {
 			val angle = (2.0 * Math.PI * i * frequency) / sampleRate
 			val sample = sin(angle)
 
-			// Apply master volume to the sample
 			val byteSample = (sample * 127 * masterVolume).toInt().toByte()
 			byteArrayOutputStream.write(byteSample.toInt())
 			i++
