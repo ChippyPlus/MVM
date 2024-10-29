@@ -15,11 +15,11 @@ fun findFreeMemory(size: Long): Long {
 	while (currentAddress + size <= MEMORY_LIMIT) {
 		if (internalMemory.memory[MemoryAddress(currentAddress)]?.value == null) {
 			freeCount++
-			if (freeCount == size + 1L) { // Found enough contiguous free space (including null terminator)
+			if (freeCount == size + 1L) {
 				return currentAddress - size
 			}
 		} else {
-			freeCount = 0L // Reset the count if we encounter an allocated word
+			freeCount = 0L
 		}
 		currentAddress++
 	}
