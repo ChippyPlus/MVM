@@ -2,8 +2,8 @@
 // f2 = value
 lit s1 27
 call arrays.size
-cpy f1 s1
-pop s2
-mov f2 s3
+cpy f1 s2
+pop s3
+mov f2 s4
 syscall
 
