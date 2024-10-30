@@ -16,6 +16,7 @@ import registers
  * @param addressRegister The register containing the memory address of the first character of the string.
  * @throws GeneralStringException If an error occurs during the string length calculation.
  */
+@Deprecated("Moved into stdlib functions")
 fun Strings.strlen(addressRegister: RegisterType): Unit = try {
 	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
 

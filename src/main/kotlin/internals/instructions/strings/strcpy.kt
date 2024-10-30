@@ -18,6 +18,7 @@ import registers
  * @throws GeneralStringException If an error occurs during the string copy.
  */
 
+@Deprecated("Moved into stdlib functions")
 fun Strings.strcpy(source: RegisterType, destination: RegisterType): Unit = try {
     registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
 

@@ -18,6 +18,7 @@ import registers
  * @param string2 The register containing the memory address of the second string.
  * @throws GeneralStringException If an error occurs during the string comparison.
  */
+@Deprecated("Moved into stdlib functions")
 fun Strings.strcmp(string1: RegisterType, string2: RegisterType) = try {
 	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
 
