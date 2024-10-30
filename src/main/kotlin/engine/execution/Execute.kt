@@ -148,23 +148,6 @@ class Execute {
 					vm.strings.str(args[0].toString().toRegisterType(), args[1].toString())
 				}
 
-				"strcmp" -> {
-					vm.strings.strcmp(
-						string1 = args[0] as RegisterType, string2 = args[1] as RegisterType
-					)
-				}
-
-				"strcat" -> {
-					vm.strings.strcat(
-						string1 = args[0] as RegisterType, string2 = args[1] as RegisterType
-					)
-				}
-
-				"strcpy" -> {
-					vm.strings.strcpy(
-						source = args[0] as RegisterType, destination = args[1] as RegisterType
-					)
-				}
 
 				"cpy" -> {
 					vm.dataTransfer.cpy(
@@ -206,10 +189,6 @@ class Execute {
 					vm.arithmetic.eq(
 						operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
 					)
-				}
-
-				"strlen" -> {
-					vm.strings.strlen(addressRegister = args[0] as RegisterType)
 				}
 
 				"lit" -> {

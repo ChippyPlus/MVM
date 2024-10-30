@@ -65,8 +65,8 @@ fun parser(file: List<String>): List<InstructData> {
 
 					// Register Register Register
 					// What is substr? Ive never seen this. Oh well
-					"substr" -> {
-						InstructData(
+					"substr" -> { // Meant to leave in the string deprecation via new stdlib. But this can stay
+						InstructData( // for reasons
 							name = "substr", arrayOf(
 								line[1].toRegisterType(), line[2].toRegisterType(), line[3].toRegisterType()
 							)
@@ -114,8 +114,7 @@ fun parser(file: List<String>): List<InstructData> {
 					// Register Register
 					"mod", "add", "sub", "mul", "div", "eq",
 					"shl", "shr", "mov", "cpy", "and", "or",
-					"xor", "find", "strcat", "strcmp", "strcpy",
-					"lt", "gt", "pow", "xadd", "xsub", "xmul", "xdiv", "xpow",
+					"xor", "lt", "gt", "pow", "xadd", "xsub", "xmul", "xdiv", "xpow",
 					"itof", "ftoi",
 						-> {
 						InstructData(
@@ -134,7 +133,7 @@ fun parser(file: List<String>): List<InstructData> {
 
 
 					// Register
-					"not", "printr", "peek", "pop", "push", "strlen", "inr", "dealloc" -> {
+					"not", "printr", "peek", "pop", "push", "inr", "dealloc" -> {
 						InstructData(
 							name = instruction, arrayOf(line[1].toRegisterType())
 						)
