@@ -3,8 +3,8 @@ package engine.v2
 import data.registers.RegisterType
 import data.registers.RegisterType.*
 
+@Deprecated("to complicated to maintain. I wonder where v3 is?")
 class TransMapIDs {
-
 	val uRegisters = mutableMapOf<Char, RegisterType>()
 
 	init {

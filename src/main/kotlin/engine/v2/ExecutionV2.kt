@@ -22,6 +22,7 @@ import internals.instructions.strings.*
 import vm
 import java.lang.Thread.sleep
 
+@Deprecated("to complicated to maintain. I wonder where v3 is?")
 class ExecutionV2 {
 	fun execute(f: String) {
 

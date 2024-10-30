@@ -2,6 +2,8 @@ package engine.v2
 
 import engine.execution.InstructData
 
+
+@Deprecated("to complicated to maintain. I wonder where v3 is?")
 class Compile {
 	val transMapIDs = TransMapIDs()
 	var uneditedFile = ""
