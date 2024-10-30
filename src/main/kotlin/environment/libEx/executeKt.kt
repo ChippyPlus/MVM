@@ -7,11 +7,11 @@ import vm
 
 fun ExecuteLib.executeKt(name: String) {
 	val oldPc = vm.pc
-	val snapshot = snapShotRegisters()
+	val snapshot = sm.snapShotRegisters()
 	if (!Klib().match(name)) {
 		errors.MissingLibraryException(name) // Kt should be the last resort
 	}
 	currentFunction = name
-	populateSnapShot(snapshot)
+	sm.populateSnapShot(snapshot)
 	vm.pc = oldPc
 }
