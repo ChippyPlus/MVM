@@ -1,4 +1,3 @@
-
 import data.io.FileDescriptors
 import data.memory.InternalMemory
 import data.registers.Registers
@@ -99,6 +98,11 @@ fun main(args: Array<String>) {
 			exitProcess(1)
 		}
 	}
+
+	exitVM()
 }
+
+
+fun exitVM(): Nothing = exitProcess(0)
 
 

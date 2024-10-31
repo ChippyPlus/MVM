@@ -31,11 +31,8 @@ class TransMapIDs {
 		F2 to '™',
 		F3 to '£',
 		F4 to '¢',
-		IF1 to '∞',
-		IF2 to '§',
-		IF3 to '¶',
-		IF4 to '•'
-	)
+
+		)
 
 	val instructions = mapOf(
 		"mov" to 'a',

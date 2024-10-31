@@ -47,14 +47,6 @@ fun String.toUnsafeRegisterType(): RegisterType? {
 		"f7" -> RegisterType.F7
 		"f8" -> RegisterType.F8
 
-		"if1" -> RegisterType.IF1
-		"if2" -> RegisterType.IF2
-		"if3" -> RegisterType.IF3
-		"if4" -> RegisterType.IF4
-		"if5" -> RegisterType.IF5
-		"if6" -> RegisterType.IF6
-		"if7" -> RegisterType.IF7
-		"if8" -> RegisterType.IF8
 
 		"i1" -> RegisterType.I1
 		"i2" -> RegisterType.I2

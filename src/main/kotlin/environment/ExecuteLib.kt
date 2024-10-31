@@ -6,9 +6,8 @@ import environment.libEx.executeMar
 import environment.libEx.findMarLib
 import java.io.File
 
-
+val snapShotManager = SnapShotManager()
 class ExecuteLib {
-	val sm = SnapShotManager()
 	var currentFunction = ""
 	var enabledFunction = false
 
