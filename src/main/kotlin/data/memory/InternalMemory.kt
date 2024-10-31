@@ -10,7 +10,7 @@ import errors
  */
 class InternalMemory {
 
-	val memory = emptyMap<MemoryAddress, MemoryValue>().toMutableMap()
+	var memory = emptyMap<MemoryAddress, MemoryValue>().toMutableMap()
 
 	init {
 		for (i in 0L until MEMORY_LIMIT) {

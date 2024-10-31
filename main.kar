@@ -1,18 +1,5 @@
-lit g1 1
-lit r4 0
-lit f1 10
-cpy f1 g4
-lit g5 2
-call arrays.create
-
-lt r4 g4
-peek f1
-add g1 r4
-mul r4 g5
-cpy r4 f2
-call arrays.append
-jnz 8 i3
-
-lit g1 3
-load g1 g2
-printr g2
+str f1 "I like dogs"
+lit f2 12
+call strings.strcpy
+load f2 g1
+printr g1

@@ -5,6 +5,7 @@ import engine.execution.InstructData
 
 @Deprecated("to complicated to maintain. I wonder where v3 is?")
 class Compile {
+	@Suppress("DEPRECATION")
 	val transMapIDs = TransMapIDs()
 	var uneditedFile = ""
 	fun execute(input: List<InstructData>): String {

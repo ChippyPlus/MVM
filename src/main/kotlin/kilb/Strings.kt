@@ -24,7 +24,6 @@ class Strings {
 		if (s1 == s2) vm.stackOperations.internalStack.push(true.toLong())
 		else vm.stackOperations.internalStack.push(false.toLong())
 
-
 	}
 
 	fun strcat() {
