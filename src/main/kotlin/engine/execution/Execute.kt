@@ -2,7 +2,8 @@ package engine.execution
 
 import data.registers.RegisterDataType
 import data.registers.RegisterType
-import engine.parser
+import engine.parseEngine.Parse
+import engine.parseEngine.TokenData
 import errors
 import helpers.toDoubleOrFloatBasedOnDataType
 import helpers.toRegisterType
@@ -43,7 +44,7 @@ class Execute {
 	 *
 	 * @param command The list of instructions to execute.
 	 */
-	fun run(command: List<InstructData>) {
+	fun run(command: List<TokenData>) {
 
 		while (true) {
 			sleep(hertz)
@@ -305,7 +306,7 @@ class Execute {
 	 * @param file The file containing the assembly code to execute.
 	 */
 	fun execute(file: File) {
-		val tokens = parser(file.readLines())
+		val tokens = Parse(file).tokenise()
 		this.run(command = tokens)
 	}
 }

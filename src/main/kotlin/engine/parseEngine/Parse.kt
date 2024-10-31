@@ -16,9 +16,11 @@ class Parse(f: File) {
 	val file = f.readLines()
 	val tokens: TokenList = tokenV1Generation(file)
 	val instructedTokens = useInstruct(tokens)
+
+	fun tokenise(): List<TokenData> {
+		return instructedTokens
+	}
+
 }
 
 
-fun main() {
-	val p = Parse(File("main.kar"))
-}
