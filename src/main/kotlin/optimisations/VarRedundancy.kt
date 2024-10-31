@@ -13,7 +13,7 @@ enum class StatusType {
 
 data class ContextUnderstanding(val name: RegisterType, var status: StatusType, val lineNumber: Int)
 
-
+@Deprecated("Does not work!")
 class VarRedundancy(val globalInfo: List<InstructData>) {
     fun parseRegisterStatuses(): MutableList<ContextUnderstanding> {
         val tracked = mutableListOf<ContextUnderstanding>()

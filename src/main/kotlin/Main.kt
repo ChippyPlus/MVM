@@ -69,7 +69,7 @@ fun main(args: Array<String>) {
 				println("Usage: mvm tokenise <file.kar>")
 				exitProcess(1)
 			}
-			VarRedundancy(globalInfo = parser(File(args[1]).readLines())).cleanRedundancy().forEach(::println)
+//			VarRedundancy(globalInfo = parser(File(args[1]).readLines())).cleanRedundancy().forEach(::println)
 		}
 
 		"compile" -> {
