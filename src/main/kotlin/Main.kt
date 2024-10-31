@@ -9,6 +9,7 @@ import environment.ExecuteLib
 import environment.VMErrors
 import helpers.Config
 import internals.Vm
+import optimisations.Optimisations
 import optimisations.VarRedundancy
 import java.io.File
 import kotlin.system.exitProcess
@@ -69,6 +70,7 @@ fun main(args: Array<String>) {
 				println("Usage: mvm tokenise <file.kar>")
 				exitProcess(1)
 			}
+			Optimisations(parser(File(args[1]).readLines())).optimise()
 //			VarRedundancy(globalInfo = parser(File(args[1]).readLines())).cleanRedundancy().forEach(::println)
 		}
 
