@@ -63,17 +63,6 @@ fun parser(file: List<String>): List<InstructData> {
 					}
 
 
-					// Register Register Register
-					// What is substr? Ive never seen this. Oh well
-					"substr" -> { // Meant to leave in the string deprecation via new stdlib. But this can stay
-						InstructData( // for reasons
-							name = "substr", arrayOf(
-								line[1].toRegisterType(), line[2].toRegisterType(), line[3].toRegisterType()
-							)
-						)
-					}
-
-
 					"str" -> {
 						InstructData(
 							name = "str", arrayOf(

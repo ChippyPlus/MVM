@@ -1,6 +1,8 @@
 package data.registers
 
 import data.registers.RegisterDataType.*
+import errors
+import kotlin.system.exitProcess
 
 /**
  * Represents a supertype encompassing all register types in the virtual machine.
@@ -18,7 +20,10 @@ fun String.toRegisterDataType() = when (this.lowercase()) {
 	"long" -> RLong
 	"float" -> RFloat
 	"double" -> RDouble
-	else -> null
+	else -> {
+		errors.InvalidInstructionArgumentException(this)
+		exitProcess(1)
+	}
 
 }
 
