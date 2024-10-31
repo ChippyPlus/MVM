@@ -7,7 +7,7 @@ import java.io.File
 data class TokenData(val name: String, val type: InstructType, val values: Array<Any>)
 
 enum class InstructType {
-	Register, RegisterRegister, RegisterLong, Long, LongRegister, SingleString, StrSpecific, None, Settype, Xlit, SystemCall
+	Ignore, Register, RegisterRegister, RegisterLong, Long, LongRegister, SingleString, StrSpecific, None, Settype, Xlit, SystemCall
 
 }
 typealias TokenList = List<List<String>>

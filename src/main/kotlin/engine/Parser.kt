@@ -37,7 +37,6 @@ fun parser(file: List<String>): List<InstructData> {
 			out.add(
 				element = when (instruction) {
 
-
 					"xlit" -> {
 						InstructData(name = "xlit", values = arrayOf(line[1].toRegisterType(), line[2]))
 					}
