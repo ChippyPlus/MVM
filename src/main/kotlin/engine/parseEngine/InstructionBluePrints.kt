@@ -3,7 +3,7 @@ package engine.parseEngine
 import engine.parseEngine.InstructType.*
 
 val instructionBlueprints = mapOf(
-	"lit" to LongRegister,
+	"lit" to RegisterLong,
 	"xlit" to Xlit,
 	"settype" to Settype,
 	"help" to SingleString,
