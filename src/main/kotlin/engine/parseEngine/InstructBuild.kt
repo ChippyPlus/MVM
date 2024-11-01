@@ -68,4 +68,22 @@ class InstructBuild(val line: List<String>) {
 		type = SystemCall,
 		values = arrayOf(RegisterType.S1, RegisterType.S2, RegisterType.S3, RegisterType.S4)
 	)
+
+
+	private fun calcResult(): String? {
+		return when (line[0]) {
+			"add", "sub", "mul", "div", "mod", "pow" -> "R4"
+			"xadd", "xsub", "xmul", "xdiv", "xmod", "xpow" -> "R5"
+			"shl", "shr", "and", "or", "xor", "not" -> "R3"
+			"gt", "lt" -> "I3"
+			"EQ" -> "I4"
+			"load" -> line[2].toRegisterType().toString()
+			"store" -> line[1].toRegisterType().toString()
+			"pop" -> line[1].toRegisterType().toString()
+			"peek" -> line[1].toRegisterType().toString()
+			"str" -> line[1].toRegisterType().toString()
+			"inr" -> "R6"
+			else -> null
+		}
+	}
 }
