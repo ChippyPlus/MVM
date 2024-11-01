@@ -1,11 +1,5 @@
-lit s1 24
-str s2 "What is your name?"
-syscall
-call readln
-lit s1 24
-str s2 "Hello, "
-syscall
-pop s2
-syscall
-lit f1 "!"
-call println
+lit g1 10
+lit g2 2
+mul g1 g2
+add g1 g2
+printr r4

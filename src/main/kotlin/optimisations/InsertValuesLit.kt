@@ -5,16 +5,15 @@ import engine.parseEngine.InstructType
 import engine.parseEngine.TokenData
 
 
-fun Optimisations.insertValuesLit(instructedTokens: List<TokenData>): List<TokenData> {
+fun Optimisations.insertValuesLit(): List<TokenData> {
 	val newT = mutableListOf<TokenData>()
 	val valuesOfRegisters = mutableMapOf<RegisterType, Long>()
-	instructedTokens.forEach {
+	globalInfo.forEach {
 		if (it.name == "lit") valuesOfRegisters[it.values[0] as RegisterType] = it.values[1] as Long
 	}
 
-	for (i in instructedTokens) {
-		if (i.type == InstructType.RegisterLong) newT.add(i)
-		else if (i.type == InstructType.RegisterRegister && i.values[0] as RegisterType in valuesOfRegisters.keys && i.values[1] as RegisterType in valuesOfRegisters.keys) {
+	for (i in globalInfo) {
+		if (i.type == InstructType.RegisterRegister && i.values[0] as RegisterType in valuesOfRegisters.keys && i.values[1] as RegisterType in valuesOfRegisters.keys) {
 			newT.add(
 				TokenData(
 					i.name, i.type, arrayOf(
@@ -23,7 +22,7 @@ fun Optimisations.insertValuesLit(instructedTokens: List<TokenData>): List<Token
 					)
 				)
 			)
-		}
+		} else newT.add(i)
 	}
 	return newT
 }

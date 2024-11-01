@@ -2,6 +2,7 @@ import data.io.FileDescriptors
 import data.memory.InternalMemory
 import data.registers.Registers
 import engine.execution.Execute
+import engine.parseEngine.Parse
 import engine.parser
 import engine.v2.Compile
 import engine.v2.ExecutionV2
@@ -70,7 +71,7 @@ fun main(args: Array<String>) {
 				println("Usage: mvm tokenise <file.kar>")
 				exitProcess(1)
 			}
-			Optimisations(parser(File(args[1]).readLines())).optimise()
+			Optimisations(Parse(File(args[1])).tokenise()).optimise()
 //			VarRedundancy(globalInfo = parser(File(args[1]).readLines())).cleanRedundancy().forEach(::println)
 		}
 
