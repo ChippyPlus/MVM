@@ -1,5 +1,7 @@
+lit f2 30
 lit g1 10
-lit g2 2
-mul g1 g2
-add g1 g2
-printr r4
+lit g2 20
+lit g1 20
+printr g1
+printr g2
+lit g2 30

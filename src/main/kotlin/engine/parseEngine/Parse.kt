@@ -34,7 +34,6 @@ private fun calcResult(name: String, values: Array<Any>): String? {
 
 enum class InstructType {
 	Ignore, Register, RegisterRegister, RegisterLong, Long, LongRegister, SingleString, StrSpecific, None, Settype, Xlit, SystemCall
-
 }
 typealias TokenList = List<List<String>>
 
