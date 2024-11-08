@@ -391,10 +391,6 @@
                 {
                     "name": "address",
                     "info": "The address to jump to if the register is zero"
-                },
-                {
-                    "name": "register",
-                    "info": "Register to check"
                 }
             ],
             "info": "Jump to address if register is zero"
@@ -405,10 +401,6 @@
                 {
                     "name": "address",
                     "info": "The address to jump to if the register is NOT zero"
-                },
-                {
-                    "name": "register",
-                    "info": "Register to check"
                 }
             ],
             "info": "Jump to address if register is NOT zero"

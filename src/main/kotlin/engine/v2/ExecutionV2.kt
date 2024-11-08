@@ -86,15 +86,15 @@ class ExecutionV2 {
 				'i' -> {
 					vm.controlFlow.jz(
 						targetAddress = instruct.substring(1, instruct.length - 2).toInt(),
-						testRegister = getR(instruct.last())
-					)
+
+						)
 				}
 
 				'j' -> {
 					vm.controlFlow.jnz(
 						targetAddress = instruct.substring(1, instruct.length - 2).toInt(),
-						testRegister = getR(instruct.last())
-					)
+
+						)
 				}
 
 				'k' -> {
