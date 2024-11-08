@@ -1,5 +1,12 @@
-str f1 "I like dogs"
-lit f2 12
-call strings.strcpy
-load f2 g1
-printr g1
+lit g1 10
+lit g2 10
+eq g1 g2
+jz 10 i4
+str f1 "They are equal"
+call println
+lit f1 0
+call sys.exit
+str f1 "They are not equal"
+call println
+lit f1 0
+call sys.exit

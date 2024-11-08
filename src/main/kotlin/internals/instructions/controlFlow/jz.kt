@@ -1,6 +1,7 @@
 package internals.instructions.controlFlow
 
-import data.registers.RegisterType
+import data.registers.IntelRegisters
+import data.registers.intelNames
 import errors
 import registers
 import vm
@@ -12,8 +13,8 @@ import vm
  * @param testRegister The register to check for a zero value.
  * @throws GeneralControlFlowException If an error occurs during the jump operation.
  */
-fun ControlFlow.jz(targetAddress: Int, testRegister: RegisterType): Any = try {
-	if (registers.read(testRegister) == 0L) {
+fun ControlFlow.jz(targetAddress: Int): Any = try {
+	if (registers.read(intelNames[IntelRegisters.ZF]) == 0L) {
 		vm.pc = targetAddress
 	} else {
 		// I'm not sure why I need this else block

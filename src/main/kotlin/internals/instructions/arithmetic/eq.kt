@@ -21,9 +21,8 @@ fun Arithmetic.eq(operand1: RegisterType, operand2: RegisterType) = try {
 
 	val out = registers.read(register = operand1) == registers.read(register = operand2)
 
-	registers.write(
-		intelNames[IntelRegisters.EF], if (out) true.toLong() else false.toLong()
-	)
+	registers.write(intelNames[IntelRegisters.EF], out.toLong())
+	registers.write(intelNames[IntelRegisters.ZF], out.toLong())
 
 } catch (e: Exception) {
 	errors.GeneralArithmeticException(message = "eq")

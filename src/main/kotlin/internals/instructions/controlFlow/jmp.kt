@@ -10,7 +10,7 @@ import vm
  * @throws GeneralControlFlowException If an error occurs during the jump operation.
  */
 fun ControlFlow.jmp(targetAddress: Int): Any = try {
-    targetAddress.apply { vm.pc = this@apply }
+	vm.pc = targetAddress
 } catch (_: Exception) {
-    errors.GeneralControlFlowException(message = "Jmp")
+	errors.GeneralControlFlowException(message = "Jmp")
 }
