@@ -1,7 +1,7 @@
 lit g1 10
-lit g2 10
+lit g2 11
 eq g1 g2
-jz 10 i4
+jz 10
 str f1 "They are equal"
 call println
 lit f1 0

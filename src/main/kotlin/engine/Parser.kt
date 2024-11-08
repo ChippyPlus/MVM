@@ -154,7 +154,7 @@ fun parser(file: List<String>): List<InstructData> {
 					// Long
 					"jmp", "jz", "jnz" -> {
 						InstructData(
-							name = "jmp", arrayOf(line[1].toInt())
+							name = instruction, arrayOf(line[1].toInt())
 						)
 					}
 

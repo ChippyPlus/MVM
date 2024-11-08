@@ -15,7 +15,6 @@ import vm
  * @throws GeneralControlFlowException If an error occurs during the jump operation.
  */
 fun ControlFlow.jnz(targetAddress: Int): Any = try {
-
 	if (registers.read(intelNames[IntelRegisters.ZF]) != 0L) {
 		vm.pc = targetAddress
 	} else {
