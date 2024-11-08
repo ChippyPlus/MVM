@@ -35,7 +35,7 @@ class Formats {
 	@Serializable
 	data class Ventry(
 		val name: String,
-		var content: String?,
+		var content: String? = null,
 		val permissions: Permissions = Permissions(directory = false),
 		val children: List<Ventry>? = null,
 		val meta: Meta = Meta(
