@@ -22,7 +22,8 @@ kotlin {
 	jvmToolchain(17)
 	compilerOptions.suppressWarnings = true
 	compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
-	compilerOptions.freeCompilerArgs.add("-Xmulti-dollar-interpolation") // I want that cool stuff
+	compilerOptions.freeCompilerArgs.add("-Xwhen-guards")
+	kotlin.compilerOptions.freeCompilerArgs.add("-Xmulti-dollar-interpolation")
 }
 
 

@@ -1,6 +1,7 @@
 package engine
 
 import data.registers.RegisterType
+import data.registers.read
 import data.registers.toRegisterDataType
 import engine.execution.InstructData
 import errors
@@ -17,7 +18,7 @@ import kotlin.system.exitProcess
  * @return A mutable list of [Instruction] objects representing the parsed instructions.
  * @throws InvalidInstructionException If an invalid instruction mnemonic is encountered.
  */
-fun parser(file: List<String>): List<InstructData> {
+fun parser(file: List<String>, inFunction: Boolean = false): List<InstructData> {
 	val out = emptyArray<InstructData>().toMutableList()
 	val tokens = emptyList<MutableList<String>>().toMutableList()
 
@@ -36,6 +37,15 @@ fun parser(file: List<String>): List<InstructData> {
 		try {
 			out.add(
 				element = when (instruction) {
+
+
+					"mem_request" -> {
+						// mem_request range A, range B
+						InstructData(
+							"mem_request",
+							values = arrayOf(line[1].toRegisterType().read(), line[2].toRegisterType().read())
+						)
+					}
 
 
 					"xlit" -> {
@@ -152,9 +162,9 @@ fun parser(file: List<String>): List<InstructData> {
 					}
 
 					// Long
-					"jmp", "jz", "jnz" -> {
+					"jmp", "jz", "jnz", "pushl" -> {
 						InstructData(
-							name = instruction, arrayOf(line[1].toInt())
+							name = instruction, arrayOf(line[1].toLong())
 						)
 					}
 

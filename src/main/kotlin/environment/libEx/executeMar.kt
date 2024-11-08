@@ -9,9 +9,9 @@ import java.io.File
 
 fun ExecuteLib.executeMar(file: File) {
 	val oldPc = vm.pc
-	val snapshot = snapShotManager.fullSnapshot()
+	val snapshot = snapShotManager.snapShotRegisters()
 	vm.pc - 2
-	Execute().run(parser(file.readLines()))
-	snapShotManager.populateSnapShot(snapshot)
+	Execute(true).run(parser(file.readLines(), true))
+	snapShotManager.populateSnapShotRegister(snapshot)
 	vm.pc = oldPc
 }

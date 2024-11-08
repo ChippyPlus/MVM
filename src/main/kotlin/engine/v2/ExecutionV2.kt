@@ -79,20 +79,20 @@ class ExecutionV2 {
 
 				'h' -> {
 					vm.controlFlow.jmp(
-						targetAddress = instruct.substring(1, instruct.length - 1).toInt()
+						targetAddress = instruct.substring(1, instruct.length - 1).toLong()
 					)
 				}
 
 				'i' -> {
 					vm.controlFlow.jz(
-						targetAddress = instruct.substring(1, instruct.length - 2).toInt(),
+						targetAddress = instruct.substring(1, instruct.length - 2).toLong(),
 
 						)
 				}
 
 				'j' -> {
 					vm.controlFlow.jnz(
-						targetAddress = instruct.substring(1, instruct.length - 2).toInt(),
+						targetAddress = instruct.substring(1, instruct.length - 2).toLong(),
 
 						)
 				}

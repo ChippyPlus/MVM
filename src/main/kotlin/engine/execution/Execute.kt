@@ -3,6 +3,7 @@ package engine.execution
 import data.registers.RegisterDataType
 import data.registers.RegisterType
 import engine.parser
+import environment.snapShotManager
 import errors
 import helpers.toDoubleOrFloatBasedOnDataType
 import helpers.toRegisterType
@@ -21,6 +22,7 @@ import internals.instructions.misc.help
 import internals.instructions.stackOperations.peek
 import internals.instructions.stackOperations.pop
 import internals.instructions.stackOperations.push
+import internals.instructions.stackOperations.pushl
 import internals.instructions.strings.*
 import internals.instructions.xFloats.*
 import libExecute
@@ -33,7 +35,7 @@ import java.lang.Thread.sleep
 /**
  * The class responsible for executing parsed instructions.
  */
-class Execute {
+class Execute(val inFunction: Boolean = false) {
 
 	/**
 	 * Executes a list of parsed [Instruction] objects.
@@ -60,6 +62,9 @@ class Execute {
 			}
 			when (command[vm.pc - 1].name) {
 
+				"mem_request" if inFunction -> {
+					snapShotManager.memoryRequestBlock(args[0] as Long..args[1] as Long)
+				}
 
 				"ftoi" -> {
 					vm.xFloats.ftoi(args[0] as RegisterType, args[1] as RegisterType)
@@ -202,18 +207,18 @@ class Execute {
 				}
 
 				"jmp" -> {
-					vm.controlFlow.jmp(targetAddress = args[0] as Int - 2)
+					vm.controlFlow.jmp(targetAddress = args[0] as Long - 2L)
 				}
 
 				"jz" -> {
 					vm.controlFlow.jz(
-						targetAddress = args[0] as Int - 2
+						targetAddress = args[0] as Long - 2L
 					)
 				}
 
 				"jnz" -> {
 					vm.controlFlow.jnz(
-						targetAddress = args[0] as Int - 2
+						targetAddress = args[0] as Long - 2L
 					)
 				}
 
@@ -227,6 +232,10 @@ class Execute {
 
 				"push" -> {
 					vm.stackOperations.push(registerType = args[0] as RegisterType)
+				}
+
+				"pushl" -> {
+					vm.stackOperations.pushl(registerType = args[0] as Long)
 				}
 
 				"store" -> {

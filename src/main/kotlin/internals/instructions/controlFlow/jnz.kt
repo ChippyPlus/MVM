@@ -14,9 +14,9 @@ import vm
  * @param testRegister The register to check for a non-zero value.
  * @throws GeneralControlFlowException If an error occurs during the jump operation.
  */
-fun ControlFlow.jnz(targetAddress: Int): Any = try {
+fun ControlFlow.jnz(targetAddress: Long): Any = try {
 	if (registers.read(intelNames[IntelRegisters.ZF]) != 0L) {
-		vm.pc = targetAddress
+		vm.pc = targetAddress.toInt()
 	} else {
 		// I'm not sure why I need this else block
 	}
