@@ -130,48 +130,33 @@ class Vfs {
 	}
 
 
-	fun exits(path: String, r: Set<Formats.Ventry> = renderVfs(), depthX: Int? = null): Boolean {
-		val pBits = path.split('/')
-		val depth = depthX ?: pBits.size
-
-
-		val i = pBits[0]
-		if (i !in deStructureRenderToNames(r)) {
-			return false
-		}
-		r.forEach {
-			if (i == it.name && it.permissions.directory) {
-//				println("found new route > $i | ${pBits.size}")
-				return exits(pBits.subList(1, pBits.size).joinToString("/"), it.children!!.toSet(), depth)
-			}
-		}
-
-
-//		println(r.joinToString())
-
-		return if (path in deStructureRenderToNames(r)) {
-			//			println("found new route > $path | ${pBits.size} | final")
-			true
-		} else {
-			//			println("oh no | $path | ${pBits.size}")
-			false
-		}
-
-	}
-
-
 	fun flash(ventries: List<Formats.Ventry>) {
 		File("src/main/resources/vfs.fs").writeText(
 			ProtoBuf.encodeToByteArray(value = ventries).toHexString()
 		)
 	}
 
+	fun exists(path: String, entriesX: Set<Formats.Ventry> = this.list()): Boolean {
+		var entries = entriesX
+		if (path.isEmpty()) return false
+		val parts = path.split("/")
+		if (parts.size == 1) return entries.any { it.name == parts[0] }
+		var currentEntry: Formats.Ventry?
+		for (i in 0 until parts.size - 1) {
+			currentEntry = entries.find { it.name == parts[i] && it.permissions.directory }
+			entries = currentEntry?.children?.toSet() ?: return false
+			if (currentEntry.children == null || currentEntry.children!!.find { it.name == parts[i + 1] } == null) {
+				return false
+			}
+		}
+		return true
+	}
+
 }
 
 
 fun main() {
-	val v = Vfs()
-	println(v.exits("home/user/file1.txt"))
+	println(Vfs().exists("temp.txt"))
 //	v.list().forEach(::println)
 }
 
