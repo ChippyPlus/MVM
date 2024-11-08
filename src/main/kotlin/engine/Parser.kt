@@ -152,20 +152,11 @@ fun parser(file: List<String>): List<InstructData> {
 					}
 
 					// Long
-					"jmp" -> {
+					"jmp", "jz", "jnz" -> {
 						InstructData(
 							name = "jmp", arrayOf(line[1].toInt())
 						)
 					}
-
-					// Long register
-					"jz", "jnz" -> {
-						InstructData(
-							name = instruction, arrayOf(line[1].toInt(), line[2].toRegisterType())
-
-						)
-					}
-
 
 					else -> {
 						errors.InvalidInstructionException(instruction)

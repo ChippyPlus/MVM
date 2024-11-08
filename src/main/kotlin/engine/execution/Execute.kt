@@ -207,13 +207,13 @@ class Execute {
 
 				"jz" -> {
 					vm.controlFlow.jz(
-						targetAddress = args[0] as Int - 2, testRegister = args[1] as RegisterType
+						targetAddress = args[0] as Int - 2
 					)
 				}
 
 				"jnz" -> {
 					vm.controlFlow.jnz(
-						targetAddress = args[0] as Int - 2, testRegister = args[1] as RegisterType
+						targetAddress = args[0] as Int - 2
 					)
 				}
 
