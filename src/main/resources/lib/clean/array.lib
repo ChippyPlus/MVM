@@ -1,0 +1,4 @@
+// clears a array
+// f1 is start array
+
+cpy f1 g1 // this is the meta data memory

@@ -1,9 +1,11 @@
 package internals.instructions.stackOperations
 
-import data.registers.enumIdenifiers.SuperRegisterType
-import environment.VMErrors
+import data.registers.IntelRegisters
+import data.registers.RegisterType
+import data.registers.intelNames
 import errors
-import helpers.fullRegisterWrite
+import helpers.toLong
+import registers
 
 /**
  * Pushes the value from the specified register onto the stack.
@@ -11,16 +13,15 @@ import helpers.fullRegisterWrite
  * @param registerType The register containing the value to push.
  * @throws GeneralStackOperationsException If an error occurs during the push operation (e.g. stack overflow).
  */
-fun StackOperations.peek(destination: SuperRegisterType) = try {
-    @Suppress("UNUSED_VARIABLE") val value = internalStack.peek().apply {
-        fullRegisterWrite(
-            register = destination, value = this@apply
-        )
-    }
+fun StackOperations.peek(destination: RegisterType) = try {
+	registers.write(
+		intelNames[IntelRegisters.ENSF], true.toLong()
+	) // Its above the next expr because internal stack may throw its own errors
+
+	registers.write(
+		register = destination, value = internalStack.peek()
+	)
+
 } catch (_: Exception) {
-    @Suppress("RemoveExplicitTypeArguments") with<VMErrors, Unit>(receiver = errors) {
-        this@with.GeneralStackOperationsException(
-            message = "stack"
-        )
-    }
+	errors.GeneralStackOperationsException("Peek")
 }

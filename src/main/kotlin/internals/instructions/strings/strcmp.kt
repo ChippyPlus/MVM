@@ -1,9 +1,12 @@
 package internals.instructions.strings
 
-import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.IntelRegisters
+import data.registers.RegisterType
+import data.registers.intelNames
 import errors
-import helpers.fullRegisterWrite
 import helpers.readRegisterString
+import helpers.toLong
+import registers
 
 /**
  * Compares two strings lexicographically and sets the `R4` register to indicate the result.
@@ -15,17 +18,21 @@ import helpers.readRegisterString
  * @param string2 The register containing the memory address of the second string.
  * @throws GeneralStringException If an error occurs during the string comparison.
  */
-fun Strings.strcmp(string1: SuperRegisterType, string2: SuperRegisterType) = try {
-    @Suppress("ReplaceCallWithBinaryOperator") (if (readRegisterString(register = string1).equals(
-            other = readRegisterString(
-                register = string2
-            )
-        )
-    ) fullRegisterWrite(
-        register = SuperRegisterType.R4, value = 0
-    ) else fullRegisterWrite(register = SuperRegisterType.R4, value = 1))
+@Deprecated("Moved into stdlib functions")
+fun Strings.strcmp(string1: RegisterType, string2: RegisterType) = try {
+	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+
+	val s1 = readRegisterString(string1)
+	val s2 = readRegisterString(string2)
+	if (s1 == s2) {
+		registers.write(
+			register = RegisterType.R4, value = 0
+		)
+	} else {
+		registers.write(register = RegisterType.R4, value = 1)
+	}
+
+
 } catch (_: Exception) {
-    with(receiver = errors) {
-        this@with.GeneralStringException("strcmp")
-    }
+	errors.GeneralStringException("Strcmp")
 }

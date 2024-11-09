@@ -1,27 +1,31 @@
 package engine.execution
 
-import data.registers.enumIdenifiers.SuperRegisterType
-import debugger.DebugEngine
+import data.registers.RegisterDataType
+import data.registers.RegisterType
 import engine.parser
 import errors
-import helpers.toSuperRegisterType
+import helpers.toDoubleOrFloatBasedOnDataType
+import helpers.toRegisterType
 import hertz
 import internals.instructions.arithmetic.*
 import internals.instructions.bitwise.*
 import internals.instructions.controlFlow.jmp
 import internals.instructions.controlFlow.jnz
 import internals.instructions.controlFlow.jz
-import internals.instructions.dataTransfer.cpy
-import internals.instructions.dataTransfer.lit
-import internals.instructions.dataTransfer.mov
+import internals.instructions.dataTransfer.*
 import internals.instructions.ioAbstractions.printr
 import internals.instructions.ioAbstractions.prints
 import internals.instructions.memory.load
 import internals.instructions.memory.store
+import internals.instructions.misc.help
 import internals.instructions.stackOperations.peek
 import internals.instructions.stackOperations.pop
 import internals.instructions.stackOperations.push
+import internals.instructions.stackOperations.pushl
 import internals.instructions.strings.*
+import internals.instructions.xFloats.*
+import libExecute
+import registers
 import vm
 import java.io.File
 import java.lang.Thread.sleep
@@ -40,130 +44,260 @@ class Execute {
 	 *
 	 * @param command The list of instructions to execute.
 	 */
-	private fun run(command: List<InstructData>, usingDebugEngine: DebugEngine? = null) {
+	fun run(command: List<InstructData>) {
+
 		while (true) {
 			sleep(hertz)
+
 			vm.pc++
-			if (usingDebugEngine != null) {/* This is an optional thing and is checked over each iteration
- TODO fix the iteration performance oversight */
-				usingDebugEngine.eachInteraction()
-				usingDebugEngine.lineSpecific()
-			}
 			if (vm.pc - 1L == command.size.toLong()) {
 				break
 			}
-			val args = command[vm.pc - 1].values
-			when (command[vm.pc - 1].name) {
+
+			val args = try {
+				command[(vm.pc - 1).toInt()].values
+			} catch (_: IndexOutOfBoundsException) {
+				break
+			}
+			when (command[(vm.pc - 1).toInt()].name) {
+
+
+				"ftoi" -> {
+					vm.xFloats.ftoi(args[0] as RegisterType, args[1] as RegisterType)
+				}
+
+				"itof" -> {
+					vm.xFloats.itof(args[0] as RegisterType, args[1] as RegisterType)
+				}
+
+				"xlit" -> {
+					vm.xFloats.xLit(
+						args[0] as RegisterType,
+						(args[1] as String).toDoubleOrFloatBasedOnDataType(args[0] as RegisterType)
+					)
+				}
+
+				"xpow" -> {
+					vm.xFloats.xPow(args[0] as RegisterType, args[1] as RegisterType)
+				}
+
+				"xsub" -> {
+					vm.xFloats.xSub(args[0] as RegisterType, args[1] as RegisterType)
+				}
+
+				"xmul" -> {
+					vm.xFloats.xMul(args[0] as RegisterType, args[1] as RegisterType)
+				}
+
+				"xdiv" -> {
+					vm.xFloats.xDiv(args[0] as RegisterType, args[1] as RegisterType)
+				}
+
+				"xadd" -> {
+					vm.xFloats.xAdd(args[0] as RegisterType, args[1] as RegisterType)
+				}
+
+
+				"settype" -> {
+					registers.registers[(args[0] as RegisterType)]!!.settype(args[1] as RegisterDataType)
+				}
+
+				"dealloc" -> {
+					vm.dataTransfer.dealloc(
+						memAddress = args[0] as RegisterType
+					)
+				}
+
+				"pow" -> {
+					vm.arithmetic.pow(
+						registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
+					)
+				}
+
+				"help" -> {
+					vm.misc.help((args[0] as String))
+				}
+
+				"ret" -> {
+					break
+				}
+
+				"inr" -> {
+					vm.dataTransfer.inr((args[0] as String).toRegisterType())
+				}
+
+				"call" -> {
+					vm.libPc = vm.pc.toLong()
+					libExecute.execute(args[0].toString())
+				}
 
 				"emptyLine", "comment" -> {}
-
-				"gt" -> vm.arithmetic.gt(
-					operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
-				)
+				"gt" -> {
+					vm.arithmetic.gt(
+						operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
+					)
+				}
 
 				"lt" -> {
 //                    println(args.size)
 					vm.arithmetic.lt(
-						operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
+						operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
 					)
 				}
 
-				"str" -> vm.strings.str(args[0].toString().toSuperRegisterType(), args[1].toString())
-				"strcmp" -> vm.strings.strcmp(
-					string1 = args[0] as SuperRegisterType, string2 = args[1] as SuperRegisterType
-				)
-
-				"strcat" -> vm.strings.strcat(
-					string1 = args[0] as SuperRegisterType, string2 = args[1] as SuperRegisterType
-				)
-
-				"strcpy" -> vm.strings.strcpy(
-					source = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
-				)
-
-				"cpy" -> vm.dataTransfer.cpy(
-					register1 = args[0] as SuperRegisterType, register2 = args[1] as SuperRegisterType
-				)
-
-				"add" -> vm.arithmetic.add(
-					registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
-				)
-
-				"sub" -> vm.arithmetic.sub(
-					registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
-				)
+				"str" -> {
+					vm.strings.str(args[0].toString().toRegisterType(), args[1].toString())
+				}
 
 
-				"mul" -> vm.arithmetic.mul(
-					registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
-				)
+				"cpy" -> {
+					vm.dataTransfer.cpy(
+						register1 = args[0] as RegisterType, register2 = args[1] as RegisterType
+					)
+				}
 
-				"div" -> vm.arithmetic.div(
-					registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
-				)
+				"add" -> {
+					vm.arithmetic.add(
+						registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
+					)
+				}
 
-				"mod" -> vm.arithmetic.mod(
-					registerA = args[0] as SuperRegisterType, registerB = args[1] as SuperRegisterType
-				)
+				"sub" -> {
+					vm.arithmetic.sub(
+						registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
+					)
+				}
 
-				"eq" -> vm.arithmetic.eq(
-					operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
-				)
+				"mul" -> {
+					vm.arithmetic.mul(
+						registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
+					)
+				}
 
-				"strlen" -> vm.strings.strlen(addressRegister = args[0] as SuperRegisterType)
-				"lit" -> vm.dataTransfer.lit(source = args[0] as SuperRegisterType, value = args[1] as Long)
-				"mov" -> vm.dataTransfer.mov(
-					source = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
-				)
+				"div" -> {
+					vm.arithmetic.div(
+						registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
+					)
+				}
 
-				"jmp" -> vm.controlFlow.jmp(targetAddress = args[0] as Int - 1)
-				"jz" -> vm.controlFlow.jz(
-					targetAddress = args[0] as Int - 1, testRegister = args[1] as SuperRegisterType
-				)
+				"mod" -> {
+					vm.arithmetic.mod(
+						registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
+					)
+				}
 
-				"jnz" -> vm.controlFlow.jnz(
-					targetAddress = args[0] as Int - 1, testRegister = args[1] as SuperRegisterType
-				)
+				"eq" -> {
+					vm.arithmetic.eq(
+						operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
+					)
+				}
 
-				"peek" -> vm.stackOperations.peek(destination = args[0] as SuperRegisterType)
-				"pop" -> vm.stackOperations.pop(destination = args[0] as SuperRegisterType)
-				"push" -> vm.stackOperations.push(registerType = args[0] as SuperRegisterType)
-				"store" -> vm.memory.store(
-					source = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
-				)
+				"lit" -> {
+					vm.dataTransfer.lit(source = args[0] as RegisterType, value = args[1] as Long)
+				}
 
-				"load" -> vm.memory.load(
-					memoryAddress = args[0] as SuperRegisterType, destination = args[1] as SuperRegisterType
-				)
+				"mov" -> {
+					vm.dataTransfer.mov(
+						source = args[0] as RegisterType, destination = args[1] as RegisterType
+					)
+				}
 
-				"shl" -> vm.bitwise.shl(
-					operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
-				)
+				"jmp" -> {
+					vm.controlFlow.jmp(targetAddress = args[0] as Long - 2L)
+				}
 
-				"shr" -> vm.bitwise.shr(
-					operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
-				)
+				"jz" -> {
+					vm.controlFlow.jz(
+						targetAddress = args[0] as Long - 2L
+					)
+				}
 
-				"and" -> vm.bitwise.and(
-					operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
-				)
+				"jnz" -> {
+					vm.controlFlow.jnz(
+						targetAddress = args[0] as Long - 2L
+					)
+				}
 
-				"not" -> vm.bitwise.not(operand = args[0] as SuperRegisterType)
-				"or" -> vm.bitwise.or(operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType)
-				"xor" -> vm.bitwise.xor(
-					operand1 = args[0] as SuperRegisterType, operand2 = args[1] as SuperRegisterType
-				)
+				"peek" -> {
+					vm.stackOperations.peek(destination = args[0] as RegisterType)
+				}
 
-				"syscall" -> vm.systemCall.execute(
-					callId = args[0] as SuperRegisterType,
-					s2 = args[1] as SuperRegisterType,
-					s3 = args[2] as SuperRegisterType,
-					s4 = args[3] as SuperRegisterType
-				)
+				"pop" -> {
+					vm.stackOperations.pop(destination = args[0] as RegisterType)
+				}
 
-				"prints" -> vm.ioAbstractions.prints()
-				"printr" -> vm.ioAbstractions.printr(register = args[0] as SuperRegisterType)
-				else -> errors.InvalidInstructionException(command[vm.pc - 1].name)
+				"push" -> {
+					vm.stackOperations.push(registerType = args[0] as RegisterType)
+				}
+
+				"pushl" -> {
+					vm.stackOperations.pushl(registerType = args[0] as Long)
+				}
+
+				"store" -> {
+					vm.memory.store(
+						source = args[0] as RegisterType, destination = args[1] as RegisterType
+					)
+				}
+
+				"load" -> {
+					vm.memory.load(
+						memoryAddress = args[0] as RegisterType, destination = args[1] as RegisterType
+					)
+				}
+
+				"shl" -> {
+					vm.bitwise.shl(
+						operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
+					)
+				}
+
+				"shr" -> {
+					vm.bitwise.shr(
+						operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
+					)
+				}
+
+				"and" -> {
+					vm.bitwise.and(
+						operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
+					)
+				}
+
+				"not" -> {
+					vm.bitwise.not(operand = args[0] as RegisterType)
+				}
+
+				"or" -> {
+					vm.bitwise.or(operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType)
+				}
+
+				"xor" -> {
+					vm.bitwise.xor(
+						operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
+					)
+				}
+
+				"syscall" -> {
+					vm.systemCall.execute(
+						callId = args[0] as RegisterType,
+						s2 = args[1] as RegisterType,
+						s3 = args[2] as RegisterType,
+						s4 = args[3] as RegisterType
+					)
+				}
+
+				"prints" -> {
+					vm.ioAbstractions.prints()
+				}
+
+				"printr" -> {
+					vm.ioAbstractions.printr(register = args[0] as RegisterType)
+				}
+
+				else -> {
+					errors.InvalidInstructionException(command[(vm.pc - 1).toInt()].name)
+				}
 			}
 
 		}
@@ -175,8 +309,8 @@ class Execute {
 	 *
 	 * @param file The file containing the assembly code to execute.
 	 */
-	fun execute(file: File, usingDebugTools: DebugEngine? = null) {
-		val tokens = parser(file)
-		this@Execute.run(command = tokens, usingDebugEngine = usingDebugTools)
+	fun execute(file: File) {
+		val tokens = parser(file.readLines())
+		this.run(command = tokens)
 	}
 }

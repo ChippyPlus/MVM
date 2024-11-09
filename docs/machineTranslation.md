@@ -1,5 +1,7 @@
 ## Register IDs
 
+This has been discontinued for a whole
+
 | Index | Register name | Machine Reference |
 |-------|---------------|-------------------|
 | 1     | G1            | !                 |

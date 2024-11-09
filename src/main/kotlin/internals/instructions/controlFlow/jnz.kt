@@ -1,8 +1,9 @@
 package internals.instructions.controlFlow
 
-import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.IntelRegisters
+import data.registers.intelNames
 import errors
-import helpers.fullRegisterRead
+import registers
 import vm
 
 
@@ -13,14 +14,15 @@ import vm
  * @param testRegister The register to check for a non-zero value.
  * @throws GeneralControlFlowException If an error occurs during the jump operation.
  */
-fun ControlFlow.jnz(targetAddress: Int, testRegister: SuperRegisterType): Any = try {
-    @Suppress("ReplaceCallWithBinaryOperator") if (fullRegisterRead(register = testRegister).equals(other = 0L).not()) {
-        targetAddress.apply { vm.pc = this@apply }
-    } else {/* Pass */
-    }
+fun ControlFlow.jnz(targetAddress: Long): Any = try {
+	if (registers.read(intelNames[IntelRegisters.ZF]) != 0L) {
+		vm.pc = targetAddress
+	} else {
+		// I'm not sure why I need this else block
+	}
 
 } catch (_: Exception) {
-    errors.run {
-        this@run.GeneralControlFlowException(message = "Jnz")
-    }
+	errors.run {
+		this.GeneralControlFlowException(message = "Jnz")
+	}
 }

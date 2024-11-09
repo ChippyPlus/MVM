@@ -1,11 +1,15 @@
 package engine
 
-import data.registers.enumIdenifiers.SuperRegisterType
+import data.registers.RegisterType
+import data.registers.read
+import data.registers.toRegisterDataType
 import engine.execution.InstructData
 import errors
-import helpers.toSuperRegisterType
+import helpers.gatherHelp
+import helpers.toRegisterType
+import helpers.toUnsafeRegisterType
 import vm
-import java.io.File
+import kotlin.system.exitProcess
 
 /**
  * Parses assembly code from a file and converts it into a list of instructions.
@@ -14,256 +18,181 @@ import java.io.File
  * @return A mutable list of [Instruction] objects representing the parsed instructions.
  * @throws InvalidInstructionException If an invalid instruction mnemonic is encountered.
  */
-fun parser(file: File): List<InstructData> {
+fun parser(file: List<String>): List<InstructData> {
 	val out = emptyArray<InstructData>().toMutableList()
 	val tokens = emptyList<MutableList<String>>().toMutableList()
 
 	// Read each line from the file and split it into tokens
-	for (line in file.readLines()) {
+	for (line in file) {
 		val secretLineParts = emptyList<String>().toMutableList()
 		for (token in line.split(' ')) {
+			if (token.isEmpty()) continue
 			secretLineParts.add(token)
 		}
 		tokens.add(secretLineParts)
 	}
-
 	for (line in tokens) {
 		vm.pc++
-		when (val instruction = line[0].uppercase()) {
+		val instruction = if (line.isEmpty()) "" else line[0].lowercase()
+		try {
+			out.add(
+				element = when (instruction) {
 
-			"LT" -> out.add(
-				InstructData(
-					name = "lt", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
+
+					"mem_request" -> {
+						// mem_request range A, range B
+						InstructData(
+							"mem_request",
+							values = arrayOf(line[1].toRegisterType().read(), line[2].toRegisterType().read())
+						)
+					}
+
+
+					"xlit" -> {
+						InstructData(name = "xlit", values = arrayOf(line[1].toRegisterType(), line[2]))
+					}
+
+
+					"settype" -> {
+						InstructData(
+							name = "settype", values = arrayOf(line[1].toRegisterType(), line[2].toRegisterDataType())
+						)
+					}
+
+
+					"help" -> {
+						InstructData(
+							name = "help", values = arrayOf(line[1])
+						)
+					}
+
+					"call" -> {
+						InstructData(
+							name = "call", values = arrayOf(line[1])
+						)
+					}
+
+
+					// Register Register Register
+					// What is substr? Ive never seen this. Oh well
+					"substr" -> { // Meant to leave in the string deprecation via new stdlib. But this can stay
+						InstructData( // for reasons
+							name = "substr", arrayOf(
+								line[1].toRegisterType(), line[2].toRegisterType(), line[3].toRegisterType()
+							)
+						)
+					}
+
+
+					"str" -> {
+						InstructData(
+							name = "str", arrayOf(
+								line[1].toRegisterType(), try {
+									line.joinToString(" ").split("\"")[1]
+								} catch (e: IndexOutOfBoundsException) {
+									errors.InvalidArgumentFormatException(
+										"Any", shouldBe = "String"
+									)
+								}
+
+							)
+						)
+					}
+
+
+					"syscall" -> {
+						InstructData(
+							name = "syscall", arrayOf(
+								RegisterType.S1, RegisterType.S2, RegisterType.S3, RegisterType.S4
+							)
+
+						)
+					}
+
+					"" -> {
+						InstructData(
+							name = "emptyLine", arrayOf()
+						)
+					}
+
+					"//" -> {
+						InstructData(
+							name = "comment", arrayOf()
+						)
+					}
+
+					// Register Register
+					"mod", "add", "sub", "mul", "div", "eq",
+					"shl", "shr", "mov", "cpy", "and", "or",
+					"xor", "lt", "gt", "pow", "xadd", "xsub", "xmul", "xdiv", "xpow",
+					"itof", "ftoi",
+						-> {
+						InstructData(
+							name = instruction, arrayOf(line[1].toRegisterType(), line[2].toRegisterType())
+
+						)
+					}
+
+
+					// None
+					"prints", "ret" -> {
+						InstructData(
+							name = "prints", emptyArray()
+						)
+					}
+
+
+					// Register
+					"not", "printr", "peek", "pop", "push", "inr", "dealloc" -> {
+						InstructData(
+							name = instruction, arrayOf(line[1].toRegisterType())
+						)
+					}
+
+					"store", "load" -> {
+						InstructData(
+							name = instruction, arrayOf(line[1].toRegisterType(), line[2].toRegisterType())
+						)
+					}
+
+					"lit" -> {
+						InstructData(
+							name = "lit", arrayOf(line[1].toRegisterType(), line[2].toLong())
+						)
+					}
+
+					// Long
+					"jmp", "jz", "jnz", "pushl" -> {
+						InstructData(
+							name = instruction, arrayOf(line[1].toLong())
+						)
+					}
+
+					else -> {
+						errors.InvalidInstructionException(instruction)
+						exitProcess(99) // for kotlin. Ughhhhhh
+					}
+				}
 			)
+		} catch (missingArgument: IndexOutOfBoundsException) {
+			val missingIndex = missingArgument.message!!.split(" ")[1].toByte() - 1
+			val info = gatherHelp(instruction).arguments[missingIndex]
+			errors.InvalidArgumentException(info = info)
 
-			"GT" -> out.add(
-				InstructData(
-					name = "gt", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-			)
 
-			"STRCPY" -> out.add(
-				InstructData(
-					name = "strcpy", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-			)
-
-			"STRCMP" -> out.add(
-				InstructData(
-					name = "strcmp", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-			)
-
-			"STRCAT" -> out.add(
-				InstructData(
-					name = "strcat", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-			)
-
-			"SUBSTR" -> out.add(
-				InstructData(
-					name = "substr",
-					arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType(), line[3].toSuperRegisterType())
-				)
-			)
-
-			"FIND" -> out.add(
-				InstructData(
-					name = "find", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-			)
-
-			"CPY" -> out.add(
-				InstructData(
-					name = "cpy", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-			)
-
-			"STRLEN" -> out.add(
-				InstructData(
-					name = "strlen", arrayOf(line[1].toSuperRegisterType())
-				)
-			)
-
-			"PRINTR" -> out.add(
-				InstructData(
-					name = "printr", arrayOf(line[1].toSuperRegisterType())
-				)
-			)
-
-			"STR" -> out.add(
-				InstructData(
-					name = "str", arrayOf(line[1].toSuperRegisterType(), line.joinToString(" ").split("\"")[1])
-				)
-			)
-
-			"SYSCALL" -> out.add(
-				InstructData(
-					name = "syscall",
-					arrayOf(SuperRegisterType.S1, SuperRegisterType.S2, SuperRegisterType.S3, SuperRegisterType.S4)
-				)
-			)
-
-			"" -> {
-				out.add(
-					InstructData(
-						name = "emptyLine", arrayOf()
-					)
+		} catch (e: NumberFormatException) {
+			try {
+				e.message!!.split(" ")[3].substring(1, e.message!!.split(" ").size - 1).toUnsafeRegisterType()
+				errors.InvalidArgumentFormatException(badType = "Register", shouldBe = "Long")
+			} catch (_: IllegalStateException) {
+				errors.InvalidArgumentFormatException(
+					badType = "String", shouldBe = "Long"
 				)
 			}
-
-			"//" -> {
-				out.add(
-					InstructData(
-						name = "comment", arrayOf()
-					)
-				)
-			}
-
-			"MOD" -> out.add(
-				InstructData(
-					name = "mod", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-			)
-
-			"EQ" -> out.add(
-				InstructData(
-					name = "eq", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-			)
-
-			"SHL" -> out.add(
-				InstructData(
-					name = "shl", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-			)
-
-			"SHR" -> out.add(
-				InstructData(
-					name = "shr", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-			)
-
-			"PEEK" -> out.add(
-				InstructData(
-					name = "peek", arrayOf(line[1].toSuperRegisterType())
-				)
-			)
-
-			"POP" -> out.add(
-				InstructData(
-					name = "pop", arrayOf(line[1].toSuperRegisterType())
-				)
-			)
-
-			"PUSH" -> out.add(
-				InstructData(
-					name = "push", arrayOf(line[1].toSuperRegisterType())
-				)
-			)
-
-			"PRINTS" -> out.add(
-				InstructData(
-					name = "prints", emptyArray()
-				)
-			)
-
-			"DIV" -> out.add(
-				InstructData(
-					name = "div", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-			)
-
-			"AND" -> out.add(
-				InstructData(
-					name = "and", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-			)
-
-			"OR" -> out.add(
-				InstructData(
-					name = "or", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-			)
-
-			"XOR" -> out.add(
-				InstructData(
-					name = "xor", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-			)
-
-			"NOT" -> out.add(
-				InstructData(
-					name = "not", arrayOf(line[1].toSuperRegisterType())
-				)
-			)
-
-			"STORE" -> out.add(
-				InstructData(
-					name = "store", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-			)
-
-			"LOAD" -> out.add(
-				InstructData(
-					name = "load", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-			)
-
-			"LIT" -> {
-				out.add(
-				InstructData(
-					name = "lit", arrayOf(line[1].toSuperRegisterType(), line[2].toLong())
-				)
-				)
-			}
-
-			"JMP" -> out.add(
-				InstructData(
-					name = "jmp", arrayOf(line[1].toInt())
-				)
-			)
-
-			"JZ" -> out.add(
-				InstructData(
-					name = "jz", arrayOf(line[1].toInt(), line[2].toSuperRegisterType())
-				)
-			)
-
-			"JNZ" -> out.add(
-				InstructData(
-					name = "jnz", arrayOf(line[1].toInt(), line[2].toSuperRegisterType())
-				)
-			)
-
-			"MOV" -> out.add(
-				InstructData(
-					name = "mov", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-			)
-
-			"ADD" -> out.add(
-				InstructData(
-					name = "add", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-			)
-
-			"SUB" -> out.add(
-				InstructData(
-					name = "sub", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-			)
-
-			"MUL" -> out.add(
-				InstructData(
-					name = "mul", arrayOf(line[1].toSuperRegisterType(), line[2].toSuperRegisterType())
-				)
-			)
-
-			else -> errors.InvalidInstructionException(instruction) // Throw an exception for invalid instructions
 		}
 	}
+
+
 	vm.pc = 0
 	return out
 }

@@ -2,7 +2,6 @@ package helpers
 
 import data.memory.MemoryAddress
 import data.memory.MemoryValue
-import errors
 import internalMemory
 
 /**
@@ -17,38 +16,13 @@ import internalMemory
  * @throws MemoryAllocationException If a contiguous block of free memory large enough to hold, the string cannot be found.
  */
 fun writeClosestString(string: String): Long {
-    val possibleStarts = emptyMap<Long?, Any?>().toMutableMap()
+	val spot = findFreeMemory(string.length.toLong())
 
-    internalMemory.memory.forEach {
-        possibleStarts[it.key.address] = it.value.value
-    }
-    possibleStarts.filter { it.value == 0 }
-    val allocMem = string.length
+	// Write the string char to memory, followed by a null-terminator
+	for ((index, i) in (spot until (spot + string.length)).withIndex()) {
+		internalMemory.memory[MemoryAddress(i)] = MemoryValue(string[index].code.toLong())
+	}
+	internalMemory.memory[MemoryAddress(spot + string.length)] = MemoryValue(0)
 
-    // Find a SPOT for a starting address for the string
-    var spot: Long? = null
-    for (i in possibleStarts.keys) {
-        var count = 0L
-        for (j in 0L..allocMem) {
-            if (possibleStarts[i!! + j] == null) {
-                count++
-            }
-        }
-        if (count == allocMem + 1L) {
-            spot = i
-            break
-        }
-    }
-
-    if (spot == null) {
-        errors.MemoryAllocationException("Could not allocate memory for string: $string")
-    }
-
-    // Write the string char to memory, followed by a null-terminator
-    for ((index, i) in (spot!! until (spot + allocMem)).withIndex()) {
-        internalMemory.memory[MemoryAddress(i)] = MemoryValue(string[index].code.toLong())
-    }
-    internalMemory.memory[MemoryAddress(spot + allocMem)] = MemoryValue(0)
-
-    return spot
+	return spot
 }

@@ -1,31 +1,27 @@
 import data.io.FileDescriptors
 import data.memory.InternalMemory
 import data.registers.Registers
-import debugger.DebugEngine
-import debugger.encoding.DebugFile
 import engine.execution.Execute
 import engine.parser
-import engine.v2.Compile
-import engine.v2.ExecutionV2
+import environment.ExecuteLib
 import environment.VMErrors
 import helpers.Config
 import internals.Vm
-import kotlinx.serialization.json.Json
 import optimisations.VarRedundancy
 import java.io.File
 import kotlin.system.exitProcess
 
+
 val config = if (File("./config.json").exists()) Config(File("./config.json")) else null
 val hertz = config?.hertz ?: 0L
 val MEMORY_LIMIT = config?.memorySize ?: 256
+val registers = Registers()
 val vm = Vm()
+val libExecute = ExecuteLib()
 val errors = VMErrors()
 val fileDescriptors = FileDescriptors()
-val register = Registers()
 val internalMemory = InternalMemory()
-val systemRegisters = register.systemRegisters
-val returnRegisters = register.returnRegisters
-val generalRegisters = register.generalRegisters
+
 val execute = Execute()
 fun main(args: Array<String>) {
 	if (args.isEmpty()) {
@@ -41,28 +37,14 @@ fun main(args: Array<String>) {
 			execute.execute(File(args[1]))
 		}
 
-		"crun" -> {
-			if (args.size < 2) {
-				println("Usage: mvm crun <file.mar>")
-				exitProcess(1)
-			}
-			ExecutionV2().execute(File(args[1]).readText())
-		}
 
-		"run" -> {
-			if (args.size < 2) {
-				println("Usage: mvm run <file.kar>")
-				exitProcess(1)
-			}
-			ExecutionV2().execute(Compile().execute(parser(File(args[1]))))
-		}
 
 		"tokenise" -> {
 			if (args.size < 2) {
 				println("Usage: mvm tokenise <file.kar>")
 				exitProcess(1)
 			}
-			parser(File(args[1])).forEach(::println)
+			parser(File(args[1]).readLines()).forEach(::println)
 		}
 
 
@@ -71,33 +53,9 @@ fun main(args: Array<String>) {
 				println("Usage: mvm tokenise <file.kar>")
 				exitProcess(1)
 			}
-			VarRedundancy(globalInfo = parser(File(args[1]))).cleanRedundancy().forEach(::println)
+			VarRedundancy(globalInfo = parser(File(args[1]).readLines())).cleanRedundancy().forEach(::println)
 		}
 
-		"compile" -> {
-			if (args.size < 2) {
-				println("Usage: mvm compile <file.kar>")
-				exitProcess(1)
-			}
-			val parsed = parser(File(args[1]))
-//			val optimised = VarRedundancy(globalInfo = parsed).cleanRedundancy()
-//			val out = Compile().execute(optimised)
-			/** For now. Compiler optimisations are unsafe and unstable. Therefor they are disabled*/
-			val out = Compile().execute(parsed)
-			val f = File(args[1].split(".")[0] + ".mar")
-			f.createNewFile()
-			f.writeText(out)
-			println("Compiled with 0 Issues!!!!!")
-		}
-
-		"debug" -> {// TODO Make this an option
-			if (args.size < 3) {
-				println("Usage: mvm debug <debugFile.json> <file.kar>")
-				exitProcess(1)
-			}
-			val debugEngine = DebugEngine(Json.decodeFromString<DebugFile>(File(args[1]).readText()))
-			execute.execute(File(args[2]), debugEngine)
-		}
 
 		"help" -> {
 			println(
@@ -110,6 +68,11 @@ fun main(args: Array<String>) {
 			exitProcess(1)
 		}
 	}
+
+	exitVM()
 }
+
+
+fun exitVM(): Nothing = exitProcess(0)
 
 

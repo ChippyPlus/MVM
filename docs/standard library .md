@@ -1,0 +1,19 @@
+# Standard Library Functions
+
+| #  | Function                  | Description                                                | Arg 1 (F1)     | Arg 2 (F2) | Arg 3 (F3) | Returns (Stack)            | Notes                                                      |
+|----|---------------------------|------------------------------------------------------------|----------------|------------|------------|----------------------------|------------------------------------------------------------|
+| 1  | `arrays.append`           | Appends a value to the end of an array.                    | Array Address  | Value      |            | -                          | Resizes the array if necessary (implementation-dependent). |
+| 2  | `arrays.create`           | Creates a new array.                                       | Size           |            |            | Array Base Address         |                                                            |
+| 3  | `arrays.get`              | Gets an element from an array.                             | Array Address  | Index      |            | Value                      | Performs bounds checking.                                  |
+| 4  | `clean.array`             | Clears an array.                                           | Array Address  |            |            | -                          |                                                            |
+| 5  | `clean.string`            | Removes a string from memory.                              | String Address |            |            | -                          |                                                            |
+| 6  | `maths.min`               | Returns the smaller of two values.                         | Value A        | Value B    |            | Smaller Value              |                                                            |
+| 7  | `maths.max`               | Returns the larger of two values.                          | Value A        | Value B    |            | Larger Value               |                                                            |
+| 8  | `maths.inc`               | Increments a register value by 1.                          | Register       |            |            | Incremented Value          |                                                            |
+| 9  | `maths.dec`               | Decrements a register value by 1.                          | Register       |            |            | Decremented Value          |                                                            |
+| 10 | `maths.neg`               | Negates a value.                                           | Value          |            |            | Negated Value              |                                                            |
+| 11 | `strings.asciiToInt`      | Converts an ASCII character to its integer representation. | Character      |            |            | Integer Value              | Handles invalid characters (implementation-dependent).     |
+| 12 | `strings.findFirstString` | Finds the first occurrence of a character in a string.     | String Address | Character  |            | Index (or -1 if not found) |                                                            |
+| 13 | `sys.exit`                | Terminates the VM with an exit code.                       | Exit Code      |            |            | -                          |                                                            |
+| 14 | `println`                 | Prints a string to the console with a newline.             | String Address |            |            | -                          | String must be null-terminated.                            |
+| 15 | `readln`                  | Reads a line from standard input.                          |                |            |            | String Address             | Allocates memory for the string.                           |

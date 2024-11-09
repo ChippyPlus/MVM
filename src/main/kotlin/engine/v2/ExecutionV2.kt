@@ -1,8 +1,8 @@
 package engine.v2
 
-import data.registers.enumIdenifiers.SuperRegisterType
-import data.registers.enumIdenifiers.SuperRegisterType.*
-import engine.TransMapIDs
+import data.registers.RegisterType
+import data.registers.RegisterType.*
+import errors
 import hertz
 import internals.instructions.arithmetic.*
 import internals.instructions.bitwise.*
@@ -22,6 +22,8 @@ import internals.instructions.strings.*
 import vm
 import java.lang.Thread.sleep
 
+@Suppress("DEPRECATION")
+@Deprecated("to complicated to maintain. I wonder where v3 is?")
 class ExecutionV2 {
 	fun execute(f: String) {
 
@@ -77,22 +79,22 @@ class ExecutionV2 {
 
 				'h' -> {
 					vm.controlFlow.jmp(
-						targetAddress = instruct.substring(1, instruct.length - 1).toInt()
+						targetAddress = instruct.substring(1, instruct.length - 1).toLong()
 					)
 				}
 
 				'i' -> {
 					vm.controlFlow.jz(
-						targetAddress = instruct.substring(1, instruct.length - 2).toInt(),
-						testRegister = getR(instruct.last())
-					)
+						targetAddress = instruct.substring(1, instruct.length - 2).toLong(),
+
+						)
 				}
 
 				'j' -> {
 					vm.controlFlow.jnz(
-						targetAddress = instruct.substring(1, instruct.length - 2).toInt(),
-						testRegister = getR(instruct.last())
-					)
+						targetAddress = instruct.substring(1, instruct.length - 2).toLong(),
+
+						)
 				}
 
 				'k' -> {
@@ -180,15 +182,14 @@ class ExecutionV2 {
 				}
 
 				else -> {
-					//TODO Make it its own erro
-					System.err.println("ERROR:${vm.pc - 1}: Bad symbol at runtime in MAR \"${instruct[0]}\"")
+					errors.BadSymbolAtRuntimeException(instruct[0].toString())
 				}
 			}
 		}
 		vm.pc = 0
 	}
 
-	private fun getR(index: Char): SuperRegisterType {
+	private fun getR(index: Char): RegisterType {
 		val transMapIDs = TransMapIDs()
 		return transMapIDs.uRegisters[index]!!
 	}

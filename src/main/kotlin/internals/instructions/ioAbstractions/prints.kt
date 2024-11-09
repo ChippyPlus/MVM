@@ -1,6 +1,10 @@
 package internals.instructions.ioAbstractions
 
+import data.registers.IntelRegisters
+import data.registers.intelNames
 import errors
+import helpers.toLong
+import registers
 import vm
 
 /**
@@ -9,11 +13,8 @@ import vm
  * @throws GeneralIoAbstractionsException If an error occurs during the printing operation.
  */
 fun IoAbstractions.prints(): Unit = try {
-    println(message = with(vm) {
-        return@with this.stackOperations.run { return@run this@run.internalStack.peek() }
-    })
+	println(vm.stackOperations.internalStack.peek())
+	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
 } catch (_: Exception) {
-    errors.run {
-        this@run.GeneralIoAbstractionsException(message = "prints")
-    }
+	errors.GeneralIoAbstractionsException(message = "prints")
 }

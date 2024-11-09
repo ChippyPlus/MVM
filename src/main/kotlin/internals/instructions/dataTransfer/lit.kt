@@ -1,8 +1,7 @@
 package internals.instructions.dataTransfer
 
-import data.registers.enumIdenifiers.SuperRegisterType
-import errors
-import helpers.fullRegisterWrite
+import data.registers.RegisterType
+import registers
 
 /**
  * Loads a literal value into a register.
@@ -12,12 +11,8 @@ import helpers.fullRegisterWrite
  * @throws GeneralDataTransferException If an error occurs during the load operation.
  */
 
-fun DataTransfer.lit(source: SuperRegisterType, value: Long): Unit = try {
-    fullRegisterWrite(
-        register = source,
-        value = value
-    )
-
-} catch (_: Exception) {
-    errors.run { this.GeneralDataTransferException(message = "Lit") }
+fun DataTransfer.lit(source: RegisterType, value: Long) = call("lit") {
+	registers.write(
+		register = source, value = value
+	)
 }

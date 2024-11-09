@@ -1,0 +1,5 @@
+// Increment the value in F1 by 1 and push
+
+LIT G1 1
+ADD F1 G1
+PUSH R4
