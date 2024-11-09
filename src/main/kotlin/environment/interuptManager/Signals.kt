@@ -1,14 +1,32 @@
 package environment.interuptManager
 
-enum class Signals(code: Int) {
-	InterruptProgram(code = 2), EmulateInstructionExecuted(code = 7), AlarmTimer(code = 14), Termination(code = 15), UrgentCondition(
-		code = 16
+enum class Signals(val code: Int, val signalName: String) {
+	InterruptProgram(code = 2, signalName = "INT"), EmulateInstructionExecuted(
+		code = 7, signalName = "EMT"
 	),
-	Stop(code = 18), Continue(code = 19), ChildStatusChanged(code = 20), BackgroundTerminalReadAttempt(code = 21), BackgroundTerminalWriteAttempt(
-		code = 22
+	AlarmTimer(code = 14, signalName = "ALRM"), Termination(
+		code = 15, signalName = "TERM"
 	),
-	CpuTimeExceeded(code = 24), FileSizeExceeded(code = 25), VirtualTimeAlarm(code = 26), ProfilingTimerAlarm(code = 27), WindowSizeChange(
-		code = 28
+	UrgentCondition(
+		code = 16, signalName = "URG"
 	),
-	StatusRequestFromKeyboard(code = 29), UserDefinedOne(code = 30), UserDefinedTwo(code = 31)
+	Stop(
+		code = 18, signalName = "TSTP"
+	),
+	Continue(code = 19, signalName = "CONT"), ChildStatusChanged(
+		code = 20, signalName = "CHLD"
+	),
+	BackgroundTerminalReadAttempt(code = 21, signalName = "TTIN"), BackgroundTerminalWriteAttempt(
+		code = 22, signalName = "TTOU"
+	),
+	CpuTimeExceeded(code = 24, signalName = "XCPU"), FileSizeExceeded(code = 25, signalName = "XFSZ"), VirtualTimeAlarm(
+		code = 26, signalName = "VTALRM"
+	),
+	ProfilingTimerAlarm(code = 27, signalName = "PROF"), WindowSizeChange(
+		code = 28, signalName = "WINCH"
+	),
+	StatusRequestFromKeyboard(code = 29, signalName = "INFO"), UserDefinedOne(
+		code = 30, signalName = "USR1"
+	),
+	UserDefinedTwo(code = 31, signalName = "USR2")
 }
