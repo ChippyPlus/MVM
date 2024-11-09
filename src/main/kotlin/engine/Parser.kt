@@ -1,7 +1,6 @@
 package engine
 
 import data.registers.RegisterType
-import data.registers.read
 import data.registers.toRegisterDataType
 import engine.execution.InstructData
 import errors
@@ -37,15 +36,6 @@ fun parser(file: List<String>): List<InstructData> {
 		try {
 			out.add(
 				element = when (instruction) {
-
-
-					"mem_request" -> {
-						// mem_request range A, range B
-						InstructData(
-							"mem_request",
-							values = arrayOf(line[1].toRegisterType().read(), line[2].toRegisterType().read())
-						)
-					}
 
 
 					"xlit" -> {
@@ -143,7 +133,7 @@ fun parser(file: List<String>): List<InstructData> {
 
 
 					// Register
-					"not", "printr", "peek", "pop", "push", "inr", "dealloc" -> {
+					"not", "printr", "peek", "pop", "push", "inr", "dealloc", "sleep" -> {
 						InstructData(
 							name = instruction, arrayOf(line[1].toRegisterType())
 						)

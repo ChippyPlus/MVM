@@ -39,7 +39,7 @@ class SystemCall {
 			14 -> time()
 			16 -> getPid()
 			17 -> getUid()
-			18 -> handleSignals(s2)
+			18 -> handleSignals(s2, s3)
 			24 -> writeIo(s2)
 			25 -> readIo()
 			26 -> createArray(s2)

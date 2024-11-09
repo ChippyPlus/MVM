@@ -1,10 +1,12 @@
+lit g1 1000
 lit s1 18
 lit s2 16
+lit s3 10
 syscall
 lit s1 16
 syscall
 printr r2
-
-
-
+sleep g1
 jmp 9
+str f1 "Accepted Signal"
+call println

@@ -6,26 +6,23 @@ import errors
 import helpers.toLong
 import sun.misc.Signal
 import sun.misc.Signal.handle
+import vm
 import kotlin.system.exitProcess
 
 class InterruptManager {
 
-	private fun handle(name: String) {
+	private fun handle(name: String, jumpWhere: Long) {
 		handle(Signal(name)) {
-			println("Oh no received a signal!!!!")
+			vm.pc = jumpWhere
 			RegisterType.I9.write(true.toLong())
 			exitProcess(0)
 		}
 	}
 
-	fun requestHandle(signals: Signals) {
-		handle(signals.signalName)
-	}
-
-	fun handleSystemCallRequest(code: Int) {
+	fun handleSystemCallRequest(code: Int, jumpWhere: Long) {
 		var did = false
 		Signals.entries.forEach {
-			if (it.code.equals(code)) handle(it.signalName);did = true;return@forEach
+			if (it.code.equals(code)) handle(it.signalName, jumpWhere);did = true;return@forEach
 		}
 		if (!did) {
 			errors.SystemCallGeneralException("handleSignals")

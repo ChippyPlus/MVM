@@ -5,6 +5,6 @@ import data.registers.read
 import environment.interuptManager.InterruptManager
 import internals.systemCalls.SystemCall
 
-fun SystemCall.handleSignals(code: RegisterType) {
-	InterruptManager().handleSystemCallRequest(code.read().toInt())
+fun SystemCall.handleSignals(code: RegisterType, jumpWhere: RegisterType) {
+	InterruptManager().handleSystemCallRequest(code.read().toInt(), jumpWhere.read())
 }

@@ -18,6 +18,7 @@ import internals.instructions.ioAbstractions.prints
 import internals.instructions.memory.load
 import internals.instructions.memory.store
 import internals.instructions.misc.help
+import internals.instructions.misc.sleep
 import internals.instructions.stackOperations.peek
 import internals.instructions.stackOperations.pop
 import internals.instructions.stackOperations.push
@@ -61,6 +62,9 @@ class Execute {
 			}
 			when (command[(vm.pc - 1).toInt()].name) {
 
+				"sleep" -> {
+					vm.misc.sleep(args[0] as RegisterType)
+				}
 
 				"ftoi" -> {
 					vm.xFloats.ftoi(args[0] as RegisterType, args[1] as RegisterType)
