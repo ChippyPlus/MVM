@@ -207,18 +207,18 @@ class Execute {
 				}
 
 				"jmp" -> {
-					vm.controlFlow.jmp(targetAddress = args[0] as Long - 2L)
+					vm.controlFlow.jmp(targetAddress = args[0] as Long - 1L)
 				}
 
 				"jz" -> {
 					vm.controlFlow.jz(
-						targetAddress = args[0] as Long - 2L
+						targetAddress = args[0] as Long - 1L
 					)
 				}
 
 				"jnz" -> {
 					vm.controlFlow.jnz(
-						targetAddress = args[0] as Long - 2L
+						targetAddress = args[0] as Long - 1L
 					)
 				}
 

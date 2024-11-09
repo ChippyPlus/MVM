@@ -13,9 +13,8 @@ class InterruptManager {
 
 	private fun handle(name: String, jumpWhere: Long) {
 		handle(Signal(name)) {
-			vm.pc = jumpWhere
+			vm.pc = jumpWhere - 1
 			RegisterType.I9.write(true.toLong())
-			exitProcess(0)
 		}
 	}
 

@@ -1,7 +1,7 @@
 lit g1 1000
 lit s1 18
 lit s2 16
-lit s3 10
+lit s3 11
 syscall
 lit s1 16
 syscall
