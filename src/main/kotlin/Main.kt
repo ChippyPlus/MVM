@@ -3,8 +3,6 @@ import data.memory.InternalMemory
 import data.registers.Registers
 import engine.execution.Execute
 import engine.parser
-import engine.v2.Compile
-import engine.v2.ExecutionV2
 import environment.ExecuteLib
 import environment.VMErrors
 import helpers.Config
@@ -39,21 +37,7 @@ fun main(args: Array<String>) {
 			execute.execute(File(args[1]))
 		}
 
-		"crun" -> {
-			if (args.size < 2) {
-				println("Usage: mvm crun <file.mar>")
-				exitProcess(1)
-			}
-			ExecutionV2().execute(File(args[1]).readText())
-		}
 
-		"run" -> {
-			if (args.size < 2) {
-				println("Usage: mvm run <file.kar>")
-				exitProcess(1)
-			}
-			ExecutionV2().execute(Compile().execute(parser(File(args[1]).readLines())))
-		}
 
 		"tokenise" -> {
 			if (args.size < 2) {
@@ -70,20 +54,6 @@ fun main(args: Array<String>) {
 				exitProcess(1)
 			}
 			VarRedundancy(globalInfo = parser(File(args[1]).readLines())).cleanRedundancy().forEach(::println)
-		}
-
-		"compile" -> {
-			println("WARNING. The compiler is experimental!!!!")
-			if (args.size < 2) {
-				println("Usage: mvm compile <file.kar>")
-				exitProcess(1)
-			}
-			val optimised = VarRedundancy(globalInfo = parser(File(args[1]).readLines())).cleanRedundancy()
-			val out = Compile().execute(optimised)
-			val f = File(args[1].split(".")[0] + ".mar")
-			f.createNewFile()
-			f.writeText(out)
-			println("Compiled with 0 Issues!!!!!")
 		}
 
 
