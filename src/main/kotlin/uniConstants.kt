@@ -42,6 +42,7 @@ val instructions = listOf(
 	"jnz",
 	"ret",
 	"inr",
+	"syscall",
 	"printr",
 	"prints",
 	"help",
