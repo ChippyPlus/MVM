@@ -7,6 +7,7 @@ import helpers.toLong
 import sun.misc.Signal
 import sun.misc.Signal.handle
 import vm
+import java.lang.Runtime.getRuntime
 import kotlin.system.exitProcess
 
 class InterruptManager {
@@ -17,6 +18,11 @@ class InterruptManager {
 			RegisterType.I9.write(true.toLong())
 		}
 	}
+
+	fun sendSignal(code: Int, process: Long) {
+		getRuntime().exec("kill -$code $process")
+	}
+
 
 	fun handleSystemCallRequest(code: Int, jumpWhere: Long) {
 		var did = false

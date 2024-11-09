@@ -40,6 +40,7 @@ class SystemCall {
 			16 -> getPid()
 			17 -> getUid()
 			18 -> handleSignals(s2, s3)
+			19 -> sendSignal(s2, s3)
 			24 -> writeIo(s2)
 			25 -> readIo()
 			26 -> createArray(s2)
