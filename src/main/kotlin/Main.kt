@@ -24,6 +24,7 @@ val internalMemory = InternalMemory()
 
 val execute = Execute()
 fun main(args: Array<String>) {
+	println()
 	if (args.isEmpty()) {
 		println("Usage: mvm <command> [options]")
 		exitProcess(1)
