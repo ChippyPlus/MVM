@@ -48,7 +48,9 @@ enum class IntelRegisters {
 	/**
 	 * PC - Program Counter
 	 */
-	PC
+	PC,
+
+	SIG,
 }
 
 val intelNames = IntelNames()
@@ -63,6 +65,7 @@ class IntelNames {
 		IntelRegisters.ENSF -> RegisterType.I6
 		IntelRegisters.ESF -> RegisterType.I7
 		IntelRegisters.PC -> RegisterType.I8
+		IntelRegisters.SIG -> RegisterType.I9
 
 	}
 }
