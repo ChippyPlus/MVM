@@ -51,16 +51,16 @@ class Execute(val inFunction: Boolean = false) {
 			sleep(hertz)
 
 			vm.pc++
-			if (vm.pc - 1 == command.size) {
+			if (vm.pc - 1L == command.size.toLong()) {
 				break
 			}
 
 			val args = try {
-				command[vm.pc - 1].values
+				command[(vm.pc - 1).toInt()].values
 			} catch (_: IndexOutOfBoundsException) {
 				break
 			}
-			when (command[vm.pc - 1].name) {
+			when (command[(vm.pc - 1).toInt()].name) {
 
 				"mem_request" if inFunction -> {
 					snapShotManager.memoryRequestBlock(args[0] as Long..args[1] as Long)
@@ -131,7 +131,7 @@ class Execute(val inFunction: Boolean = false) {
 				}
 
 				"call" -> {
-					vm.libPc = vm.pc
+					vm.libPc = vm.pc.toLong()
 					libExecute.execute(args[0].toString())
 				}
 
@@ -300,7 +300,7 @@ class Execute(val inFunction: Boolean = false) {
 				}
 
 				else -> {
-					errors.InvalidInstructionException(command[vm.pc - 1].name)
+					errors.InvalidInstructionException(command[(vm.pc - 1).toInt()].name)
 				}
 			}
 

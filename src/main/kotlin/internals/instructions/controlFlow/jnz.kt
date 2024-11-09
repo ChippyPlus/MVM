@@ -16,7 +16,7 @@ import vm
  */
 fun ControlFlow.jnz(targetAddress: Long): Any = try {
 	if (registers.read(intelNames[IntelRegisters.ZF]) != 0L) {
-		vm.pc = targetAddress.toInt()
+		vm.pc = targetAddress
 	} else {
 		// I'm not sure why I need this else block
 	}
