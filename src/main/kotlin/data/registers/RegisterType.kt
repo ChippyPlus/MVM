@@ -14,6 +14,8 @@ enum class RegisterType {
 
 fun RegisterType.read() = registers.read(this)
 
+fun RegisterType.write(value: Long) = registers.write(this, value)
+
 fun String.toRegisterDataType() = when (this.lowercase()) {
 	"byte" -> RByte
 	"short" -> RShort

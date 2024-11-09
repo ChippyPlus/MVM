@@ -1,7 +1,10 @@
-printr i8
-printr i8
-printr i8
-printr i8
-printr i8
-printr i8
-lit i8 20
+lit s1 18
+lit s2 16
+syscall
+lit s1 16
+syscall
+printr r2
+
+
+
+jmp 9
