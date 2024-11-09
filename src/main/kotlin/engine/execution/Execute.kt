@@ -3,7 +3,6 @@ package engine.execution
 import data.registers.RegisterDataType
 import data.registers.RegisterType
 import engine.parser
-import environment.snapShotManager
 import errors
 import helpers.toDoubleOrFloatBasedOnDataType
 import helpers.toRegisterType
@@ -35,7 +34,7 @@ import java.lang.Thread.sleep
 /**
  * The class responsible for executing parsed instructions.
  */
-class Execute(val inFunction: Boolean = false) {
+class Execute {
 
 	/**
 	 * Executes a list of parsed [Instruction] objects.
@@ -62,9 +61,6 @@ class Execute(val inFunction: Boolean = false) {
 			}
 			when (command[(vm.pc - 1).toInt()].name) {
 
-				"mem_request" if inFunction -> {
-					snapShotManager.memoryRequestBlock(args[0] as Long..args[1] as Long)
-				}
 
 				"ftoi" -> {
 					vm.xFloats.ftoi(args[0] as RegisterType, args[1] as RegisterType)

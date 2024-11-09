@@ -18,7 +18,7 @@ import kotlin.system.exitProcess
  * @return A mutable list of [Instruction] objects representing the parsed instructions.
  * @throws InvalidInstructionException If an invalid instruction mnemonic is encountered.
  */
-fun parser(file: List<String>, inFunction: Boolean = false): List<InstructData> {
+fun parser(file: List<String>): List<InstructData> {
 	val out = emptyArray<InstructData>().toMutableList()
 	val tokens = emptyList<MutableList<String>>().toMutableList()
 
