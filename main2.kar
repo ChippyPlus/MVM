@@ -1,0 +1,8 @@
+lit s1 19
+lit s2 16
+lit s3 60600
+syscall
+str s2 "Sent signal to "
+lit s1 24
+syscall
+printr s3
