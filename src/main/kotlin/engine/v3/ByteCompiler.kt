@@ -15,14 +15,14 @@ fun main() {
 
 open class CompilerBits {
 	fun lit(outputStream: DataOutputStream, registerType: RegisterType, value: Long) {
-		outputStream.writeInt(compilerElements.instructionCodes["lit"]!!)
-		outputStream.writeInt(compilerElements.registerCodes[registerType]!!)
+		outputStream.writeByte(compilerElements.instructionCodes["lit"]!!)
+		outputStream.writeByte(compilerElements.registerCodes[registerType]!!)
 		outputStream.writeLong(value)
 	}
 
 	fun printr(outputStream: DataOutputStream, registerType: RegisterType) {
-		outputStream.writeInt(compilerElements.instructionCodes["printr"]!!)
-		outputStream.writeInt(compilerElements.registerCodes[registerType]!!)
+		outputStream.writeByte(compilerElements.instructionCodes["printr"]!!)
+		outputStream.writeByte(compilerElements.registerCodes[registerType]!!)
 	}
 }
 
