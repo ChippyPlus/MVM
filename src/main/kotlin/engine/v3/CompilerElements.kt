@@ -21,3 +21,7 @@ class CompilerElements {
 
 }
 
+fun main() {
+	CompilerElements().instructionCodes.forEach(::println)
+}
+
