@@ -97,8 +97,12 @@ class VMErrors {
 	 *
 	 * @param message A description of the system call error.
 	 */
-	fun SystemCallGeneralException(message: String) {
-		System.err.println("${prefix()}: System Call General Exception \"$message operation failed\"")
+	fun SystemCallGeneralException(message: String, info: String? = null) {
+		if (info == null) {
+			System.err.println("${prefix()}: System Call General Exception \"$message operation failed\"")
+		} else {
+			System.err.println("${prefix()}: System Call General Exception \"$message\" \"$info\"")
+		}
 		exitProcess(8)
 	}
 

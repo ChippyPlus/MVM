@@ -1,6 +1,6 @@
 lit s1 19
-lit s2 16
-lit s3 60600
+lit s2 31
+lit s3 73612
 syscall
 str s2 "Sent signal to "
 lit s1 24

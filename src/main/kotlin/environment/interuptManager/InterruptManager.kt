@@ -20,7 +20,10 @@ class InterruptManager {
 	}
 
 	fun sendSignal(code: Int, process: Long) {
-		getRuntime().exec("kill -$code $process")
+		val exitCode = getRuntime().exec("kill -$code $process").exitValue()
+		if (exitCode == 1) {
+			errors.SystemCallGeneralException("sendSignal", "Bad PID")
+		}
 	}
 
 
