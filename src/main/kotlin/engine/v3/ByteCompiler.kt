@@ -1,19 +1,16 @@
 package engine.v3
 
 import data.registers.RegisterType
-import java.io.DataInputStream
-import java.io.DataOutputStream
-import java.io.FileInputStream
-import java.io.FileOutputStream
+import java.io.*
 
 
 val compilerElements = CompilerElements()
 private const val filename = "w.mbin"
 fun main() {
 	val bc = ByteCompiler()
-	val be = ByteExecution()
+	val be = ByteExecutor()
 	bc.writeStructuredData(filename)
-	be.readStructuredData(filename)
+	be.execute(File(filename))
 }
 
 open class CompilerBits {
@@ -50,17 +47,6 @@ class ByteExecution {
 			}
 
 
-//			val opcode = inputStream.readInt()
-//			when (opcode) {
-//				0 -> {
-//					val register = RegisterType.entries[inputStream.readInt()]
-//					val data = inputStream.readLong()
-//					println("Using Lit $register $data")
-//				}
-//
-//				40 -> {
-//					val register = RegisterType.entries[inputStream.readInt()]
-//					println("Using Printr $register")
 		}
 	}
 }

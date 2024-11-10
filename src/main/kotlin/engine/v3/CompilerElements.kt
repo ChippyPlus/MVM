@@ -6,6 +6,13 @@ import instructions
 class CompilerElements {
 	val registerCodes = createRegisterCodes()
 	val instructionCodes = createInstructionCodes()
+	val codesToRegisters = www()
+
+	private fun www(): Map<Int, RegisterType> {
+		val out = mutableMapOf<Int, RegisterType>()
+		registerCodes.forEach { (t, u) -> out[u] = t }
+		return out
+	}
 
 	private fun createRegisterCodes(): Map<RegisterType, Int> {
 		val registersToElementIse = mutableMapOf<RegisterType, Int>()

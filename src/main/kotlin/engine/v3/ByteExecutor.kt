@@ -1,52 +1,40 @@
 package engine.v3
-//
-//
-//import data.registers.RegisterType
-//import hertz
-//import internals.instructions.arithmetic.*
-//import internals.instructions.bitwise.*
-//import internals.instructions.controlFlow.jmp
-//import internals.instructions.controlFlow.jnz
-//import internals.instructions.controlFlow.jz
-//import internals.instructions.dataTransfer.lit
-//import internals.instructions.dataTransfer.mov
-//import internals.instructions.ioAbstractions.printr
-//import internals.instructions.ioAbstractions.prints
-//import internals.instructions.memory.load
-//import internals.instructions.memory.store
-//import internals.instructions.stackOperations.peek
-//import internals.instructions.stackOperations.pop
-//import internals.instructions.stackOperations.push
-//import internals.instructions.strings.*
-//import vm
-//import java.io.DataInputStream
-//import java.io.File
-//import java.io.FileInputStream
-//import java.lang.Thread.sleep
-//
-//class ByteExecutor {
-//
-//	fun execute(inputMarFile: File) = try {
-//		DataInputStream(FileInputStream(inputMarFile)).use { dis ->
-//			while (dis.available() > 0) {
-//				sleep(hertz)
-//				vm.pc++  // Increment program counter *before* executing the instruction.
-//
-//				when (val opcode = dis.readByte().toInt()) {
-//					transMapIDs.instructions["lit"]!!.code -> { // LIT instruction
-//						val register = transMapIDs.uRegisters[dis.readByte().toInt().toChar()]
-//						val value = when (val valueLength = dis.readByte()) {
-//							1.toByte() -> dis.readByte().toLong()
-//							2.toByte() -> dis.readShort().toLong()
-//							4.toByte() -> dis.readInt().toLong()
-//							8.toByte() -> dis.readLong()
-//							else -> throw IllegalStateException("Invalid value length: $valueLength")
-//						}
-//						if (register != null) {
-//							vm.dataTransfer.lit(register, value)
-//						}
-//					}
-//
+
+
+import hertz
+import vm
+import java.io.DataInputStream
+import java.io.File
+import java.io.FileInputStream
+import java.lang.Thread.sleep
+
+class ByteExecutor {
+	private val compilerElements = CompilerElements()
+
+	fun execute(inputMarFile: File) {
+		DataInputStream(FileInputStream(inputMarFile)).use { dis ->
+			while (dis.available() > 0) {
+				sleep(hertz)
+				vm.pc++  // Increment program counter *before* executing the instruction.
+
+				when (val opcode = dis.readByte().toInt()) {
+					compilerElements.instructionCodes["lit"]!! -> { // LIT instruction
+						val register = compilerElements.codesToRegisters[dis.readByte().toInt()]!!
+						val value = dis.readLong()
+
+						println("Lit $register, $value")
+//						vm.dataTransfer.lit(register, value)
+					}
+
+
+					compilerElements.instructionCodes["printr"]!!,
+
+						-> { // Instructions with one register operand
+						val register = compilerElements.codesToRegisters[dis.readByte().toInt()]!!
+						println("Printr $register")
+					}
+
+
 //					transMapIDs.instructions["add"]!!.code,
 //					transMapIDs.instructions["sub"]!!.code,
 //					transMapIDs.instructions["mul"]!!.code,
@@ -93,18 +81,18 @@ package engine.v3
 //					}
 //
 //					transMapIDs.instructions["jmp"]!!.code -> { // JMP instruction
-//						val address = dis.readShort().toLong()
+//						val address = dis.readShort().toInt()
 //						vm.controlFlow.jmp(address)
 //					}
 //
 //					transMapIDs.instructions["jz"]!!.code,
 //					transMapIDs.instructions["jnz"]!!.code,
 //						-> {  // JZ and JNZ instructions
-//						val address = dis.readShort().toLong()
-////						val register = transMapIDs.uRegisters[dis.readByte().toInt().toChar()]!!
+//						val address = dis.readShort().toInt()
+//						val register = transMapIDs.uRegisters[dis.readByte().toInt().toChar()]!!
 //						when (opcode) {
-//							transMapIDs.instructions["jz"]!!.code -> vm.controlFlow.jz(address)
-//							transMapIDs.instructions["jnz"]!!.code -> vm.controlFlow.jnz(address)
+//							transMapIDs.instructions["jz"]!!.code -> vm.controlFlow.jz(address, register)
+//							transMapIDs.instructions["jnz"]!!.code -> vm.controlFlow.jnz(address, register)
 //							else -> throw IllegalStateException("Invalid opcode in conditional jump branch: $opcode") //handle error
 //						}
 //					}
@@ -131,11 +119,9 @@ package engine.v3
 //					}
 //
 //					transMapIDs.instructions["str"]!!.code -> { // STR instruction
-//						val register = transMapIDs.uRegisters[dis.readByte().toInt().toChar()]
+//						val register = transMapIDs.uRegisters[dis.readByte().toInt().toChar()]!!
 //						val stringValue = dis.readUTF()
-//						if (register != null) {
-//							vm.strings.str(register, stringValue)
-//						}
+//						vm.strings.str(register, stringValue)
 //					}
 //
 //
@@ -144,20 +130,15 @@ package engine.v3
 //					transMapIDs.instructions["syscall"]!!.code -> {
 //						val systemCallId = dis.readByte()
 //						vm.systemCall.execute(
-//							RegisterType.S1, RegisterType.S2, RegisterType.S3, RegisterType.S4
+//							SuperRegisterType.S1, SuperRegisterType.S2, SuperRegisterType.S3, SuperRegisterType.S4
 //						)
 //					}
-//
-//					else -> throw IllegalStateException("Invalid Opcode: $opcode") // Handle unknown opcodes
-//				}
-//
-//			}
-//		}
-//		vm.pc = 0
-//	} catch (e: Exception) {
-//		// Handle runtime errors
-//		throw e
-//		System.err.println("Runtime execution failed: ${e.message}")
-//
-//	}
-//}
+
+					else -> throw IllegalStateException("Invalid Opcode: $opcode") // Handle unknown opcodes
+				}
+
+			}
+		}
+		vm.pc = 0
+	}
+}
