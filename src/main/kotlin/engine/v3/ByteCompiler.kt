@@ -1,5 +1,6 @@
 package engine.v3
 
+import data.registers.RegisterType
 import java.io.DataInputStream
 import java.io.DataOutputStream
 import java.io.FileInputStream
@@ -19,10 +20,12 @@ fun main() {
 class ByteCompiler {
 	fun writeStructuredData(filename: String) {
 		DataOutputStream(FileOutputStream(filename)).use { outputStream ->
-			outputStream.writeInt(12345)
-			outputStream.writeFloat(3.14f)
-			outputStream.writeBoolean(true)
-			outputStream.writeUTF("Hello, binary world!")
+			outputStream.writeInt(compilerElements.instructionCodes["lit"]!!)
+			outputStream.writeInt(compilerElements.registerCodes[RegisterType.G1]!!)
+			outputStream.writeLong(10)
+			outputStream.writeInt(compilerElements.instructionCodes["printr"]!!)
+			outputStream.writeInt(compilerElements.registerCodes[RegisterType.G1]!!)
+
 		}
 	}
 }
@@ -30,15 +33,13 @@ class ByteCompiler {
 class ByteExecution {
 	fun readStructuredData(filename: String) {
 		DataInputStream(FileInputStream(filename)).use { inputStream ->
-			val intValue = inputStream.readInt()
-			val floatValue = inputStream.readFloat()
-			val booleanValue = inputStream.readBoolean()
-			val stringValue = inputStream.readUTF()
+			val opcode = inputStream.readInt()
+			val register = RegisterType.entries[inputStream.readInt()]
+			val data = inputStream.readLong()
+			println("Instruction: ${compilerElements.instructionCodes.entries.find { it.value == opcode }!!.key}")
+			println("Register: $register")
+			println("Data: $data")
 
-			println("Int: $intValue")
-			println("Float: $floatValue")
-			println("Boolean: $booleanValue")
-			println("String: $stringValue")
 		}
 	}
 }
