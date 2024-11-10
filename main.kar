@@ -1,12 +1,20 @@
-lit g1 1000
-lit s1 18
-lit s2 32
-lit s3 11
-syscall
-lit s1 16
-syscall
-printr r2
-sleep g1
-jmp 9
-str f1 "Accepted Signal"
+str f1 "Init"
 call println
+
+lit s1 7
+str s2 "main2.kar"
+syscall
+
+mov s2 f1
+//
+call strings.strlen
+pop r4
+add r4 s1
+cpy r4 g2 // G1 is max
+lit g3 1
+lit g4 0
+mov r4 s2
+eq r4 g4
+jnz 20
+dealloc r4
+jmp 4

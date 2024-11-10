@@ -36,6 +36,7 @@ class SystemCall {
 			4 -> listFiles()
 			5 -> deleteFile(s2)
 			6 -> exit(s2)
+			7 -> fork(s2)
 			14 -> time()
 			16 -> getPid()
 			17 -> getUid()

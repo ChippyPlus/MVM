@@ -1,3 +1,4 @@
+
 import data.io.FileDescriptors
 import data.memory.InternalMemory
 import data.registers.Registers
@@ -24,6 +25,8 @@ val internalMemory = InternalMemory()
 
 val execute = Execute()
 fun main(args: Array<String>) {
+
+
 	if (args.isEmpty()) {
 		println("Usage: mvm <command> [options]")
 		exitProcess(1)
