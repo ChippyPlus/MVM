@@ -61,6 +61,8 @@ class Execute {
 				break
 			}
 
+			exeWhen(name, args)
+
 		}
 	}
 
@@ -76,7 +78,7 @@ class Execute {
 	}
 
 
-	fun exeWhen(name: String, args: Array<Any>): Unit? {
+	fun exeWhen(name: String, args: Array<Any?>): Unit? {
 		when (name) {
 
 			"sleep" -> {

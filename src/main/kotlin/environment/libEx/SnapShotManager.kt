@@ -7,7 +7,6 @@ import internalMemory
 import registers
 
 class SnapShotManager {
-
 	var safeMemory = mutableSetOf<LongRange>()
 
 	fun populateSnapShotRegister(snapShotRegisters: Map<RegisterType, Long?>) {
