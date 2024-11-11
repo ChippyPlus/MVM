@@ -1,4 +1,3 @@
-
 import data.io.FileDescriptors
 import data.memory.InternalMemory
 import data.registers.Registers
@@ -6,6 +5,7 @@ import engine.execution.Execute
 import engine.parser
 import environment.ExecuteLib
 import environment.VMErrors
+import environment.reflection.reflection
 import helpers.Config
 import internals.Vm
 import optimisations.VarRedundancy
@@ -37,6 +37,7 @@ fun main(args: Array<String>) {
 				println("Usage: mvm irun <file.kar>")
 				exitProcess(1)
 			}
+			reflection.currentFileData.name = args[1]
 			execute.execute(File(args[1]))
 		}
 
