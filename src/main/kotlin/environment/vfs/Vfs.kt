@@ -80,9 +80,9 @@ class Vfs {
 		ProtoBuf.decodeFromHexString<Set<Formats.Vfile>>(hex = File("src/main/resources/vfs.fs").readText())
 
 	private fun deStructureRenderToNames(render: Set<Formats.Vfile>): Set<String> {
-		val `I really really dislike the idea of black monkeys if you know what I mean` = mutableSetOf<String>()
-		render.forEach { `I really really dislike the idea of black monkeys if you know what I mean`.add(it.name) }
-		return `I really really dislike the idea of black monkeys if you know what I mean`
+		val strings = mutableSetOf<String>()
+		render.forEach { strings.add(it.name) }
+		return strings
 	}
 
 	fun read(name: String): String? {
