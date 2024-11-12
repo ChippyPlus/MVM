@@ -2,9 +2,7 @@ package environment.libEx
 
 import environment.ExecuteLib
 import environment.snapShotManager
-import errors
 import kilb.Klib
-import vm
 
 fun ExecuteLib.executeKt(name: String) {
 	val oldPc = vm.pc

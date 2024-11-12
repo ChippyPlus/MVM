@@ -1,7 +1,6 @@
 package internals.instructions.dataTransfer
 
 import data.registers.RegisterType
-import registers
 
 /**
  * Copies the value from one register to another.

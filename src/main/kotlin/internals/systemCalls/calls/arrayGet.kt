@@ -2,10 +2,7 @@ package internals.systemCalls.calls
 
 import data.memory.MemoryAddress
 import data.registers.RegisterType
-import errors
-import internalMemory
 import internals.systemCalls.SystemCall
-import registers
 
 fun SystemCall.arrayGet(arrayLocationV: RegisterType, arrayIndexV: RegisterType) = call("arrayGet") {
 	val metaData = internalMemory.read(MemoryAddress(registers.read(arrayLocationV))).value!!

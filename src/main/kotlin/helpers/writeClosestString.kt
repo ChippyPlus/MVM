@@ -2,7 +2,6 @@ package helpers
 
 import data.memory.MemoryAddress
 import data.memory.MemoryValue
-import internalMemory
 
 /**
  * Writes a string to memory, starting at the address pointed to by the specified register.
@@ -15,14 +14,14 @@ import internalMemory
  * @return The starting memory address where the string was written.
  * @throws MemoryAllocationException If a contiguous block of free memory large enough to hold, the string cannot be found.
  */
-fun writeClosestString(string: String): Long {
+fun Helpers.writeClosestString(string: String): Long {
 	val spot = findFreeMemory(string.length.toLong())
 
 	// Write the string char to memory, followed by a null-terminator
 	for ((index, i) in (spot until (spot + string.length)).withIndex()) {
-		internalMemory.memory[MemoryAddress(i)] = MemoryValue(string[index].code.toLong())
+		vm.internalMemory.memory[MemoryAddress(i)] = MemoryValue(string[index].code.toLong())
 	}
-	internalMemory.memory[MemoryAddress(spot + string.length)] = MemoryValue(0)
+	vm.internalMemory.memory[MemoryAddress(spot + string.length)] = MemoryValue(0)
 
 	return spot
 }

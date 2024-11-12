@@ -3,10 +3,8 @@ package internals.instructions.strings
 import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
-import errors
 import helpers.toLong
 import helpers.writeClosestString
-import registers
 
 /**
  * Stores a string literal in memory and sets the specified register to point to the starting address.
@@ -18,7 +16,7 @@ import registers
 fun Strings.str(targetAddress: RegisterType, string: String): Unit = try {
 	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
 
-	val location = writeClosestString(string = string)
+	val location = helpers.writeClosestString(string = string)
 	registers.write(register = targetAddress, value = location)
 
 } catch (_: Exception) {

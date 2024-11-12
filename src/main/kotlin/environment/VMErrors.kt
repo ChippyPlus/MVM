@@ -2,9 +2,8 @@ package environment
 
 import data.memory.MemoryAddress
 import data.registers.RegisterType
+import internals.Vm
 import internals.instructions.misc.HelpJsonArguments
-import libExecute
-import vm
 import kotlin.system.exitProcess
 
 /**
@@ -14,7 +13,7 @@ import kotlin.system.exitProcess
  * printing error messages to the standard error stream, and terminating the VM with specific exit codes.
  */
 @Suppress("unused")
-class VMErrors {
+class VMErrors(val vm: Vm) {
 	/**
 	 * Reports an invalid register exception.
 	 *
@@ -290,8 +289,8 @@ class VMErrors {
 
 
 private fun VMErrors.prefix(): String {
-	return if (libExecute.enabledFunction) {
-		"ERROR in ${libExecute.currentFunction.removeSuffix(".lib")}:${vm.libPc}:${vm.pc}"
+	return if (vm.libExecute.enabledFunction) {
+		"ERROR in ${vm.libExecute.currentFunction.removeSuffix(".lib")}:${vm.libPc}:${vm.pc}"
 	} else {
 		"ERROR:${vm.pc}"
 	}

@@ -1,7 +1,6 @@
 package internals.instructions.arithmetic
 
 import data.registers.RegisterType
-import registers
 import kotlin.math.pow
 
 

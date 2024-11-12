@@ -5,10 +5,7 @@ import data.memory.MemoryValue
 import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
-import errors
 import helpers.toLong
-import internalMemory
-import registers
 
 /**
  * Stores a value from a register into memory.

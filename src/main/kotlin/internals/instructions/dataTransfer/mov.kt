@@ -1,7 +1,6 @@
 package internals.instructions.dataTransfer
 
 import data.registers.RegisterType
-import registers
 
 /**
  * Moves the value from the source register to the destination register.

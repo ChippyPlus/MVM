@@ -2,7 +2,6 @@ package internals.instructions.bitwise
 
 
 import data.registers.RegisterType
-import registers
 
 /**
  * Performs a bitwise XOR operation on the values in two registers and stores the result in the `R3` register.

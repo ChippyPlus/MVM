@@ -6,17 +6,16 @@ import data.registers.intelNames
 import helpers.gatherHelp
 import helpers.toLong
 import kotlinx.serialization.Serializable
-import registers
 
 
 fun Misc.help(registerString: String) {
-	val i = gatherHelp(registerString)
+	val i = vm.helpers.gatherHelp(registerString)
 	println("Help prompt - \"${i.name}\"")
 	for (j in i.arguments) {
 		println("Argument - ${j.name}: ${j.info} ")
 	}
 	println("Description - ${i.info}")
-	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+	vm.registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
 
 }
 

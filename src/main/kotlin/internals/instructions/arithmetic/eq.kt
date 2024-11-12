@@ -3,9 +3,7 @@ package internals.instructions.arithmetic
 import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
-import errors
 import helpers.toLong
-import registers
 
 /**
  * Compares the values in two registers for equality and sets the `R4` register accordingly.

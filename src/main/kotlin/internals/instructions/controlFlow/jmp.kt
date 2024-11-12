@@ -1,7 +1,5 @@
 package internals.instructions.controlFlow
 
-import errors
-import vm
 
 /**
  * Performs an unconditional jump to the specified target address.

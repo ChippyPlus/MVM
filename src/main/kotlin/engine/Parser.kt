@@ -3,11 +3,9 @@ package engine
 import data.registers.RegisterType
 import data.registers.toRegisterDataType
 import engine.execution.InstructData
-import errors
 import helpers.gatherHelp
 import helpers.toRegisterType
-import helpers.toUnsafeRegisterType
-import vm
+import internals.Vm
 import kotlin.system.exitProcess
 
 /**
@@ -17,7 +15,7 @@ import kotlin.system.exitProcess
  * @return A mutable list of [Instruction] objects representing the parsed instructions.
  * @throws InvalidInstructionException If an invalid instruction mnemonic is encountered.
  */
-fun parser(file: List<String>): List<InstructData> {
+fun parser(vm: Vm, file: List<String>): List<InstructData> {
 	val out = emptyArray<InstructData>().toMutableList()
 	val tokens = emptyList<MutableList<String>>().toMutableList()
 
@@ -80,7 +78,7 @@ fun parser(file: List<String>): List<InstructData> {
 								line[1].toRegisterType(), try {
 									line.joinToString(" ").split("\"")[1]
 								} catch (e: IndexOutOfBoundsException) {
-									errors.InvalidArgumentFormatException(
+									vm.errors.InvalidArgumentFormatException(
 										"Any", shouldBe = "String"
 									)
 								}
@@ -159,7 +157,7 @@ fun parser(file: List<String>): List<InstructData> {
 					}
 
 					else -> {
-						errors.InvalidInstructionException(instruction)
+						vm.errors.InvalidInstructionException(instruction)
 						exitProcess(99) // for kotlin. Ughhhhhh
 					}
 				}
@@ -167,15 +165,15 @@ fun parser(file: List<String>): List<InstructData> {
 		} catch (missingArgument: IndexOutOfBoundsException) {
 			val missingIndex = missingArgument.message!!.split(" ")[1].toByte() - 1
 			val info = gatherHelp(instruction).arguments[missingIndex]
-			errors.InvalidArgumentException(info = info)
+			vm.errors.InvalidArgumentException(info = info)
 
 
 		} catch (e: NumberFormatException) {
 			try {
-				e.message!!.split(" ")[3].substring(1, e.message!!.split(" ").size - 1).toUnsafeRegisterType()
-				errors.InvalidArgumentFormatException(badType = "Register", shouldBe = "Long")
+				e.message!!.split(" ")[3].substring(1, e.message!!.split(" ").size - 1).toRegisterType()
+				vm.errors.InvalidArgumentFormatException(badType = "Register", shouldBe = "Long")
 			} catch (_: IllegalStateException) {
-				errors.InvalidArgumentFormatException(
+				vm.errors.InvalidArgumentFormatException(
 					badType = "String", shouldBe = "Long"
 				)
 			}

@@ -1,9 +1,14 @@
 package internals
 
 import config
+import data.memory.InternalMemory
 import data.registers.RegisterType
+import data.registers.Registers
 import data.registers.read
+import environment.ExecuteLib
+import environment.VMErrors
 import environment.vfs.Vfs
+import helpers.Helpers
 import internals.instructions.arithmetic.Arithmetic
 import internals.instructions.bitwise.Bitwise
 import internals.instructions.controlFlow.ControlFlow
@@ -16,49 +21,53 @@ import internals.instructions.stackOperations.StackOperations
 import internals.instructions.strings.Strings
 import internals.instructions.xFloats.XFloats
 import internals.systemCalls.SystemCall
-import registers
 import kotlin.reflect.KProperty
 
-open class Vm {
-	val dataTransfer = DataTransfer()
-	val arithmetic = Arithmetic()
-	val bitwise = Bitwise()
+class Vm {
+	val helpers = Helpers(this)
+	val libExecute = ExecuteLib(this)
+	val internalMemory = InternalMemory(this)
+	val errors = VMErrors(this)
+	val registers = Registers(this)
+	val dataTransfer = DataTransfer(this)
+	val arithmetic = Arithmetic(this)
+	val bitwise = Bitwise(this)
 	val stackOperations = StackOperations(config?.stackSize ?: 12)
-	val controlFlow = ControlFlow()
-	val memory = Memory()
+	val controlFlow = ControlFlow(this)
+	val memory = Memory(this)
 	val systemCall = SystemCall()
-	val ioAbstractions = IoAbstractions()
-	val strings = Strings() // Needed for Strings.str. Its very important
+	val ioAbstractions = IoAbstractions(this)
+	val strings = Strings() // Needed for Strings.str. It's very important
 	val functions = Functions()
-	val misc = Misc()
+	val misc = Misc(this)
 	val xFloats = XFloats()
-	var pc: Long by Pc()
+	var pc: Long by Pc(vm = this)
 	var libPc = 0L
 	val vfs = Vfs()
 }
 
 
-class Pc {
+class Pc(val vm: Vm) {
 
 	init {
-		registers.write(RegisterType.I8, 0)
+		vm.registers.write(RegisterType.I8, 0)
 	}
 
 
 	operator fun getValue(thisRef: Any?, property: KProperty<*>): Long {
 
-		return RegisterType.I8.read()
+		return RegisterType.I8.read(vm)
 	}
 
 	operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Long) = kotlin.run {
-		registers.write(RegisterType.I8, value)
+		vm.registers.write(RegisterType.I8, value)
 	}
 
-	override fun toString(): String = RegisterType.I8.read().toString()
-	operator fun plus(a: Long): Long = a + RegisterType.I8.read()
-	operator fun plus(a: Int): Long = a.toLong() + RegisterType.I8.read()
-	operator fun minus(a: Long): Long = a - RegisterType.I8.read()
-	operator fun minus(a: Int): Long = a.toLong() - RegisterType.I8.read()
-	fun toLong(): Long = RegisterType.I8.read()
+	override fun toString(): String = RegisterType.I8.read(vm).toString()
+	operator fun plus(a: Long): Long = a + RegisterType.I8.read(vm)
+	operator fun plus(a: Int): Long = a.toLong() + RegisterType.I8.read(vm)
+	operator fun minus(a: Long): Long = a - RegisterType.I8.read(vm)
+	operator fun minus(a: Int): Long = a.toLong() - RegisterType.I8.read(vm)
+	fun toLong(): Long = RegisterType.I8.read(vm)
 
 }

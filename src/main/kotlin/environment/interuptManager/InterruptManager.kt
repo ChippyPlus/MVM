@@ -2,27 +2,26 @@ package environment.interuptManager
 
 import data.registers.RegisterType
 import data.registers.write
-import errors
 import helpers.toLong
+import internals.Vm
 import sun.misc.Signal
 import sun.misc.Signal.handle
-import vm
 import java.lang.Runtime.getRuntime
 import kotlin.system.exitProcess
 
-class InterruptManager {
+class InterruptManager(val vm: Vm) {
 
 	private fun handle(name: String, jumpWhere: Long) {
 		handle(Signal(name)) {
 			vm.pc = jumpWhere - 1
-			RegisterType.I9.write(true.toLong())
+			RegisterType.I9.write(vm,true.toLong())
 		}
 	}
 
 	fun sendSignal(code: Int, process: Long) {
 		val exitCode = getRuntime().exec("kill -$code $process").exitValue()
 		if (exitCode == 1) {
-			errors.SystemCallGeneralException("sendSignal", "Bad PID")
+			vm.errors.SystemCallGeneralException("sendSignal", "Bad PID")
 		}
 	}
 
@@ -33,7 +32,7 @@ class InterruptManager {
 			if (it.code.equals(code)) handle(it.signalName, jumpWhere);did = true;return@forEach
 		}
 		if (!did) {
-			errors.SystemCallGeneralException("handleSignals")
+			vm.errors.SystemCallGeneralException("handleSignals")
 		}
 
 	}

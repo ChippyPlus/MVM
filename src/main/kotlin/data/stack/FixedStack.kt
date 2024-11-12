@@ -4,7 +4,7 @@ import data.registers.IntelRegisters
 import data.registers.intelNames
 import environment.errorsCatchable.ErrorType
 import helpers.toLong
-import registers
+import internals.Vm
 
 /**
  * A fixed-size stack implementation using an array.
@@ -13,7 +13,9 @@ import registers
  *
  * @constructor Creates a new [FixedStack] with the specified maximum size.
  */
-class FixedStack(private val maxSize: Int) {
+class FixedStack(private val maxSize: Int, vm: Vm) {
+	private val errors = vm.errors
+	private val registers = vm.registers
 	private val stack = Array<Long?>(maxSize) { null }
 	private var topIndex = -1
 

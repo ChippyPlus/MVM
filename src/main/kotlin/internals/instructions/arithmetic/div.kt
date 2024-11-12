@@ -4,7 +4,6 @@ import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
 import environment.errorsCatchable.ErrorType
-import registers
 
 /**
  * Divides the value in registerA by registerB and stores the result in the `R4` register.

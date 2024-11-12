@@ -1,7 +1,7 @@
 package data.registers
 
 import data.registers.RegisterDataType.*
-import registers
+import internals.Vm
 
 /**
  * Represents a supertype encompassing all register types in the virtual machine.
@@ -12,9 +12,9 @@ enum class RegisterType {
 	G1, G2, G3, G4, G5, G6, G7, G8, F1, F2, F3, F4, F5, F6, F7, F8, R1, R2, R3, R4, R5, R6, R7, R8, S4, S1, S2, S3, I1, I2, I3, I4, I5, I6, I7, I8, I9, X1, X2, X3, X4, X5, X6, X7, X8,
 }
 
-fun RegisterType.read() = registers.read(this)
+fun RegisterType.read(vm: Vm) = vm.registers.read(this)
 
-fun RegisterType.write(value: Long) = registers.write(this, value)
+fun RegisterType.write(vm: Vm, value: Long) = vm.registers.write(this, value)
 
 fun String.toRegisterDataType() = when (this.lowercase()) {
 	"byte" -> RByte

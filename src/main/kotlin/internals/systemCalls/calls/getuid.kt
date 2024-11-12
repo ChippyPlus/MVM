@@ -2,7 +2,6 @@ package internals.systemCalls.calls
 
 import data.registers.RegisterType.R2
 import internals.systemCalls.SystemCall
-import registers
 import java.io.BufferedReader
 import java.io.InputStreamReader
 

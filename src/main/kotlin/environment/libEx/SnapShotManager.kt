@@ -3,15 +3,14 @@ package environment.libEx
 import data.memory.MemoryAddress
 import data.memory.MemoryValue
 import data.registers.RegisterType
-import internalMemory
-import registers
+import internals.Vm
 
-class SnapShotManager {
+class SnapShotManager(val vm: Vm) {
 	var safeMemory = mutableSetOf<LongRange>()
 
 	fun populateSnapShotRegister(snapShotRegisters: Map<RegisterType, Long?>) {
 		for (i in snapShotRegisters) {
-			registers.writeUnsafe(i.key, i.value)
+			vm.registers.writeUnsafe(i.key, i.value)
 		}
 	}
 
@@ -19,20 +18,20 @@ class SnapShotManager {
 		val allRegisters = mutableMapOf<RegisterType, Long?>()
 		allRegisters.forEach { if (!it.key.name.startsWith('I')) allRegisters.remove(it.key) }
 		for (i in RegisterType.entries) {
-			allRegisters[i] = registers.readUnsafe(i)
+			allRegisters[i] = vm.registers.readUnsafe(i)
 		}
 		return allRegisters
 	}
 
-	fun snapShotMemory(): Map<MemoryAddress, MemoryValue> = internalMemory.memory.toMutableMap()
+	fun snapShotMemory(): Map<MemoryAddress, MemoryValue> = vm.internalMemory.memory.toMutableMap()
 	fun populateSnapShotMemory(memory: Map<MemoryAddress, MemoryValue>) {
 		val internalMem = memory.toMutableMap()
 		safeMemory.forEach {
 			for (i in it) {
-				internalMem[MemoryAddress(i)] = internalMemory.memory[MemoryAddress(i)] as MemoryValue
+				internalMem[MemoryAddress(i)] = vm.internalMemory.memory[MemoryAddress(i)] as MemoryValue
 			}
 		}
-		internalMemory.memory = internalMem.toMutableMap()
+		vm.internalMemory.memory = internalMem.toMutableMap()
 	}
 
 

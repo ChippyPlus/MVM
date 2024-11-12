@@ -2,10 +2,7 @@ package internals.instructions.ioAbstractions
 
 import data.registers.IntelRegisters
 import data.registers.intelNames
-import errors
 import helpers.toLong
-import registers
-import vm
 
 /**
  * Prints the value at the top of the stack to the console.

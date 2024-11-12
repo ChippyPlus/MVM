@@ -3,9 +3,7 @@ package internals.instructions.stackOperations
 import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
-import errors
 import helpers.toLong
-import registers
 
 
 /**

@@ -3,7 +3,6 @@ package engine.execution
 import data.registers.RegisterDataType
 import data.registers.RegisterType
 import engine.parser
-import errors
 import helpers.toDoubleOrFloatBasedOnDataType
 import helpers.toRegisterType
 import hertz
@@ -24,10 +23,8 @@ import internals.instructions.stackOperations.peek
 import internals.instructions.stackOperations.pop
 import internals.instructions.stackOperations.push
 import internals.instructions.stackOperations.pushl
-import internals.instructions.strings.*
+import internals.instructions.strings.str
 import internals.instructions.xFloats.*
-import libExecute
-import registers
 import java.io.File
 import java.lang.Thread.sleep
 
@@ -35,27 +32,19 @@ import java.lang.Thread.sleep
 /**
  * The class responsible for executing parsed instructions.
  */
-class Execute : Vm() {
-	/**
-	 * Executes a list of parsed [Instruction] objects.
-	 *
-	 * This function represents the main execution loop of the virtual machine.
-	 * It iterates through the instructions, executes them one by one, and handles control flow.
-	 *
-	 * @param command The list of instructions to execute.
-	 */
+class Execute(val vm: Vm) {
 	fun run(command: List<InstructData>) {
 		while (true) {
 			sleep(hertz)
 
-			this.pc++
-			if (this.pc - 1L == command.size.toLong()) {
+			vm.pc++
+			if (vm.pc - 1L == command.size.toLong()) {
 				break
 			}
-			val name = command[(this.pc - 1).toInt()].name
-			println(this.pc)
+			val name = command[(vm.pc - 1).toInt()].name
+			println(vm.pc)
 			val args = try {
-				command[(this.pc - 1).toInt()].values
+				command[(vm.pc - 1).toInt()].values
 			} catch (_: IndexOutOfBoundsException) {
 				break
 			}
@@ -64,7 +53,6 @@ class Execute : Vm() {
 
 		}
 	}
-
 
 
 	fun execute(file: File) {
@@ -77,62 +65,62 @@ class Execute : Vm() {
 		when (name) {
 
 			"sleep" -> {
-				this.misc.sleep(args[0] as RegisterType)
+				vm.misc.sleep(args[0] as RegisterType)
 			}
 
 			"ftoi" -> {
-				this.xFloats.ftoi(args[0] as RegisterType, args[1] as RegisterType)
+				vm.xFloats.ftoi(args[0] as RegisterType, args[1] as RegisterType)
 			}
 
 			"itof" -> {
-				this.xFloats.itof(args[0] as RegisterType, args[1] as RegisterType)
+				vm.xFloats.itof(args[0] as RegisterType, args[1] as RegisterType)
 			}
 
 			"xlit" -> {
-				this.xFloats.xLit(
+				vm.xFloats.xLit(
 					args[0] as RegisterType, (args[1] as String).toDoubleOrFloatBasedOnDataType(args[0] as RegisterType)
 				)
 			}
 
 			"xpow" -> {
-				this.xFloats.xPow(args[0] as RegisterType, args[1] as RegisterType)
+				vm.xFloats.xPow(args[0] as RegisterType, args[1] as RegisterType)
 			}
 
 			"xsub" -> {
-				this.xFloats.xSub(args[0] as RegisterType, args[1] as RegisterType)
+				vm.xFloats.xSub(args[0] as RegisterType, args[1] as RegisterType)
 			}
 
 			"xmul" -> {
-				this.xFloats.xMul(args[0] as RegisterType, args[1] as RegisterType)
+				vm.xFloats.xMul(args[0] as RegisterType, args[1] as RegisterType)
 			}
 
 			"xdiv" -> {
-				this.xFloats.xDiv(args[0] as RegisterType, args[1] as RegisterType)
+				vm.xFloats.xDiv(args[0] as RegisterType, args[1] as RegisterType)
 			}
 
 			"xadd" -> {
-				this.xFloats.xAdd(args[0] as RegisterType, args[1] as RegisterType)
+				vm.xFloats.xAdd(args[0] as RegisterType, args[1] as RegisterType)
 			}
 
 
 			"settype" -> {
-				registers.registers[(args[0] as RegisterType)]!!.settype(args[1] as RegisterDataType)
+				vm.registers.registers[(args[0] as RegisterType)]!!.settype(args[1] as RegisterDataType)
 			}
 
 			"dealloc" -> {
-				this.dataTransfer.dealloc(
+				vm.dataTransfer.dealloc(
 					memAddress = args[0] as RegisterType
 				)
 			}
 
 			"pow" -> {
-				this.arithmetic.pow(
+				vm.arithmetic.pow(
 					registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
 				)
 			}
 
 			"help" -> {
-				this.misc.help((args[0] as String))
+				vm.misc.help((args[0] as String))
 			}
 
 			"ret" -> {
@@ -140,163 +128,163 @@ class Execute : Vm() {
 			}
 
 			"inr" -> {
-				this.dataTransfer.inr((args[0] as String).toRegisterType())
+				vm.dataTransfer.inr((args[0] as String).toRegisterType())
 			}
 
 			"call" -> {
-				this.libPc = this.pc
-				libExecute.execute(args[0].toString())
+				vm.libPc = vm.pc
+				vm.libExecute.execute(args[0].toString())
 			}
 
 			"emptyLine", "comment" -> {}
 			"gt" -> {
-				this.arithmetic.gt(
+				vm.arithmetic.gt(
 					operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
 				)
 			}
 
 			"lt" -> {
 //                    println(args.size)
-				this.arithmetic.lt(
+				vm.arithmetic.lt(
 					operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
 				)
 			}
 
 			"str" -> {
-				this.strings.str(args[0].toString().toRegisterType(), args[1].toString())
+				vm.strings.str(args[0].toString().toRegisterType(), args[1].toString())
 			}
 
 
 			"cpy" -> {
-				this.dataTransfer.cpy(
+				vm.dataTransfer.cpy(
 					register1 = args[0] as RegisterType, register2 = args[1] as RegisterType
 				)
 			}
 
 			"add" -> {
-				this.arithmetic.add(
+				vm.arithmetic.add(
 					registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
 				)
 			}
 
 			"sub" -> {
-				this.arithmetic.sub(
+				vm.arithmetic.sub(
 					registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
 				)
 			}
 
 			"mul" -> {
-				this.arithmetic.mul(
+				vm.arithmetic.mul(
 					registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
 				)
 			}
 
 			"div" -> {
-				this.arithmetic.div(
+				vm.arithmetic.div(
 					registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
 				)
 			}
 
 			"mod" -> {
-				this.arithmetic.mod(
+				vm.arithmetic.mod(
 					registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
 				)
 			}
 
 			"eq" -> {
-				this.arithmetic.eq(
+				vm.arithmetic.eq(
 					operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
 				)
 			}
 
 			"lit" -> {
-				this.dataTransfer.lit(source = args[0] as RegisterType, value = args[1] as Long)
+				vm.dataTransfer.lit(source = args[0] as RegisterType, value = args[1] as Long)
 			}
 
 			"mov" -> {
-				this.dataTransfer.mov(
+				vm.dataTransfer.mov(
 					source = args[0] as RegisterType, destination = args[1] as RegisterType
 				)
 			}
 
 			"jmp" -> {
-				this.controlFlow.jmp(targetAddress = args[0] as Long - 1L)
+				vm.controlFlow.jmp(targetAddress = args[0] as Long - 1L)
 			}
 
 			"jz" -> {
-				this.controlFlow.jz(
+				vm.controlFlow.jz(
 					targetAddress = args[0] as Long - 1L
 				)
 			}
 
 			"jnz" -> {
-				this.controlFlow.jnz(
+				vm.controlFlow.jnz(
 					targetAddress = args[0] as Long - 1L
 				)
 			}
 
 			"peek" -> {
-				this.stackOperations.peek(destination = args[0] as RegisterType)
+				vm.stackOperations.peek(destination = args[0] as RegisterType)
 			}
 
 			"pop" -> {
-				this.stackOperations.pop(destination = args[0] as RegisterType)
+				vm.stackOperations.pop(destination = args[0] as RegisterType)
 			}
 
 			"push" -> {
-				this.stackOperations.push(registerType = args[0] as RegisterType)
+				vm.stackOperations.push(registerType = args[0] as RegisterType)
 			}
 
 			"pushl" -> {
-				this.stackOperations.pushl(registerType = args[0] as Long)
+				vm.stackOperations.pushl(registerType = args[0] as Long)
 			}
 
 			"store" -> {
-				this.memory.store(
+				vm.memory.store(
 					source = args[0] as RegisterType, destination = args[1] as RegisterType
 				)
 			}
 
 			"load" -> {
-				this.memory.load(
+				vm.memory.load(
 					memoryAddress = args[0] as RegisterType, destination = args[1] as RegisterType
 				)
 			}
 
 			"shl" -> {
-				this.bitwise.shl(
+				vm.bitwise.shl(
 					operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
 				)
 			}
 
 			"shr" -> {
-				this.bitwise.shr(
+				vm.bitwise.shr(
 					operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
 				)
 			}
 
 			"and" -> {
-				this.bitwise.and(
+				vm.bitwise.and(
 					operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
 				)
 			}
 
 			"not" -> {
-				this.bitwise.not(operand = args[0] as RegisterType)
+				vm.bitwise.not(operand = args[0] as RegisterType)
 			}
 
 			"or" -> {
-				this.bitwise.or(operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType)
+				vm.bitwise.or(operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType)
 			}
 
 			"xor" -> {
-				this.bitwise.xor(
+				vm.bitwise.xor(
 					operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
 				)
 			}
 
 			"syscall" -> {
-				this.systemCall.execute(
+				vm.systemCall.execute(
 					callId = args[0] as RegisterType,
 					s2 = args[1] as RegisterType,
 					s3 = args[2] as RegisterType,
@@ -305,15 +293,15 @@ class Execute : Vm() {
 			}
 
 			"prints" -> {
-				this.ioAbstractions.prints()
+				vm.ioAbstractions.prints()
 			}
 
 			"printr" -> {
-				this.ioAbstractions.printr(register = args[0] as RegisterType)
+				vm.ioAbstractions.printr(register = args[0] as RegisterType)
 			}
 
 			else -> {
-				errors.InvalidInstructionException(name)
+				vm.errors.InvalidInstructionException(name)
 			}
 		}
 		return Unit

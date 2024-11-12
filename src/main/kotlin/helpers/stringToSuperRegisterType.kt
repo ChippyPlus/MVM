@@ -1,8 +1,6 @@
 package helpers
 
 import data.registers.RegisterType
-import errors
-import kotlin.system.exitProcess
 
 /**
  * Converts a [String] representation of a register to its corresponding [RegisterType].
@@ -11,9 +9,7 @@ import kotlin.system.exitProcess
  * @return The corresponding [RegisterType].
  * @throws InvalidRegisterException If the input string is not a valid register name.
  */
-fun String.toUnsafeRegisterType(): RegisterType? {
-
-
+fun String.toRegisterType(): RegisterType? {
 	return when (this.lowercase()) {
 		"g1" -> RegisterType.G1
 		"g2" -> RegisterType.G2
@@ -67,16 +63,6 @@ fun String.toUnsafeRegisterType(): RegisterType? {
 		"x7" -> RegisterType.X7
 		"x8" -> RegisterType.X8
 
-
 		else -> null
-	}
-}
-
-fun String.toRegisterType(): RegisterType {
-	try {
-		return this.toUnsafeRegisterType()!!
-	} catch (e: NullPointerException) {
-		errors.InvalidRegisterException(this)
-		exitProcess(320947)
 	}
 }

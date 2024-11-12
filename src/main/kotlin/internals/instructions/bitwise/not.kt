@@ -1,7 +1,6 @@
 package internals.instructions.bitwise
 
 import data.registers.RegisterType
-import registers
 
 /**
  * Performs a bitwise NOT operation on the values in a register and stores the result in the `R3` register.

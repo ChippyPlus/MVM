@@ -2,17 +2,16 @@ package kilb
 
 import data.memory.MemoryAddress
 import data.registers.RegisterType
-import internalMemory
-import registers
-import vm
+import internals.Vm
 
-class Arrays {
+class Arrays(val vm: Vm) {
+
 	/**
 	 * Like F1 = arrayRef
 	 */
 	fun size() {
-		val meta = registers.read(RegisterType.F1)
-		val count = internalMemory.read(MemoryAddress(meta + 1)).value!!
+		val meta = vm.registers.read(RegisterType.F1)
+		val count = vm.internalMemory.read(MemoryAddress(meta + 1)).value!!
 		vm.stackOperations.internalStack.push(count)
 	}
 }

@@ -1,13 +1,11 @@
 package data.registers
 
-import errors
+import internals.Vm
 import kotlin.system.exitProcess
 
 
-data class FDRegister(val isDouble: Boolean, val value: Long)
-
-
-class Registers {
+class Registers(val vm: Vm) {
+	val errors = vm.errors
 	val registers = mutableMapOf<RegisterType, RegisterData>()
 
 	init {
@@ -31,22 +29,7 @@ class Registers {
 	fun readUnsafe(register: RegisterType): Long? = registers[register]!!.read()
 
 
-	fun readX(registerX: RegisterType): FDRegister {
-		return if (registers[registerX]!!.dataType == RegisterDataType.RFloat) {
-			FDRegister(false, registers[registerX]!!.data!!)
-		} else {
-			FDRegister(true, registers[registerX]!!.data!!)
-		}
-	}
 
-	fun writeX(registerX: RegisterType, valueX: FDRegister) {
-		write(registerX, valueX.value)
-	}
-
-
-	fun writeX(registerX: RegisterType, valueX: Long) {
-		write(registerX, valueX)
-	}
 
 	fun read(register: RegisterType): Long = try {
 		val value = registers[register]!!.read()

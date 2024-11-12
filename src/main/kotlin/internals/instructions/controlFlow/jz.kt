@@ -2,9 +2,6 @@ package internals.instructions.controlFlow
 
 import data.registers.IntelRegisters
 import data.registers.intelNames
-import errors
-import registers
-import vm
 
 /**
  * Performs a conditional jump to the target address if the value in the test register is zero.

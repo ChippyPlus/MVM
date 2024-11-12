@@ -3,9 +3,7 @@ package internals.systemCalls.calls
 import data.memory.MemoryAddress
 import data.memory.MemoryValue
 import data.registers.RegisterType
-import internalMemory
 import internals.systemCalls.SystemCall
-import registers
 
 /**
  * Writes a null-terminated string to the console.

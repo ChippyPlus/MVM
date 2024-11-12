@@ -1,10 +1,8 @@
+
 import data.io.FileDescriptors
 import data.memory.InternalMemory
-import data.registers.Registers
 import engine.execution.Execute
 import engine.parser
-import environment.ExecuteLib
-import environment.VMErrors
 import environment.reflection.reflection
 import helpers.Config
 import internals.Vm
@@ -16,14 +14,10 @@ import kotlin.system.exitProcess
 val config = if (File("./config.json").exists()) Config(File("./config.json")) else null
 val hertz = config?.hertz ?: 0L
 val MEMORY_LIMIT = config?.memorySize ?: 256
-val registers = Registers()
-val vm = Vm()
-val libExecute = ExecuteLib()
-val errors = VMErrors()
-val fileDescriptors = FileDescriptors()
-val internalMemory = InternalMemory()
 
-val execute = Execute()
+val fileDescriptors = FileDescriptors()
+
+val execute = Execute(vm = Vm())
 fun main(args: Array<String>) {
 
 

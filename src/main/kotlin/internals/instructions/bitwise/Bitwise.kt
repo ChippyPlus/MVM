@@ -3,9 +3,8 @@ package internals.instructions.bitwise
 import data.registers.IntelRegisters
 import data.registers.RegisterType.R3
 import data.registers.intelNames
-import errors
 import helpers.toLong
-import registers
+import internals.Vm
 
 
 /**
@@ -13,8 +12,9 @@ import registers
  *
  * This class provides functions for performing bitwise operations on register values.
  */
-open class Bitwise {
-
+open class Bitwise(private val vm: Vm) {
+	val errors = vm.errors
+	val  registers = vm.registers
 	fun call(name: String, function: () -> Long) {
 		try {
 			val out = function()

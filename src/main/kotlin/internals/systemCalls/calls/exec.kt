@@ -13,7 +13,7 @@ private const val javaEx =
 fun SystemCall.exec(path: RegisterType) {
 
 	val ss = "java -jar $javaEx irun ${
-		readRegisterString(path)
+		helpers.readRegisterString(path)
 	}"
 	runBlocking { forkAndExecute(ss) }
 

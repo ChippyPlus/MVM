@@ -9,19 +9,17 @@ import helpers.readRegisterString
 import helpers.toLong
 import helpers.writeClosestString
 import helpers.writeStringSpecInMemory
-import internalMemory
-import registers
-import vm
+import internals.Vm
 
-class Strings {
+class Strings(val vm: Vm) {
+	val registers = vm.registers
+	val internalMemory = vm.internalMemory
+	val helpers = vm.helpers
+
 	fun strcmp() {
 		registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
-		val s1 = readRegisterString(RegisterType.F1)
-		val s2 = readRegisterString(RegisterType.F2)
-
-//		if (s1 == s2) registers.write(register = R4, value = 0)
-//		else registers.write(register = R4, value = 1)
-
+		val s1 = helpers.readRegisterString(RegisterType.F1)
+		val s2 = helpers.readRegisterString(RegisterType.F2)
 
 		if (s1 == s2) registers.write(intelNames[IntelRegisters.EF], true.toLong())
 		else registers.write(intelNames[IntelRegisters.EF], false.toLong())
@@ -30,9 +28,9 @@ class Strings {
 
 	fun strcat() {
 		registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
-		val s1: String = readRegisterString(register = RegisterType.F1)
-		val s2: Comparable<String> = readRegisterString(register = RegisterType.F2)
-		val location = writeClosestString(string = (s1 + s2))
+		val s1: String = helpers.readRegisterString(register = RegisterType.F1)
+		val s2: Comparable<String> = helpers.readRegisterString(register = RegisterType.F2)
+		val location = helpers.writeClosestString(string = (s1 + s2))
 		snapShotManager.memoryRequestBlock(location..location + (s1 + s2).length)
 //		registers.write(R4, location)
 		vm.stackOperations.internalStack.push(location)
@@ -41,10 +39,10 @@ class Strings {
 
 	fun strcpy() {
 		registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
-		val string: String = readRegisterString(register = RegisterType.F1)
+		val string: String = helpers.readRegisterString(register = RegisterType.F1)
 		val destinationAddress: Long = registers.read(register = RegisterType.F2)
 		snapShotManager.memoryRequestBlock(destinationAddress..destinationAddress + string.length)
-		writeStringSpecInMemory(string = string, destinationAddress = MemoryAddress(address = destinationAddress))
+		helpers.writeStringSpecInMemory(string = string, destinationAddress = MemoryAddress(address = destinationAddress))
 	}
 
 	fun strlen() {

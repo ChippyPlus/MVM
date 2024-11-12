@@ -1,7 +1,6 @@
 package internals.instructions.arithmetic
 
 import data.registers.RegisterType
-import registers
 
 /**
  * Subtracts the value in registerB from registerA and stores the result in the `R4` register.
