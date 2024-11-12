@@ -4,13 +4,14 @@ import data.registers.RegisterType
 import engine.execution.Execute
 import engine.execution.InstructData
 import internals.Pc
+import internals.Vm
 import kotlinx.coroutines.*
 
 
 var pids = 0
-
+val testVm = Vm()
 data class MProcess(val instructions: List<InstructData>) {
-	val pc = Pc()
+	val pc = Pc(testVm)
 }
 
 val pp1 = listOf(
@@ -98,7 +99,7 @@ fun main() = runBlocking {
 	val jobs = processes.map { i ->
 		launch {
 			w {
-				Execute().run(i)
+				Execute(testVm).run(i)
 			}
 		}
 	}

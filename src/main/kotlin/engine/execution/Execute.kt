@@ -56,7 +56,7 @@ class Execute(val vm: Vm) {
 
 
 	fun execute(file: File) {
-		val tokens = parser(file.readLines())
+		val tokens = parser(vm, file.readLines())
 		this.run(command = tokens)
 	}
 
@@ -78,7 +78,8 @@ class Execute(val vm: Vm) {
 
 			"xlit" -> {
 				vm.xFloats.xLit(
-					args[0] as RegisterType, (args[1] as String).toDoubleOrFloatBasedOnDataType(args[0] as RegisterType)
+					args[0] as RegisterType,
+					(args[1] as String).toDoubleOrFloatBasedOnDataType(vm, args[0] as RegisterType)
 				)
 			}
 
@@ -128,7 +129,9 @@ class Execute(val vm: Vm) {
 			}
 
 			"inr" -> {
-				vm.dataTransfer.inr((args[0] as String).toRegisterType())
+				vm.dataTransfer.inr((args[0] as String).toRegisterType() ?: {
+					vm.errors.InvalidRegisterException(args[0] as String)
+				} as RegisterType)
 			}
 
 			"call" -> {
@@ -151,7 +154,9 @@ class Execute(val vm: Vm) {
 			}
 
 			"str" -> {
-				vm.strings.str(args[0].toString().toRegisterType(), args[1].toString())
+				vm.strings.str(args[0].toString().toRegisterType() ?: {
+					vm.errors.InvalidRegisterException(args[0] as String)
+				} as RegisterType, args[1].toString())
 			}
 
 

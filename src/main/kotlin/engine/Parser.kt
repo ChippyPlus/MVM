@@ -164,7 +164,7 @@ fun parser(vm: Vm, file: List<String>): List<InstructData> {
 			)
 		} catch (missingArgument: IndexOutOfBoundsException) {
 			val missingIndex = missingArgument.message!!.split(" ")[1].toByte() - 1
-			val info = gatherHelp(instruction).arguments[missingIndex]
+			val info = vm.helpers.gatherHelp(instruction).arguments[missingIndex]
 			vm.errors.InvalidArgumentException(info = info)
 
 

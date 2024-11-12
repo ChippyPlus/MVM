@@ -7,6 +7,7 @@ import data.registers.Registers
 import data.registers.read
 import environment.ExecuteLib
 import environment.VMErrors
+import environment.libEx.SnapShotManager
 import environment.vfs.Vfs
 import helpers.Helpers
 import internals.instructions.arithmetic.Arithmetic
@@ -24,23 +25,24 @@ import internals.systemCalls.SystemCall
 import kotlin.reflect.KProperty
 
 class Vm {
+	val registers = Registers(this)
+	val internalMemory = InternalMemory(this)
+	val snapShotManager = SnapShotManager(this)
 	val helpers = Helpers(this)
 	val libExecute = ExecuteLib(this)
-	val internalMemory = InternalMemory(this)
 	val errors = VMErrors(this)
-	val registers = Registers(this)
 	val dataTransfer = DataTransfer(this)
 	val arithmetic = Arithmetic(this)
 	val bitwise = Bitwise(this)
-	val stackOperations = StackOperations(config?.stackSize ?: 12)
+	val stackOperations = StackOperations(this, config?.stackSize ?: 12)
 	val controlFlow = ControlFlow(this)
 	val memory = Memory(this)
-	val systemCall = SystemCall()
+	val systemCall = SystemCall(this)
 	val ioAbstractions = IoAbstractions(this)
-	val strings = Strings() // Needed for Strings.str. It's very important
+	val strings = Strings(this) // Needed for Strings.str. It's very important
 	val functions = Functions()
 	val misc = Misc(this)
-	val xFloats = XFloats()
+	val xFloats = XFloats(this)
 	var pc: Long by Pc(vm = this)
 	var libPc = 0L
 	val vfs = Vfs()
