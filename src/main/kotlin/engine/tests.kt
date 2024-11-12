@@ -73,7 +73,7 @@ val p4 = listOf(
 )
 
 
-val processes = listOf(MProcess(p1), MProcess(p2), MProcess(p3), MProcess(p4))
+val processes = mutableListOf<List<InstructData>>()
 
 val testp = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 
@@ -85,10 +85,20 @@ suspend fun w(lambda: () -> Unit) = withContext(Dispatchers.IO) {
 
 
 fun main() = runBlocking {
+
+	(1..20).forEach {
+		processes.add(
+			listOf(
+				InstructData("str", arrayOf(RegisterType.F1, "Process $it")), InstructData("call", arrayOf("println"))
+			)
+		)
+	}
+
+
 	val jobs = processes.map { i ->
 		launch {
 			w {
-				Execute().run(i.instructions)
+				Execute().run(i)
 			}
 		}
 	}

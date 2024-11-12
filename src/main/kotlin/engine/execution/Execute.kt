@@ -55,6 +55,7 @@ class Execute {
 				break
 			}
 			val name = command[(vm.pc - 1).toInt()].name
+			println(vm.pc)
 			val args = try {
 				command[(vm.pc - 1).toInt()].values
 			} catch (_: IndexOutOfBoundsException) {
