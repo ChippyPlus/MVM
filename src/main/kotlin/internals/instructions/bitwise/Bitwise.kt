@@ -12,9 +12,9 @@ import internals.Vm
  *
  * This class provides functions for performing bitwise operations on register values.
  */
-open class Bitwise(private val vm: Vm) {
+open class Bitwise(vm: Vm) {
 	val errors = vm.errors
-	val  registers = vm.registers
+	val registers = vm.registers
 	fun call(name: String, function: () -> Long) {
 		try {
 			val out = function()

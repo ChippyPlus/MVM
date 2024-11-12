@@ -41,7 +41,10 @@ class Strings(val vm: Vm) {
 		val string: String = helpers.readRegisterString(register = RegisterType.F1)
 		val destinationAddress: Long = registers.read(register = RegisterType.F2)
 		vm.snapShotManager.memoryRequestBlock(destinationAddress..destinationAddress + string.length)
-		helpers.writeStringSpecInMemory(string = string, destinationAddress = MemoryAddress(address = destinationAddress))
+		helpers.writeStringSpecInMemory(
+			string = string,
+			destinationAddress = MemoryAddress(address = destinationAddress)
+		)
 	}
 
 	fun strlen() {

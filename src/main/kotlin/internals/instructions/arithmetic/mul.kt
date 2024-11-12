@@ -1,4 +1,3 @@
-
 package internals.instructions.arithmetic
 
 import data.registers.RegisterType

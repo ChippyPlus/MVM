@@ -11,5 +11,5 @@ import internals.Vm
  */
 open class ControlFlow(val vm: Vm) {
 	val errors = vm.errors
-	val  registers = vm.registers
+	val registers = vm.registers
 }

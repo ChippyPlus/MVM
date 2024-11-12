@@ -17,5 +17,4 @@ fun Arithmetic.sub(registerA: RegisterType, registerB: RegisterType) = call("sub
 	registers.write(RegisterType.R4, out)
 
 
-
 }

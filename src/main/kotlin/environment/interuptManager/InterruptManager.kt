@@ -14,7 +14,7 @@ class InterruptManager(val vm: Vm) {
 	private fun handle(name: String, jumpWhere: Long) {
 		handle(Signal(name)) {
 			vm.pc = jumpWhere - 1
-			RegisterType.I9.write(vm,true.toLong())
+			RegisterType.I9.write(vm, true.toLong())
 		}
 	}
 
