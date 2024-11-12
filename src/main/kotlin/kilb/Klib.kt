@@ -1,5 +1,8 @@
 package kilb
 
+import data.registers.RegisterType
+import helpers.readRegisterString
+
 
 class Klib {
 	fun match(fame: String): Boolean {
@@ -9,6 +12,7 @@ class Klib {
 			"strings.strcat" -> Strings().strcat()
 			"strings.strcpy" -> Strings().strcpy()
 			"strings.strlen" -> Strings().strlen()
+			"println" -> println(readRegisterString(RegisterType.F1))
 
 
 			"strings.cheekyfloat" -> cheekyFloat()

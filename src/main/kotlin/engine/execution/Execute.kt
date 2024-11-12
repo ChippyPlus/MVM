@@ -149,7 +149,7 @@ class Execute {
 			}
 
 			"call" -> {
-				vm.libPc = vm.pc.toLong()
+				vm.libPc = vm.pc
 				libExecute.execute(args[0].toString())
 			}
 
