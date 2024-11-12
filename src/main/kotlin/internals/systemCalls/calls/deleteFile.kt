@@ -4,7 +4,7 @@ import data.registers.RegisterType
 import helpers.readRegisterString
 import internals.systemCalls.SystemCall
 
-fun SystemCall.deleteFile(path: RegisterType) = call("deleteFile") {
-	val _path = helpers.readRegisterString(path)
-	vm.vfs.delete(_path) ?: errors.FileNotFoundException(_path)
+fun SystemCall.deleteFile(pathX: RegisterType) = call("deleteFile") {
+	val path = helpers.readRegisterString(pathX)
+	vm.vfs.delete(path) ?: errors.FileNotFoundException(path)
 }

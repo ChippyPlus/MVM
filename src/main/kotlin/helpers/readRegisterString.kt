@@ -2,8 +2,6 @@ package helpers
 
 import data.memory.MemoryAddress
 import data.registers.RegisterType
-import internalMemory
-import registers
 
 /**
  * Reads a null-terminated string from memory starting at the address stored in the specified register.

@@ -1,6 +1,3 @@
-
-import data.io.FileDescriptors
-import data.memory.InternalMemory
 import engine.execution.Execute
 import engine.parser
 import environment.reflection.reflection
@@ -15,9 +12,9 @@ val config = if (File("./config.json").exists()) Config(File("./config.json")) e
 val hertz = config?.hertz ?: 0L
 val MEMORY_LIMIT = config?.memorySize ?: 256
 
-val fileDescriptors = FileDescriptors()
+val init = Vm()
 
-val execute = Execute(vm = Vm())
+val execute = Execute(vm = init)
 fun main(args: Array<String>) {
 
 
@@ -41,7 +38,7 @@ fun main(args: Array<String>) {
 				println("Usage: mvm tokenise <file.kar>")
 				exitProcess(1)
 			}
-			parser(File(args[1]).readLines()).forEach(::println)
+			parser(init, File(args[1]).readLines()).forEach(::println)
 		}
 
 
@@ -50,7 +47,7 @@ fun main(args: Array<String>) {
 				println("Usage: mvm tokenise <file.kar>")
 				exitProcess(1)
 			}
-			VarRedundancy(globalInfo = parser(File(args[1]).readLines())).cleanRedundancy().forEach(::println)
+			VarRedundancy(globalInfo = parser(init, File(args[1]).readLines())).cleanRedundancy().forEach(::println)
 		}
 
 
