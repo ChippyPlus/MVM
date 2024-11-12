@@ -17,6 +17,7 @@ class SystemCall(val vm: Vm) {
 	val internalMemory = vm.internalMemory
 	val errors = vm.errors
 	val registers = vm.registers
+
 	/**
 	 * Executes the system call specified by the call ID.
 	 *
@@ -41,6 +42,7 @@ class SystemCall(val vm: Vm) {
 			6 -> exit(s2)
 			7 -> exec(s2)
 			8 -> fork()
+			9 -> spawn(s2)
 			14 -> time()
 			16 -> getPid()
 			17 -> getUid()

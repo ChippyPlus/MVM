@@ -3,15 +3,14 @@ package engine
 import data.registers.RegisterType
 import engine.execution.Execute
 import engine.execution.InstructData
-import internals.Pc
 import internals.Vm
 import kotlinx.coroutines.*
 
 
-var pids = 0
 val testVm = Vm()
+
 data class MProcess(val instructions: List<InstructData>) {
-	val pc = Pc(testVm)
+	val vm = Vm()
 }
 
 val pp1 = listOf(
@@ -74,35 +73,24 @@ val p4 = listOf(
 )
 
 
-val processes = mutableListOf<List<InstructData>>()
-
+//val processes = mutableListOf<List<InstructData>>()
+val processes = listOf(
+	MProcess(p1), MProcess(p2), MProcess(p3), MProcess(p4)
+)
 val testp = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 
 suspend fun w(lambda: () -> Unit) = withContext(Dispatchers.IO) {
-//	sleep(1000L)
-//	println(i * i)
 	lambda()
 }
 
 
 fun main() = runBlocking {
-
-	(1..20).forEach {
-		processes.add(
-			listOf(
-				InstructData("str", arrayOf(RegisterType.F1, "Process $it")), InstructData("call", arrayOf("println"))
-			)
-		)
-	}
-
-
 	val jobs = processes.map { i ->
 		launch {
 			w {
-				Execute(testVm).run(i)
+				Execute(i.vm).run(i.instructions)
 			}
 		}
 	}
-
 	jobs.joinAll()
 }
