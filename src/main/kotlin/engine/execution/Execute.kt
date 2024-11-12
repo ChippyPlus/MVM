@@ -29,9 +29,6 @@ import java.io.File
 import java.lang.Thread.sleep
 
 
-/**
- * The class responsible for executing parsed instructions.
- */
 class Execute(val vm: Vm) {
 	fun run(command: List<InstructData>) {
 		while (true) {
