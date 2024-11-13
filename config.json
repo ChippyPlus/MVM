@@ -1,6 +1,6 @@
 {
     "stackSize": 32,
-    "memorySize": 256,
+    "memorySize": 32,
     "hertz": 0,
     "locations": [
         {

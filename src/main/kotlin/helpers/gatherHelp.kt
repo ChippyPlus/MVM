@@ -20,5 +20,8 @@ fun Helpers.gatherHelp(string: String): HelpJsonPartial {
 			break
 		}
 	}
+	if (usable == null) {
+		errors.InvalidInstructionArgumentException(string)
+	}
 	return usable!!
 }

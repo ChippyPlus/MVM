@@ -1,3 +1,1 @@
-str f1 "Hello!"
-call println
-lit i8 -
+help dealloc
