@@ -111,7 +111,7 @@ fun parser(vm: Vm, file: List<String>): List<InstructData> {
 
 					// Register Register
 					"mod", "add", "sub", "mul", "div", "eq",
-					"shl", "shr", "mov", "cpy", "and", "or",
+					"shl", "shr", "mov", "swp", "and", "or",
 					"xor", "lt", "gt", "pow", "xadd", "xsub", "xmul", "xdiv", "xpow",
 					"itof", "ftoi",
 						-> {

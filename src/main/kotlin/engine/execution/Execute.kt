@@ -139,8 +139,8 @@ class Execute(val vm: Vm) {
 					vm.errors.InvalidRegisterException(args[0] as String)
 				} as RegisterType, args[1].toString())
 			}
-			"cpy" -> {
-				vm.dataTransfer.cpy(
+			"swp" -> {
+				vm.dataTransfer.swp(
 					register1 = args[0] as RegisterType, register2 = args[1] as RegisterType
 				)
 			}
