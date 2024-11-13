@@ -8,7 +8,6 @@ import internals.Vm
  * This class provides functions for manipulating strings, including string comparison, concatenation,
  * copying, and calculating string length.
  */
-@Deprecated("Moved into stdlib functions")
 open class Strings(vm: Vm) {
 	val helpers = vm.helpers
 	val registers = vm.registers
