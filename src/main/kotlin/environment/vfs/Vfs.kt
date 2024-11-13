@@ -137,15 +137,22 @@ class Vfs {
 
 	fun exists(path: String, entriesX: List<Formats.Ventry> = this.list()): Boolean {
 		var entries = entriesX
-		if (path.isEmpty()) return false
+		if (path.isEmpty()) {
+			println(1)
+			return false
+		}
 		val parts = path.split("/")
-		if (parts.size == 1) return entries.any { it.name == parts[0] }
+		if (parts.size == 1) {
+			println(2)
+			return entries.any { it.name == parts[0] }
+		}
 
 		var currentEntry: Formats.Ventry?
 		for (i in 0 until parts.size - 1) {
 			currentEntry = entries.find { it.name == parts[i] && it.permissions.directory }
 			entries = currentEntry?.children?.toList() ?: return false
-			if (currentEntry.children == null || currentEntry.children!!.find { it.name == parts[i + 1] } == null) {
+			if (currentEntry.children == null || currentEntry.children!!.find { it.name == parts[i + 1] && it.permissions.directory } == null) {
+				println(3)
 				return false
 			}
 
@@ -154,46 +161,72 @@ class Vfs {
 	}
 
 	fun newFiD(path: String, insertable: Formats.Ventry): Boolean {
-//		if (!exists(path)) {
-//			return false
-//		}
+		val indexes = mutableListOf<Int>()
+		var entries = this.list().toMutableList() // Work on a mutable copy
 
-		val indexes = intArrayOf().toMutableList()
-
-		var entries = this.list()
 		if (path.isEmpty()) {
 			return false
 		}
+
 		val parts = path.split("/")
-		if (parts.size == 1) return entries.any { it.name == parts[0] }
-		var currentEntry: Formats.Ventry?
-		for (value in 0 until parts.size - 1) {
-
-			currentEntry = entries.find { it.name == parts[value] && it.permissions.directory }
-			indexes.add(entries.indexOf(currentEntry))
-			entries = currentEntry?.children?.toList() ?: run {
-				return false
-			}
-
-			if (currentEntry.children == null || currentEntry.children!!.find { it.name == parts[value + 1] } == null) {
-				return false
-			}
+		if (parts.size == 1) {
+			// Handle the case where the path is just a single file name
+			entries.add(insertable)
+			this.flash(entries) // Update the VFS
+			return true
 		}
+
+		var currentEntry: Formats.Ventry?
+		for (i in 0 until parts.size - 1) {
+			currentEntry = entries.find { it.name == parts[i] && it.permissions.directory }
+			if (currentEntry == null) {
+				// Path component not found, create it if it's the last one
+				if (i == parts.size - 2) {
+					currentEntry = Formats.Ventry(
+						name = parts[i],
+						permissions = Formats.Permissions(directory = true),
+						children = mutableListOf(insertable)
+					)
+					entries.add(currentEntry)
+					this.flash(entries)
+					return true
+				} else {
+					return false
+				}
+			}
+			indexes.add(entries.indexOf(currentEntry))
+			entries = currentEntry.children?.toMutableList() ?: return false
+		}
+
+		// Insert at the correct position
+		entries.add(insertable)
+		// Traverse back up the indexes, updating the children lists
+		for (i in indexes.size - 1 downTo 0) {
+			val parentIndex = indexes[i]
+			val parent = this.list()[parentIndex] // Get the parent from the original list
+			val updatedParent = parent.copy(children = entries)
+			this.flash(this.list().toMutableList().also { it[parentIndex] = updatedParent }) // Update the VFS
+			entries = this.list().toMutableList() // Refresh entries for the next iteration
+		}
+
 		return true
 	}
 }
 
 
 fun main() {
-	val f = "home/user/file1.txt"
-	println(Vfs().list())
-	println(
-		Vfs().newFiD(
-			f, Formats.Ventry(
-				name = "inserted.txt",
-				content = "hi",
-			)
-		)
-	)
+	val f = "home/user"
+	val v = Vfs()
+//	Vfs().list().forEach(::println)
+
+//	Vfs().newFiD(
+//		f, Formats.Ventry(
+//			name = "inserted.txt",
+//			content = "hi",
+//		)
+//	)
+	v.list()[0].children!![0].children!!.forEach(::println)
+
+	println(Vfs().exists("home/user/file1.txt"))
 }
 
