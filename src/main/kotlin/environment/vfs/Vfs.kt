@@ -17,10 +17,9 @@ class Vfs {
 	}
 
 
-	fun list(): Set<Formats.Ventry> {
+	fun list(): List<Formats.Ventry> {
 		return renderVfs()
 	}
-
 
 	@OptIn(ExperimentalSerializationApi::class, ExperimentalStdlibApi::class)
 	fun delete(name: String): Unit? {
@@ -39,7 +38,7 @@ class Vfs {
 
 	@OptIn(ExperimentalSerializationApi::class, ExperimentalStdlibApi::class)
 	fun newDir(name: String): Unit? {
-		val rendered = renderVfs().toMutableSet()
+		val rendered = renderVfs().toMutableList()
 		if (name in deStructureRenderToNames(rendered)) {
 			return null
 		}
@@ -58,7 +57,7 @@ class Vfs {
 	@Suppress("UNREACHABLE_CODE")
 	@OptIn(ExperimentalSerializationApi::class, ExperimentalStdlibApi::class)
 	fun new(nameX: String): Unit? {
-		val rendered = renderVfs().toMutableSet()
+		val rendered = renderVfs().toMutableList()
 
 		val name: Any = if ('/' in nameX) nameX.split('/') else nameX
 
@@ -94,7 +93,7 @@ class Vfs {
 
 	@OptIn(ExperimentalSerializationApi::class, ExperimentalStdlibApi::class)
 	fun write(name: String, content: String): Unit? {
-		val rendered = renderVfs().toMutableSet()
+		val rendered = renderVfs().toMutableList()
 		if (name !in deStructureRenderToNames(rendered)) {
 			return null
 		}
@@ -112,10 +111,10 @@ class Vfs {
 	}
 
 
-	fun renderVfs(): Set<Formats.Ventry> =
-		ProtoBuf.decodeFromHexString<Set<Formats.Ventry>>(hex = File("src/main/resources/vfs.fs").readText())
+	fun renderVfs(): List<Formats.Ventry> =
+		ProtoBuf.decodeFromHexString<List<Formats.Ventry>>(hex = File("src/main/resources/vfs.fs").readText())
 
-	private fun deStructureRenderToNames(render: Set<Formats.Ventry>): Set<String> {
+	private fun deStructureRenderToNames(render: List<Formats.Ventry>): Set<String> {
 		val strings = mutableSetOf<String>()
 		render.forEach { strings.add(it.name) }
 		return strings
@@ -136,27 +135,65 @@ class Vfs {
 		)
 	}
 
-	fun exists(path: String, entriesX: Set<Formats.Ventry> = this.list()): Boolean {
+	fun exists(path: String, entriesX: List<Formats.Ventry> = this.list()): Boolean {
 		var entries = entriesX
 		if (path.isEmpty()) return false
 		val parts = path.split("/")
 		if (parts.size == 1) return entries.any { it.name == parts[0] }
+
 		var currentEntry: Formats.Ventry?
 		for (i in 0 until parts.size - 1) {
 			currentEntry = entries.find { it.name == parts[i] && it.permissions.directory }
-			entries = currentEntry?.children?.toSet() ?: return false
+			entries = currentEntry?.children?.toList() ?: return false
 			if (currentEntry.children == null || currentEntry.children!!.find { it.name == parts[i + 1] } == null) {
+				return false
+			}
+
+		}
+		return true
+	}
+
+	fun newFiD(path: String, insertable: Formats.Ventry): Boolean {
+//		if (!exists(path)) {
+//			return false
+//		}
+
+		val indexes = intArrayOf().toMutableList()
+
+		var entries = this.list()
+		if (path.isEmpty()) {
+			return false
+		}
+		val parts = path.split("/")
+		if (parts.size == 1) return entries.any { it.name == parts[0] }
+		var currentEntry: Formats.Ventry?
+		for (value in 0 until parts.size - 1) {
+
+			currentEntry = entries.find { it.name == parts[value] && it.permissions.directory }
+			indexes.add(entries.indexOf(currentEntry))
+			entries = currentEntry?.children?.toList() ?: run {
+				return false
+			}
+
+			if (currentEntry.children == null || currentEntry.children!!.find { it.name == parts[value + 1] } == null) {
 				return false
 			}
 		}
 		return true
 	}
-
 }
 
 
 fun main() {
-	println(Vfs().exists("temp.txt"))
-//	v.list().forEach(::println)
+	val f = "home/user/file1.txt"
+	println(Vfs().list())
+	println(
+		Vfs().newFiD(
+			f, Formats.Ventry(
+				name = "inserted.txt",
+				content = "hi",
+			)
+		)
+	)
 }
 
