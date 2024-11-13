@@ -1,9 +1,0 @@
-str f1 "Init"
-call println
-lit s1 9
-str s2 "main.mar"
-syscall
-lit g1 2000
-sleep g1
-str f1 "Init waited"
-call println

@@ -1,88 +1,37 @@
-x = """LIT G1 5
-STR R3 "I love toes!!!"
-LOAD G1 R4
-STORE R4 G1
-PRINTS
-SYSCALL
-JZ 1 R4
-JNZ 2 G2
-JMP 3
-PRINTR G1
-PUSH S0
-POP R1
-PEEK G2
-NOT S1
-STRLEN R2
-ADD R1 S1
-SUB G1 G4
-MUL G3 S3
-DIV R1 G1
-MOD G2 G3
-MOV R1 G1
-AND S0 S1
-OR G1 G1
-XOR R1 R3
-SHR S0 S2
-SHL S0 G3
-STRCMP R3 S0
-STRCAT S1 G2
-STRCPY G3 R1""".split('\n')
+import os
+import google.generativeai as genai
 
-y = """InstructData(name=lit, values=[G1, 5])
-InstructData(name=str, values=[R3, I love toes!!!])
-InstructData(name=load, values=[G1, R4])
-InstructData(name=store, values=[R4, G1])
-InstructData(name=prints, values=[])
-InstructData(name=syscall, values=[S0, S1, S2, S3])
-InstructData(name=jz, values=[1, R4])
-InstructData(name=jnz, values=[2, G2])
-InstructData(name=jmp, values=[3])
-InstructData(name=printr, values=[G1])
-InstructData(name=push, values=[S0])
-InstructData(name=pop, values=[R1])
-InstructData(name=peek, values=[G2])
-InstructData(name=not, values=[S1])
-InstructData(name=strlen, values=[R2])
-InstructData(name=per instruction test/add, values=[R1, S1])
-InstructData(name=sub, values=[G1, G4])
-InstructData(name=mul, values=[G3, S3])
-InstructData(name=div, values=[R1, G1])
-InstructData(name=mod, values=[G2, G3])
-InstructData(name=mov, values=[R1, G1])
-InstructData(name=and, values=[S0, S1])
-InstructData(name=or, values=[G1, G1])
-InstructData(name=xor, values=[R1, R3])
-InstructData(name=shr, values=[S0, S2])
-InstructData(name=shl, values=[S0, G3])
-InstructData(name=strcmp, values=[R3, S0])
-InstructData(name=strcat, values=[S1, G2])
-InstructData(name=strcpy, values=[G3, R1])
-""".split('\n')
+genai.configure(api_key="AIzaSyAk8M_DaSkat3sxYk811Bc2eGM7ZaPGNFU")
 
-tmplate = """@Test
-    fun `Parse Single LIT instruction Test`() {
-        val p = parser(
-            File("src/test/resources/per instruction test/lit")
-        ).toString()
-        assertEquals("InstructData(name=lit, values=[G1, 5])", p)
-    }"""
+# Create the model
+generation_config = {
+    "temperature": 1,
+    "top_p": 0.95,
+    "top_k": 40,
+    "max_output_tokens": 8192,
+    "response_mime_type": "text/plain",
+}
+
+model = genai.GenerativeModel(
+    model_name="gemini-1.5-pro",
+    generation_config=generation_config,
+)
+
+chat_session = model.start_chat(
+    history=[
+    ]
+)
 
 
-def fmt(name, instruct):
-    return """\n@Test
-    fun `Parse Single """ + name.upper() + """  instruction Test`() {
-        val p = parser(
-            File("src/test/resources/per instruction test/""" + name + """")
-        ).toString()
-        assertEquals(\"[""" + instruct + """]\", p)
-    }"""
+def main():
+    with open("/Users/adam/Library/CloudStorage/OneDrive-WynbergBoys'HighSchool/Dev/kotlin/mvm/archive.zip.txt",
+              'rb+') as f: content = f.read()
+    response = chat_session.send_message(
+        f"Hi gemini I would like you to explain what you see in this file\n```zipFile\n{content}\n```\n")
+    print(response.text)
+    while True:
+        print(chat_session.send_message(input(" > ")).text)
 
 
-index = -1
-for i in x:
-    index += 1
-    # noinspection PyUnresolvedReferences
-    with open(
-            "/Users/adam/Library/CloudStorage/OneDrive-WynbergBoys'HighSchool/Dev/kotlin/mvm/src/test/kotlin/engine/v2/ParseInstructionSingleTest.kt",
-            'a') as f:
-        f.write(fmt(i.split()[0].lower(), y[index]))
+if __name__ == "__main__":
+    main()

@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 val kotlinVersion = "2.1.0-Beta2"
 val coroutinesVersion = "1.9.0-RC"
 val serializationVersion = "1.7.3"
@@ -19,9 +17,9 @@ version = "1.0"
 
 
 kotlin {
-	jvmToolchain(17)
+//	jvmToolchain(17)
 	compilerOptions.suppressWarnings = true
-	compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
+//	compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
 	compilerOptions.freeCompilerArgs.add("-Xwhen-guards")
 	kotlin.compilerOptions.freeCompilerArgs.add("-Xmulti-dollar-interpolation")
 }

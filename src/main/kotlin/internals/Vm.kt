@@ -25,12 +25,12 @@ import internals.systemCalls.SystemCall
 import kotlin.reflect.KProperty
 
 class Vm {
+	val errors = VMErrors(this)
 	val registers = Registers(this)
 	val internalMemory = InternalMemory(this)
 	val snapShotManager = SnapShotManager(this)
 	val helpers = Helpers(this)
 	val libExecute = ExecuteLib(this)
-	val errors = VMErrors(this)
 	val dataTransfer = DataTransfer(this)
 	val arithmetic = Arithmetic(this)
 	val bitwise = Bitwise(this)

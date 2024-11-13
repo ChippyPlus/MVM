@@ -170,8 +170,13 @@ fun parser(vm: Vm, file: List<String>): List<InstructData> {
 
 		} catch (e: NumberFormatException) {
 			try {
-				e.message!!.split(" ")[3].substring(1, e.message!!.split(" ").size - 1).toRegisterType()
-				vm.errors.InvalidArgumentFormatException(badType = "Register", shouldBe = "Long")
+//				throw e
+				val x = e.message!!.split(" ")[3].substring(1, e.message!!.split(" ").size - 1).toRegisterType()
+				if (x == null) {
+					vm.errors.InvalidArgumentFormatException(badType = "BigLong", shouldBe = "Long")
+				} else {
+					vm.errors.InvalidArgumentFormatException(badType = "Long", shouldBe = "Long")
+				}
 			} catch (_: IllegalStateException) {
 				vm.errors.InvalidArgumentFormatException(
 					badType = "String", shouldBe = "Long"

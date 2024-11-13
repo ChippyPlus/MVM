@@ -285,6 +285,7 @@ class VMErrors(val vm: Vm) {
 		System.err.println("${prefix()}: Invalid Register Type Exception: \"$message\"")
 		exitProcess(30)
 	}
+
 }
 
 

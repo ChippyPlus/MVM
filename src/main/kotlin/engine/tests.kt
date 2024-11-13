@@ -5,6 +5,9 @@ import engine.execution.Execute
 import engine.execution.InstructData
 import internals.Vm
 import kotlinx.coroutines.*
+import java.awt.Frame
+import java.awt.event.WindowAdapter
+import java.awt.event.WindowEvent
 
 
 val testVm = Vm()
@@ -84,7 +87,27 @@ suspend fun w(lambda: () -> Unit) = withContext(Dispatchers.IO) {
 }
 
 
-fun main() = runBlocking {
+fun main() {
+	val frame = Frame("Simple AWT Window")
+
+	// Set size and location (optional)
+	frame.setSize(300, 200)
+	frame.setLocationRelativeTo(null) // Center on screen
+
+
+	// Add a WindowListener to handle closing the window
+	frame.addWindowListener(object : WindowAdapter() {
+		override fun windowClosing(e: WindowEvent) {
+			frame.dispose() // Close the window
+		}
+	})
+
+	// Make the window visible
+	frame.isVisible = true
+}
+
+
+fun mainJustKidding() = runBlocking {
 	val jobs = processes.map { i ->
 		launch {
 			w {

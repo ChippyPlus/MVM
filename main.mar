@@ -1,6 +1,0 @@
-str f1 "Child"
-call println
-lit g1 1000
-sleep g1
-str f1 "Child returns"
-call println

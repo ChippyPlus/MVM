@@ -11,10 +11,7 @@ import helpers.toLong
  *
  * @throws GeneralIoAbstractionsException If an error occurs during the printing operation.
  */
-fun IoAbstractions.printr(register: RegisterType): Unit = try {
+fun IoAbstractions.printr(register: RegisterType) {
 	println(message = registers.read(register = register))
 	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
-
-} catch (_: Exception) {
-	errors.GeneralIoAbstractionsException(message = "printr")
 }
