@@ -189,15 +189,33 @@ class Vfs {
 
 		return true
 	}
+
+	fun exists(path: String, entriesX: Set<Formats.Ventry> = this.list()): Boolean {
+		var entries = entriesX
+		if (path.isEmpty()) return false
+		val parts = path.split("/")
+		if (parts.size == 1) return entries.any { it.name == parts[0] }
+		var currentEntry: Formats.Ventry?
+		for (i in 0 until parts.size - 1) {
+			currentEntry = entries.find { it.name == parts[i] && it.permissions.directory }
+			entries = currentEntry?.children?.toSet() ?: return false
+			if (currentEntry.children == null || currentEntry.children!!.find { it.name == parts[i + 1] } == null) {
+				return false
+			}
+		}
+		return true
+	}
+
 }
 
 
 fun main() {
-	val f = "home/user"
+	val f = "home/user/"
 	val v = Vfs()
-//	Vfs().list().forEach(::println)
+	Vfs().list().forEach(::println)
+//	v.list().toList()[0].children!!.forEach(::println)
 
-//	Vfs().newFiD(
+//	v.newFiD(
 //		f, Formats.Ventry(
 //			name = "inserted.txt",
 //			content = "hi",
@@ -205,6 +223,7 @@ fun main() {
 //	)
 //	v.list()[0].children!![0].children!!.forEach(::println)
 
-	println(Vfs().exists("home/user/file1.txt"))
+	println(Vfs().exists("home/user/inserted.txt"))
+//	v.flash(myFileSystem.toSet())
 }
 
