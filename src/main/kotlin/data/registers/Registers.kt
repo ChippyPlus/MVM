@@ -11,8 +11,6 @@ class Registers(val vm: Vm) {
 
 	init {
 		for (register in RegisterType.entries) {
-
-
 			registers[register] = RegisterData(
 
 
