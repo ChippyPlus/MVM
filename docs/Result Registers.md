@@ -1,6 +1,10 @@
+# Result Register Table
+
+--------
+
 | #  | Register name | Description                     | Notes                                    |
 |----|---------------|---------------------------------|------------------------------------------|
-| 1  | R1            | -                               | -                                        |
+| 1  | R1            | User Temp return                | For miscellaneous temporary results      |
 | 2  | R2            | System call return              | -                                        |
 | 3  | R3            | Bitwise returns                 | -                                        |
 | 4  | R4            | Arithmetic returns              | -                                        |

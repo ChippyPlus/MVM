@@ -1,3 +1,7 @@
+# Informational Register Table
+
+--------
+
 | #  | Register name | Symbol | Symbol name              | Description                                                                     | Notes                                                                                     |
 |----|---------------|--------|--------------------------|---------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
 | 1  | I1            | ZF     | Zero Flag                | When ever an instruction returns 0. This flag gets enabled. Else ZF is set to 0 | -                                                                                         |
