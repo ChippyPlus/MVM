@@ -17,7 +17,7 @@ class Vfs {
 	}
 
 
-	fun list(): List<Formats.Ventry> {
+	fun list(): Set<Formats.Ventry> {
 		return renderVfs()
 	}
 
@@ -38,7 +38,7 @@ class Vfs {
 
 	@OptIn(ExperimentalSerializationApi::class, ExperimentalStdlibApi::class)
 	fun newDir(name: String): Unit? {
-		val rendered = renderVfs().toMutableList()
+		val rendered = renderVfs().toMutableSet()
 		if (name in deStructureRenderToNames(rendered)) {
 			return null
 		}
@@ -57,7 +57,7 @@ class Vfs {
 	@Suppress("UNREACHABLE_CODE")
 	@OptIn(ExperimentalSerializationApi::class, ExperimentalStdlibApi::class)
 	fun new(nameX: String): Unit? {
-		val rendered = renderVfs().toMutableList()
+		val rendered = renderVfs().toMutableSet()
 
 		val name: Any = if ('/' in nameX) nameX.split('/') else nameX
 
@@ -93,7 +93,7 @@ class Vfs {
 
 	@OptIn(ExperimentalSerializationApi::class, ExperimentalStdlibApi::class)
 	fun write(name: String, content: String): Unit? {
-		val rendered = renderVfs().toMutableList()
+		val rendered = renderVfs().toMutableSet()
 		if (name !in deStructureRenderToNames(rendered)) {
 			return null
 		}
@@ -111,10 +111,10 @@ class Vfs {
 	}
 
 
-	fun renderVfs(): List<Formats.Ventry> =
-		ProtoBuf.decodeFromHexString<List<Formats.Ventry>>(hex = File("src/main/resources/vfs.fs").readText())
+	fun renderVfs(): Set<Formats.Ventry> =
+		ProtoBuf.decodeFromHexString<Set<Formats.Ventry>>(hex = File("src/main/resources/vfs.fs").readText())
 
-	private fun deStructureRenderToNames(render: List<Formats.Ventry>): Set<String> {
+	private fun deStructureRenderToNames(render: Set<Formats.Ventry>): Set<String> {
 		val strings = mutableSetOf<String>()
 		render.forEach { strings.add(it.name) }
 		return strings
@@ -129,13 +129,13 @@ class Vfs {
 	}
 
 
-	fun flash(ventries: List<Formats.Ventry>) {
+	fun flash(ventries: Set<Formats.Ventry>) {
 		File("src/main/resources/vfs.fs").writeText(
 			ProtoBuf.encodeToByteArray(value = ventries).toHexString()
 		)
 	}
 
-	fun exists(path: String, entriesX: List<Formats.Ventry> = this.list()): Boolean {
+	fun exists(path: String, entriesX: Set<Formats.Ventry> = this.list()): Boolean {
 		var entries = entriesX
 		if (path.isEmpty()) {
 			println(1)
@@ -146,16 +146,12 @@ class Vfs {
 			println(2)
 			return entries.any { it.name == parts[0] }
 		}
-
 		var currentEntry: Formats.Ventry?
 		for (i in 0 until parts.size - 1) {
 			currentEntry = entries.find { it.name == parts[i] && it.permissions.directory }
-			entries = currentEntry?.children?.toList() ?: return false
-			if (currentEntry.children == null || currentEntry.children!!.find { it.name == parts[i + 1] && it.permissions.directory } == null) {
-				println(3)
+			if (currentEntry?.children == null || currentEntry.children!!.find { it.name == parts[i + 1 - 1] } == null) {
 				return false
 			}
-
 		}
 		return true
 	}
@@ -172,7 +168,7 @@ class Vfs {
 		if (parts.size == 1) {
 			// Handle the case where the path is just a single file name
 			entries.add(insertable)
-			this.flash(entries) // Update the VFS
+			this.flash(entries.toSet()) // Update the VFS
 			return true
 		}
 
@@ -188,7 +184,7 @@ class Vfs {
 						children = mutableListOf(insertable)
 					)
 					entries.add(currentEntry)
-					this.flash(entries)
+					this.flash(entries.toSet())
 					return true
 				} else {
 					return false
@@ -198,14 +194,16 @@ class Vfs {
 			entries = currentEntry.children?.toMutableList() ?: return false
 		}
 
-		// Insert at the correct position
-		entries.add(insertable)
+		// Convert to LinkedHashSet to preserve order and ensure uniqueness
+		val childrenSet = entries.toCollection(LinkedHashSet())
+		childrenSet.add(insertable)
+
 		// Traverse back up the indexes, updating the children lists
 		for (i in indexes.size - 1 downTo 0) {
 			val parentIndex = indexes[i]
-			val parent = this.list()[parentIndex] // Get the parent from the original list
-			val updatedParent = parent.copy(children = entries)
-			this.flash(this.list().toMutableList().also { it[parentIndex] = updatedParent }) // Update the VFS
+			val parent = this.list().toList()[parentIndex] // Get the parent from the original list
+			val updatedParent = parent.copy(children = childrenSet.toList())
+			this.flash(this.list().toMutableList().also { it[parentIndex] = updatedParent }.toSet()) // Update the VFS
 			entries = this.list().toMutableList() // Refresh entries for the next iteration
 		}
 
@@ -225,7 +223,7 @@ fun main() {
 //			content = "hi",
 //		)
 //	)
-	v.list()[0].children!![0].children!!.forEach(::println)
+//	v.list()[0].children!![0].children!!.forEach(::println)
 
 	println(Vfs().exists("home/user/file1.txt"))
 }
