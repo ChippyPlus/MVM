@@ -3,11 +3,9 @@ package internals.instructions.strings
 import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
-import errors
 import helpers.readRegisterString
 import helpers.toLong
 import helpers.writeClosestString
-import registers
 
 /**
  * Concatenates two strings and stores the resulting string in memory.
@@ -22,10 +20,10 @@ fun Strings.strcat(string1: RegisterType, string2: RegisterType): Any = try {
 
 	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
 
-	val s1: String = readRegisterString(register = string1)
-	val s2: Comparable<String> = readRegisterString(register = string2)
+	val s1: String = helpers.readRegisterString(register = string1)
+	val s2: Comparable<String> = helpers.readRegisterString(register = string2)
 
-	val location = writeClosestString(
+	val location = helpers.writeClosestString(
 		string = (s1 + s2)
 	)
 	registers.write(RegisterType.R4, location)

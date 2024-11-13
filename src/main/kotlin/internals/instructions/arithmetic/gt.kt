@@ -3,9 +3,7 @@ package internals.instructions.arithmetic
 import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
-import errors
 import helpers.toLong
-import registers
 
 
 fun Arithmetic.gt(operand1: RegisterType, operand2: RegisterType) = try {

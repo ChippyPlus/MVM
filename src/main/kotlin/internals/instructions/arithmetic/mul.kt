@@ -1,8 +1,6 @@
-
 package internals.instructions.arithmetic
 
 import data.registers.RegisterType
-import registers
 
 /**
  * Multiplies the values in two registers and stores the result in the `R4` register.

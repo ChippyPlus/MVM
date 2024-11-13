@@ -3,10 +3,8 @@ package internals.instructions.strings
 import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
-import errors
 import helpers.readRegisterString
 import helpers.toLong
-import registers
 
 /**
  * Compares two strings lexicographically and sets the `R4` register to indicate the result.
@@ -22,8 +20,8 @@ import registers
 fun Strings.strcmp(string1: RegisterType, string2: RegisterType) = try {
 	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
 
-	val s1 = readRegisterString(string1)
-	val s2 = readRegisterString(string2)
+	val s1 = helpers.readRegisterString(string1)
+	val s2 = helpers.readRegisterString(string2)
 	if (s1 == s2) {
 		registers.write(
 			register = RegisterType.R4, value = 0

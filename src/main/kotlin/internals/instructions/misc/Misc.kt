@@ -1,3 +1,5 @@
 package internals.instructions.misc
 
-open class Misc
+import internals.Vm
+
+open class Misc(val vm: Vm)

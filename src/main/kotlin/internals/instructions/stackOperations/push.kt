@@ -3,9 +3,7 @@ package internals.instructions.stackOperations
 import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
-import errors
 import helpers.toLong
-import registers
 
 
 /**
@@ -22,5 +20,14 @@ fun StackOperations.push(registerType: RegisterType) = try {
 	internalStack.push(element = registers.read(register = registerType))
 } catch (_: Exception) {
 	errors.GeneralStackOperationsException("Push")
+}
 
+fun StackOperations.pushl(registerType: Long) = try {
+	registers.write(
+		intelNames[IntelRegisters.ENSF], true.toLong()
+	) // It's above the next expr because the internal stack may throw its own errors
+
+	internalStack.push(registerType)
+} catch (_: Exception) {
+	errors.GeneralStackOperationsException("Push")
 }

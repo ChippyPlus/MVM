@@ -1,13 +1,13 @@
 package environment
 
-import environment.libEx.SnapShotManager
 import environment.libEx.executeKt
 import environment.libEx.executeMar
 import environment.libEx.findMarLib
+import internals.Vm
 import java.io.File
 
-val snapShotManager = SnapShotManager()
-class ExecuteLib {
+
+class ExecuteLib(val vm: Vm) {
 	var currentFunction = ""
 	var enabledFunction = false
 

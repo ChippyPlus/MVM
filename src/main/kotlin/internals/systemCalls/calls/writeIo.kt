@@ -3,9 +3,7 @@ package internals.systemCalls.calls
 import data.memory.MemoryAddress
 import data.memory.MemoryValue
 import data.registers.RegisterType
-import internalMemory
 import internals.systemCalls.SystemCall
-import registers
 
 /**
  * Writes a null-terminated string to the console.
@@ -29,4 +27,5 @@ fun SystemCall.writeIo(address: RegisterType) = call("writeIo") {
 		print(byte.value.toInt().toChar())
 
 	}
+	println(internalMemory.memory)
 }

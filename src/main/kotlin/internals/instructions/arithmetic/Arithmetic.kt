@@ -3,9 +3,8 @@ package internals.instructions.arithmetic
 import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
-import errors
 import helpers.toLong
-import registers
+import internals.Vm
 import kotlin.math.sign
 
 
@@ -14,7 +13,9 @@ import kotlin.math.sign
  *
  * This class provides functions for performing arithmetic operations on register values.
  */
-open class Arithmetic {
+open class Arithmetic(private val vm: Vm) {
+	val errors = vm.errors
+	val registers = vm.registers
 	fun zeroFlag(out: Long) {
 		if (out == 0L) registers.write(
 			intelNames[IntelRegisters.ZF], true.toLong()
@@ -43,7 +44,7 @@ open class Arithmetic {
 			function()
 
 		} catch (e: Exception) {
-			errors.GeneralArithmeticException(message = name)
+			vm.errors.GeneralArithmeticException(message = name)
 		}
 		signFlag(registers.read(RegisterType.R4))
 		zeroFlag(registers.read(RegisterType.R4))

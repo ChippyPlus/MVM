@@ -2,7 +2,6 @@ package internals.systemCalls.calls
 
 import data.registers.RegisterType.R2
 import internals.systemCalls.SystemCall
-import registers
 
 /**
  * Retrieves the process ID of the current process.

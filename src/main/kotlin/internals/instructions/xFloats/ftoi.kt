@@ -1,14 +1,13 @@
 package internals.instructions.xFloats
 
 import data.registers.RegisterType
-import registers
 
 fun XFloats.ftoi(registerX: RegisterType, register: RegisterType) {
 	val valueLong = registers.readX(registerX)
 
 	if (valueLong.isDouble) {
-		registers.writeX(registerX, Double.fromBits(valueLong.value).toLong())
+		registers.writeX(register, Double.fromBits(valueLong.value).toLong())
 	} else {
-		registers.writeX(registerX, Float.fromBits(valueLong.value.toInt()).toLong())
+		registers.writeX(register, Float.fromBits(valueLong.value.toInt()).toLong())
 	}
 }

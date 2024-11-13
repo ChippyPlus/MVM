@@ -3,16 +3,20 @@ package internals.systemCalls
 import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
-import errors
 import helpers.toLong
+import internals.Vm
 import internals.systemCalls.calls.*
-import registers
 import kotlin.system.exitProcess
 
 /**
  * Handles the execution of system calls within the virtual machine.
  */
-class SystemCall {
+class SystemCall(val vm: Vm) {
+
+	val helpers = vm.helpers
+	val internalMemory = vm.internalMemory
+	val errors = vm.errors
+	val registers = vm.registers
 
 	/**
 	 * Executes the system call specified by the call ID.
@@ -36,14 +40,20 @@ class SystemCall {
 			4 -> listFiles()
 			5 -> deleteFile(s2)
 			6 -> exit(s2)
+			7 -> exec(s2)
+			8 -> fork()
+			9 -> spawn(s2)
 			14 -> time()
 			16 -> getPid()
 			17 -> getUid()
+			18 -> handleSignals(s2, s3)
+			19 -> sendSignal(s2, s3)
 			24 -> writeIo(s2)
 			25 -> readIo()
 			26 -> createArray(s2)
 			27 -> arraySet(s2, s3, s4)
 			28 -> arrayGet(s2, s3)
+
 			else -> errors.InvalidSystemCallException(registers.read(callId).toString())
 		}
 	}

@@ -1,6 +1,7 @@
 package internals.instructions.stackOperations
 
 import data.stack.FixedStack
+import internals.Vm
 
 
 /**
@@ -10,6 +11,8 @@ import data.stack.FixedStack
  *
  * @property limit The maximum size of the stack.
  */
-class StackOperations(limit: Int) {
-    val internalStack = FixedStack(limit)
+class StackOperations(val vm: Vm, limit: Int) {
+	val registers = vm.registers
+	val errors = vm.errors
+	val internalStack = FixedStack(limit, vm)
 }

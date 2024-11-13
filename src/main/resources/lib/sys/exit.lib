@@ -1,4 +1,4 @@
 // Exits with the the exit code F1
-LIT S1 6
-MOV F1 S2
+LIT s1 6
+cpy f1 s2
 SYSCALL // YAY!!!

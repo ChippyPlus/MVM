@@ -1,15 +1,15 @@
 package data.memory
 
 import MEMORY_LIMIT
-import errors
+import internals.Vm
 
 /**
  * Represents the internal memory of the virtual machine.
  *
  * The memory is a map of [MemoryAddress] to [MemoryValue], with a fixed size defined by [MEMORY_LIMIT].
  */
-class InternalMemory {
-
+class InternalMemory(vm: Vm) {
+	val errors = vm.errors
 	var memory = emptyMap<MemoryAddress, MemoryValue>().toMutableMap()
 
 	init {

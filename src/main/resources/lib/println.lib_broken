@@ -1,0 +1,22 @@
+// needs arg F1, which is the string address
+cpy f1 f2
+
+call strings.strlen
+prints
+peek g4
+lit g5 1
+sub g4 g5 // R4 = strlen - 1
+lit g2 10 // "\n"
+printr r4
+eq r4 g2
+jnz 19
+store g2 f1
+call maths.inc
+peek f1
+lit g2 0
+store g2 f1
+
+lit s1 24
+cpy f2 s2
+
+syscall

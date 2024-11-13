@@ -5,10 +5,7 @@ import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.RegisterType.R4
 import data.registers.intelNames
-import errors
 import helpers.toLong
-import internalMemory
-import registers
 
 /**
  * Calculates the length of a null-terminated string and stores it in the `R4` register.

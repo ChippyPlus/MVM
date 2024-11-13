@@ -2,7 +2,6 @@ package internals.systemCalls.calls
 
 import data.registers.RegisterType
 import internals.systemCalls.SystemCall
-import registers
 import kotlin.system.exitProcess
 
 /**

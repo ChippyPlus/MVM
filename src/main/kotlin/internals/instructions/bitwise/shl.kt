@@ -2,7 +2,6 @@ package internals.instructions.bitwise
 
 
 import data.registers.RegisterType
-import registers
 
 /**
  * Performs a logical left shift operation on the value in the operand register by the amount specified in the shift amount register,

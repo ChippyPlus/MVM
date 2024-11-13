@@ -1,7 +1,6 @@
 package internals.instructions.arithmetic
 
 import data.registers.RegisterType
-import registers
 
 /**
  * Subtracts the value in registerB from registerA and stores the result in the `R4` register.
@@ -16,7 +15,6 @@ fun Arithmetic.sub(registerA: RegisterType, registerB: RegisterType) = call("sub
 	val b: Long = registers.read(register = registerB)
 	val out = a - b
 	registers.write(RegisterType.R4, out)
-
 
 
 }

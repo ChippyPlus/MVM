@@ -5,7 +5,7 @@ import internals.instructions.misc.HelpJsonPartial
 import kotlinx.serialization.json.Json
 import java.io.File
 
-fun gatherHelp(string: String): HelpJsonPartial {
+fun Helpers.gatherHelp(string: String): HelpJsonPartial {
 	var usable: HelpJsonPartial? = null
 	val f = Json.decodeFromString<HelpJsonEntire>(File("src/main/resources/help.jsonc").readText())
 	for (i in f.stdlib) {
@@ -19,6 +19,9 @@ fun gatherHelp(string: String): HelpJsonPartial {
 			usable = i
 			break
 		}
+	}
+	if (usable == null) {
+		errors.InvalidInstructionArgumentException(string)
 	}
 	return usable!!
 }

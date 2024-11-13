@@ -1,5 +1,1 @@
-str f1 "I like dogs"
-lit f2 12
-call strings.strcpy
-load f2 g1
-printr g1
+help dealloc

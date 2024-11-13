@@ -100,14 +100,94 @@
     ],
     "instructions": [
         {
+            "name": "xlit",
+            "arguments": [
+                {
+                    "name": "register",
+                    "info": "The register to load the literal into"
+                },
+                {
+                    "name": "literal",
+                    "info": "The literal value to load into the register (can be any data type)"
+                }
+            ],
+            "info": "Loads a literal value into a register. The data type is determined at runtime."
+        },
+        {
+            "name": "settype",
+            "arguments": [
+                {
+                    "name": "register",
+                    "info": "The register to set the data type of"
+                },
+                {
+                    "name": "dataType",
+                    "info": "The data type to set (e.g., \"Long\", \"Double\", \"String\", \"Array\")"
+                }
+            ],
+            "info": "Sets the data type of a register."
+        },
+        {
+            "name": "help",
+            "arguments": [
+                {
+                    "name": "command",
+                    "info": "The instruction or function to display help information for"
+                }
+            ],
+            "info": "Displays help information for an instruction or standard library function."
+        },
+        {
             "name": "call",
             "arguments": [
                 {
                     "name": "function_name",
-                    "info": "This is the name of the function from stdlib or user defined"
+                    "info": "The name of the function to call (from stdlib or user-defined)"
                 }
             ],
-            "info": "Called a function either defined in stdlib or by the user and generally returns the output to the stack"
+            "info": "Calls a function. Arguments are passed in F registers. The return value (if any) is pushed onto the stack."
+        },
+        {
+            "name": "substr",
+            "arguments": [
+                {
+                    "name": "string",
+                    "info": "Register containing the address of the string"
+                },
+                {
+                    "name": "startIndex",
+                    "info": "Register containing the starting index of the substring (inclusive)"
+                },
+                {
+                    "name": "endIndex",
+                    "info": "Register containing the ending index of the substring (exclusive)"
+                }
+            ],
+            "info": "Extracts a substring from a string and stores the result in R2."
+        },
+        {
+            "name": "str",
+            "arguments": [
+                {
+                    "name": "destination",
+                    "info": "Register to hold the address where the string is stored"
+                },
+                {
+                    "name": "string",
+                    "info": "The string literal to store in memory (enclosed in double quotes)"
+                }
+            ],
+            "info": "Stores a string literal in memory."
+        },
+        {
+            "name": "syscall",
+            "arguments": [
+                {
+                    "name": "id",
+                    "info": "System call ID"
+                }
+            ],
+            "info": "Executes a system call. Arguments are passed in S registers. The result (if any) is stored in R2."
         },
         {
             "name": "lit",
@@ -118,345 +198,309 @@
                 },
                 {
                     "name": "Long_literal",
-                    "info": "The value to load into the register"
+                    "info": "The 64-bit integer value to load into the register"
                 }
             ],
-            "info": "Loads a 64 bit integer into a register"
+            "info": "Loads a 64-bit integer literal into a register."
         },
         {
             "name": "add",
             "arguments": [
                 {
                     "name": "op1",
-                    "info": "The 1st register/value you want to add"
+                    "info": "The first operand (register or value)"
                 },
                 {
                     "name": "op2",
-                    "info": "The 2nd register/value you want to add"
+                    "info": "The second operand (register or value)"
                 }
             ],
-            "info": "Adds 2 numbers together and returns the output to R4"
+            "info": "Adds two numbers and stores the result in R4."
         },
         {
             "name": "sub",
             "arguments": [
                 {
                     "name": "op1",
-                    "info": "Value/Register to subtract from"
+                    "info": "The operand to subtract from (register or value)"
                 },
                 {
                     "name": "op2",
-                    "info": "Value/Register to subtract"
+                    "info": "The operand to subtract (register or value)"
                 }
             ],
-            "info": "Subtracts op2 from op1 and stores the result in R4"
+            "info": "Subtracts two numbers and stores the result in R4."
         },
         {
             "name": "mul",
             "arguments": [
                 {
                     "name": "op1",
-                    "info": "The 1st register/value you want to multiply"
+                    "info": "The first operand (register or value)"
                 },
                 {
                     "name": "op2",
-                    "info": "The 2nd register/value you want to multiply"
+                    "info": "The second operand (register or value)"
                 }
             ],
-            "info": "Multiplies two numbers and stores the result in R4"
+            "info": "Multiplies two numbers and stores the result in R4."
         },
         {
             "name": "div",
             "arguments": [
                 {
                     "name": "op1",
-                    "info": "The register to be divided"
+                    "info": "The dividend (register or value)"
                 },
                 {
                     "name": "op2",
-                    "info": "The register to divide by"
+                    "info": "The divisor (register or value)"
                 }
             ],
-            "info": "Divides op1 by op2 and stores the result in R4"
+            "info": "Divides two numbers and stores the result in R4."
         },
         {
             "name": "mod",
             "arguments": [
                 {
                     "name": "op1",
-                    "info": "The register/value you want to modulo"
+                    "info": "The dividend (register or value)"
                 },
                 {
                     "name": "op2",
-                    "info": "The register/value you want to modulo by"
+                    "info": "The divisor (register or value)"
                 }
             ],
-            "info": "Calculates op1 modulo op2 and stores the result in R4"
+            "info": "Calculates the modulo of two numbers and stores the result in R4."
         },
         {
             "name": "mov",
             "arguments": [
                 {
                     "name": "source",
-                    "info": "Source register/value"
+                    "info": "The source register or value"
                 },
                 {
                     "name": "destination",
-                    "info": "Destination register"
+                    "info": "The destination register"
                 }
             ],
-            "info": "Moves a value from the source to the destination"
+            "info": "Moves a value from the source to the destination."
+        },
+        {
+            "name": "cpy",
+            "arguments": [
+                {
+                    "name": "source",
+                    "info": "The source register"
+                },
+                {
+                    "name": "destination",
+                    "info": "The destination register"
+                }
+            ],
+            "info": "Copies the value from the source register to the destination register (alias for MOV)."
         },
         {
             "name": "and",
             "arguments": [
                 {
                     "name": "op1",
-                    "info": "The first operand register/value for the AND operation"
+                    "info": "The first operand (register or value)"
                 },
                 {
                     "name": "op2",
-                    "info": "The second operand register/value for the AND operation"
+                    "info": "The second operand (register or value)"
                 }
             ],
-            "info": "Performs bitwise AND and stores the result in R3"
+            "info": "Performs bitwise AND on two values and stores the result in R3."
         },
         {
             "name": "or",
             "arguments": [
                 {
                     "name": "op1",
-                    "info": "The first operand register/value for the OR operation"
+                    "info": "The first operand (register or value)"
                 },
                 {
                     "name": "op2",
-                    "info": "The second operand register/value for the OR operation"
+                    "info": "The second operand (register or value)"
                 }
             ],
-            "info": "Performs bitwise OR and stores the result in R3"
+            "info": "Performs bitwise OR on two values and stores the result in R3."
         },
         {
             "name": "xor",
             "arguments": [
                 {
                     "name": "op1",
-                    "info": "The first operand register/value for the XOR operation"
+                    "info": "The first operand (register or value)"
                 },
                 {
                     "name": "op2",
-                    "info": "The second operand register/value for the XOR operation"
+                    "info": "The second operand (register or value)"
                 }
             ],
-            "info": "Performs bitwise XOR and stores the result in R3"
+            "info": "Performs bitwise XOR on two values and stores the result in R3."
         },
         {
             "name": "shr",
             "arguments": [
                 {
                     "name": "value",
-                    "info": "Register containing the value to shift"
+                    "info": "The register containing the value to shift"
                 },
                 {
                     "name": "amount",
-                    "info": "Register/value of shift amount"
+                    "info": "The shift amount (register or value)"
                 }
             ],
-            "info": "Shifts the bits in 'value' right by 'amount' and stores the result in R3"
+            "info": "Shifts the bits in the value register to the right by the specified amount and stores the result in R3."
         },
         {
             "name": "shl",
             "arguments": [
                 {
                     "name": "value",
-                    "info": "Register containing the value to shift"
+                    "info": "The register containing the value to shift"
                 },
                 {
                     "name": "amount",
-                    "info": "Register/value of shift amount"
+                    "info": "The shift amount (register or value)"
                 }
             ],
-            "info": "Shifts the bits in 'value' left by 'amount' and stores the result in R3"
-        },
-        {
-            "name": "strcmp",
-            "arguments": [
-                {
-                    "name": "str1",
-                    "info": "Pointer to the first string"
-                },
-                {
-                    "name": "str2",
-                    "info": "Pointer to the second string"
-                }
-            ],
-            "info": "Compares two strings and stores 0 (equal) or 1 (not equal) in R4"
-        },
-        {
-            "name": "strcat",
-            "arguments": [
-                {
-                    "name": "str1",
-                    "info": "Pointer to the first string"
-                },
-                {
-                    "name": "str2",
-                    "info": "Pointer to the second string"
-                }
-            ],
-            "info": "Concatenates two strings and stores the result in R4"
-        },
-        {
-            "name": "strcpy",
-            "arguments": [
-                {
-                    "name": "source",
-                    "info": "Pointer to the source string"
-                },
-                {
-                    "name": "destination",
-                    "info": "Pointer to the destination memory location"
-                }
-            ],
-            "info": "Copies a string from source to destination"
+            "info": "Shifts the bits in the value register to the left by the specified amount and stores the result in R3."
         },
         {
             "name": "store",
             "arguments": [
                 {
                     "name": "source",
-                    "info": "Source register"
+                    "info": "The source register"
                 },
                 {
                     "name": "destination",
-                    "info": "Destination memory address (in register)"
+                    "info": "The destination memory address (in a register)"
                 }
             ],
-            "info": "Stores the value from the source register to the memory location specified by the destination register"
+            "info": "Stores the value from the source register to the memory location specified by the destination register."
         },
         {
             "name": "lt",
             "arguments": [
                 {
                     "name": "op1",
-                    "info": "The first operand register/value for the LT operation"
+                    "info": "The first operand (register or value)"
                 },
                 {
                     "name": "op2",
-                    "info": "The second operand register/value for the LT operation"
+                    "info": "The second operand (register or value)"
                 }
             ],
-            "info": "If op1 < op2 then return 0, otherwise 1 to R4"
+            "info": "Compares two values and stores 0 in R4 if op1 is less than op2, otherwise stores 1."
         },
         {
             "name": "gt",
             "arguments": [
                 {
                     "name": "op1",
-                    "info": "The first operand register/value for the GT operation"
+                    "info": "The first operand (register or value)"
                 },
                 {
                     "name": "op2",
-                    "info": "The second operand register/value for the GT operation"
+                    "info": "The second operand (register or value)"
                 }
             ],
-            "info": "If op1 > op2 then return 0, otherwise 1 to R4"
+            "info": "Compares two values and stores 0 in R4 if op1 is greater than op2, otherwise stores 1."
         },
         {
             "name": "load",
             "arguments": [
                 {
                     "name": "source",
-                    "info": "Source memory address (in register)"
+                    "info": "The source memory address (in a register)"
                 },
                 {
                     "name": "destination",
-                    "info": "Destination register"
+                    "info": "The destination register"
                 }
             ],
-            "info": "Loads a value from memory into the destination register"
+            "info": "Loads a value from memory into the destination register."
         },
         {
             "name": "jmp",
             "arguments": [
                 {
                     "name": "address",
-                    "info": "The address (line number) to jump to."
+                    "info": "The line number to jump to"
                 }
             ],
-            "info": "Jumps to a specified address/line number"
+            "info": "Jumps to the specified line number."
         },
         {
             "name": "jz",
             "arguments": [
                 {
                     "name": "address",
-                    "info": "The address to jump to if the register is zero"
-                },
-                {
-                    "name": "register",
-                    "info": "Register to check"
+                    "info": "The line number to jump to if I8 is zero"
                 }
             ],
-            "info": "Jump to address if register is zero"
+            "info": "Jumps to the specified line number if the I8 register is zero."
         },
         {
             "name": "jnz",
             "arguments": [
                 {
                     "name": "address",
-                    "info": "The address to jump to if the register is NOT zero"
-                },
-                {
-                    "name": "register",
-                    "info": "Register to check"
+                    "info": "The line number to jump to if I8 is not zero"
                 }
             ],
-            "info": "Jump to address if register is NOT zero"
+            "info": "Jumps to the specified line number if the I8 register is not zero."
         },
         {
             "name": "peek",
             "arguments": [
                 {
                     "name": "destination",
-                    "info": "Destination register to store the peeked value"
+                    "info": "The destination register"
                 }
             ],
-            "info": "Peeks at the top of the stack (without popping) and stores the value in the destination register"
+            "info": "Copies the value at the top of the stack into the destination register without removing it from the stack."
         },
         {
             "name": "pop",
             "arguments": [
                 {
                     "name": "destination",
-                    "info": "Destination register"
+                    "info": "The destination register"
                 }
             ],
-            "info": "Pops the top value from the stack and puts it in the destination register"
+            "info": "Pops the top value from the stack and stores it in the destination register."
         },
         {
             "name": "push",
             "arguments": [
                 {
                     "name": "source",
-                    "info": "Source register/value"
+                    "info": "The source register or value"
                 }
             ],
-            "info": "Pushes a value onto the stack"
+            "info": "Pushes a value onto the stack."
         },
         {
-            "name": "syscall",
+            "name": "pushl",
             "arguments": [
                 {
-                    "name": "id",
-                    "info": "System call ID"
+                    "name": "value",
+                    "info": "The 64-bit integer value to push onto the stack"
                 }
             ],
-            "info": "Executes a system call.  Arguments are in S registers. Result (if any) will be pushed to the stack."
+            "info": "Pushes a 64-bit integer literal onto the stack."
         },
         {
             "name": "prints",
             "arguments": [],
-            "info": "Prints the value on top of the stack"
+            "info": "Prints the value at the top of the stack."
         },
         {
             "name": "printr",
@@ -466,55 +510,41 @@
                     "info": "The register to print"
                 }
             ],
-            "info": "Prints the decimal representation of a register's value."
-        },
-        {
-            "name": "str",
-            "arguments": [
-                {
-                    "name": "destination",
-                    "info": "Destination register (to hold the address where the string is stored)"
-                },
-                {
-                    "name": "string",
-                    "info": "The string literal to store in memory"
-                }
-            ],
-            "info": "Stores a string literal in memory"
+            "info": "Prints the decimal representation of the value in the specified register."
         },
         {
             "name": "strlen",
             "arguments": [
                 {
                     "name": "string",
-                    "info": "String address (register)"
+                    "info": "The register containing the address of the string"
                 }
             ],
-            "info": "Calculates the length of a string"
+            "info": "Calculates the length of a string and stores the result in R4."
         },
         {
             "name": "not",
             "arguments": [
                 {
-                    "name": "register",
-                    "info": "Register value for bitwise NOT"
+                    "name": "operand",
+                    "info": "The register containing the value to negate"
                 }
             ],
-            "info": "Performs bitwise NOT on register value"
+            "info": "Performs bitwise NOT on the operand and stores the result in R3."
         },
         {
             "name": "eq",
             "arguments": [
                 {
-                    "name": "A",
-                    "info": "Value a"
+                    "name": "op1",
+                    "info": "The first operand (register or value)"
                 },
                 {
-                    "name": "B",
-                    "info": "Value b"
+                    "name": "op2",
+                    "info": "The second operand (register or value)"
                 }
             ],
-            "info": "Returns 0 if equal, and 1 if not equal"
+            "info": "Compares two values and stores 1 in I4 if they are equal, otherwise stores 0."
         },
         {
             "name": "inr",
@@ -524,17 +554,125 @@
                     "info": "The register to check"
                 }
             ],
-            "info": "Checks if a register is null or not."
+            "info": "Checks if a register is null and stores 1 in R6 if it is, otherwise stores 0."
         },
         {
-            "name": "help",
+            "name": "dealloc",
             "arguments": [
                 {
-                    "name": "command",
-                    "info": "The instruction or function to give docs about."
+                    "name": "address",
+                    "info": "The memory address to deallocate"
                 }
             ],
-            "info": "Shows some docs about a certain instruction or function from stdlib"
+            "info": "Deallocates the memory at the specified address."
+        },
+        {
+            "name": "sleep",
+            "arguments": [
+                {
+                    "name": "milliseconds",
+                    "info": "The number of milliseconds to sleep (register or value)"
+                }
+            ],
+            "info": "Pauses execution for the specified number of milliseconds."
+        },
+        {
+            "name": "xadd",
+            "arguments": [
+                {
+                    "name": "op1",
+                    "info": "The first operand (register or value)"
+                },
+                {
+                    "name": "op2",
+                    "info": "The second operand (register or value)"
+                }
+            ],
+            "info": "Adds two values of any type and stores the result in R5."
+        },
+        {
+            "name": "xsub",
+            "arguments": [
+                {
+                    "name": "op1",
+                    "info": "The operand to subtract from (register or value)"
+                },
+                {
+                    "name": "op2",
+                    "info": "The operand to subtract (register or value)"
+                }
+            ],
+            "info": "Subtracts two values of any type and stores the result in R5."
+        },
+        {
+            "name": "xmul",
+            "arguments": [
+                {
+                    "name": "op1",
+                    "info": "The first operand (register or value)"
+                },
+                {
+                    "name": "op2",
+                    "info": "The second operand (register or value)"
+                }
+            ],
+            "info": "Multiplies two values of any type and stores the result in R5."
+        },
+        {
+            "name": "xdiv",
+            "arguments": [
+                {
+                    "name": "op1",
+                    "info": "The dividend (register or value)"
+                },
+                {
+                    "name": "op2",
+                    "info": "The divisor (register or value)"
+                }
+            ],
+            "info": "Divides two values of any type and stores the result in R5."
+        },
+        {
+            "name": "xpow",
+            "arguments": [
+                {
+                    "name": "base",
+                    "info": "The base (register or value)"
+                },
+                {
+                    "name": "exponent",
+                    "info": "The exponent (register or value)"
+                }
+            ],
+            "info": "Raises a number to a power and stores the result in R5."
+        },
+        {
+            "name": "itof",
+            "arguments": [
+                {
+                    "name": "source",
+                    "info": "The source register (containing a Long)"
+                },
+                {
+                    "name": "destination",
+                    "info": "The destination register (to store the converted Double)"
+                }
+            ],
+            "info": "Converts a Long to a Double."
+        },
+        {
+            "name": "ftoi",
+            "arguments": [
+                {
+                    "name": "source",
+                    "info": "The source register (containing a Double)"
+                },
+                {
+                    "name": "destination",
+                    "info": "The destination register (to store the converted Long)"
+                }
+            ],
+            "info": "Converts a Double to a Long."
         }
     ]
 }

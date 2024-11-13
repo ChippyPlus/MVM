@@ -65,7 +65,7 @@ class Vfs {
 		if (name is List<*>) {
 
 
-			for (part in (name as List<String>)) {
+			for (part in name) {
 				if (part in deStructureRenderToNames(rendered)) {
 					rendered.forEach { if (part == it.name && it.permissions.directory) println("found route > $part") }
 				}
@@ -115,11 +115,10 @@ class Vfs {
 	fun renderVfs(): Set<Formats.Ventry> =
 		ProtoBuf.decodeFromHexString<Set<Formats.Ventry>>(hex = File("src/main/resources/vfs.fs").readText())
 
-
 	private fun deStructureRenderToNames(render: Set<Formats.Ventry>): Set<String> {
-		val `I really really dislike the idea of black monkeys if you know what I mean` = mutableSetOf<String>()
-		render.forEach { `I really really dislike the idea of black monkeys if you know what I mean`.add(it.name) }
-		return `I really really dislike the idea of black monkeys if you know what I mean`
+		val strings = mutableSetOf<String>()
+		render.forEach { strings.add(it.name) }
+		return strings
 	}
 
 	fun read(name: String): String? {

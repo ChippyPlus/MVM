@@ -1,5 +1,7 @@
 package internals.instructions.ioAbstractions
 
+import internals.Vm
+
 
 /**
  * Represents the I/O abstractions unit within the virtual machine.
@@ -7,4 +9,7 @@ package internals.instructions.ioAbstractions
  * This class provides functions for abstracting input/output operations,
  * such as printing values to the console.
  */
-open class IoAbstractions
+open class IoAbstractions(val vm: Vm) {
+	val registers = vm.registers
+	val errors = vm.errors
+}

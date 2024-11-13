@@ -2,9 +2,8 @@ package internals.instructions.dataTransfer
 
 import data.registers.IntelRegisters
 import data.registers.intelNames
-import errors
 import helpers.toLong
-import registers
+import internals.Vm
 
 
 /**
@@ -12,8 +11,10 @@ import registers
  *
  * This class provides functions for moving data between registers and loading literal values.
  */
-open class DataTransfer {
-
+open class DataTransfer(vm: Vm) {
+	val registers = vm.registers
+	val internalMemory = vm.internalMemory
+	val errors = vm.errors
 
 	fun call(name: String, function: () -> Unit?) {
 		try {

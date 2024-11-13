@@ -1,7 +1,6 @@
 package internals.instructions.arithmetic
 
 import data.registers.RegisterType
-import registers
 
 /**
  * Calculates the remainder of the division of registerA by registerB and stores the result in the `R4` register.

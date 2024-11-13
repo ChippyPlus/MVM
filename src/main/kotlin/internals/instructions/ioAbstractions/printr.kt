@@ -3,9 +3,7 @@ package internals.instructions.ioAbstractions
 import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
-import errors
 import helpers.toLong
-import registers
 
 
 /**
@@ -13,10 +11,7 @@ import registers
  *
  * @throws GeneralIoAbstractionsException If an error occurs during the printing operation.
  */
-fun IoAbstractions.printr(register: RegisterType): Unit = try {
+fun IoAbstractions.printr(register: RegisterType) {
 	println(message = registers.read(register = register))
 	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
-
-} catch (_: Exception) {
-	errors.GeneralIoAbstractionsException(message = "printr")
 }

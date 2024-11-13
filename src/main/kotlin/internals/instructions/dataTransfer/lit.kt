@@ -1,7 +1,6 @@
 package internals.instructions.dataTransfer
 
 import data.registers.RegisterType
-import registers
 
 /**
  * Loads a literal value into a register.

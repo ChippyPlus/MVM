@@ -43,7 +43,14 @@ enum class IntelRegisters {
 	/**
 	 * ESF - Error Specific Flag
 	 */
-	ESF
+	ESF,
+
+	/**
+	 * PC - Program Counter
+	 */
+	PC,
+
+	SIG,
 }
 
 val intelNames = IntelNames()
@@ -57,6 +64,8 @@ class IntelNames {
 		IntelRegisters.SCSF -> RegisterType.I5
 		IntelRegisters.ENSF -> RegisterType.I6
 		IntelRegisters.ESF -> RegisterType.I7
+		IntelRegisters.PC -> RegisterType.I8
+		IntelRegisters.SIG -> RegisterType.I9
 
 	}
 }

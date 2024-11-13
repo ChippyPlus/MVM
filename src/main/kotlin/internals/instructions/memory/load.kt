@@ -4,10 +4,7 @@ import data.memory.MemoryAddress
 import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
-import errors
 import helpers.toLong
-import internalMemory
-import registers
 
 /**
  * Loads a value from memory into a register.

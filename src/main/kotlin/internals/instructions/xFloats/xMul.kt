@@ -2,7 +2,6 @@ package internals.instructions.xFloats
 
 import data.registers.FDRegister
 import data.registers.RegisterType
-import registers
 
 
 fun XFloats.xMul(operand1: RegisterType, operand2: RegisterType) {
