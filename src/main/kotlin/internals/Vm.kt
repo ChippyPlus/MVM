@@ -62,7 +62,11 @@ class Pc(val vm: Vm) {
 	}
 
 	operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Long) = kotlin.run {
+		if (value < 0) {
+			vm.errors.InvalidPcValueException(value.toString())
+		}
 		vm.registers.write(RegisterType.I8, value)
+
 	}
 
 	override fun toString(): String = RegisterType.I8.read(vm).toString()

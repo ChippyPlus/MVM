@@ -1,0 +1,3 @@
+str f1 "Hello!"
+call println
+jmp -1

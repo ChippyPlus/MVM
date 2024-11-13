@@ -286,6 +286,11 @@ class VMErrors(val vm: Vm) {
 		exitProcess(30)
 	}
 
+	fun InvalidPcValueException(message: String) {
+		System.err.println("${prefix()}: Invalid Pc Value Exception: \"$message\"")
+		exitProcess(31)
+	}
+
 }
 
 
