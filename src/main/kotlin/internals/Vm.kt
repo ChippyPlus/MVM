@@ -5,10 +5,10 @@ import data.memory.InternalMemory
 import data.registers.RegisterType
 import data.registers.Registers
 import data.registers.read
+import data.vfs.Vfs
 import environment.ExecuteLib
 import environment.VMErrors
 import environment.libEx.SnapShotManager
-import environment.vfs.Vfs
 import helpers.Helpers
 import internals.instructions.arithmetic.Arithmetic
 import internals.instructions.bitwise.Bitwise

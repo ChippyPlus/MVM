@@ -1,4 +1,4 @@
-package environment.vfs
+package data.vfs
 
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.decodeFromHexString
