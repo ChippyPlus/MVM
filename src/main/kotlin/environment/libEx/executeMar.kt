@@ -5,7 +5,7 @@ import engine.parser
 import environment.ExecuteLib
 import java.io.File
 
-fun ExecuteLib.executeMar(file: File) {
+suspend fun ExecuteLib.executeMar(file: File) {
 	val oldPc = vm.pc
 	val snapshot = vm.snapShotManager.snapShotRegisters()
 	vm.pc - 2

@@ -3,6 +3,7 @@ import engine.parser
 import environment.reflection.reflection
 import helpers.Config
 import internals.Vm
+import kotlinx.coroutines.runBlocking
 import optimisations.VarRedundancy
 import java.io.File
 import kotlin.system.exitProcess
@@ -15,7 +16,7 @@ val MEMORY_LIMIT = config?.memorySize ?: 256
 val init = Vm()
 
 val execute = Execute(vm = init)
-fun main(args: Array<String>) {
+fun main(args: Array<String>): Unit = runBlocking {
 
 
 	if (args.isEmpty()) {

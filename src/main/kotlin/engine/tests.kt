@@ -110,9 +110,7 @@ fun main() {
 fun mainJustKidding() = runBlocking {
 	val jobs = processes.map { i ->
 		launch {
-			w {
-				Execute(i.vm).run(i.instructions)
-			}
+			Execute(i.vm).run(i.instructions)
 		}
 	}
 	jobs.joinAll()

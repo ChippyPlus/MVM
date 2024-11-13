@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 import kotlin.coroutines.coroutineContext
 
-fun SystemCall.spawn(pathX: RegisterType) {
+suspend fun SystemCall.spawn(pathX: RegisterType) {
 	val newVm = Vm()
 	reflection.vmTracker.add(VmTracked(newVm))
 

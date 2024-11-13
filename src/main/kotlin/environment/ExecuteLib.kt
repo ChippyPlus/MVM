@@ -11,7 +11,7 @@ class ExecuteLib(val vm: Vm) {
 	var currentFunction = ""
 	var enabledFunction = false
 
-	fun execute(name: String) {
+	suspend fun execute(name: String) {
 		if (findMarLib(name) != null) {
 			val file = File(findMarLib(name)!!)
 			enabledFunction = true

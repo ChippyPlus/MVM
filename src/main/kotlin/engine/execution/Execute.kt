@@ -25,14 +25,18 @@ import internals.instructions.stackOperations.push
 import internals.instructions.stackOperations.pushl
 import internals.instructions.strings.str
 import internals.instructions.xFloats.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.lang.Thread.sleep
 
 
 class Execute(val vm: Vm) {
-	fun run(command: List<InstructData>) {
+	suspend fun run(command: List<InstructData>) {
 		while (true) {
-			sleep(hertz)
+			withContext(Dispatchers.IO) {
+				sleep(hertz)
+			}
 
 			vm.pc++
 
@@ -56,13 +60,13 @@ class Execute(val vm: Vm) {
 	}
 
 
-	fun execute(file: File) {
+	suspend fun execute(file: File) {
 		val tokens = parser(vm, file.readLines())
 		this.run(command = tokens)
 	}
 
 
-	fun exeWhen(name: String, args: Array<Any?>): Unit? {
+	suspend fun exeWhen(name: String, args: Array<Any?>): Unit? {
 		when (name) {
 			"sleep" -> {
 				vm.misc.sleep(args[0] as RegisterType)
