@@ -173,9 +173,9 @@ fun parser(vm: Vm, file: List<String>): List<InstructData> {
 //				throw e
 				val x = e.message!!.split(" ")[3].substring(1, e.message!!.split(" ").size - 1).toRegisterType()
 				if (x == null) {
-					vm.errors.InvalidArgumentFormatException(badType = "BigLong", shouldBe = "Long")
+					vm.errors.InvalidArgumentFormatException(badType = "Any", shouldBe = "Long")
 				} else {
-					vm.errors.InvalidArgumentFormatException(badType = "Long", shouldBe = "Long")
+					vm.errors.InvalidArgumentFormatException(badType = "Long", shouldBe = "Register")
 				}
 			} catch (_: IllegalStateException) {
 				vm.errors.InvalidArgumentFormatException(

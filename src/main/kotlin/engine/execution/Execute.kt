@@ -35,6 +35,11 @@ class Execute(val vm: Vm) {
 			sleep(hertz)
 
 			vm.pc++
+
+			if (vm.pc - 1 < 0) {
+				vm.errors.InvalidPcValueException((vm.pc - 1).toString())
+			}
+
 			if (vm.pc - 1L == command.size.toLong()) {
 				break
 			}

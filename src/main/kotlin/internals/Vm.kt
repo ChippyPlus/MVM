@@ -57,8 +57,8 @@ class Pc(val vm: Vm) {
 
 
 	operator fun getValue(thisRef: Any?, property: KProperty<*>): Long {
-
-		return RegisterType.I8.read(vm)
+		val value = RegisterType.I8.read(vm)
+		return value
 	}
 
 	operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Long) = kotlin.run {
