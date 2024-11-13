@@ -1,1 +1,13 @@
-help dealloc
+lit s1 9
+str s2 "main.mar"
+
+lit r4 0
+lit g2 1
+lit g3 10
+eq r4 g3
+add g2 r4
+syscall
+jz 7
+lit f1 0
+lit g1 3000
+// sleep g1

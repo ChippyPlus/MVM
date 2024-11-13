@@ -11,7 +11,7 @@ import data.registers.intelNames
  * @throws GeneralControlFlowException If an error occurs during the jump operation.
  */
 fun ControlFlow.jz(targetAddress: Long): Any = try {
-	if (registers.read(intelNames[IntelRegisters.ZF]) == 0L) {
+	if (registers.read(intelNames[IntelRegisters.EF]) == 0L) {
 		vm.pc = targetAddress
 	} else {
 		// I'm not sure why I need this else block

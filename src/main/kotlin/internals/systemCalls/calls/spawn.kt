@@ -7,16 +7,20 @@ import environment.reflection.reflection
 import helpers.readRegisterString
 import internals.Vm
 import internals.systemCalls.SystemCall
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.io.File
-import kotlin.coroutines.coroutineContext
 
-suspend fun SystemCall.spawn(pathX: RegisterType) {
+@OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
+fun SystemCall.spawn(pathX: RegisterType) {
 	val newVm = Vm()
-	reflection.vmTracker.add(VmTracked(newVm))
 
-	CoroutineScope(coroutineContext).launch {
+	val tracked = VmTracked(newVm)
+	CoroutineScope(Dispatchers.IO).launch {
+		tracked.thread = Thread.currentThread()
+		reflection.vmTracker.add(tracked)
+
+//		println("Init -> ${Thread.currentThread().name}")
 		Execute(newVm).execute(File(helpers.readRegisterString(pathX)))
 	}
+
 }

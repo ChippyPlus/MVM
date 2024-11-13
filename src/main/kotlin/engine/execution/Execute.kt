@@ -25,18 +25,15 @@ import internals.instructions.stackOperations.push
 import internals.instructions.stackOperations.pushl
 import internals.instructions.strings.str
 import internals.instructions.xFloats.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.delay
 import java.io.File
-import java.lang.Thread.sleep
 
 
 class Execute(val vm: Vm) {
 	suspend fun run(command: List<InstructData>) {
 		while (true) {
-			withContext(Dispatchers.IO) {
-				sleep(hertz)
-			}
+
+			delay(hertz)
 
 			vm.pc++
 
@@ -55,6 +52,7 @@ class Execute(val vm: Vm) {
 			}
 
 			exeWhen(name, args)
+
 
 		}
 	}

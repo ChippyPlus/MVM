@@ -15,8 +15,8 @@ val MEMORY_LIMIT = config?.memorySize ?: 256
 
 val init = Vm()
 
-val execute = Execute(vm = init)
 fun main(args: Array<String>): Unit = runBlocking {
+	val execute = Execute(vm = init)
 
 
 	if (args.isEmpty()) {

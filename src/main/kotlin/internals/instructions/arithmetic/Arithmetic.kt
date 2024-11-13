@@ -13,7 +13,7 @@ import kotlin.math.sign
  *
  * This class provides functions for performing arithmetic operations on register values.
  */
-open class Arithmetic(private val vm: Vm) {
+open class Arithmetic(val vm: Vm) {
 	val errors = vm.errors
 	val registers = vm.registers
 	fun zeroFlag(out: Long) {

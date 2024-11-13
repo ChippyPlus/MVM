@@ -22,6 +22,7 @@ import internals.instructions.stackOperations.StackOperations
 import internals.instructions.strings.Strings
 import internals.instructions.xFloats.XFloats
 import internals.systemCalls.SystemCall
+import kotlinx.coroutines.Job
 import kotlin.reflect.KProperty
 
 class Vm {
@@ -46,6 +47,9 @@ class Vm {
 	var pc: Long by Pc(vm = this)
 	var libPc = 0L
 	val vfs = Vfs()
+
+	val coroutines = mutableListOf<Job>()
+
 }
 
 
@@ -62,6 +66,8 @@ class Pc(val vm: Vm) {
 	}
 
 	operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Long) = kotlin.run {
+		vm.coroutines[0]
+
 		if (value < 0) {
 			vm.errors.InvalidPcValueException(value.toString())
 		}

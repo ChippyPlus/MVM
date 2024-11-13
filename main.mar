@@ -1,0 +1,4 @@
+str f1 "Hello!!!"
+lit g1 1000
+sleep g1
+call println

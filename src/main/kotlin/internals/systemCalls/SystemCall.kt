@@ -27,7 +27,7 @@ class SystemCall(val vm: Vm) {
 	 * @param s4 The register containing the third argument to the system call (stored in register S3).
 	 * @throws InvalidSystemCallException If the provided system call number is invalid.
 	 */
-	suspend fun execute(
+	fun execute(
 		callId: RegisterType,
 		s2: RegisterType,
 		s3: RegisterType,
