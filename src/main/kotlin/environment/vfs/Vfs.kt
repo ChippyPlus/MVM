@@ -135,26 +135,6 @@ class Vfs {
 		)
 	}
 
-	fun exists(path: String, entriesX: Set<Formats.Ventry> = this.list()): Boolean {
-		var entries = entriesX
-		if (path.isEmpty()) {
-			println(1)
-			return false
-		}
-		val parts = path.split("/")
-		if (parts.size == 1) {
-			println(2)
-			return entries.any { it.name == parts[0] }
-		}
-		var currentEntry: Formats.Ventry?
-		for (i in 0 until parts.size - 1) {
-			currentEntry = entries.find { it.name == parts[i] && it.permissions.directory }
-			if (currentEntry?.children == null || currentEntry.children!!.find { it.name == parts[i + 1 - 1] } == null) {
-				return false
-			}
-		}
-		return true
-	}
 
 	fun newFiD(path: String, insertable: Formats.Ventry): Boolean {
 		val indexes = mutableListOf<Int>()
