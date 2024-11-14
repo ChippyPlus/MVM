@@ -1,5 +1,7 @@
+
 import engine.execution.Execute
 import engine.parser
+import environment.TaskManager
 import environment.reflection.reflection
 import helpers.Config
 import internals.Vm
@@ -12,7 +14,7 @@ import kotlin.system.exitProcess
 val config = if (File("./config.json").exists()) Config(File("./config.json")) else null
 val hertz = config?.hertz ?: 0L
 val MEMORY_LIMIT = config?.memorySize ?: 256
-
+val taskManager = TaskManager()
 val init = Vm()
 
 fun main(args: Array<String>): Unit = runBlocking {
@@ -64,6 +66,7 @@ fun main(args: Array<String>): Unit = runBlocking {
 		}
 	}
 
+	taskManager.wait()
 	exitVM()
 }
 
