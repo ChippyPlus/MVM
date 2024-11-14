@@ -2,12 +2,11 @@ lit s1 9
 str s2 "main.mar"
 syscall
 
+
+
 lit s1 11 // mem share
 mov r2 s2 // share VM
-lit s3 15 // from where
-lit s4 30 // to here
+lit s3 9
+lit s4 50 // to here
 syscall
-
-lit g1 32
-lit g2 31
-store g1 g2
+str s3 "I love dogs!"

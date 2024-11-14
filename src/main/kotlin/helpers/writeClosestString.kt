@@ -19,9 +19,9 @@ fun Helpers.writeClosestString(string: String): Long {
 
 	// Write the string char to memory, followed by a null-terminator
 	for ((index, i) in (spot until (spot + string.length)).withIndex()) {
-		vm.internalMemory.memory[MemoryAddress(i)] = MemoryValue(string[index].code.toLong())
+		vm.internalMemory.write(MemoryAddress(i), MemoryValue(string[index].code.toLong()))
 	}
-	vm.internalMemory.memory[MemoryAddress(spot + string.length)] = MemoryValue(0)
+	vm.internalMemory.write(MemoryAddress(spot + string.length), MemoryValue(0))
 
 	return spot
 }

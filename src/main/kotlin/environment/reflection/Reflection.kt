@@ -5,5 +5,5 @@ val reflection = Reflection()
 
 class Reflection {
 	val currentFileData = CurrentFileData()
-	val vmTracker = mutableSetOf<VmTracked>()
+	val vmTracker = mutableListOf<VmTracked>()
 }

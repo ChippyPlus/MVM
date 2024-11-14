@@ -67,7 +67,8 @@ fun main(args: Array<String>): Unit = runBlocking {
 	}
 
 	taskManager.wait()
-	exitVM()
+
+
 }
 
 

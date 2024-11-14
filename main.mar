@@ -1,5 +1,4 @@
 lit g1 1000
 sleep g1
-lit g1 31
-load g1 g2
-printr g2
+lit f1 9
+call println
