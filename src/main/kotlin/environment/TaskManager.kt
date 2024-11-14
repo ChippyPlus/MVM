@@ -6,19 +6,20 @@ import taskManager
 
 
 class TaskManager {
-	private val startTime = System.currentTimeMillis()
 	private val taskChannel = Channel<suspend () -> Unit>() // Channel for Unit-returning functions
-	private val taskScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
+	private val taskScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 	private lateinit var taskManager: Job
 	private val activeTasks = mutableListOf<Job>()  // Keep track of active tasks
 
 
+	@OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
 	fun addTask(block: suspend () -> Unit) {
 		taskScope.launch { taskChannel.send(block) }
-		if (!::taskManager.isInitialized) { //Start the task manager only once.
+		if (!::taskManager.isInitialized) {
 			taskManager = taskScope.launch {
 				for (task in taskChannel) {
-					val taskJob = launch { task() } // Launch each task concurrently
+					val taskJob =
+						launch(newSingleThreadContext("Kotlin's slaves \$${activeTasks.size + 1}")) { task() } // Launch each task concurrently
 					activeTasks.add(taskJob)
 				}
 				activeTasks.joinAll()
@@ -38,6 +39,7 @@ class TaskManager {
 }
 
 
+@OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
 fun main() = runBlocking {
 
 	println("Main thread doing other work...")

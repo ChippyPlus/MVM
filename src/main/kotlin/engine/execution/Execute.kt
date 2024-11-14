@@ -34,11 +34,15 @@ class Execute(val vm: Vm) {
 	suspend fun run(command: List<InstructData>) {
 		while (true) {
 
+//			println("${vm.pc}  | ${ reflection.vmTracker.groupBy(VmTracked::vm)[vm]!![0].id} -  ${vm.runtimeState}")
+
+
 			when (vm.runtimeState) {
 				RuntimeStates.RUNNING -> {/* pass */
+
 				}
 
-				RuntimeStates.PAUSED -> delay(1)
+				RuntimeStates.PAUSED -> continue
 				RuntimeStates.CANCELLED -> break
 			}
 

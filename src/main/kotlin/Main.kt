@@ -6,6 +6,9 @@ import environment.reflection.VmTracked
 import environment.reflection.reflection
 import helpers.Config
 import internals.Vm
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
 import optimisations.VarRedundancy
 import java.io.File
@@ -18,7 +21,8 @@ val MEMORY_LIMIT = config?.memorySize ?: 256
 val taskManager = TaskManager()
 val init = Vm()
 
-fun main(args: Array<String>): Unit = runBlocking {
+@OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
+fun main(args: Array<String>): Unit = runBlocking(newSingleThreadContext("Kotlin's main")) {
 	val tracked = VmTracked(init)
 	tracked.thread = Thread.currentThread()
 	reflection.vmTracker.add(tracked)
@@ -73,10 +77,7 @@ fun main(args: Array<String>): Unit = runBlocking {
 
 	taskManager.wait()
 
-
 }
 
-
-fun exitVM(): Nothing = exitProcess(0)
 
 

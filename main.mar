@@ -1,4 +1,2 @@
-lit g1 10
-printr g1
 lit f1 9
 call println
