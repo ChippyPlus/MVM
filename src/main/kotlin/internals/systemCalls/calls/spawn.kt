@@ -15,12 +15,12 @@ fun SystemCall.spawn(pathX: RegisterType) {
 	val newVm = Vm()
 
 	val tracked = VmTracked(newVm)
+
 	CoroutineScope(Dispatchers.IO).launch {
 		tracked.thread = Thread.currentThread()
 		reflection.vmTracker.add(tracked)
-
-//		println("Init -> ${Thread.currentThread().name}")
 		Execute(newVm).execute(File(helpers.readRegisterString(pathX)))
+//		println("Init -> ${Thread.currentThread().name}")
 	}
 
 }

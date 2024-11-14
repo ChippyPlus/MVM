@@ -23,6 +23,7 @@ import internals.instructions.strings.Strings
 import internals.instructions.xFloats.XFloats
 import internals.systemCalls.SystemCall
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.runBlocking
 import kotlin.reflect.KProperty
 
 class Vm {
@@ -65,8 +66,7 @@ class Pc(val vm: Vm) {
 		return value
 	}
 
-	operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Long) = kotlin.run {
-		vm.coroutines[0]
+	operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Long) = runBlocking {
 
 		if (value < 0) {
 			vm.errors.InvalidPcValueException(value.toString())
