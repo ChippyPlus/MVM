@@ -2,11 +2,31 @@ lit s1 9
 str s2 "main.mar"
 syscall
 
+push r2
+
+lit s1 12 // pause main.mar
+peek s2
+syscall
+
+prints
+
+lit g1 5000
+sleep g1
+
+str s3 "I love dogs!"
+mov s3 f1
+call strings.strlen
+pop g1
+add g1 s3
 
 
 lit s1 11 // mem share
 mov r2 s2 // share VM
-lit s3 9
-lit s4 50 // to here
+mov r4 s4
 syscall
-str s3 "I love dogs!"
+
+
+lit s1 13 // continue main.mar
+peek s2
+syscall
+

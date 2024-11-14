@@ -70,9 +70,13 @@ class InternalMemory(vm: Vm) {
 	fun link(ref: InternalMemory, range: LongRange) {
 		linkedR = range
 		linedRef = ref
-
 		ref.linedRef = this
 		ref.linkedR = range
+
+		for (i in range) {
+			memory[MemoryAddress(i)] = ref.memory[MemoryAddress(i)]!!
+		}
+
 	}
 
 

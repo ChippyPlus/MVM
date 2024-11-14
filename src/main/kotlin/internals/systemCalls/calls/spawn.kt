@@ -4,6 +4,7 @@ import data.registers.RegisterType
 import engine.execution.Execute
 import environment.reflection.VmTracked
 import environment.reflection.reflection
+import helpers.RuntimeStates
 import helpers.readRegisterString
 import internals.Vm
 import internals.systemCalls.SystemCall
@@ -35,4 +36,15 @@ fun SystemCall.share_m(vm_id: RegisterType, fromX: RegisterType, toX: RegisterTy
 	val to = registers.read(toX)
 
 	vmI.internalMemory.link(vm.internalMemory, from..to)
+}
+
+
+fun SystemCall.pause_t(vmToPause: RegisterType) {
+	val x = reflection.vmTracker.groupBy(VmTracked::id)
+	x[registers.read(vmToPause).toInt()]!![0].vm.runtimeState = RuntimeStates.PAUSED
+}
+
+fun SystemCall.continue_t(vmToPause: RegisterType) {
+	val x = reflection.vmTracker.groupBy(VmTracked::id)
+	x[registers.read(vmToPause).toInt()]!![0].vm.runtimeState = RuntimeStates.RUNNING
 }

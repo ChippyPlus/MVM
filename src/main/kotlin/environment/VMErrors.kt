@@ -2,8 +2,6 @@ package environment
 
 import data.memory.MemoryAddress
 import data.registers.RegisterType
-import environment.reflection.reflection
-import init
 import internals.Vm
 import internals.instructions.misc.HelpJsonArguments
 import kotlin.system.exitProcess
@@ -160,8 +158,6 @@ class VMErrors(val vm: Vm) {
 	 */
 	fun NullAddressException(message: MemoryAddress) {
 		System.err.println("${prefix()}: Null Address of \"${message.address}\"")
-		println(reflection.vmTracker[0].vm.internalMemory.memory)
-		println(init.internalMemory.memory)
 		exitProcess(14)
 	}
 

@@ -3,6 +3,7 @@ package engine.execution
 import data.registers.RegisterDataType
 import data.registers.RegisterType
 import engine.parser
+import helpers.RuntimeStates
 import helpers.toDoubleOrFloatBasedOnDataType
 import helpers.toRegisterType
 import hertz
@@ -32,6 +33,14 @@ import java.io.File
 class Execute(val vm: Vm) {
 	suspend fun run(command: List<InstructData>) {
 		while (true) {
+
+			when (vm.runtimeState) {
+				RuntimeStates.RUNNING -> {/* pass */
+				}
+
+				RuntimeStates.PAUSED -> delay(1)
+				RuntimeStates.CANCELLED -> break
+			}
 
 			delay(hertz)
 

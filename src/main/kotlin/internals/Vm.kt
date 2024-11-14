@@ -10,6 +10,7 @@ import environment.ExecuteLib
 import environment.VMErrors
 import environment.libEx.SnapShotManager
 import helpers.Helpers
+import helpers.RuntimeStates
 import internals.instructions.arithmetic.Arithmetic
 import internals.instructions.bitwise.Bitwise
 import internals.instructions.controlFlow.ControlFlow
@@ -47,6 +48,8 @@ class Vm {
 	var pc: Long by Pc(vm = this)
 	var libPc = 0L
 	val vfs = Vfs()
+
+	var runtimeState = RuntimeStates.RUNNING
 
 //	val coroutines = mutableListOf<Job>()
 
