@@ -3,27 +3,31 @@ package internals.systemCalls.calls
 import data.registers.RegisterType
 import engine.execution.Execute
 import environment.reflection.VmTracked
+import environment.reflection.reflection
 import helpers.readRegisterString
 import internals.Vm
 import internals.systemCalls.SystemCall
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import taskManager
 import java.io.File
 
-@OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
 fun SystemCall.spawn(pathX: RegisterType) {
+	val path = helpers.readRegisterString(pathX)
 	val newVm = Vm()
-
 	val tracked = VmTracked(newVm)
-
 	tracked.thread = Thread.currentThread()
-
-
-
+	reflection.vmTracker.add(tracked)
 	taskManager.addTask {
-		Execute(newVm).execute(File(helpers.readRegisterString(pathX)))
+		Execute(newVm).execute(File(path))
 	}
+	registers.write(RegisterType.R2, tracked.id.toLong())
+}
 
+
+fun SystemCall.send_t(code: RegisterType, wanted_p: RegisterType = RegisterType.I10) {
+	val x = reflection.vmTracker.groupBy(VmTracked::id)
+	x[registers.read(code).toInt()]!![0].vm.registers.write(RegisterType.I10, registers.read(wanted_p))
+}
+
+fun SystemCall.receive_t() {
 
 }

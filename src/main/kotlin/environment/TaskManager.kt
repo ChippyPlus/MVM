@@ -12,10 +12,6 @@ class TaskManager {
 	private lateinit var taskManager: Job
 	private val activeTasks = mutableListOf<Job>()  // Keep track of active tasks
 
-	init {
-		println("Main thread doing other work...\n----------------\n")
-	}
-
 
 	fun addTask(block: suspend () -> Unit) {
 		taskScope.launch { taskChannel.send(block) }
@@ -23,10 +19,9 @@ class TaskManager {
 			taskManager = taskScope.launch {
 				for (task in taskChannel) {
 					val taskJob = launch { task() } // Launch each task concurrently
-					activeTasks.add(taskJob) // Track tasks for waiting. Could add in joinTo.
+					activeTasks.add(taskJob)
 				}
-				activeTasks.joinAll() // Wait for all tasks to complete
-				println("All tasks completed from the task manager perspective.")
+				activeTasks.joinAll()
 			}
 		}
 
@@ -35,11 +30,10 @@ class TaskManager {
 
 
 	suspend fun wait() {
-		taskChannel.close()
-		taskManager.join()
-		println("\n----------------\nAll tasks completed. Main exiting.")
-		val endTime = System.currentTimeMillis()
-		println("Total time taken: ${endTime - startTime}ms")
+		if (::taskManager.isInitialized) {
+			taskChannel.close()
+			taskManager.join()
+		}
 	}
 }
 
