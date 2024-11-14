@@ -1,5 +1,5 @@
 str f1 "Hello!!!"
 lit g1 1000
+sleep i10
 printr i10
-sleep g1
 call println

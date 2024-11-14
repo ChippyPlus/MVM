@@ -12,6 +12,9 @@ class InternalMemory(vm: Vm) {
 	val errors = vm.errors
 	var memory = emptyMap<MemoryAddress, MemoryValue>().toMutableMap()
 
+	var linkedR: IntRange? = null
+	var linedRef: InternalMemory? = null
+
 	init {
 		for (i in 0L until MEMORY_LIMIT) {
 			memory[MemoryAddress(i)] = MemoryValue(null)
@@ -30,6 +33,11 @@ class InternalMemory(vm: Vm) {
 		if (address.address!!.toInt() > MEMORY_LIMIT) {
 			errors.InvalidMemoryAddressException(address)
 		}
+
+		if (linkedR != null && linedRef != null && address.address in linkedR!!) {
+			linedRef!!.memory[address] = value
+		}
+
 		memory[address] = value
 	}
 
@@ -58,4 +66,15 @@ class InternalMemory(vm: Vm) {
 		}
 		return memory[address]!!
 	}
+
+	fun link(ref: InternalMemory, range: IntRange) {
+		linkedR = range
+		linedRef = ref
+
+		ref.linedRef = this
+		ref.linkedR = range
+	}
+
+
+
 }

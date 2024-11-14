@@ -22,7 +22,6 @@ import internals.instructions.stackOperations.StackOperations
 import internals.instructions.strings.Strings
 import internals.instructions.xFloats.XFloats
 import internals.systemCalls.SystemCall
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.runBlocking
 import kotlin.reflect.KProperty
 
@@ -49,7 +48,7 @@ class Vm {
 	var libPc = 0L
 	val vfs = Vfs()
 
-	val coroutines = mutableListOf<Job>()
+//	val coroutines = mutableListOf<Job>()
 
 }
 

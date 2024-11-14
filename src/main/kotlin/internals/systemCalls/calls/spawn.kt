@@ -1,5 +1,6 @@
 package internals.systemCalls.calls
 
+import data.memory.MemoryAddress
 import data.registers.RegisterType
 import engine.execution.Execute
 import environment.reflection.VmTracked
@@ -28,6 +29,14 @@ fun SystemCall.send_t(code: RegisterType, wanted_p: RegisterType = RegisterType.
 	x[registers.read(code).toInt()]!![0].vm.registers.write(RegisterType.I10, registers.read(wanted_p))
 }
 
-fun SystemCall.receive_t() {
+fun SystemCall.share_m(vm_id: RegisterType, fromX: RegisterType, toX: RegisterType) {
+	val x = reflection.vmTracker.groupBy(VmTracked::id)
+	val vmI = x[registers.read(vm_id).toInt()]!![0].vm
+	val from = registers.read(fromX)
+	val to = registers.read(toX)
+
+	for (i in from..to) {
+		vmI.internalMemory.memory[MemoryAddress(i)]
+	}
 
 }

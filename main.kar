@@ -1,17 +1,13 @@
 lit s1 9
 str s2 "main.mar"
 syscall
-mov r2 r3
-syscall
-mov r2 r4
 
-
-lit s1 10
-mov r3 s2
-lit s3 15
+lit s1 11 // mem share
+mov r2 s2 // share VM
+lit s3 15 // from where
+lit s4 30 // to here
 syscall
 
-lit s1 10
-mov r4 s2
-lit s3 20
-syscall
+lit g1 10
+lit g2 16
+load g1 g2
