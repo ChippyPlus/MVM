@@ -1,6 +1,5 @@
 package internals.systemCalls.calls
 
-import data.memory.MemoryAddress
 import data.registers.RegisterType
 import engine.execution.Execute
 import environment.reflection.VmTracked
@@ -35,8 +34,6 @@ fun SystemCall.share_m(vm_id: RegisterType, fromX: RegisterType, toX: RegisterTy
 	val from = registers.read(fromX)
 	val to = registers.read(toX)
 
-	for (i in from..to) {
-		vmI.internalMemory.memory[MemoryAddress(i)]
-	}
+	vmI.internalMemory.link(vm.internalMemory, from..to)
 
 }

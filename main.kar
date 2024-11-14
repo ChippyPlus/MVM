@@ -8,6 +8,6 @@ lit s3 15 // from where
 lit s4 30 // to here
 syscall
 
-lit g1 10
-lit g2 16
-load g1 g2
+lit g1 32
+lit g2 31
+store g1 g2

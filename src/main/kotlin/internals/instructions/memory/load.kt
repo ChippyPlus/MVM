@@ -19,7 +19,8 @@ fun Memory.load(memoryAddress: RegisterType, destination: RegisterType): Unit = 
 	)
 	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
 
-} catch (_: Exception) {
+} catch (e: Exception) {
+	throw e
 	errors.GeneralMemoryException("Load")
 
 }

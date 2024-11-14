@@ -1,5 +1,5 @@
-str f1 "Hello!!!"
 lit g1 1000
-sleep i10
-printr i10
-call println
+sleep g1
+lit g1 31
+load g1 g2
+printr g2

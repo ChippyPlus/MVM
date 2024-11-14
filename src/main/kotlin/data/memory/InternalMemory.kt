@@ -12,7 +12,7 @@ class InternalMemory(vm: Vm) {
 	val errors = vm.errors
 	var memory = emptyMap<MemoryAddress, MemoryValue>().toMutableMap()
 
-	var linkedR: IntRange? = null
+	var linkedR: LongRange? = null
 	var linedRef: InternalMemory? = null
 
 	init {
@@ -67,7 +67,7 @@ class InternalMemory(vm: Vm) {
 		return memory[address]!!
 	}
 
-	fun link(ref: InternalMemory, range: IntRange) {
+	fun link(ref: InternalMemory, range: LongRange) {
 		linkedR = range
 		linedRef = ref
 

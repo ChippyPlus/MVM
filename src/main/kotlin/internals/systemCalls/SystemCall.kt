@@ -44,6 +44,7 @@ class SystemCall(val vm: Vm) {
 			8 -> fork()
 			9 -> spawn(s2)
 			10 -> send_t(s2, s3)
+			11 -> share_m(s2, s3, s4)
 			14 -> time()
 			16 -> getPid()
 			17 -> getUid()
