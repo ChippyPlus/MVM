@@ -3,7 +3,7 @@ package data.registers
 import internals.Vm
 import kotlin.system.exitProcess
 
-data class FDRegister(val isDouble: Boolean, val value: Long)
+data class FDRegister(val isDouble: Boolean, val value: Long?)
 
 class Registers(val vm: Vm) {
 	val errors = vm.errors
@@ -30,14 +30,14 @@ class Registers(val vm: Vm) {
 
 	fun readX(registerX: RegisterType): FDRegister {
 		return if (registers[registerX]!!.dataType == RegisterDataType.RFloat) {
-			FDRegister(false, registers[registerX]!!.data!!)
+			FDRegister(false, registers[registerX]!!.data)
 		} else {
-			FDRegister(true, registers[registerX]!!.data!!)
+			FDRegister(true, registers[registerX]!!.data)
 		}
 	}
 
 	fun writeX(registerX: RegisterType, valueX: FDRegister) {
-		write(registerX, valueX.value)
+		writeUnsafe(registerX, valueX.value)
 	}
 
 
