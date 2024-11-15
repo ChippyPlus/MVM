@@ -1,35 +1,5 @@
-lit s1 9
-str s2 "main.mar"
-syscall
-
-
-// Run main.mar
-mov r2 r1
-lit s1 12
-mov r1 s2
-syscall
-
-
-// Pause main.mar
-
-str s3 "I love dogs!"
-mov s3 f1
-call strings.strlen
-pop g1
-add g1 s3
-
-
-// Load "I love dogs!" into memory
-
-lit s1 11 // mem share
-mov r2 s2 // share VM
-mov r4 s4
-syscall
-
-// Share main.kar's memory with main.mar
-
-lit s1 13
-mov r1 s2
-syscall
-
-// Continue main.mar
+settype x1 double
+lit g1 25
+itof g1 x1
+mov x1 f1
+call strings.cheekydouble
