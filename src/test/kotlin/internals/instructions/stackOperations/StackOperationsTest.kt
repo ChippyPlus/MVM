@@ -37,7 +37,6 @@ class StackOperationsTest {
 		so.internalStack.push(445)
 		so.pop(RegisterType.G3)
 		assertEquals(445, RegisterType.G3.read(vm))
-		println(so.internalStack.inspect().joinToString())
 		assertEquals(true, so.internalStack.isEmpty())
 	}
 }
