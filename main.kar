@@ -1,5 +1,4 @@
-settype x1 double
-lit g1 25
-itof g1 x1
-mov x1 f1
-call strings.cheekydouble
+xlit x1 5.234
+xlit x2 -9.234
+xmul x1 x2
+printr r5
