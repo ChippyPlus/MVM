@@ -2,3 +2,11 @@ xlit x1 5.234
 xlit x2 -9.234
 xmul x1 x2
 printr r5
+
+// {MemoryAddress(address=0)=MemoryValue(value=73), MemoryAddress(address=1)=MemoryValue(value=32), MemoryAddress(address=2)=MemoryValue(value=108),
+ MemoryAddress(address=3)=MemoryValue(value=111), MemoryAddress(address=4)=MemoryValue(value=118), MemoryAddress(address=5)=MemoryValue(value=101),
+  MemoryAddress(address=6)=MemoryValue(value=32), MemoryAddress(address=7)=MemoryValue(value=112), MemoryAddress(address=8)=MemoryValue(value=117),
+   MemoryAddress(address=9)=MemoryValue(value=112), MemoryAddress(address=10)=MemoryValue(value=112), MemoryAddress(address=11)=MemoryValue(value=105),
+    MemoryAddress(address=12)=MemoryValue(value=101), MemoryAddress(address=13)=MemoryValue(value=115), MemoryAddress(address=14)=MemoryValue(value=33),
+     MemoryAddress(address=15)=MemoryValue(value=32), MemoryAddress(address=16)=MemoryValue(value=74), MemoryAddress(address=17)=MemoryValue(value=107),
+      MemoryAddress(address=18)=MemoryValue(value=0)
