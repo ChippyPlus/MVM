@@ -18,7 +18,7 @@ fun StackOperations.pop(destination: RegisterType) = try {
 
 
 	registers.write(
-		register = destination, value = internalStack.peek()
+		register = destination, value = internalStack.pop()
 	)
 } catch (_: Exception) {
 	errors.GeneralStackOperationsException("Pop")
