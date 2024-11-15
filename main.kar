@@ -1,4 +1,0 @@
-xlit x1 5.234
-xlit x2 -9.234
-xmul x1 x2
-printr r5
