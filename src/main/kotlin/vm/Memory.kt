@@ -5,13 +5,13 @@ import processes.Pcb
 import vm.exceptions.VmExceptions.MemoryAccessException
 
 
-class Memory(private val initialMemorySize: Long) { // Pass in initial memory size
+class Memory(private val initialMemorySize: Int) { // Pass in initial memory size
 
-	private var memory: ByteArray = ByteArray(initialMemorySize.toInt()) // Internal memory representation
+	private var memory: ByteArray = ByteArray(initialMemorySize) // Internal memory representation
 	private val os: OS = OS()
 
 
-	fun allocate(size: Long, pcb: Pcb): Long {
+	fun allocate(size: Int, pcb: Pcb): Int {
 		val startAddress = findFreeBlock(size) // Implement findFreeBlock to use heap management
 		val endAddress = startAddress + size
 
@@ -33,7 +33,7 @@ class Memory(private val initialMemorySize: Long) { // Pass in initial memory si
 	}
 
 
-	fun findFreeBlock(size: Long): Long = os.findFreeMemory(size)
+	fun findFreeBlock(size: Int): Int = os.findFreeMemory(size)
 
 
 	operator fun get(address: Long, pcb: Pcb): Byte {
@@ -58,8 +58,8 @@ class Memory(private val initialMemorySize: Long) { // Pass in initial memory si
 	}
 
 	// Helper function to grow the memory if needed.
-	private fun growMemory(additionalSize: Long) {
-		val newMemory = ByteArray((initialMemorySize + additionalSize).toInt())
+	private fun growMemory(additionalSize: Int) {
+		val newMemory = ByteArray((initialMemorySize + additionalSize))
 		System.arraycopy(memory, 0, newMemory, 0, memory.size)
 		memory = newMemory
 		// Update any necessary OS structures

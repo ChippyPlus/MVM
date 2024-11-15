@@ -18,11 +18,11 @@ class Registers {
 	}
 
 
-	fun read(register: RegisterType, pcb: Pcb): Long {
+	fun read(register: RegisterType, pcb: Pcb): Int {
 		return pcb.registers[register] ?: throw InvalidRegisterException("Invalid register: $register")
 	}
 
-	fun write(register: RegisterType, value: Long, pcb: Pcb) {
+	fun write(register: RegisterType, value: Int, pcb: Pcb) {
 
 		if (register == RegisterType.I8) {
 			setPC(pcb = pcb, value = value)
@@ -30,9 +30,9 @@ class Registers {
 		pcb.registers[register] = value
 	}
 
-	fun getPC(pcb: Pcb): Long = pcb.pc
+	fun getPC(pcb: Pcb): Int = pcb.pc
 
-	fun setPC(pcb: Pcb, value: Long) {
+	fun setPC(pcb: Pcb, value: Int) {
 		pcb.pc = value
 	}
 

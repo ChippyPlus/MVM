@@ -5,10 +5,10 @@ import vm.Memory
 import vm.exceptions.VmExceptions.MemoryAllocationException
 import java.util.*
 
-data class MemoryBlock(var start: Long, var size: Long, var allocated: Boolean = false)
+data class MemoryBlock(var start: Int, var size: Int, var allocated: Boolean = false)
 
 
-class OS(initialMemorySize: Long = config.initMemorySize) {
+class OS(initialMemorySize: Int = config.initMemorySize) {
 	private val memory = Memory(initialMemorySize) // Memory manager associated with the OS
 
 	private val freeList = LinkedList<MemoryBlock>().apply {
@@ -16,7 +16,7 @@ class OS(initialMemorySize: Long = config.initMemorySize) {
 	}
 
 
-	fun findFreeMemory(size: Long): Long {
+	fun findFreeMemory(size: Int): Int {
 		mergeFreeList() // Merge adjacent free blocks to reduce fragmentation
 
 		val freeBlock = freeList.find { it.size >= size }  // Find the first fit
@@ -34,7 +34,7 @@ class OS(initialMemorySize: Long = config.initMemorySize) {
 		return start
 	}
 
-	fun resizeMemory(newSize: Long) {
+	fun resizeMemory(newSize: Int) {
 		// Resize the backing ByteArray in vm/Memory.kt
 
 		// Update the free list (extend the last block or add a new one)
