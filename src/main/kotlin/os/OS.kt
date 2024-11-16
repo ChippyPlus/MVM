@@ -1,7 +1,6 @@
 package os
 
 import config
-import vm.Memory
 import vm.exceptions.VmExceptions.MemoryAllocationException
 import java.util.*
 
@@ -9,7 +8,7 @@ data class MemoryBlock(var start: Int, var size: Int, var allocated: Boolean = f
 
 
 class OS(initialMemorySize: Int = config.initMemorySize) {
-	private val memory = Memory(initialMemorySize) // Memory manager associated with the OS
+//	private val memory = Memory(initialMemorySize) // Memory manager associated with the OS
 
 	private val freeList = LinkedList<MemoryBlock>().apply {
 		add(MemoryBlock(0, initialMemorySize))  // All memory initially frees

@@ -2,6 +2,7 @@ package processes
 
 import config
 import vm.RegisterType
+import vm.Registers
 
 
 data class Pcb(
@@ -14,7 +15,11 @@ data class Pcb(
 	var limitRegister: Int = 0,         // Limit (size) of a process memory segment
 	var stack: Stack = Stack(config.stackSize),
 	var waitingPid: Long? = null,
-)
+) {
+	init {
+		Registers().initializeRegisters(this)
+	}
+}
 
 enum class ProcessState {
 	RUNNING, READY, BLOCKED, TERMINATED

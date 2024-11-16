@@ -1,3 +1,5 @@
 package vm
 
-class Vm
+class Vm {
+	val memory = Memory()
+}

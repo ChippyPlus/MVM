@@ -1,11 +1,12 @@
 package vm
 
+import config
 import os.OS
 import processes.Pcb
 import vm.exceptions.VmExceptions.MemoryAccessException
 
 
-class Memory(private val initialMemorySize: Int) { // Pass in initial memory size
+class Memory(private val initialMemorySize: Int = config.initMemorySize) { // Pass in initial memory size
 
 	private var memory: ByteArray = ByteArray(initialMemorySize) // Internal memory representation
 	private val os: OS = OS()
@@ -36,23 +37,23 @@ class Memory(private val initialMemorySize: Int) { // Pass in initial memory siz
 	fun findFreeBlock(size: Int): Int = os.findFreeMemory(size)
 
 
-	operator fun get(address: Long, pcb: Pcb): Byte {
+	operator fun get(address: Int, pcb: Pcb): Byte {
 		val physicalAddress = translateAddress(address, pcb)
 		return memory[physicalAddress.toInt()]
 	}
 
-	operator fun set(address: Long, pcb: Pcb, value: Byte) {
+	operator fun set(address: Int, pcb: Pcb, value: Byte) {
 		val physicalAddress = translateAddress(address, pcb)
 		memory[physicalAddress.toInt()] = value
 	}
 
 
-	fun translateAddress(logicalAddress: Long, pcb: Pcb): Long {
+	fun translateAddress(logicalAddress: Int, pcb: Pcb): Int {
 		val base = pcb.baseRegister
 		val limit = pcb.limitRegister
 
 		if (logicalAddress < 0 || logicalAddress >= limit) {
-			throw MemoryAccessException("Logical address out of bounds: $logicalAddress  [0, $limit), for Process: ${pcb.pid}")
+			throw MemoryAccessException("Logical address out of bounds: $logicalAddress  (0, $limit), for Process: ${pcb.pid}")
 		}
 		return base + logicalAddress
 	}
