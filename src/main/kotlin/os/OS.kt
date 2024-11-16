@@ -10,7 +10,7 @@ data class MemoryBlock(var start: Int, var size: Int, var allocated: Boolean = f
 class OS(initialMemorySize: Int = config.initMemorySize) {
 //	private val memory = Memory(initialMemorySize) // Memory manager associated with the OS
 
-	private val freeList = LinkedList<MemoryBlock>().apply {
+	val freeList = LinkedList<MemoryBlock>().apply {
 		add(MemoryBlock(0, initialMemorySize))  // All memory initially frees
 	}
 
@@ -29,6 +29,9 @@ class OS(initialMemorySize: Int = config.initMemorySize) {
 		} else {
 			freeList.remove(freeBlock)
 		}
+		freeList.remove(freeBlock)
+		freeBlock.allocated = true
+		freeList.add(freeBlock) // P
 
 		return start
 	}
@@ -57,7 +60,7 @@ class OS(initialMemorySize: Int = config.initMemorySize) {
 
 	}
 
-	private fun mergeFreeList() {
+	fun mergeFreeList() {
 		freeList.sortBy { it.start } // Sort for efficient merging
 
 		val iterator = freeList.iterator()
