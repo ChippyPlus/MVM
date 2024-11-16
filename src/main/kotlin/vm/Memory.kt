@@ -48,22 +48,17 @@ class Memory(private val initialMemorySize: Int = config.initMemorySize) { // Pa
 		}
 	}
 
-	fun deallocate(address: Int, pcb: Pcb) {
-		val start = translateAddress(address, pcb) // Translate logical to physical
-		println(start)
-		println(os.freeList)
-		val originalMemoryBlock = os.freeList.find { it.start == start }
+	fun deallocate(pcb: Pcb) {
+		val start = pcb.baseRegister
+		val limit = pcb.limitRegister
 
-		if (originalMemoryBlock != null) {
-			if (originalMemoryBlock.allocated) {
-
-				originalMemoryBlock.allocated = false
-				os.mergeFreeList()
+		if (start != 0 && limit != 0) { // Only deallocate if a segment exists
+			for (i in start until start + limit) {
+				memory[i.toInt()] = 0 // Or add to the free list
 			}
-
-		} else {
-			println("Memory at logical address $address for process ${pcb.pid} was never allocated.")
 		}
+		pcb.baseRegister = 0
+		pcb.limitRegister = 0
 
 	}
 
