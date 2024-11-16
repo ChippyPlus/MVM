@@ -54,7 +54,7 @@ class Memory(private val initialMemorySize: Int = config.initMemorySize) { // Pa
 
 		if (start != 0 && limit != 0) { // Only deallocate if a segment exists
 			for (i in start until start + limit) {
-				memory[i.toInt()] = 0 // Or add to the free list
+				memory[i] = 0 // Or add to the free list
 			}
 		}
 		pcb.baseRegister = 0
