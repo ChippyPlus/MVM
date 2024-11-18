@@ -58,10 +58,10 @@ class SystemCall(val vm: Vm) {
 			27 -> arraySet(s2, s3, s4)
 			28 -> arrayGet(s2, s3)
 
-			30 -> "link_pro"
+			30 -> Ipc(vm).link(s2, s3)
 			31 -> "unlink_pro"
-			32 -> "send"
-			33 -> "receive"
+			32 -> Ipc(vm).send(s2, s3, s4)
+			33 -> Ipc(vm).receive(s2, s3)
 
 
 			else -> errors.InvalidSystemCallException(registers.read(callId).toString())
