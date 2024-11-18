@@ -41,7 +41,7 @@ class Ipc(val vm: Vm) {
 		os.ipc.messagePassing.send(p1, p2, message.read(vm))
 	}
 
-	fun receive(p1IdRaw: RegisterType, p2IdRaw: RegisterType, message: RegisterType) {
+	fun receive(p1IdRaw: RegisterType, p2IdRaw: RegisterType): Long? {
 		val vms = reflection.groupTrackedVmById()
 		val p1 = vms[p1IdRaw.read(vm).toInt()] ?: run {
 			vm.errors.ProcessNotFound(
@@ -53,6 +53,6 @@ class Ipc(val vm: Vm) {
 				p2IdRaw.read(vm).toString()
 			);exitProcess(0)
 		}
-		os.ipc.messagePassing.revive(p1, p2)
+		return os.ipc.messagePassing.revive(p1, p2)
 	}
 }
