@@ -24,11 +24,6 @@ fun SystemCall.spawn(pathX: RegisterType) {
 }
 
 
-fun SystemCall.send_t(code: RegisterType, wanted_p: RegisterType = RegisterType.I10) {
-	val x = reflection.vmTracker.groupBy(KProcess::id)
-	x[registers.read(code).toInt()]!![0].vm.registers.write(RegisterType.I10, registers.read(wanted_p))
-}
-
 fun SystemCall.share_m(vm_id: RegisterType, fromX: RegisterType, toX: RegisterType) {
 	val x = reflection.vmTracker.groupBy(KProcess::id)
 	val vmI = x[registers.read(vm_id).toInt()]!![0].vm

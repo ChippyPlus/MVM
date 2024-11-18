@@ -13,7 +13,7 @@ import kotlin.system.exitProcess
  * printing error messages to the standard error stream, and terminating the VM with specific exit codes.
  */
 @Suppress("unused")
-class VMErrors(val vm: Vm) {
+class VMErrors(private val vm: Vm) {
 	/**
 	 * Reports an invalid register exception.
 	 *
@@ -291,13 +291,20 @@ class VMErrors(val vm: Vm) {
 		exitProcess(31)
 	}
 
-}
-
-
-private fun VMErrors.prefix(): String {
-	return if (vm.libExecute.enabledFunction) {
-		"ERROR in ${vm.libExecute.currentFunction.removeSuffix(".lib")}:${vm.libPc}:${vm.pc}"
-	} else {
-		"ERROR:${vm.pc}"
+	fun ProcessNotFound(message: String) {
+		System.err.println("${prefix()}: Process Not Found: \"$message\"")
+		exitProcess(32)
 	}
+
+
+	private fun prefix(): String {
+		return if (vm.libExecute.enabledFunction) {
+			"ERROR in ${vm.libExecute.currentFunction.removeSuffix(".lib")}:${vm.libPc}:${vm.pc}"
+		} else {
+			"ERROR:${vm.pc}"
+		}
+	}
+
 }
+
+

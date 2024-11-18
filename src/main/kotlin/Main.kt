@@ -11,6 +11,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
 import optimisations.VarRedundancy
+import os_package.OS
 import java.io.File
 import kotlin.system.exitProcess
 
@@ -18,6 +19,7 @@ import kotlin.system.exitProcess
 val config = if (File("./config.json").exists()) Config(File("./config.json")) else null
 val hertz = config?.hertz ?: 0L
 val MEMORY_LIMIT = config?.memorySize ?: 256
+val os = OS()
 val taskManager = TaskManager()
 val init = Vm()
 

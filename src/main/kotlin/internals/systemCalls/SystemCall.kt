@@ -27,6 +27,7 @@ class SystemCall(val vm: Vm) {
 	 * @param s4 The register containing the third argument to the system call (stored in register S3).
 	 * @throws InvalidSystemCallException If the provided system call number is invalid.
 	 */
+	@Suppress("UNUSED_EXPRESSION")
 	fun execute(
 		callId: RegisterType,
 		s2: RegisterType,
@@ -43,12 +44,9 @@ class SystemCall(val vm: Vm) {
 			7 -> exec(s2)
 			8 -> fork()
 			9 -> spawn(s2)
-			10 -> send_t(s2, s3)
-			11 -> share_m(s2, s3, s4)
-			12 -> pause_t(s2)
-			13 -> continue_t(s2)
-
-
+			10 -> share_m(s2, s3, s4)
+			11 -> pause_t(s2)
+			12 -> continue_t(s2)
 			14 -> time()
 			16 -> getPid()
 			17 -> getUid()
@@ -59,6 +57,12 @@ class SystemCall(val vm: Vm) {
 			26 -> createArray(s2)
 			27 -> arraySet(s2, s3, s4)
 			28 -> arrayGet(s2, s3)
+
+			30 -> "link_pro"
+			31 -> "unlink_pro"
+			32 -> "send"
+			33 -> "receive"
+
 
 			else -> errors.InvalidSystemCallException(registers.read(callId).toString())
 		}

@@ -1,4 +1,4 @@
-package os
+package os_package
 
 import environment.reflection.KProcess
 import java.util.*
@@ -60,7 +60,7 @@ class Ipc {
 
 		fun revive(senderVm: KProcess, receiverVm: KProcess): Long? {
 			val key = arrangeKProcess(senderVm, receiverVm)
-			return mailBox[key]?.mailbox?.peek()
+			return mailBox[key]?.mailbox?.pop()
 		}
 	}
 
