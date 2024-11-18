@@ -24,39 +24,39 @@ class BitwiseTest {
 
 	@Test
 	fun `And Test General`() {
-		bitwise.and(r1, r2)
+		bitwise.and(r1, r2, RegisterType.R3)
 		assertEquals(65L, RegisterType.R3.read(vm))
 	}
 
 
 	@Test
 	fun `Not Test General`() {
-		bitwise.not(r1)
+		bitwise.not(r1, RegisterType.R3)
 		assertEquals(-124L, RegisterType.R3.read(vm))
 	}
 
 	@Test
 	fun `Or Test General`() {
-		bitwise.or(r1, r2)
+		bitwise.or(r1, r2, RegisterType.R3)
 		assertEquals(379L, RegisterType.R3.read(vm))
 	}
 
 	@Test
 	fun `Shift Left Test General`() {
-		bitwise.shl(r1, r2)
+		bitwise.shl(r1, r2, RegisterType.R3)
 		assertEquals(246L, RegisterType.R3.read(vm))
 	}
 
 	@Test
 	fun `Shift Right Test General`() {
-		bitwise.shr(r1, r2)
+		bitwise.shr(r1, r2, RegisterType.R3)
 		assertEquals(61L, RegisterType.R3.read(vm))
 	}
 
 	@Suppress("DANGEROUS_CHARACTERS")
 	@Test
 	fun `Inverted Or? Test General`() {
-		bitwise.xor(r1, r2)
+		bitwise.xor(r1, r2, RegisterType.R3)
 		assertEquals(314L, RegisterType.R3.read(vm))
 	}
 

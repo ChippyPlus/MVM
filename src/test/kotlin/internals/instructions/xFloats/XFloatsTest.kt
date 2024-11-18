@@ -30,7 +30,7 @@ class XFloatsTest {
 	fun `X Addition Test General`() {
 		xf.xLit(X1, "4.395".toDoubleOrFloatBasedOnDataType(vm, X1))
 		xf.xLit(X2, "6.134".toDoubleOrFloatBasedOnDataType(vm, X2))
-		xf.xAdd(X1, X2)
+		xf.xAdd(X1, X2, R5)
 		assertEquals(1093170944, vm.registers.read(R5))
 	}
 
@@ -38,7 +38,7 @@ class XFloatsTest {
 	fun `X Subtraction Test General`() {
 		xf.xLit(X1, "23.134".toDoubleOrFloatBasedOnDataType(vm, X1))
 		xf.xLit(X2, "-9.234".toDoubleOrFloatBasedOnDataType(vm, X2))
-		xf.xSub(X1, X2)
+		xf.xSub(X1, X2, R5)
 		assertEquals(1107392768, vm.registers.read(R5))
 	}
 
@@ -47,7 +47,7 @@ class XFloatsTest {
 	fun `X Multiplication Test General`() {
 		xf.xLit(X1, "5.234".toDoubleOrFloatBasedOnDataType(vm, X1))
 		xf.xLit(X2, "-9.234".toDoubleOrFloatBasedOnDataType(vm, X2))
-		xf.xMul(X1, X2)
+		xf.xMul(X1, X2, R5)
 		assertEquals(-1035906368, vm.registers.read(R5))
 	}
 
@@ -55,7 +55,7 @@ class XFloatsTest {
 	fun `X Division Test General`() {
 		xf.xLit(X1, "100.1234".toDoubleOrFloatBasedOnDataType(vm, X1))
 		xf.xLit(X2, "5.321".toDoubleOrFloatBasedOnDataType(vm, X2))
-		xf.xMul(X1, X2)
+		xf.xMul(X1, X2, R5)
 		assertEquals(1141190656, vm.registers.read(R5))
 	}
 }

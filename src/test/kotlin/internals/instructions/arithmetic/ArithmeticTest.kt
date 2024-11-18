@@ -19,32 +19,32 @@ class ArithmeticTest {
 
 	@Test
 	fun `Addition Test General`() {
-		arithmetic.add(r1, r2)
+		arithmetic.add(r1, r2, RegisterType.R4)
 		assertEquals(15L, RegisterType.R4.read(vm))
 	}
 
 	@Test
 	fun `Subtraction Test General`() {
-		arithmetic.sub(r1, r2)
+		arithmetic.sub(r1, r2, RegisterType.R4)
 		assertEquals(5L, RegisterType.R4.read(vm))
 	}
 
 
 	@Test
 	fun `Multiplication Test General`() {
-		arithmetic.mul(r1, r2)
+		arithmetic.mul(r1, r2, RegisterType.R4)
 		assertEquals(50L, RegisterType.R4.read(vm))
 	}
 
 	@Test
 	fun `Division Test General`() {
-		arithmetic.div(r1, r2)
+		arithmetic.div(r1, r2, RegisterType.R4)
 		assertEquals(2L, RegisterType.R4.read(vm))
 	}
 
 	@Test
 	fun `Modulus Test General`() {
-		arithmetic.mod(r1, r2)
+		arithmetic.mod(r1, r2, RegisterType.R4)
 		assertEquals(0L, RegisterType.R4.read(vm))
 	}
 
@@ -111,7 +111,7 @@ class ArithmeticTest {
 	fun `Powers Test General`() {
 		r2.write(vm, 4)
 		r1.write(vm, 2)
-		arithmetic.pow(r1, r2)
+		arithmetic.pow(r1, r2, RegisterType.R4)
 		assertEquals(16L, RegisterType.R4.read(vm))
 
 	}
