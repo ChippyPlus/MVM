@@ -99,23 +99,23 @@ class Execute(val vm: Vm) {
 			}
 
 			"xpow" -> {
-				vm.xFloats.xPow(args[0] as RegisterType, args[1] as RegisterType)
+				vm.xFloats.xPow(args[0] as RegisterType, args[1] as RegisterType, args[2] as RegisterType)
 			}
 
 			"xsub" -> {
-				vm.xFloats.xSub(args[0] as RegisterType, args[1] as RegisterType)
+				vm.xFloats.xSub(args[0] as RegisterType, args[1] as RegisterType, args[2] as RegisterType)
 			}
 
 			"xmul" -> {
-				vm.xFloats.xMul(args[0] as RegisterType, args[1] as RegisterType)
+				vm.xFloats.xMul(args[0] as RegisterType, args[1] as RegisterType, args[2] as RegisterType)
 			}
 
 			"xdiv" -> {
-				vm.xFloats.xDiv(args[0] as RegisterType, args[1] as RegisterType)
+				vm.xFloats.xDiv(args[0] as RegisterType, args[1] as RegisterType, args[2] as RegisterType)
 			}
 
 			"xadd" -> {
-				vm.xFloats.xAdd(args[0] as RegisterType, args[1] as RegisterType)
+				vm.xFloats.xAdd(args[0] as RegisterType, args[1] as RegisterType, args[2] as RegisterType)
 			}
 
 			"settype" -> {
@@ -123,15 +123,11 @@ class Execute(val vm: Vm) {
 			}
 
 			"dealloc" -> {
-				vm.dataTransfer.dealloc(
-					memAddress = args[0] as RegisterType
-				)
+				vm.dataTransfer.dealloc(args[0] as RegisterType)
 			}
 
 			"pow" -> {
-				vm.arithmetic.pow(
-					registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
-				)
+				vm.arithmetic.pow(args[0] as RegisterType, args[1] as RegisterType, args[2] as RegisterType)
 			}
 
 			"help" -> {
@@ -155,15 +151,11 @@ class Execute(val vm: Vm) {
 
 			"emptyLine", "comment" -> {}
 			"gt" -> {
-				vm.arithmetic.gt(
-					operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
-				)
+				vm.arithmetic.gt(args[0] as RegisterType, args[1] as RegisterType)
 			}
 
 			"lt" -> {
-				vm.arithmetic.lt(
-					operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
-				)
+				vm.arithmetic.lt(args[0] as RegisterType, args[1] as RegisterType)
 			}
 
 			"str" -> {
@@ -173,131 +165,101 @@ class Execute(val vm: Vm) {
 			}
 
 			"swp" -> {
-				vm.dataTransfer.swp(
-					register1 = args[0] as RegisterType, register2 = args[1] as RegisterType
-				)
+				vm.dataTransfer.swp(args[0] as RegisterType, args[1] as RegisterType)
 			}
 
 			"add" -> {
-				vm.arithmetic.add(
-					registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
-				)
+				vm.arithmetic.add(args[0] as RegisterType, args[1] as RegisterType, args[2] as RegisterType)
 			}
 
 			"sub" -> {
-				vm.arithmetic.sub(
-					registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
-				)
+				vm.arithmetic.sub(args[0] as RegisterType, args[1] as RegisterType, args[2] as RegisterType)
 			}
 
 			"mul" -> {
-				vm.arithmetic.mul(
-					registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
-				)
+				vm.arithmetic.mul(args[0] as RegisterType, args[1] as RegisterType, args[2] as RegisterType)
 			}
 
 			"div" -> {
-				vm.arithmetic.div(
-					registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
-				)
+				vm.arithmetic.div(args[0] as RegisterType, args[1] as RegisterType, args[2] as RegisterType)
 			}
 
 			"mod" -> {
-				vm.arithmetic.mod(
-					registerA = args[0] as RegisterType, registerB = args[1] as RegisterType
-				)
+				vm.arithmetic.mod(args[0] as RegisterType, args[1] as RegisterType, args[2] as RegisterType)
 			}
 
 			"eq" -> {
-				vm.arithmetic.eq(
-					operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
-				)
+				vm.arithmetic.eq(args[0] as RegisterType, args[1] as RegisterType)
 			}
 
 			"lit" -> {
-				vm.dataTransfer.lit(source = args[0] as RegisterType, value = args[1] as Long)
+				vm.dataTransfer.lit(args[0] as RegisterType, args[1] as Long)
 			}
 
 			"mov" -> {
-				vm.dataTransfer.mov(
-					source = args[0] as RegisterType, destination = args[1] as RegisterType
-				)
+				vm.dataTransfer.mov(args[0] as RegisterType, args[1] as RegisterType)
 			}
 
 			"jmp" -> {
-				vm.controlFlow.jmp(targetAddress = args[0] as Long - 1L)
+				vm.controlFlow.jmp(args[0] as Long - 1L)
 			}
 
 			"jz" -> {
-				vm.controlFlow.jz(
-					targetAddress = args[0] as Long - 1L
-				)
+				vm.controlFlow.jz(args[0] as Long - 1L)
 			}
 
 			"jnz" -> {
-				vm.controlFlow.jnz(
-					targetAddress = args[0] as Long - 1L
-				)
+				vm.controlFlow.jnz(args[0] as Long - 1L)
 			}
 
 			"peek" -> {
-				vm.stackOperations.peek(destination = args[0] as RegisterType)
+				vm.stackOperations.peek(args[0] as RegisterType)
 			}
 
 			"pop" -> {
-				vm.stackOperations.pop(destination = args[0] as RegisterType)
+				vm.stackOperations.pop(args[0] as RegisterType)
 			}
 
 			"push" -> {
-				vm.stackOperations.push(registerType = args[0] as RegisterType)
+				vm.stackOperations.push(args[0] as RegisterType)
 			}
 
 			"pushl" -> {
-				vm.stackOperations.pushl(registerType = args[0] as Long)
+				vm.stackOperations.pushl(args[0] as Long)
 			}
 
 			"store" -> {
 				vm.memory.store(
-					source = args[0] as RegisterType, destination = args[1] as RegisterType
+					source = args[0] as RegisterType, args[1] as RegisterType
 				)
 			}
 
 			"load" -> {
-				vm.memory.load(
-					memoryAddress = args[0] as RegisterType, destination = args[1] as RegisterType
-				)
+				vm.memory.load(args[0] as RegisterType, args[1] as RegisterType)
 			}
 
 			"shl" -> {
-				vm.bitwise.shl(
-					operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
-				)
+				vm.bitwise.shl(args[0] as RegisterType, args[1] as RegisterType, args[2] as RegisterType)
 			}
 
 			"shr" -> {
-				vm.bitwise.shr(
-					operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
-				)
+				vm.bitwise.shr(args[0] as RegisterType, args[1] as RegisterType, args[2] as RegisterType)
 			}
 
 			"and" -> {
-				vm.bitwise.and(
-					operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
-				)
+				vm.bitwise.and(args[0] as RegisterType, args[1] as RegisterType, args[2] as RegisterType)
 			}
 
 			"not" -> {
-				vm.bitwise.not(operand = args[0] as RegisterType)
+				vm.bitwise.not(args[0] as RegisterType, args[2] as RegisterType)
 			}
 
 			"or" -> {
-				vm.bitwise.or(operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType)
+				vm.bitwise.or(args[0] as RegisterType, args[1] as RegisterType, args[2] as RegisterType)
 			}
 
 			"xor" -> {
-				vm.bitwise.xor(
-					operand1 = args[0] as RegisterType, operand2 = args[1] as RegisterType
-				)
+				vm.bitwise.xor(args[0] as RegisterType, args[1] as RegisterType, args[2] as RegisterType)
 			}
 
 			"syscall" -> {
