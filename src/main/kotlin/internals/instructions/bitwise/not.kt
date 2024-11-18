@@ -7,6 +7,6 @@ import data.registers.RegisterType
  * @param operand1 The [RegisterType] holding operand.
  * @throws GeneralBitwiseException If an error occurs during the bitwise AND operation.
  */
-fun Bitwise.not(operand: RegisterType) = call("not") {
+fun Bitwise.not(operand: RegisterType, where: RegisterType) = call("not", where) {
 	registers.read(operand).inv()
 }

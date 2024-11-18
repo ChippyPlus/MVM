@@ -6,7 +6,7 @@ import kotlin.math.pow
 import kotlin.system.exitProcess
 
 
-fun XFloats.xPow(operand1: RegisterType, operand2: RegisterType) {
+fun XFloats.xPow(operand1: RegisterType, operand2: RegisterType, where: RegisterType) {
 	val o1 = registers.readX(operand1)
 	val o2 = registers.readX(operand2)
 
@@ -21,9 +21,9 @@ fun XFloats.xPow(operand1: RegisterType, operand2: RegisterType) {
 
 	if (o1.isDouble && o2.isDouble) {
 		val out = (Double.fromBits(o1.value).pow(Double.fromBits(o2.value)).toBits())
-		registers.writeX(RegisterType.R5, FDRegister(true, out))
+		registers.writeX(where, FDRegister(true, out))
 	} else {
 		val out = (Float.fromBits(o1.value.toInt()).pow(Float.fromBits(o2.value.toInt())).toBits().toLong())
-		registers.writeX(RegisterType.R5, FDRegister(false, out))
+		registers.writeX(where, FDRegister(false, out))
 	}
 }

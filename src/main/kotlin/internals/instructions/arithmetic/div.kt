@@ -12,13 +12,13 @@ import environment.errorsCatchable.ErrorType
  * @param registerB The [RegisterType] holding the divisor.
  * @throws GeneralArithmeticException If an arithmetic error occurs during the division (e.g. division by zero).
  */
-fun Arithmetic.div(registerA: RegisterType, registerB: RegisterType) = call("div") {
+fun Arithmetic.div(registerA: RegisterType, registerB: RegisterType, where: RegisterType) = call("div") {
 	val a: Long = registers.read(register = registerA)
 	val b: Long = registers.read(register = registerB)
 
 	try {
 		val out = a / b
-		registers.write(RegisterType.R4, out)
+		registers.write(where, out)
 	} catch (_: ArithmeticException) {
 		intelNames[IntelRegisters.ESF]
 		registers.write(intelNames[IntelRegisters.ESF], ErrorType.DIVIDE_BY_0.code)

@@ -9,6 +9,6 @@ import data.registers.RegisterType
  * @param operand2 The [RegisterType] holding the second operand.
  * @throws GeneralBitwiseException If an error occurs during the bitwise AND operation.
  */
-fun Bitwise.and(operand1: RegisterType, operand2: RegisterType) = call("and") {
+fun Bitwise.and(operand1: RegisterType, operand2: RegisterType, where: RegisterType) = call("and", where) {
 	registers.read(operand1) and registers.read(operand2)
 }

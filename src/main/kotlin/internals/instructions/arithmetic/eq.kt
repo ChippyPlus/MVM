@@ -18,7 +18,6 @@ import helpers.toLong
 fun Arithmetic.eq(operand1: RegisterType, operand2: RegisterType) = try {
 
 	val out = registers.read(register = operand1) == registers.read(register = operand2)
-
 	registers.write(intelNames[IntelRegisters.EF], out.toLong())
 	registers.write(intelNames[IntelRegisters.ZF], out.toLong())
 

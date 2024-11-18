@@ -9,9 +9,9 @@ import data.registers.RegisterType
  * @param registerB The [RegisterType] holding the divisor.
  * @throws GeneralArithmeticException If an arithmetic error occurs during the modulo operation.
  */
-fun Arithmetic.mod(registerA: RegisterType, registerB: RegisterType) = call("mod") {
+fun Arithmetic.mod(registerA: RegisterType, registerB: RegisterType, where: RegisterType) = call("mod") {
 	val a: Long = registers.read(register = registerA)
 	val b: Long = registers.read(register = registerB)
 	val out = a % b
-	registers.write(RegisterType.R4, out)
+	registers.write(where, out)
 }

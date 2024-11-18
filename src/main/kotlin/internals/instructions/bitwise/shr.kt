@@ -11,6 +11,6 @@ import data.registers.RegisterType
  * @throws GeneralBitwiseException If an error occurs during the right shift operation.
  */
 
-fun Bitwise.shr(operand1: RegisterType, operand2: RegisterType) = call("shr") {
+fun Bitwise.shr(operand1: RegisterType, operand2: RegisterType, where: RegisterType) = call("shr", where) {
 	registers.read(operand1) shr registers.read(operand2).toInt()
 }

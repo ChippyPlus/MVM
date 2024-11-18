@@ -9,10 +9,10 @@ import data.registers.RegisterType
  * @param registerB The [RegisterType] holding the second operand.
  * @throws GeneralArithmeticException If an arithmetic error occurs during the multiplication.
  */
-fun Arithmetic.mul(registerA: RegisterType, registerB: RegisterType) = call("mul") {
+fun Arithmetic.mul(registerA: RegisterType, registerB: RegisterType, where: RegisterType) = call("mul") {
 	val a: Long = registers.read(register = registerA)
 	val b: Long = registers.read(register = registerB)
 	val out = a * b
-	registers.write(RegisterType.R4, out)
+	registers.write(where, out)
 
 }
