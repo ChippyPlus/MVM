@@ -5,14 +5,17 @@ import os.MemoryBlock
 import os.OS
 import processes.Pcb
 import vm.exceptions.VmExceptions.MemoryAccessException
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
 
 
 class Memory(private val initialMemorySize: Int = config.initMemorySize) { // Pass in initial memory size
 
-	private var memory: ByteArray = ByteArray(initialMemorySize) // Internal memory representation
-	private val os: OS = OS()
+	var memory: ByteArray = ByteArray(initialMemorySize) // Internal memory representation
+	val os: OS = OS()
 
 	private val allocationPointers = mutableMapOf<Int, Int>() // <Pointer,Size>
+
 
 	fun allocate(size: Int, pcb: Pcb): Int {
 		val newLimit = pcb.limitRegister + size
@@ -85,6 +88,14 @@ class Memory(private val initialMemorySize: Int = config.initMemorySize) { // Pa
 			throw MemoryAccessException("Logical address out of bounds: \"$logicalAddress\", limit (0, ${limit - 1}), for Process: ${pcb.pid}")
 		}
 		return base + logicalAddress
+	}
+
+	fun writeIntToMemory(address: Int, word1: Int, word2: Int, pcb: Pcb) {
+		val translatedAddress = translateAddress(address - pcb.baseRegister, pcb)
+		val buffer = ByteBuffer.allocate(8).order(ByteOrder.BIG_ENDIAN).putInt(word1).putInt(word2)
+		val byteArray = buffer.array()
+
+		System.arraycopy(byteArray, 0, memory, translatedAddress.toInt(), byteArray.size)
 	}
 
 	// Helper function to grow the memory if needed.
