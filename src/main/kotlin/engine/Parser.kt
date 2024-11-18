@@ -109,11 +109,17 @@ fun parser(vm: Vm, file: List<String>): List<InstructData> {
 						)
 					}
 
+					// Register Register Register
+					"mod", "add", "sub", "mul", "div", "shl", "shr", "and", "or", "xor", "pow", "xadd", "xsub", "xmul", "xdiv", "xpow" -> {
+						InstructData(
+							name = instruction,
+							arrayOf(line[1].toRegisterType(), line[2].toRegisterType(), line[2].toRegisterType())
+
+						)
+					}
+
 					// Register Register
-					"mod", "add", "sub", "mul", "div", "eq",
-					"shl", "shr", "mov", "swp", "and", "or",
-					"xor", "lt", "gt", "pow", "xadd", "xsub", "xmul", "xdiv", "xpow",
-					"itof", "ftoi",
+					"eq", "mov", "swp", "lt", "gt", "itof", "ftoi", "not",
 						-> {
 						InstructData(
 							name = instruction, arrayOf(line[1].toRegisterType(), line[2].toRegisterType())
@@ -131,7 +137,7 @@ fun parser(vm: Vm, file: List<String>): List<InstructData> {
 
 
 					// Register
-					"not", "printr", "peek", "pop", "push", "inr", "dealloc", "sleep" -> {
+					"printr", "peek", "pop", "push", "inr", "dealloc", "sleep" -> {
 						InstructData(
 							name = instruction, arrayOf(line[1].toRegisterType())
 						)
