@@ -50,8 +50,15 @@ enum class IntelRegisters {
 	 */
 	PC,
 
+	/**
+	 * SIGR - Signal Received
+	 */
 	SIGR,
-	Idk
+
+	/**
+	 * MB - MailBox
+	 */
+	MB
 }
 
 val intelNames = IntelNames()
@@ -67,7 +74,7 @@ class IntelNames {
 		IntelRegisters.ESF -> RegisterType.I7
 		IntelRegisters.PC -> RegisterType.I8
 		IntelRegisters.SIGR -> RegisterType.I9
-		IntelRegisters.Idk -> RegisterType.I10
+		IntelRegisters.MB -> RegisterType.I10
 
 	}
 }
