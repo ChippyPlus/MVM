@@ -5,12 +5,9 @@ import data.registers.read
 import environment.reflection.reflection
 import internals.Vm
 import os
-import os_package.Ipc
 import kotlin.system.exitProcess
 
 class Ipc(val vm: Vm) {
-	val ipcBackBone = Ipc()
-
 	fun link(p1IdRaw: RegisterType, p2IdRaw: RegisterType) {
 		val vms = reflection.groupTrackedVmById()
 		val p1 = vms[p1IdRaw.read(vm).toInt()] ?: run {
