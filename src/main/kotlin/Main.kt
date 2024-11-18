@@ -2,7 +2,7 @@
 import engine.execution.Execute
 import engine.parser
 import environment.TaskManager
-import environment.reflection.VmTracked
+import environment.reflection.KProcess
 import environment.reflection.reflection
 import helpers.Config
 import internals.Vm
@@ -23,7 +23,7 @@ val init = Vm()
 
 @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
 fun main(args: Array<String>): Unit = runBlocking(newSingleThreadContext("Kotlin's main")) {
-	val tracked = VmTracked(init)
+	val tracked = KProcess(init)
 	tracked.thread = Thread.currentThread()
 	reflection.vmTracker.add(tracked)
 

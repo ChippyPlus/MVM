@@ -34,7 +34,7 @@ class Execute(val vm: Vm) {
 	suspend fun run(command: List<InstructData>) {
 		while (true) {
 
-//			println("${vm.pc}  | ${ reflection.vmTracker.groupBy(VmTracked::vm)[vm]!![0].id} -  ${vm.runtimeState}")
+//			println("${vm.pc}  | ${ reflection.vmTracker.groupBy(KProcess::vm)[vm]!![0].id} -  ${vm.runtimeState}")
 
 
 			when (vm.runtimeState) {
