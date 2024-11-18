@@ -19,6 +19,9 @@ enum class IpcType {
 }
 
 class Ipc {
+	val sharedMemory = SharedMemory()
+	val messagePassing = MessagePassing()
+
 
 	class SharedMemory {
 		fun create() {}

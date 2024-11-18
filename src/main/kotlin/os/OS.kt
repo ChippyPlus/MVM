@@ -1,3 +1,5 @@
 package os
 
-class OS
+class OS {
+	val ipc = Ipc()
+}
