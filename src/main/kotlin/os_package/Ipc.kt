@@ -33,21 +33,16 @@ class Ipc {
 	class MessagePassing {
 		val pending = mutableMapOf<KProcess, MutableSet<KProcess>>()  // requester,acceptent"S"
 		var idCount = 0
-
 		val mailBoxes = mutableMapOf<Int, Stack<Long>>()
-
-		fun isLinked(requester: KProcess, acceptent: KProcess): Boolean {
-			return pending[acceptent]?.contains(requester) == true
-		}
 
 		fun preposeLink(requester: KProcess, acceptent: KProcess): Int? {
 			if (requester !in pending) {
 				pending[requester] = mutableSetOf()
 			}
 			pending[requester]!!.add(acceptent)
-			if (isLinked(requester, acceptent)) {
-				mailBoxes[idCount] = Stack()
+			if (pending[acceptent]?.contains(requester) == true) {
 				idCount++
+				mailBoxes[idCount] = Stack()
 				requester.ipcPermissions.add(idCount)
 				acceptent.ipcPermissions.add(idCount)
 
@@ -55,14 +50,19 @@ class Ipc {
 			} else {
 				return null
 			}
-
 		}
 
-		fun send(host: KProcess, id: Int, message: Long) {
+		fun send(host: KProcess, id: Int, message: Long): Boolean {
+			if (id !in host.ipcPermissions) return false
 
-			if (true) {
-				mailBoxes[id]!!.push(message)
-			}
+			mailBoxes[id]!!.push(message)
+			return true
+		}
+
+
+		fun receive(host: KProcess, id: Int): Long? {
+			if (id !in host.ipcPermissions) return null
+			return mailBoxes[id]!!.pop()
 		}
 
 	}
@@ -77,12 +77,11 @@ fun main() {
 	val p3 = KProcess(vm = Vm())
 	val ipc = Ipc.MessagePassing()
 
-	println("Requests [p1 -> p2] | ${ipc.preposeLink(p1, p2)}")
-	println("Requests [p1 -> p2] | ${ipc.preposeLink(p1, p2)}")
-	println("Requests [p1 -> p2] | ${ipc.preposeLink(p1, p2)}")
-	println("Requests [p2 -> p1] | ${ipc.preposeLink(p2, p1)}")
-	println("Requests [p1 -> p3] | ${ipc.preposeLink(p1, p3)}")
-	println("Requests [p3 -> p1] | ${ipc.preposeLink(p3, p1)}")
+	ipc.preposeLink(p1, p2)
+	val o = ipc.preposeLink(p1, p1)!!
+
+	ipc.send(p1, 29, 24)
+	println(ipc.receive(p1, 29))
 
 
 }

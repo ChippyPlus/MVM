@@ -3,6 +3,8 @@ package environment.reflection
 import internals.Vm
 
 data class KProcess(val vm: Vm, var thread: Thread? = null) {
+	val ipcPermissions = mutableListOf<Int>()
+
 	init {
 		reflection.vmTracker.add(this)
 	}
