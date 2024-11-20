@@ -20,7 +20,7 @@ class Ipc(val vm: Vm) {
 				p2IdRaw.read(vm).toString()
 			);exitProcess(0)
 		}
-		os.ipc.messagePassing.link(p1, p2)
+//		os.ipc.messagePassing.link(p1, p2)
 	}
 
 	fun send(p1IdRaw: RegisterType, p2IdRaw: RegisterType, message: RegisterType) {

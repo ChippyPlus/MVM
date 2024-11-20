@@ -3,5 +3,9 @@ package environment.reflection
 import internals.Vm
 
 data class KProcess(val vm: Vm, var thread: Thread? = null) {
-	val id = reflection.vmTracker.size + 1
+	init {
+		reflection.vmTracker.add(this)
+	}
+
+	val id = reflection.vmTracker.size
 }
