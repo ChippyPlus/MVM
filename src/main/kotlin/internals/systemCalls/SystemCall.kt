@@ -60,8 +60,8 @@ class SystemCall(val vm: Vm) {
 
 			30 -> Ipc(vm).link(s2, s3)
 			31 -> "unlink_pro"
-			32 -> Ipc(vm).send(s2, s3, s4)
-			33 -> Ipc(vm).receive(s2, s3)
+			32 -> Ipc(vm).send(s2, s3)
+			33 -> Ipc(vm).receive(s2)
 
 
 			else -> errors.InvalidSystemCallException(registers.read(callId).toString())

@@ -2,8 +2,10 @@ package internals.systemCalls.calls
 
 import data.registers.RegisterType
 import data.registers.read
+import data.registers.write
 import environment.reflection.reflection
 import internals.Vm
+import os
 import kotlin.system.exitProcess
 
 class Ipc(val vm: Vm) {
@@ -19,37 +21,23 @@ class Ipc(val vm: Vm) {
 				p2IdRaw.read(vm).toString()
 			);exitProcess(0)
 		}
-//		os.ipc.messagePassing.link(p1, p2)
+		val status = os.ipc.messagePassing.preposeLink(p1, p2)
+
+		if (status == null) {
+			RegisterType.R2.write(vm, -1)
+		} else {
+			RegisterType.R2.write(vm, status.toLong())
+		}
 	}
 
-	fun send(p1IdRaw: RegisterType, p2IdRaw: RegisterType, message: RegisterType) {
-		val vms = reflection.groupTrackedVmById()
-		val p1 = vms[p1IdRaw.read(vm).toInt()] ?: run {
-			vm.errors.ProcessNotFound(
-				p1IdRaw.read(vm).toString()
-			);exitProcess(0)
-		}
-		val p2 = vms[p2IdRaw.read(vm).toInt()] ?: run {
-			vm.errors.ProcessNotFound(
-				p2IdRaw.read(vm).toString()
-			);exitProcess(0)
-		}
-//		os.ipc.messagePassing.send(p1, p2, message.read(vm))
+	fun send(relationShipStatus: RegisterType, message: RegisterType) {
+		val vms = reflection.groupTrackedVmByVm()
+		os.ipc.messagePassing.send(vms[vm]!!, relationShipStatus.read(vm).toInt(), message.read(vm))
 	}
 
-	fun receive(p1IdRaw: RegisterType, p2IdRaw: RegisterType): Long {
-		val vms = reflection.groupTrackedVmById()
-		val p1 = vms[p1IdRaw.read(vm).toInt()] ?: run {
-			vm.errors.ProcessNotFound(
-				p1IdRaw.read(vm).toString()
-			);exitProcess(0)
-		}
-		val p2 = vms[p2IdRaw.read(vm).toInt()] ?: run {
-			vm.errors.ProcessNotFound(
-				p2IdRaw.read(vm).toString()
-			);exitProcess(0)
-		}
-//		return os.ipc.messagePassing.revive(p1, p2)
-		return 0
+	fun receive(id: RegisterType) {
+		RegisterType.R2.write(
+			vm, os.ipc.messagePassing.receive(reflection.groupTrackedVmByVm()[vm]!!, id.read(vm).toInt())!!
+		)
 	}
 }
