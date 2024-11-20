@@ -39,7 +39,6 @@ class TaskManager {
 }
 
 
-@OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
 fun main() = runBlocking {
 
 	println("Main thread doing other work...")

@@ -6,21 +6,12 @@ import data.registers.write
 import environment.reflection.reflection
 import internals.Vm
 import os
-import kotlin.system.exitProcess
 
 class Ipc(val vm: Vm) {
 	fun link(p1IdRaw: RegisterType, p2IdRaw: RegisterType) {
 		val vms = reflection.groupTrackedVmById()
-		val p1 = vms[p1IdRaw.read(vm).toInt()] ?: run {
-			vm.errors.ProcessNotFound(
-				p1IdRaw.read(vm).toString()
-			);exitProcess(0)
-		}
-		val p2 = vms[p2IdRaw.read(vm).toInt()] ?: run {
-			vm.errors.ProcessNotFound(
-				p2IdRaw.read(vm).toString()
-			);exitProcess(0)
-		}
+		val p1 = vms[p1IdRaw.read(vm).toInt()]!!
+		val p2 = vms[p2IdRaw.read(vm).toInt()]!!
 		val status = os.ipc.messagePassing.preposeLink(p1, p2)
 
 		if (status == null) {

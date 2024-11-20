@@ -13,9 +13,6 @@ import java.util.*
  * - Listen,
  */
 
-enum class IpcType {
-	Listen, MailBox
-}
 
 class Ipc {
 	val sharedMemory = SharedMemory()

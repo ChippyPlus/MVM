@@ -10,12 +10,14 @@ class Reflection {
 	val vmTracker = mutableListOf<KProcess>()
 
 	fun groupTrackedVmById(): Map<Int, KProcess> {
-		val x = vmTracker.groupBy(KProcess::id)
-		val y = mutableMapOf<Int, KProcess>()
-		for (i in x) {
-			y[i.key] = i.value[0]
+		val w = mutableMapOf<Int, KProcess>()
+		println("Init = $vmTracker")
+		for (i in vmTracker) {
+			println("doing stuff with ${i.id}")
+			w[i.id] = i
 		}
-		return y
+
+		return w
 	}
 
 	fun groupTrackedVmByVm(): MutableMap<Vm, KProcess> {

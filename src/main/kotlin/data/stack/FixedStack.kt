@@ -14,7 +14,6 @@ import internals.Vm
  * @constructor Creates a new [FixedStack] with the specified maximum size.
  */
 class FixedStack(private val maxSize: Int, vm: Vm) {
-	private val errors = vm.errors
 	private val registers = vm.registers
 	private val stack = Array<Long?>(maxSize) { null }
 	private var topIndex = -1
