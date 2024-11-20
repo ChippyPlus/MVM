@@ -3,6 +3,8 @@ package internals.systemCalls
 import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
+import data.registers.write
+import environment.reflection.reflection
 import helpers.toLong
 import internals.Vm
 import internals.systemCalls.calls.*
@@ -57,11 +59,12 @@ class SystemCall(val vm: Vm) {
 			26 -> createArray(s2)
 			27 -> arraySet(s2, s3, s4)
 			28 -> arrayGet(s2, s3)
-
+			29 -> getMyPid()
 			30 -> Ipc(vm).link(s2, s3)
 			31 -> "unlink_pro"
 			32 -> Ipc(vm).send(s2, s3)
 			33 -> Ipc(vm).receive(s2)
+			34 -> getParentPid()
 
 
 			else -> errors.InvalidSystemCallException(registers.read(callId).toString())
@@ -83,5 +86,15 @@ class SystemCall(val vm: Vm) {
 		} else {
 			registers.write(intelNames[IntelRegisters.ENSF], false.toLong())
 		}
+	}
+
+
+	fun getMyPid() {
+		RegisterType.R2.write(vm, reflection.groupTrackedVmByVm()[vm]!!.id.toLong())
+	}
+
+
+	fun getParentPid() {
+		RegisterType.R2.write(vm, reflection.groupTrackedVmByVm()[vm]!!.parent?.toLong() ?: -1L)
 	}
 }

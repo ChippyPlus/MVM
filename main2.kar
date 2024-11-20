@@ -1,0 +1,12 @@
+lit s1 29 // get pid
+syscall
+mov r2 s2 // mine
+
+lit s1 34 // get parent
+syscall
+mov r2 s3 // parent
+
+lit s1 30 // link?
+syscall
+
+printr r2

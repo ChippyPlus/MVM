@@ -1,0 +1,21 @@
+lit s1 29
+syscall
+mov r2 g1 // G1 is host PID
+
+lit s1 9 // spawn
+str s2 "main2.kar"
+syscall
+
+lit s1 11 // pause main2.kar
+mov r2 s2
+syscall
+
+lit s1 30 // prepose link
+mov g1 s2
+// S2 is still the same
+syscall
+
+lit s1 12
+syscall
+
+printr r2
