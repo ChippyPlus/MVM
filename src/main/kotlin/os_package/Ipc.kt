@@ -48,6 +48,9 @@ class Ipc {
 			if (isLinked(requester, acceptent)) {
 				mailBoxes[idCount] = Stack()
 				idCount++
+				requester.ipcPermissions.add(idCount)
+				acceptent.ipcPermissions.add(idCount)
+
 				return idCount
 			} else {
 				return null
