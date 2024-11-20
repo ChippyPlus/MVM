@@ -8,17 +8,17 @@ import internals.Vm
 class SnapShotManager(val vm: Vm) {
 	var safeMemory = mutableSetOf<LongRange>()
 
-	fun populateSnapShotRegister(snapShotRegisters: Map<RegisterType, Long?>) {
+	fun populateSnapShotRegister(snapShotRegisters: Map<RegisterType, Long>) {
 		for (i in snapShotRegisters) {
-			vm.registers.writeUnsafe(i.key, i.value)
+			vm.registers.write(i.key, i.value)
 		}
 	}
 
-	fun snapShotRegisters(): Map<RegisterType, Long?> {
-		val allRegisters = mutableMapOf<RegisterType, Long?>()
+	fun snapShotRegisters(): Map<RegisterType, Long> {
+		val allRegisters = mutableMapOf<RegisterType, Long>()
 		allRegisters.forEach { if (!it.key.name.startsWith('I')) allRegisters.remove(it.key) }
 		for (i in RegisterType.entries) {
-			allRegisters[i] = vm.registers.readUnsafe(i)
+			allRegisters[i] = vm.registers.read(i)
 		}
 		return allRegisters
 	}
@@ -56,5 +56,5 @@ class SnapShotManager(val vm: Vm) {
 }
 
 
-data class SnapData(val memory: Map<MemoryAddress, MemoryValue>, val registers: Map<RegisterType, Long?>)
+data class SnapData(val memory: Map<MemoryAddress, MemoryValue>, val registers: Map<RegisterType, Long>)
 

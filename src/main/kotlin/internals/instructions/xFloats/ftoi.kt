@@ -9,8 +9,8 @@ fun XFloats.ftoi(registerX: RegisterType, register: RegisterType) {
 		if (valueLong.value == null) {
 			vm.errors.NullRegisterException(registerX)
 		}
-		registers.writeX(register, Double.fromBits(valueLong.value!!).toLong())
+		registers.write(register, Double.fromBits(valueLong.value!!).toLong())
 	} else {
-		registers.writeX(register, Float.fromBits(valueLong.value!!.toInt()).toLong())
+		registers.write(register, Float.fromBits(valueLong.value!!.toInt()).toLong())
 	}
 }

@@ -13,8 +13,7 @@ class Registers(val vm: Vm) {
 		for (register in RegisterType.entries) {
 			registers[register] = RegisterData(
 
-
-				name = register, data = null, dataType = if (register.name.startsWith('X')) {
+				name = register, data = 0, dataType = if (register.name.startsWith('X')) {
 					RegisterDataType.RFloat
 				} else if (register.name == "R5") {
 					RegisterDataType.RFloat
@@ -24,8 +23,6 @@ class Registers(val vm: Vm) {
 			)
 		}
 	}
-
-	fun readUnsafe(register: RegisterType): Long? = registers[register]!!.read()
 
 
 	fun readX(registerX: RegisterType): FDRegister {
@@ -37,12 +34,7 @@ class Registers(val vm: Vm) {
 	}
 
 	fun writeX(registerX: RegisterType, valueX: FDRegister) {
-		writeUnsafe(registerX, valueX.value)
-	}
-
-
-	fun writeX(registerX: RegisterType, valueX: Long) {
-		write(registerX, valueX)
+		registers[registerX]!!.write(valueX.value)
 	}
 
 
@@ -59,8 +51,5 @@ class Registers(val vm: Vm) {
 		registers[register]!!.write(value)
 	}
 
-	fun writeUnsafe(register: RegisterType, value: Long?) {
-		registers[register]!!.write(value)
-	}
 
 }
