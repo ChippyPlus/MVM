@@ -56,7 +56,7 @@ data class RegisterData(val name: RegisterType, var data: Long?, var dataType: R
 			RByte -> value.toByte()
 			RShort -> value.toShort()
 			RInt -> value.toInt()
-			RLong -> value.toLong()
+			RLong -> value
 			RFloat -> value.toFloat()
 			RDouble -> value.toDouble()
 		}.toLong()

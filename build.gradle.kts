@@ -1,11 +1,14 @@
-val kotlinVersion = "2.1.0-Beta2"
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+val kotlinVersion = "2.1.0-RC2"
 val coroutinesVersion = "1.9.0-RC"
 val serializationVersion = "1.7.3"
-
+val jnaVersion = "5.12.1"
+val joglVersion = "2.4.0"
 
 plugins {
-	id("org.jetbrains.kotlin.jvm") version "2.1.0-Beta2"
-	id("org.jetbrains.kotlin.plugin.serialization") version "2.1.0-Beta2"
+	id("org.jetbrains.kotlin.jvm") version "2.1.0-RC2"
+	id("org.jetbrains.kotlin.plugin.serialization") version "2.1.0-RC2"
 	application
 }
 
@@ -17,19 +20,37 @@ version = "1.0"
 
 
 kotlin {
-//	jvmToolchain(17)
-	compilerOptions.suppressWarnings = true
-//	compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
-	compilerOptions.freeCompilerArgs.add("-Xwhen-guards")
-	kotlin.compilerOptions.freeCompilerArgs.add("-Xmulti-dollar-interpolation")
+	jvmToolchain(17)
+
+	compilerOptions {
+		jvmTarget.set(JvmTarget.JVM_17)
+		compilerOptions.suppressWarnings = false
+		extraWarnings.set(true)
+
+	}
+
+	compilerOptions {
+		freeCompilerArgs.add("-Xnon-local-break-continue")
+		freeCompilerArgs.add("-Xmulti-dollar-interpolation")
+		freeCompilerArgs.add("-Xwhen-guards")
+	}
+
 }
 
 
 repositories {
 	mavenCentral()
+	google()
+	gradlePluginPortal()
+
+	maven { url = uri("https://jogamp.org/deployment/maven") }
 }
 
 dependencies {
+	// future ideas?
+	implementation("net.java.dev.jna:jna:$jnaVersion")
+	implementation("org.jogamp.jogl:jogl-all-main:$joglVersion")
+	//
 	implementation("com.google.protobuf:protobuf-java-util:4.28.2")   // Deprecated in favour of kotlinx.serialization
 	implementation("com.google.protobuf:protobuf-kotlin:4.28.2")      // Deprecated in favour of kotlinx.serialization
 	testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlinVersion")

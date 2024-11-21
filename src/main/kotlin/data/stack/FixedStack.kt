@@ -15,15 +15,9 @@ import internals.Vm
  */
 class FixedStack(private val maxSize: Int, vm: Vm) {
 	private val registers = vm.registers
-	private val stack = Array<Long?>(maxSize) { null }
+	private val stack = Array<Long?>(maxSize) { _ -> null }
 	private var topIndex = -1
 
-	/**
-	 * Pushes an element onto the stack.
-	 *
-	 * @param element The element to push onto the stack.
-	 * @throws StackOverflowException If the stack is full.
-	 */
 	fun push(element: Long) {
 		if (isFull()) {
 			registers.write(intelNames[IntelRegisters.ENSF], false.toLong())
