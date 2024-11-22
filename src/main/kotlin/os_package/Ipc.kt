@@ -1,8 +1,11 @@
+@file:Suppress("UnnecessaryVariable")
+
 package os_package
 
 import environment.reflection.KProcess
 import internals.Vm
 import java.util.*
+import kotlin.system.exitProcess
 
 
 /**
@@ -32,15 +35,15 @@ class Ipc {
 		var idCount = 0
 		val mailBoxes = mutableMapOf<Int, Stack<Long>>()
 
-		fun preposeLink(requester: KProcess, acceptent: KProcess): Int? {
-			if (requester !in pending) {
-				pending[requester] = mutableSetOf()
+		fun preposeLink(requestant: KProcess, acceptent: KProcess): Int? {
+			if (requestant !in pending) {
+				pending[requestant] = mutableSetOf()
 			}
-			pending[requester]!!.add(acceptent)
-			if (pending[acceptent]?.contains(requester) == true) {
+			pending[requestant]!!.add(acceptent)
+			if (pending[acceptent]?.contains(requestant) == true) {
 				idCount++
 				mailBoxes[idCount] = Stack()
-				requester.ipcPermissions.add(idCount)
+				requestant.ipcPermissions.add(idCount)
 				acceptent.ipcPermissions.add(idCount)
 
 				return idCount
@@ -68,17 +71,22 @@ class Ipc {
 }
 
 
-fun main() {
+fun main() { // TODO add a way to lookup PIDS cause so far processes do not know how to see other ones
 	val p1 = KProcess(vm = Vm())
 	val p2 = KProcess(vm = Vm())
 	val p3 = KProcess(vm = Vm())
 	val ipc = Ipc.MessagePassing()
 
-	ipc.preposeLink(p1, p2)
-	val o = ipc.preposeLink(p1, p1)!!
+	val requestant = p1
+	val acceptent = p2
 
-	ipc.send(p1, 29, 24)
-	println(ipc.receive(p1, 29))
+	ipc.preposeLink(requestant, acceptent)
+	val o = ipc.preposeLink(acceptent, requestant)
+	println("[Link] [${requestant.id},${acceptent.id}]: ${if (o != null) " success " else " failed"} ")
+	if (o == null) exitProcess(1)
 
+	println("[Send] [${requestant.id},${acceptent.id}]: ${if (ipc.send(p1, o, 24)) " success " else " failed"} ")
+	val x = ipc.receive(p1, o)
+	println("[Receive] [${requestant.id},${acceptent.id}]: ${if (x == null) "failed" else "$x"}")
 
 }
