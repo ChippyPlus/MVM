@@ -298,11 +298,15 @@ class VMErrors(private val vm: Vm) {
 
 
 	private fun prefix(): String {
-		return if (vm.libExecute.enabledFunction) {
-			"ERROR in ${vm.libExecute.currentFunction.removeSuffix(".lib")}:${vm.libPc}:${vm.pc}"
-		} else {
-			"ERROR:${vm.pc}"
-		}
+//		return if (vm.libExecute.enabledFunction) {
+//			"ERROR in ${vm.libExecute.currentFunction.removeSuffix(".lib")}:${vm.libPc}:${vm.pc}"
+//		} else {
+//			"ERROR:${vm.pc}"
+//		}
+
+		// Let's just forget about line numbers for now
+
+		return "ERROR"
 	}
 
 }
