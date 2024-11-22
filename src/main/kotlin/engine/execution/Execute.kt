@@ -3,11 +3,11 @@ package engine.execution
 import data.registers.RegisterDataType
 import data.registers.RegisterType
 import engine.parser
+import environment.reflection.KProcess
 import helpers.RuntimeStates
 import helpers.toDoubleOrFloatBasedOnDataType
 import helpers.toRegisterType
 import hertz
-import internals.Vm
 import internals.instructions.arithmetic.*
 import internals.instructions.bitwise.*
 import internals.instructions.controlFlow.jmp
@@ -30,12 +30,10 @@ import kotlinx.coroutines.delay
 import java.io.File
 
 
-class Execute(val vm: Vm) {
+class Execute(val kp: KProcess) {
 	suspend fun run(command: List<InstructData>) {
+		val vm = kp.vm
 		while (true) {
-
-//			println("${vm.pc}  | ${ reflection.vmTracker.groupBy(KProcess::vm)[vm]!![0].id} -  ${vm.runtimeState}")
-
 
 			when (vm.runtimeState) {
 				RuntimeStates.RUNNING -> {/* pass */
@@ -65,19 +63,20 @@ class Execute(val vm: Vm) {
 			}
 
 			exeWhen(name, args)
-
-
 		}
 	}
 
 
 	suspend fun execute(file: File) {
-		val tokens = parser(vm, file.readLines())
-		this.run(command = tokens)
+
+		parser(kp, file.readLines())
+
+		this.run(command = kp.instructionMemory)
 	}
 
 
 	suspend fun exeWhen(name: String, args: Array<Any?>): Unit? {
+		val vm = kp.vm
 		when (name) {
 			"sleep" -> {
 				vm.misc.sleep(args[0] as RegisterType)
@@ -139,9 +138,10 @@ class Execute(val vm: Vm) {
 			}
 
 			"inr" -> {
-				vm.dataTransfer.inr((args[0] as String).toRegisterType() ?: {
+				(args[0] as String).toRegisterType() ?: {
 					vm.errors.InvalidRegisterException(args[0] as String)
-				} as RegisterType)
+				} as RegisterType
+				Just remove
 			}
 
 			"call" -> {

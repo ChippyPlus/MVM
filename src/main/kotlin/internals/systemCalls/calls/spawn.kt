@@ -16,10 +16,9 @@ fun SystemCall.spawn(pathX: RegisterType) {
 	val newVm = Vm()
 	val tracked = KProcess(newVm)
 	tracked.thread = Thread.currentThread()
-	reflection.vmTracker.add(tracked)
 	taskManager.addTask {
 		tracked.parent = reflection.groupTrackedVmByVm()[vm]!!.id
-		Execute(newVm).execute(File(path))
+		Execute(tracked).execute(File(path))
 	}
 	registers.write(RegisterType.R2, tracked.id.toLong())
 }

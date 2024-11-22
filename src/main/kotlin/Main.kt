@@ -10,7 +10,6 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
-import optimisations.VarRedundancy
 import os_package.OS
 import java.io.File
 import kotlin.system.exitProcess
@@ -21,15 +20,14 @@ val hertz = config?.hertz ?: 0L
 val MEMORY_LIMIT = config?.memorySize ?: 256
 val os = OS()
 val taskManager = TaskManager()
-val init = Vm()
+val initVm = Vm()
 
 @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
 fun main(args: Array<String>): Unit = runBlocking(newSingleThreadContext("Kotlin's main")) {
-	val tracked = KProcess(init)
-	tracked.thread = Thread.currentThread()
-	reflection.vmTracker.add(tracked)
+	val init = KProcess(initVm)
+	init.thread = Thread.currentThread()
 
-	val execute = Execute(vm = init)
+	val execute = Execute(kp = init)
 
 
 	if (args.isEmpty()) {
@@ -52,7 +50,8 @@ fun main(args: Array<String>): Unit = runBlocking(newSingleThreadContext("Kotlin
 				println("Usage: mvm tokenise <file.kar>")
 				exitProcess(1)
 			}
-			parser(init, File(args[1]).readLines()).forEach(::println)
+			parser(init, File(args[1]).readLines())
+			init.instructionMemory.forEach(::println)
 		}
 
 
@@ -61,7 +60,8 @@ fun main(args: Array<String>): Unit = runBlocking(newSingleThreadContext("Kotlin
 				println("Usage: mvm tokenise <file.kar>")
 				exitProcess(1)
 			}
-			VarRedundancy(globalInfo = parser(init, File(args[1]).readLines())).cleanRedundancy().forEach(::println)
+			println("Deprecated!")
+//			VarRedundancy(globalInfo = parser(init, File(args[1]).readLines())).cleanRedundancy().forEach(::println)
 		}
 
 
