@@ -13,7 +13,10 @@ import internals.instructions.bitwise.*
 import internals.instructions.controlFlow.jmp
 import internals.instructions.controlFlow.jnz
 import internals.instructions.controlFlow.jz
-import internals.instructions.dataTransfer.*
+import internals.instructions.dataTransfer.dealloc
+import internals.instructions.dataTransfer.lit
+import internals.instructions.dataTransfer.mov
+import internals.instructions.dataTransfer.swp
 import internals.instructions.ioAbstractions.printr
 import internals.instructions.ioAbstractions.prints
 import internals.instructions.memory.load
@@ -141,7 +144,6 @@ class Execute(val kp: KProcess) {
 				(args[0] as String).toRegisterType() ?: {
 					vm.errors.InvalidRegisterException(args[0] as String)
 				} as RegisterType
-				Just remove
 			}
 
 			"call" -> {
