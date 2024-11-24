@@ -106,7 +106,7 @@ fun parser(kp: KProcess, file: List<String>) {
 					"mod", "add", "sub", "mul", "div", "shl", "shr", "and", "or", "xor", "pow", "xadd", "xsub", "xmul", "xdiv", "xpow" -> {
 						InstructData(
 							name = instruction,
-							arrayOf(line[1].toRegisterType(), line[2].toRegisterType(), line[2].toRegisterType())
+							arrayOf(line[1].toRegisterType(), line[2].toRegisterType(), line[3].toRegisterType())
 
 						)
 					}
