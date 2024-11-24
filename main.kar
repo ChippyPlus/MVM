@@ -1,2 +1,0 @@
-str f1 "Hello there user!"
-call println
