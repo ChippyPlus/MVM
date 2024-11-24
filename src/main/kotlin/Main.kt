@@ -22,8 +22,6 @@ val initVm = Vm()
 fun main(args: Array<String>): Unit = runBlocking(newSingleThreadContext("Kotlin's main")) {
 	val init = KProcess(initVm, File(args[1]))
 	init.notifyOS()
-	val init2 = KProcess(Vm(), File("main2.kar"))
-	init2.notifyOS()
 	if (args.isEmpty()) {
 		println("Usage: mvm <command> [options]")
 		exitProcess(1)
