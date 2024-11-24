@@ -46,7 +46,8 @@ class Vm {
 	val functions = Functions()
 	val misc = Misc(this)
 	val xFloats = XFloats(this)
-	var pc: Long by Pc(vm = this)
+	val pcInternal = Pc(vm = this)
+	var pc: Long by pcInternal
 	var libPc = 0L
 	val vfs = Vfs()
 
@@ -84,5 +85,5 @@ class Pc(val vm: Vm) {
 	operator fun minus(a: Long): Long = a - RegisterType.I8.read(vm)
 	operator fun minus(a: Int): Long = a.toLong() - RegisterType.I8.read(vm)
 	fun toLong(): Long = RegisterType.I8.read(vm)
-
+	fun toInt(): Int = RegisterType.I8.read(vm).toInt()
 }

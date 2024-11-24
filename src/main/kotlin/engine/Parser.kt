@@ -3,9 +3,9 @@ package engine
 import data.registers.RegisterType
 import data.registers.toRegisterDataType
 import engine.execution.InstructData
-import environment.reflection.KProcess
 import helpers.gatherHelp
 import helpers.toRegisterType
+import os_package.KProcess
 import kotlin.system.exitProcess
 
 fun parser(kp: KProcess, file: List<String>) {
@@ -183,6 +183,7 @@ fun parser(kp: KProcess, file: List<String>) {
 		}
 	}
 
+	out.add(InstructData("HALT", arrayOf()))
 
 	kp.vm.pc = 0
 	kp.instructionMemory = out

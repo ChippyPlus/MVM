@@ -1,8 +1,6 @@
 import engine.execution.Execute
 import engine.parser
-import environment.TaskManager
 import environment.VMErrors
-import environment.reflection.KProcess
 import environment.reflection.reflection
 import helpers.Config
 import internals.Vm
@@ -10,7 +8,9 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
+import os_package.KProcess
 import os_package.OS
+import os_package.TaskManagerV2
 import java.io.File
 import kotlin.system.exitProcess
 
@@ -20,15 +20,15 @@ val hertz = config?.hertz ?: 0L
 val MEMORY_LIMIT = config?.memorySize ?: 256
 val errors = VMErrors()
 val os = OS()
-val taskManager = TaskManager()
+val taskManager = TaskManagerV2()
 val initVm = Vm()
 
 @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
 fun main(args: Array<String>): Unit = runBlocking(newSingleThreadContext("Kotlin's main")) {
-	val init = KProcess(initVm)
-	init.thread = Thread.currentThread()
+	val init = KProcess(initVm, File(args[1]))
+	taskManager.add(init)
 
-	val execute = Execute(kp = init, File(args[1]))
+	val execute = Execute(kp = init)
 
 
 	if (args.isEmpty()) {
@@ -80,7 +80,6 @@ fun main(args: Array<String>): Unit = runBlocking(newSingleThreadContext("Kotlin
 		}
 	}
 
-	taskManager.wait()
 
 }
 

@@ -1,26 +1,21 @@
 package internals.systemCalls.calls
 
 import data.registers.RegisterType
-import engine.execution.Execute
-import environment.reflection.KProcess
 import environment.reflection.reflection
 import helpers.RuntimeStates
-import helpers.readRegisterString
-import internals.Vm
 import internals.systemCalls.SystemCall
-import taskManager
-import java.io.File
+import os_package.KProcess
 
 fun SystemCall.spawn(pathX: RegisterType) {
-	val path = helpers.readRegisterString(pathX)
-	val newVm = Vm()
-	val tracked = KProcess(newVm)
-	tracked.thread = Thread.currentThread()
-	taskManager.addTask {
-		tracked.parent = reflection.groupTrackedVmByVm()[vm]!!.id
-		Execute(tracked, File(path)).execute()
-	}
-	registers.write(RegisterType.R2, tracked.id.toLong())
+//	val path = helpers.readRegisterString(pathX)
+//	val newVm = Vm()
+//	val tracked = KProcess(newVm)
+//	tracked.thread = Thread.currentThread()
+//	taskManager.addTask {
+//		tracked.parent = reflection.groupTrackedVmByVm()[vm]!!.id
+//		Execute(tracked, File(path)).execute()
+//	}
+//	registers.write(RegisterType.R2, tracked.id.toLong())
 }
 
 

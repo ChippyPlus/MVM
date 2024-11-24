@@ -2,10 +2,9 @@ package environment
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
-import taskManager
 
-
-class TaskManager {
+@Deprecated("This wasn't meant to use kotlinx coroutines 😭😭. Like a time sharing os!!!")
+private class TaskManager {
 	private val taskChannel = Channel<suspend () -> Unit>() // Channel for Unit-returning functions
 	private val taskScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 	private lateinit var taskManager: Job
@@ -45,12 +44,8 @@ fun main() = runBlocking {
 	Thread.sleep(500)
 	println("Main thread continuing...")
 
-	taskManager.addTask { f(1, 2000) }
-	taskManager.addTask { f(2, 3000) }
-	taskManager.addTask { f(3, 1000) }
 
 
-	launch { taskManager.wait() }
 
 	println("Main thread still working")
 
@@ -58,7 +53,7 @@ fun main() = runBlocking {
 }
 
 
-suspend fun f(index: Int, time: Long) {
+private suspend fun f(index: Int, time: Long) {
 	delay(time)
 	println("Finished task $index on thread ${Thread.currentThread().name}")
 }

@@ -3,7 +3,6 @@ package engine.execution
 import data.registers.RegisterDataType
 import data.registers.RegisterType
 import engine.parser
-import environment.reflection.KProcess
 import helpers.RuntimeStates
 import helpers.toDoubleOrFloatBasedOnDataType
 import helpers.toRegisterType
@@ -30,20 +29,20 @@ import internals.instructions.stackOperations.pushl
 import internals.instructions.strings.str
 import internals.instructions.xFloats.*
 import kotlinx.coroutines.delay
-import java.io.File
+import os_package.KProcess
 
 
-class Execute(val kp: KProcess, val file: File) {
+class Execute(val kp: KProcess) {
 
 	init {
-		parser(kp, file.readLines())
+		parser(kp, kp.file.readLines())
 	}
 
 	suspend fun run(command: List<InstructData>) {
 		val vm = kp.vm
 		while (true) {
-
 			when (vm.runtimeState) {
+
 				RuntimeStates.RUNNING -> {/* pass */
 
 				}
@@ -83,6 +82,11 @@ class Execute(val kp: KProcess, val file: File) {
 	suspend fun exeWhen(name: String, args: Array<Any?>): Unit? {
 		val vm = kp.vm
 		when (name) {
+
+			"HALT" -> {
+				// This should not be handled here but in TaskManager. Or maybe by the OS Idk!
+			}
+
 			"sleep" -> {
 				vm.misc.sleep(args[0] as RegisterType)
 			}
