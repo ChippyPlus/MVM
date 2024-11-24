@@ -1,14 +1,12 @@
 package internals
 
 import config
-import data.memory.InternalMemory
 import data.registers.RegisterType
 import data.registers.Registers
 import data.registers.read
 import data.vfs.Vfs
 import environment.ExecuteLib
 import environment.VMErrors
-import environment.libEx.SnapShotManager
 import helpers.Helpers
 import helpers.RuntimeStates
 import internals.instructions.arithmetic.Arithmetic
@@ -27,12 +25,10 @@ import kotlinx.coroutines.runBlocking
 import kotlin.reflect.KProperty
 
 class Vm {
-	val errors = VMErrors(this)
-	val registers = Registers(this)
-	val internalMemory = InternalMemory(this)
-	val snapShotManager = SnapShotManager(this)
+	val errors = VMErrors()
 	val helpers = Helpers(this)
 	val libExecute = ExecuteLib(this)
+	val registers = Registers()
 	val dataTransfer = DataTransfer(this)
 	val arithmetic = Arithmetic(this)
 	val bitwise = Bitwise(this)
