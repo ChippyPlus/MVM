@@ -43,8 +43,8 @@ fun main(args: Array<String>): Unit = runBlocking(newSingleThreadContext("Kotlin
 			}
 			reflection.currentFileData.name = args[1]
 
-			execute.execute()
 			println(init.instructionMemory)
+			execute.execute()
 		}
 
 
