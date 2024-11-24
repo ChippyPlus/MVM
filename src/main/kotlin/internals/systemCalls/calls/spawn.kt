@@ -18,7 +18,7 @@ fun SystemCall.spawn(pathX: RegisterType) {
 	tracked.thread = Thread.currentThread()
 	taskManager.addTask {
 		tracked.parent = reflection.groupTrackedVmByVm()[vm]!!.id
-		Execute(tracked).execute(File(path))
+		Execute(tracked, File(path)).execute()
 	}
 	registers.write(RegisterType.R2, tracked.id.toLong())
 }

@@ -1,4 +1,3 @@
-
 import engine.execution.Execute
 import engine.parser
 import environment.TaskManager
@@ -29,7 +28,7 @@ fun main(args: Array<String>): Unit = runBlocking(newSingleThreadContext("Kotlin
 	val init = KProcess(initVm)
 	init.thread = Thread.currentThread()
 
-	val execute = Execute(kp = init)
+	val execute = Execute(kp = init, File(args[1]))
 
 
 	if (args.isEmpty()) {
@@ -43,7 +42,9 @@ fun main(args: Array<String>): Unit = runBlocking(newSingleThreadContext("Kotlin
 				exitProcess(1)
 			}
 			reflection.currentFileData.name = args[1]
-			execute.execute(File(args[1]))
+
+			execute.execute()
+			println(init.instructionMemory)
 		}
 
 

@@ -8,13 +8,6 @@ import helpers.gatherHelp
 import helpers.toRegisterType
 import kotlin.system.exitProcess
 
-/**
- * Parses assembly code from a file and converts it into a list of instructions.
- *
- * @param file The file containing the assembly code.
- * @return A mutable list of [Instruction] objects representing the parsed instructions.
- * @throws InvalidInstructionException If an invalid instruction mnemonic is encountered.
- */
 fun parser(kp: KProcess, file: List<String>) {
 	val out = emptyArray<InstructData>().toMutableList()
 	val tokens = emptyList<MutableList<String>>().toMutableList()

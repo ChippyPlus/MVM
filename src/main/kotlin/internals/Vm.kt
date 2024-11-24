@@ -27,13 +27,13 @@ import kotlinx.coroutines.runBlocking
 import kotlin.reflect.KProperty
 
 class Vm {
+	val registers = Registers()
 	val snapShotManager = SnapShotManager(this) // NOOOO!!!
 	val internalMemory = InternalMemory(this) // NOOO!!!
 
 	val errors = VMErrors()
 	val helpers = Helpers(this)
 	val libExecute = ExecuteLib(this)
-	val registers = Registers()
 	val dataTransfer = DataTransfer(this)
 	val arithmetic = Arithmetic(this)
 	val bitwise = Bitwise(this)

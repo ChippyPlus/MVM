@@ -33,7 +33,12 @@ import kotlinx.coroutines.delay
 import java.io.File
 
 
-class Execute(val kp: KProcess) {
+class Execute(val kp: KProcess, val file: File) {
+
+	init {
+		parser(kp, file.readLines())
+	}
+
 	suspend fun run(command: List<InstructData>) {
 		val vm = kp.vm
 		while (true) {
@@ -70,10 +75,7 @@ class Execute(val kp: KProcess) {
 	}
 
 
-	suspend fun execute(file: File) {
-
-		parser(kp, file.readLines())
-
+	suspend fun execute() {
 		this.run(command = kp.instructionMemory)
 	}
 
