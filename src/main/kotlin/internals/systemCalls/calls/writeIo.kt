@@ -27,5 +27,5 @@ fun SystemCall.writeIo(address: RegisterType) = call("writeIo") {
 		print(byte.value.toInt().toChar())
 
 	}
-	println(internalMemory.memory)
+//	println(internalMemory.memory)
 }

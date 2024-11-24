@@ -1,7 +1,5 @@
 
-import engine.execution.Execute
 import engine.parser
-import environment.reflection.reflection
 import helpers.Config
 import internals.Vm
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -10,7 +8,6 @@ import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
 import os_package.KProcess
 import os_package.OS
-import os_package.TaskManagerV2
 import java.io.File
 import kotlin.system.exitProcess
 
@@ -19,17 +16,14 @@ val config = if (File("./config.json").exists()) Config(File("./config.json")) e
 val hertz = config?.hertz ?: 0L
 val MEMORY_LIMIT = config?.memorySize ?: 256
 val os = OS()
-val taskManager = TaskManagerV2()
 val initVm = Vm()
 
 @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
 fun main(args: Array<String>): Unit = runBlocking(newSingleThreadContext("Kotlin's main")) {
 	val init = KProcess(initVm, File(args[1]))
+	init.notifyOS()
 	val init2 = KProcess(Vm(), File("main2.kar"))
-
-	val execute = Execute(kp = init)
-
-
+	init2.notifyOS()
 	if (args.isEmpty()) {
 		println("Usage: mvm <command> [options]")
 		exitProcess(1)
@@ -40,8 +34,7 @@ fun main(args: Array<String>): Unit = runBlocking(newSingleThreadContext("Kotlin
 				println("Usage: mvm irun <file.kar>")
 				exitProcess(1)
 			}
-			reflection.currentFileData.name = args[1]
-			taskManager.eventLoop()
+			os.taskManager.eventLoop()
 		}
 
 
