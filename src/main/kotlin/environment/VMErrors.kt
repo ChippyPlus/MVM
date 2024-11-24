@@ -2,12 +2,13 @@ package environment
 
 import data.memory.MemoryAddress
 import data.registers.RegisterType
+import internals.Vm
 import internals.instructions.misc.HelpJsonArguments
 import kotlin.system.exitProcess
 
 
 @Suppress("unused")
-class VMErrors {
+class VMErrors(val vm: Vm) {
 	fun InvalidRegisterException(message: String) {
 		System.err.println("${prefix()}: Invalid Register of type \"$message\"")
 		exitProcess(1)
@@ -182,15 +183,15 @@ class VMErrors {
 
 
 	private fun prefix(): String {
-//		return if (vm.libExecute.enabledFunction) {
-//			"ERROR in ${vm.libExecute.currentFunction.removeSuffix(".lib")}:${vm.libPc}:${vm.pc}"
-//		} else {
-//			"ERROR:${vm.pc}"
-//		}
+		return if (vm.libExecute.enabledFunction) {
+			"ERROR in ${vm.libExecute.currentFunction.removeSuffix(".lib")}:${vm.libPc}:${vm.pc}"
+		} else {
+			"ERROR:${vm.pc}"
+		}
 
-		// Let's just forget about line numbers for now
+//		 Let's just forget about line numbers for now
 
-		return "ERROR"
+//		return "ERROR"
 	}
 
 }

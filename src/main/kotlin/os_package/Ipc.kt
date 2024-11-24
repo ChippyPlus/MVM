@@ -3,6 +3,7 @@
 package os_package
 
 import internals.Vm
+import java.io.File
 import java.util.*
 import kotlin.system.exitProcess
 
@@ -71,9 +72,9 @@ class Ipc {
 
 
 fun main() { // TODO add a way to lookup PIDS cause so far processes do not know how to see other ones
-	val p1 = KProcess(vm = Vm())
-	val p2 = KProcess(vm = Vm())
-	val p3 = KProcess(vm = Vm())
+	val p1 = KProcess(Vm(), File(""))
+	val p2 = KProcess(Vm(), File(""))
+	val p3 = KProcess(Vm(), File(""))
 	val ipc = Ipc.MessagePassing()
 
 	val requestant = p1

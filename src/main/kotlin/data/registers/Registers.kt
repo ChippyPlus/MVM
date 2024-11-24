@@ -1,11 +1,11 @@
 package data.registers
 
-import errors
+import internals.Vm
 import kotlin.system.exitProcess
 
 data class FDRegister(val isDouble: Boolean, val value: Long?)
 
-class Registers {
+class Registers(val vm: Vm) {
 	val registers = mutableMapOf<RegisterType, RegisterData>()
 
 	init {
@@ -42,7 +42,7 @@ class Registers {
 		value!!
 
 	} catch (_: NullPointerException) {
-		errors.NullRegisterException(register)
+		vm.errors.NullRegisterException(register)
 		exitProcess(1)
 	}
 

@@ -1,6 +1,6 @@
+
 import engine.execution.Execute
 import engine.parser
-import environment.VMErrors
 import environment.reflection.reflection
 import helpers.Config
 import internals.Vm
@@ -18,7 +18,6 @@ import kotlin.system.exitProcess
 val config = if (File("./config.json").exists()) Config(File("./config.json")) else null
 val hertz = config?.hertz ?: 0L
 val MEMORY_LIMIT = config?.memorySize ?: 256
-val errors = VMErrors()
 val os = OS()
 val taskManager = TaskManagerV2()
 val initVm = Vm()
@@ -26,7 +25,7 @@ val initVm = Vm()
 @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
 fun main(args: Array<String>): Unit = runBlocking(newSingleThreadContext("Kotlin's main")) {
 	val init = KProcess(initVm, File(args[1]))
-	taskManager.add(init)
+	val init2 = KProcess(Vm(), File("main2.kar"))
 
 	val execute = Execute(kp = init)
 
@@ -42,9 +41,7 @@ fun main(args: Array<String>): Unit = runBlocking(newSingleThreadContext("Kotlin
 				exitProcess(1)
 			}
 			reflection.currentFileData.name = args[1]
-
-			println(init.instructionMemory)
-			execute.execute()
+			taskManager.eventLoop()
 		}
 
 

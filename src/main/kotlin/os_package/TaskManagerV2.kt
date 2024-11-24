@@ -5,6 +5,8 @@ import internals.Pc
 
 class TaskManagerV2 {
 	val keepPcs = mutableMapOf<KProcess, Pair<Pc, Execute>>()
+	val deadProcess = mutableListOf<KProcess>()
+
 
 	fun add(process: KProcess) = run { keepPcs[process] = Pair(process.vm.pcInternal, Execute(process)) }
 
@@ -14,9 +16,11 @@ class TaskManagerV2 {
 	fun eventLoop() {
 		while (true) {
 			for (process in keepPcs) {
-				if (process.key.instructionMemory[process.value.first.toInt()].name == "HALT") {
-					keepPcs.remove(process.key)
-				}
+				if (process.key.instructionMemory[process.value.first.toInt()].name == "HALT") deadProcess.add(process.key)
+
+				if (process.key in deadProcess) continue
+
+
 				process.value.second.singleEvent(process.key.instructionMemory[process.value.first.toInt()])
 			}
 		}

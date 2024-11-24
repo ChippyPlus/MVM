@@ -3,6 +3,7 @@ package os_package
 import engine.execution.InstructData
 import environment.reflection.reflection
 import internals.Vm
+import taskManager
 import java.io.File
 
 data class KProcess(val vm: Vm, val file: File) {
@@ -15,6 +16,7 @@ data class KProcess(val vm: Vm, val file: File) {
 	val thread: Thread = Thread.currentThread()
 
 	init {
+		taskManager.add(this)
 		reflection.vmTracker.add(this)
 	}
 }
