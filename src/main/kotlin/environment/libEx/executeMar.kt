@@ -10,7 +10,7 @@ suspend fun ExecuteLib.executeMar(file: File) {
 	val oldPc = vm.pc
 	val snapshot = vm.snapShotManager.snapShotRegisters()
 	vm.pc - 2
-	Execute(reflection.groupTrackedVmByVm()[vm]!!, file).execute()
+	Execute(reflection.groupTrackedVmByVm()[vm]!!).execute()
 	vm.snapShotManager.populateSnapShotRegister(snapshot)
 	vm.pc = oldPc
 }

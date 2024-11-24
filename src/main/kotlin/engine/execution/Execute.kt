@@ -29,6 +29,7 @@ import internals.instructions.stackOperations.pushl
 import internals.instructions.strings.str
 import internals.instructions.xFloats.*
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import os_package.KProcess
 
 
@@ -37,6 +38,19 @@ class Execute(val kp: KProcess) {
 	init {
 		parser(kp, kp.file.readLines())
 	}
+
+	fun singleEvent(command: InstructData) {
+		kp.vm.pc++
+		if (kp.vm.pc - 1 < 0) {
+			kp.vm.errors.InvalidPcValueException((kp.vm.pc - 1).toString())
+		}
+
+		runBlocking {
+			exeWhen(command.name, command.values)
+		}
+
+	}
+
 
 	suspend fun run(command: List<InstructData>) {
 		val vm = kp.vm
@@ -79,12 +93,12 @@ class Execute(val kp: KProcess) {
 	}
 
 
-	suspend fun exeWhen(name: String, args: Array<Any?>): Unit? {
+	suspend fun exeWhen(name: String, args: Array<Any?>): Unit? { // This has to be suspend ik its terible!!!!!
 		val vm = kp.vm
 		when (name) {
 
 			"HALT" -> {
-				// This should not be handled here but in TaskManager. Or maybe by the OS Idk!
+				// This should not be handled here but in TaskManager. Or maybe by the OS IDK!
 			}
 
 			"sleep" -> {

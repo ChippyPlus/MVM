@@ -17,6 +17,4 @@ data class KProcess(val vm: Vm, val file: File) {
 	init {
 		reflection.vmTracker.add(this)
 	}
-
-
 }
