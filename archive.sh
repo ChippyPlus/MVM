@@ -13,7 +13,7 @@ git clone --depth 1 https://github.com/ChippyPlus/micro-vm.git .sharing/archiveB
 
 rm -rf .sharing/archiveWikiBuffer/.git
 rm -rf .sharing/archiveBuffer/.git
-
+rm -f .sharing/archiveBuffer/archive.sh
 find .sharing/archiveBuffer > .sharing/archiveOutBuffer.txt
 find .sharing/archiveWikiBuffer >> .sharing/archiveOutBuffer.txt
 files=""
