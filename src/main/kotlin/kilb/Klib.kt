@@ -12,7 +12,7 @@ class Klib(val vm: Vm) {
 			"strings.strcat" -> Strings(vm).strcat()
 			"strings.strcpy" -> Strings(vm).strcpy()
 			"strings.strlen" -> Strings(vm).strlen()
-			"println" -> println(vm.helpers.readRegisterString(RegisterType.F1))
+			"io.println" -> println(vm.helpers.readRegisterString(RegisterType.F1))
 
 
 			"strings.cheekyfloat" -> cheekyFloat()
