@@ -1,7 +1,5 @@
 package environment.libEx
 
-import data.memory.MemoryAddress
-import data.memory.MemoryValue
 import data.registers.RegisterType
 import internals.Vm
 
@@ -23,12 +21,12 @@ class SnapShotManager(val vm: Vm) {
 		return allRegisters
 	}
 
-	fun snapShotMemory(): Map<MemoryAddress, MemoryValue> = vm.internalMemory.memory.toMutableMap()
-	fun populateSnapShotMemory(memory: Map<MemoryAddress, MemoryValue>) {
+	fun snapShotMemory(): Map<Long, Long> = vm.internalMemory.memory.toMutableMap()
+	fun populateSnapShotMemory(memory: Map<Long, Long>) {
 		val internalMem = memory.toMutableMap()
 		safeMemory.forEach {
 			for (i in it) {
-				internalMem[MemoryAddress(i)] = vm.internalMemory.memory[MemoryAddress(i)] as MemoryValue
+				internalMem[i] = vm.internalMemory.memory[i] as Long
 			}
 		}
 		vm.internalMemory.memory = internalMem.toMutableMap()
@@ -56,5 +54,5 @@ class SnapShotManager(val vm: Vm) {
 }
 
 
-data class SnapData(val memory: Map<MemoryAddress, MemoryValue>, val registers: Map<RegisterType, Long>)
+data class SnapData(val memory: Map<Long, Long>, val registers: Map<RegisterType, Long>)
 

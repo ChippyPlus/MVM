@@ -14,7 +14,7 @@ import kotlin.system.exitProcess
 
 val config = if (File("./config.json").exists()) Config(File("./config.json")) else null
 val hertz = config?.hertz ?: 0L
-val MEMORY_LIMIT = config?.memorySize ?: 256
+val MEMORY_LIMIT = config?.memorySize?.toInt() ?: 256
 val os = OS()
 val initVm = Vm()
 

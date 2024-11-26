@@ -1,6 +1,5 @@
 package internals.instructions.memory
 
-import data.memory.MemoryAddress
 import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
@@ -15,12 +14,11 @@ import helpers.toLong
  */
 fun Memory.load(memoryAddress: RegisterType, destination: RegisterType): Unit = try {
 	registers.write(
-		register = destination, value = internalMemory.read(MemoryAddress(registers.read(memoryAddress))).value!!
+		register = destination, value = internalMemory.read(registers.read(memoryAddress))
 	)
 	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
 
 } catch (e: Exception) {
-	throw e
 	errors.GeneralMemoryException("Load")
 
 }

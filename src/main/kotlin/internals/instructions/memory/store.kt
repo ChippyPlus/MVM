@@ -1,7 +1,5 @@
 package internals.instructions.memory
 
-import data.memory.MemoryAddress
-import data.memory.MemoryValue
 import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
@@ -17,7 +15,7 @@ import helpers.toLong
 fun Memory.store(source: RegisterType, destination: RegisterType) = try {
 	with(receiver = internalMemory) {
 		this@with.write(
-			address = MemoryAddress(registers.read(destination)), value = MemoryValue(registers.read(source))
+			address = registers.read(destination), value = registers.read(source)
 		)
 	}
 	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())

@@ -1,6 +1,5 @@
 package internals.instructions
 
-import data.memory.MemoryAddress
 import data.registers.RegisterType
 
 @Deprecated("Ready to phase this out. It just adds un-necessary complexity")
@@ -152,7 +151,7 @@ class Instruction {
 	 * @param memoryAddress The memory address to load from.
 	 * @param destination The destination register.
 	 */
-	data class Load(val memoryAddress: MemoryAddress, val destination: RegisterType)
+	data class Load(val memoryAddress: Long, val destination: RegisterType)
 
 	/**
 	 * Represents a STORE instruction, which stores a value from a source register into a memory address.

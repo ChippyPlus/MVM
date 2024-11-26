@@ -56,9 +56,9 @@ class SystemCall(val vm: Vm) {
 			19 -> sendSignal(s2, s3)
 			24 -> writeIo(s2)
 			25 -> readIo()
-			26 -> createArray(s2)
-			27 -> arraySet(s2, s3, s4)
-			28 -> arrayGet(s2, s3)
+//			26 -> createArray(s2)
+//			27 -> arraySet(s2, s3, s4)
+//			28 -> arrayGet(s2, s3)
 			29 -> getMyPid()
 			30 -> Ipc(vm).link(s2, s3)
 			31 -> "unlink_pro"

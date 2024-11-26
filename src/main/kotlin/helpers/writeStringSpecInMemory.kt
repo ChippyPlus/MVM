@@ -1,7 +1,5 @@
 package helpers
 
-import data.memory.MemoryAddress
-import data.memory.MemoryValue
 
 /**
  * Writes a string to memory at the specified [destinationAddress].
@@ -10,17 +8,18 @@ import data.memory.MemoryValue
  * @param destinationAddress The starting [MemoryAddress] where the string will be written.
  * @throws NotFreeMemoryException If the destination memory range is not free.
  */
-fun Helpers.writeStringSpecInMemory(string: String, destinationAddress: MemoryAddress) {
+fun Helpers.writeStringSpecInMemory(string: String, destinationAddress: Long) {
 	val allocMem = string.length
 
-	for (i in (destinationAddress.address!! until (destinationAddress.address + allocMem))) {
-		if (internalMemory.memory[MemoryAddress(i)] != MemoryValue(null)) {
+	for (i in (destinationAddress until (destinationAddress + allocMem))) {
+		if (internalMemory.memory[i] != 0L) {
 			errors.NotFreeMemoryException(i.toString())
 		}
 	}
 
-	for ((index, i) in (destinationAddress.address until (destinationAddress.address + allocMem)).withIndex()) {
-		internalMemory.memory[MemoryAddress(i)] = MemoryValue(string[index].code.toLong())
+	for ((index, i) in (destinationAddress until (destinationAddress + allocMem)).withIndex()) {
+		internalMemory.memory[i] = (string[index].code.toLong())
 	}
-	internalMemory.memory[MemoryAddress(destinationAddress.address + allocMem)] = MemoryValue(0)
+	internalMemory.memory[(destinationAddress + allocMem)] = 0
 }
+

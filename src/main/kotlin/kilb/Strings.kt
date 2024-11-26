@@ -1,6 +1,5 @@
 package kilb
 
-import data.memory.MemoryAddress
 import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
@@ -43,7 +42,7 @@ class Strings(val vm: Vm) {
 		vm.snapShotManager.memoryRequestBlock(destinationAddress..destinationAddress + string.length)
 		helpers.writeStringSpecInMemory(
 			string = string,
-			destinationAddress = MemoryAddress(address = destinationAddress)
+			destinationAddress = destinationAddress
 		)
 	}
 
@@ -52,11 +51,10 @@ class Strings(val vm: Vm) {
 
 		var index: Long = 0L
 		while (true) {
-			val byte = internalMemory.read(MemoryAddress(registers.read(RegisterType.F1) + index))
-			if (byte.value?.equals(0L) ?: (false)) break
+			val byte = internalMemory.read(registers.read(RegisterType.F1) + index)
+			if (byte == 0L) break
 			index++
 		}
-//		registers.write(register = R4, value = index)
 		vm.stackOperations.internalStack.push(index)
 	}
 }

@@ -1,6 +1,5 @@
 package environment
 
-import data.memory.MemoryAddress
 import data.registers.RegisterType
 import internals.Vm
 import internals.instructions.misc.HelpJsonArguments
@@ -14,8 +13,8 @@ class VMErrors(val vm: Vm) {
 		exitProcess(1)
 	}
 
-	fun InvalidMemoryAddressException(message: MemoryAddress) {
-		System.err.println("${prefix()}: Invalid Memory Address \"${message.address}\"")
+	fun InvalidMemoryAddressException(message: Long) {
+		System.err.println("${prefix()}: Invalid Memory Address \"${message}\"")
 		exitProcess(2)
 	}
 
@@ -86,8 +85,8 @@ class VMErrors(val vm: Vm) {
 		exitProcess(13)
 	}
 
-	fun NullAddressException(message: MemoryAddress) {
-		System.err.println("${prefix()}: Null Address of \"${message.address}\"")
+	fun NullAddressException(message: Long) {
+		System.err.println("${prefix()}: Null Address of \"${message}\"")
 		exitProcess(14)
 	}
 
