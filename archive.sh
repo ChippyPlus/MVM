@@ -1,10 +1,12 @@
 #!/bin/zsh
 
 rm -rf .archiveBuffer
+rm -rf .archiveWikiBuffer
+git clone --depth 1 https://github.com/ChippyPlus/micro-vm.wiki.git .archiveWikiBuffer
 git clone --depth 1 https://github.com/ChippyPlus/micro-vm.git .archiveBuffer
 
 find .archiveBuffer > .archiveOutBuffer
-
+find .archiveWikiBuffer >> .archiveOutBuffer
 files=""
 
 while IFS= read -r i; do
