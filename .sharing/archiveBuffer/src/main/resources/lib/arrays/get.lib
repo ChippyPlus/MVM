@@ -1,0 +1,5 @@
+lit s1 28
+mov f1 s2 // array location
+mov f2 s3 // array index
+syscall
+push r2

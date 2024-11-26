@@ -1,0 +1,11 @@
+LIT G1 25    // Load 25 into register G1
+LIT G2 60   // Load the memory address 60 into register G2
+
+STORE G1 G2   // Store the value in G1 (25) at the memory address in G2 (60)
+
+LIT G3 0     // Initialize G3 to 0 (or any other value – this is important)
+LOAD G2 G3    // Load the value from memory address in G2 (60) into G3
+
+
+// G3 now holds the value that was stored (25)
+PRINTR G3 // Print the value in G3 (should be 25)

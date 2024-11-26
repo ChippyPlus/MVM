@@ -1,0 +1,2 @@
+STR F1 "Hello, World!"
+call println

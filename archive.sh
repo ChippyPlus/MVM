@@ -1,18 +1,27 @@
 #!/bin/zsh
 
-rm -rf .archiveBuffer
-rm -rf .archiveWikiBuffer
-git clone --depth 1 https://github.com/ChippyPlus/micro-vm.wiki.git .archiveWikiBuffer
-git clone --depth 1 https://github.com/ChippyPlus/micro-vm.git .archiveBuffer
 
-find .archiveBuffer > .archiveOutBuffer
-find .archiveWikiBuffer >> .archiveOutBuffer
+
+
+mkdir .sharing
+rm -rf .sharing/archiveBuffer
+rm -rf .sharing/archiveWikiBuffer
+
+
+git clone --depth 1 https://github.com/ChippyPlus/micro-vm.wiki.git .sharing/archiveWikiBuffer
+git clone --depth 1 https://github.com/ChippyPlus/micro-vm.git .sharing/archiveBuffer
+
+rm -rf .sharing/archiveWikiBuffer/.git
+rm -rf .sharing/archiveBuffer/.git
+
+find .sharing/archiveBuffer > .sharing/archiveOutBuffer.txt
+find .sharing/archiveWikiBuffer >> .sharing/archiveOutBuffer.txt
 files=""
 
 while IFS= read -r i; do
     i=${i%$'\n'}
 
-    if [[ -d "$i" || "$i" =~ ^.archiveBuffer/gradle ]]; then
+    if [[ -d "$i" || "$i" =~ ^.sharing/archiveBuffer/gradle ]]; then
         continue
     fi
 
@@ -29,7 +38,7 @@ while IFS= read -r i; do
     if [[ -n "$ext" ]]; then
         files+=$'\nfilePath '$i$'\n```'$ext$'\n'$(cat "$i")$'\n-------------------------------\n```'
     fi
-done <  .archiveOutBuffer
+done <  .sharing/archiveOutBuffer.txt
 
 
 

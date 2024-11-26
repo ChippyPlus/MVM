@@ -1,0 +1,12 @@
+// Compares which is bigger F1 or F2
+// Pushes the largest value to the stack
+
+GT F1 F2
+PUSH R4
+JNZ 11 R4
+// Push value F1
+PUSH F1
+RET
+// Push R2
+PUSH F2
+RET

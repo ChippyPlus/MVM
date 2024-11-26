@@ -1,0 +1,413 @@
+.sharing/archiveBuffer
+.sharing/archiveBuffer/archive.sh
+.sharing/archiveBuffer/.archiveBuffer
+.sharing/archiveBuffer/LICENSE
+.sharing/archiveBuffer/mvm
+.sharing/archiveBuffer/debug.json
+.sharing/archiveBuffer/main.mar
+.sharing/archiveBuffer/config.json
+.sharing/archiveBuffer/.kotlin
+.sharing/archiveBuffer/.kotlin/errors
+.sharing/archiveBuffer/.kotlin/errors/errors-1728481820845.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1731577839818.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1731095429798.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1731955178770.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1731518997616.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1729098752080.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1728055226012.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1728670889416.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1729183290132.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1728739006811.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1727864027755.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1725278663887.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1728904780814.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1731235715766.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1731182270855.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1728398620548.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1732125658710.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1728758469685.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1726417357869.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1728532287962.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1728210144638.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1726255967493.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1732097962442.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1728657001676.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1726235756129.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1726265816501.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1732003799400.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1728221814181.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1725359445526.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1732127833654.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1729137155484.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1728834828625.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1731075786881.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1731638929859.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1730095326003.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1727691466678.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1732033903160.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1725563296404.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1731584639917.log
+.sharing/archiveBuffer/.kotlin/errors/errors-1726061312830.log
+.sharing/archiveBuffer/docs
+.sharing/archiveBuffer/docs/standard library .md
+.sharing/archiveBuffer/docs/Result Registers.md
+.sharing/archiveBuffer/docs/ascii table.md
+.sharing/archiveBuffer/docs/errors.md
+.sharing/archiveBuffer/docs/wiki
+.sharing/archiveBuffer/docs/wiki/System-Call-Implementation.md
+.sharing/archiveBuffer/docs/wiki/System-Calls-Table.md
+.sharing/archiveBuffer/docs/wiki/Examples.md
+.sharing/archiveBuffer/docs/wiki/Future-Enhancements.md
+.sharing/archiveBuffer/docs/wiki/Error-Table.md
+.sharing/archiveBuffer/docs/wiki/Instruction-Set.md
+.sharing/archiveBuffer/docs/wiki/Performance-Optimization.md
+.sharing/archiveBuffer/docs/wiki/Register-Types.md
+.sharing/archiveBuffer/docs/wiki/Byte-Code-Reference.md
+.sharing/archiveBuffer/docs/wiki/Getting-Started.md
+.sharing/archiveBuffer/docs/wiki/Home.md
+.sharing/archiveBuffer/docs/wiki/Memory-Management.md
+.sharing/archiveBuffer/docs/wiki/Memory.md
+.sharing/archiveBuffer/docs/wiki/Contributing.md
+.sharing/archiveBuffer/docs/wiki/Architecture-Overview.md
+.sharing/archiveBuffer/docs/wiki/Future-Plans.md
+.sharing/archiveBuffer/docs/wiki/Assembly-Intro.md
+.sharing/archiveBuffer/docs/wiki/_Sidebar.md
+.sharing/archiveBuffer/docs/wiki/Execution-Engine.md
+.sharing/archiveBuffer/docs/wiki/ASCII-Table.md
+.sharing/archiveBuffer/docs/wiki/Registers.md
+.sharing/archiveBuffer/docs/wiki/System-Calls.md
+.sharing/archiveBuffer/docs/wiki/Error-Codes.md
+.sharing/archiveBuffer/docs/wiki/Memory-Model.md
+.sharing/archiveBuffer/docs/wiki/Instruction-Table.md
+.sharing/archiveBuffer/docs/wiki/Subroutines.md
+.sharing/archiveBuffer/docs/wiki/_Footer.md
+.sharing/archiveBuffer/docs/syscalls.md
+.sharing/archiveBuffer/docs/Informational Registers.md
+.sharing/archiveBuffer/docs/tmp.md
+.sharing/archiveBuffer/docs/instructions.md
+.sharing/archiveBuffer/README.md
+.sharing/archiveBuffer/gradle
+.sharing/archiveBuffer/gradle/wrapper
+.sharing/archiveBuffer/gradle/wrapper/gradle-wrapper.jar
+.sharing/archiveBuffer/gradle/wrapper/gradle-wrapper.properties
+.sharing/archiveBuffer/gradlew
+.sharing/archiveBuffer/.gitignore
+.sharing/archiveBuffer/build.gradle.kts
+.sharing/archiveBuffer/qodana.yaml
+.sharing/archiveBuffer/main2.kar
+.sharing/archiveBuffer/examples
+.sharing/archiveBuffer/examples/using arithmetic operators.kar
+.sharing/archiveBuffer/examples/stack operations.kar
+.sharing/archiveBuffer/examples/memory operations.kar
+.sharing/archiveBuffer/examples/using the standard lib.kar
+.sharing/archiveBuffer/examples/understanding data transfer.kar
+.sharing/archiveBuffer/examples/playing with strings.kar
+.sharing/archiveBuffer/.github
+.sharing/archiveBuffer/.github/workflows
+.sharing/archiveBuffer/.github/workflows/dependency-submission.yml
+.sharing/archiveBuffer/lib
+.sharing/archiveBuffer/settings.gradle.kts
+.sharing/archiveBuffer/gradle.properties
+.sharing/archiveBuffer/.archiveOutBuffer
+.sharing/archiveBuffer/main.kar
+.sharing/archiveBuffer/gradlew.bat
+.sharing/archiveBuffer/hello.txt
+.sharing/archiveBuffer/share.txt
+.sharing/archiveBuffer/.idea
+.sharing/archiveBuffer/.idea/uiDesigner.xml
+.sharing/archiveBuffer/.idea/jsonSchemas.xml
+.sharing/archiveBuffer/.idea/aws.xml
+.sharing/archiveBuffer/.idea/inspectionProfiles
+.sharing/archiveBuffer/.idea/inspectionProfiles/Project_Default.xml
+.sharing/archiveBuffer/.idea/codeStyles
+.sharing/archiveBuffer/.idea/codeStyles/Project.xml
+.sharing/archiveBuffer/.idea/codeStyles/codeStyleConfig.xml
+.sharing/archiveBuffer/.idea/gradle.xml
+.sharing/archiveBuffer/.idea/vcs.xml
+.sharing/archiveBuffer/.idea/.gitignore
+.sharing/archiveBuffer/.idea/discord.xml
+.sharing/archiveBuffer/.idea/.name
+.sharing/archiveBuffer/.idea/kotlinc.xml
+.sharing/archiveBuffer/.idea/misc.xml
+.sharing/archiveBuffer/src
+.sharing/archiveBuffer/src/test
+.sharing/archiveBuffer/src/test/resources
+.sharing/archiveBuffer/src/test/resources/tokeniseTest.kar
+.sharing/archiveBuffer/src/test/resources/per instruction test
+.sharing/archiveBuffer/src/test/resources/per instruction test/xor
+.sharing/archiveBuffer/src/test/resources/per instruction test/pop
+.sharing/archiveBuffer/src/test/resources/per instruction test/div
+.sharing/archiveBuffer/src/test/resources/per instruction test/not
+.sharing/archiveBuffer/src/test/resources/per instruction test/lit
+.sharing/archiveBuffer/src/test/resources/per instruction test/mul
+.sharing/archiveBuffer/src/test/resources/per instruction test/shl
+.sharing/archiveBuffer/src/test/resources/per instruction test/strcmp
+.sharing/archiveBuffer/src/test/resources/per instruction test/jz
+.sharing/archiveBuffer/src/test/resources/per instruction test/strcat
+.sharing/archiveBuffer/src/test/resources/per instruction test/jmp
+.sharing/archiveBuffer/src/test/resources/per instruction test/prints
+.sharing/archiveBuffer/src/test/resources/per instruction test/printr
+.sharing/archiveBuffer/src/test/resources/per instruction test/sub
+.sharing/archiveBuffer/src/test/resources/per instruction test/push
+.sharing/archiveBuffer/src/test/resources/per instruction test/load
+.sharing/archiveBuffer/src/test/resources/per instruction test/and
+.sharing/archiveBuffer/src/test/resources/per instruction test/add
+.sharing/archiveBuffer/src/test/resources/per instruction test/shr
+.sharing/archiveBuffer/src/test/resources/per instruction test/jnz
+.sharing/archiveBuffer/src/test/resources/per instruction test/or
+.sharing/archiveBuffer/src/test/resources/per instruction test/syscall
+.sharing/archiveBuffer/src/test/resources/per instruction test/strlen
+.sharing/archiveBuffer/src/test/resources/per instruction test/peek
+.sharing/archiveBuffer/src/test/resources/per instruction test/str
+.sharing/archiveBuffer/src/test/resources/per instruction test/mod
+.sharing/archiveBuffer/src/test/resources/per instruction test/strcpy
+.sharing/archiveBuffer/src/test/resources/per instruction test/store
+.sharing/archiveBuffer/src/test/resources/per instruction test/mov
+.sharing/archiveBuffer/src/test/kotlin
+.sharing/archiveBuffer/src/test/kotlin/Main.kt
+.sharing/archiveBuffer/src/test/kotlin/internals
+.sharing/archiveBuffer/src/test/kotlin/internals/instructions
+.sharing/archiveBuffer/src/test/kotlin/internals/instructions/strings
+.sharing/archiveBuffer/src/test/kotlin/internals/instructions/strings/StringsTest.kt
+.sharing/archiveBuffer/src/test/kotlin/internals/instructions/memory
+.sharing/archiveBuffer/src/test/kotlin/internals/instructions/memory/MemoryTest.kt
+.sharing/archiveBuffer/src/test/kotlin/internals/instructions/stackOperations
+.sharing/archiveBuffer/src/test/kotlin/internals/instructions/stackOperations/StackOperationsTest.kt
+.sharing/archiveBuffer/src/test/kotlin/internals/instructions/dataTransfer
+.sharing/archiveBuffer/src/test/kotlin/internals/instructions/dataTransfer/DataTransferTest.kt
+.sharing/archiveBuffer/src/test/kotlin/internals/instructions/arithmetic
+.sharing/archiveBuffer/src/test/kotlin/internals/instructions/arithmetic/ArithmeticTest.kt
+.sharing/archiveBuffer/src/test/kotlin/internals/instructions/bitwise
+.sharing/archiveBuffer/src/test/kotlin/internals/instructions/bitwise/BitwiseTest.kt
+.sharing/archiveBuffer/src/test/kotlin/internals/instructions/xFloats
+.sharing/archiveBuffer/src/test/kotlin/internals/instructions/xFloats/XFloatsTest.kt
+.sharing/archiveBuffer/src/test/kotlin/internals/instructions/controlFlow
+.sharing/archiveBuffer/src/test/kotlin/internals/instructions/controlFlow/ControlFlowTest.kt
+.sharing/archiveBuffer/src/main
+.sharing/archiveBuffer/src/main/resources
+.sharing/archiveBuffer/src/main/resources/help.jsonc
+.sharing/archiveBuffer/src/main/resources/vfs.fs
+.sharing/archiveBuffer/src/main/resources/programs
+.sharing/archiveBuffer/src/main/resources/programs/helloworld.kar
+.sharing/archiveBuffer/src/main/resources/lib
+.sharing/archiveBuffer/src/main/resources/lib/println.lib_broken
+.sharing/archiveBuffer/src/main/resources/lib/strings
+.sharing/archiveBuffer/src/main/resources/lib/strings/asciiToInt.lib
+.sharing/archiveBuffer/src/main/resources/lib/strings/findfirststring.lib
+.sharing/archiveBuffer/src/main/resources/lib/test.lib
+.sharing/archiveBuffer/src/main/resources/lib/io
+.sharing/archiveBuffer/src/main/resources/lib/io/readln.lib
+.sharing/archiveBuffer/src/main/resources/lib/clean
+.sharing/archiveBuffer/src/main/resources/lib/clean/string.lib
+.sharing/archiveBuffer/src/main/resources/lib/clean/array.lib
+.sharing/archiveBuffer/src/main/resources/lib/sys
+.sharing/archiveBuffer/src/main/resources/lib/sys/exit.lib
+.sharing/archiveBuffer/src/main/resources/lib/arrays
+.sharing/archiveBuffer/src/main/resources/lib/arrays/append.lib
+.sharing/archiveBuffer/src/main/resources/lib/arrays/create.lib
+.sharing/archiveBuffer/src/main/resources/lib/arrays/get.lib
+.sharing/archiveBuffer/src/main/resources/lib/maths
+.sharing/archiveBuffer/src/main/resources/lib/maths/max.lib
+.sharing/archiveBuffer/src/main/resources/lib/maths/neg.lib
+.sharing/archiveBuffer/src/main/resources/lib/maths/inc.lib
+.sharing/archiveBuffer/src/main/resources/lib/maths/sq.lib
+.sharing/archiveBuffer/src/main/resources/lib/maths/dec.lib
+.sharing/archiveBuffer/src/main/resources/lib/maths/min.lib
+.sharing/archiveBuffer/src/main/resources/lib/.idea
+.sharing/archiveBuffer/src/main/resources/lib/.idea/vcs.xml
+.sharing/archiveBuffer/src/main/resources/lib/.idea/workspace.xml
+.sharing/archiveBuffer/src/main/resources/lib/.idea/modules.xml
+.sharing/archiveBuffer/src/main/resources/lib/.idea/misc.xml
+.sharing/archiveBuffer/src/main/resources/main.kar
+.sharing/archiveBuffer/src/main/kotlin
+.sharing/archiveBuffer/src/main/kotlin/optimisations
+.sharing/archiveBuffer/src/main/kotlin/optimisations/VarRedundancy.kt
+.sharing/archiveBuffer/src/main/kotlin/os_package
+.sharing/archiveBuffer/src/main/kotlin/os_package/TaskManagerV2.kt
+.sharing/archiveBuffer/src/main/kotlin/os_package/KProcess.kt
+.sharing/archiveBuffer/src/main/kotlin/os_package/OS.kt
+.sharing/archiveBuffer/src/main/kotlin/os_package/Ipc.kt
+.sharing/archiveBuffer/src/main/kotlin/Main.kt
+.sharing/archiveBuffer/src/main/kotlin/internals
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls/spawn.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls/arrayGet.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls/writeIo.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls/arraySet.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls/deleteFile.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls/getpid.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls/readFile.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls/exit.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls/createArray.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls/sendSignal.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls/time.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls/newFile.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls/handleSignals.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls/writeFile.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls/exec.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls/Ipc.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls/listFiles.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls/readIo.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls/getuid.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/calls/fork.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/systemCalls/SystemCall.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/misc
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/misc/sleep.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/misc/help.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/misc/Misc.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/ioAbstractions
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/ioAbstractions/printr.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/ioAbstractions/IoAbstractions.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/ioAbstractions/prints.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/strings
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/strings/strcpy.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/strings/Strings.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/strings/strcmp.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/strings/str.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/strings/strcat.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/strings/strlen.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/memory
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/memory/load.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/memory/Memory.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/memory/store.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/stackOperations
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/stackOperations/peek.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/stackOperations/pop.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/stackOperations/push.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/stackOperations/StackOperations.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/Instruction.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/dataTransfer
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/dataTransfer/mov.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/dataTransfer/DataTransfer.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/dataTransfer/dealloc.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/dataTransfer/swp.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/dataTransfer/inr.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/dataTransfer/lit.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/arithmetic
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/arithmetic/sub.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/arithmetic/mul.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/arithmetic/lt.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/arithmetic/mod.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/arithmetic/add.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/arithmetic/div.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/arithmetic/Arithmetic.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/arithmetic/pow.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/arithmetic/eq.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/arithmetic/gt.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/functions
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/functions/call.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/functions/Functions.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/bitwise
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/bitwise/xor.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/bitwise/not.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/bitwise/shr.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/bitwise/and.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/bitwise/shl.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/bitwise/Bitwise.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/bitwise/or.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/xFloats
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/xFloats/xPow.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/xFloats/xadd.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/xFloats/ftoi.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/xFloats/xDiv.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/xFloats/XFloats.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/xFloats/xLit.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/xFloats/xMul.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/xFloats/xSub.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/xFloats/itof.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/controlFlow
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/controlFlow/ControlFlow.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/controlFlow/jz.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/controlFlow/jmp.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/instructions/controlFlow/jnz.kt
+.sharing/archiveBuffer/src/main/kotlin/internals/Vm.kt
+.sharing/archiveBuffer/src/main/kotlin/kilb
+.sharing/archiveBuffer/src/main/kotlin/kilb/strtoint.kt
+.sharing/archiveBuffer/src/main/kotlin/kilb/Strings.kt
+.sharing/archiveBuffer/src/main/kotlin/kilb/cheekyFloat.kt
+.sharing/archiveBuffer/src/main/kotlin/kilb/Arrays.kt
+.sharing/archiveBuffer/src/main/kotlin/kilb/randint.kt
+.sharing/archiveBuffer/src/main/kotlin/kilb/Klib.kt
+.sharing/archiveBuffer/src/main/kotlin/kilb/cheekydouble.kt
+.sharing/archiveBuffer/src/main/kotlin/environment
+.sharing/archiveBuffer/src/main/kotlin/environment/ExecuteLib.kt
+.sharing/archiveBuffer/src/main/kotlin/environment/errorsCatchable
+.sharing/archiveBuffer/src/main/kotlin/environment/errorsCatchable/ErrorType.kt
+.sharing/archiveBuffer/src/main/kotlin/environment/errorsCatchable/nonBlockError.kt
+.sharing/archiveBuffer/src/main/kotlin/environment/TaskManager.kt
+.sharing/archiveBuffer/src/main/kotlin/environment/test.kt
+.sharing/archiveBuffer/src/main/kotlin/environment/libEx
+.sharing/archiveBuffer/src/main/kotlin/environment/libEx/executeMar.kt
+.sharing/archiveBuffer/src/main/kotlin/environment/libEx/executeKt.kt
+.sharing/archiveBuffer/src/main/kotlin/environment/libEx/findMarLib.kt
+.sharing/archiveBuffer/src/main/kotlin/environment/libEx/SnapShotManager.kt
+.sharing/archiveBuffer/src/main/kotlin/environment/VMErrors.kt
+.sharing/archiveBuffer/src/main/kotlin/environment/interuptManager
+.sharing/archiveBuffer/src/main/kotlin/environment/interuptManager/InterruptManager.kt
+.sharing/archiveBuffer/src/main/kotlin/environment/interuptManager/Signals.kt
+.sharing/archiveBuffer/src/main/kotlin/environment/reflection
+.sharing/archiveBuffer/src/main/kotlin/environment/reflection/CurrentFileData.kt
+.sharing/archiveBuffer/src/main/kotlin/environment/reflection/Reflection.kt
+.sharing/archiveBuffer/src/main/kotlin/test.kt
+.sharing/archiveBuffer/src/main/kotlin/data
+.sharing/archiveBuffer/src/main/kotlin/data/vfs
+.sharing/archiveBuffer/src/main/kotlin/data/vfs/Formats.kt
+.sharing/archiveBuffer/src/main/kotlin/data/vfs/Vfs.kt
+.sharing/archiveBuffer/src/main/kotlin/data/memory
+.sharing/archiveBuffer/src/main/kotlin/data/memory/MemoryValue.kt
+.sharing/archiveBuffer/src/main/kotlin/data/memory/MemoryAddress.kt
+.sharing/archiveBuffer/src/main/kotlin/data/memory/InternalMemory.kt
+.sharing/archiveBuffer/src/main/kotlin/data/registers
+.sharing/archiveBuffer/src/main/kotlin/data/registers/RegisterType.kt
+.sharing/archiveBuffer/src/main/kotlin/data/registers/IntelNames.kt
+.sharing/archiveBuffer/src/main/kotlin/data/registers/Registers.kt
+.sharing/archiveBuffer/src/main/kotlin/data/stack
+.sharing/archiveBuffer/src/main/kotlin/data/stack/FixedStack.kt
+.sharing/archiveBuffer/src/main/kotlin/engine
+.sharing/archiveBuffer/src/main/kotlin/engine/Parser.kt
+.sharing/archiveBuffer/src/main/kotlin/engine/tests.kt
+.sharing/archiveBuffer/src/main/kotlin/engine/kExe.kt
+.sharing/archiveBuffer/src/main/kotlin/engine/execution
+.sharing/archiveBuffer/src/main/kotlin/engine/execution/InstructData.kt
+.sharing/archiveBuffer/src/main/kotlin/engine/execution/Execute.kt
+.sharing/archiveBuffer/src/main/kotlin/helpers
+.sharing/archiveBuffer/src/main/kotlin/helpers/ConfigStructure.kt
+.sharing/archiveBuffer/src/main/kotlin/helpers/readRegisterString.kt
+.sharing/archiveBuffer/src/main/kotlin/helpers/writeClosestString.kt
+.sharing/archiveBuffer/src/main/kotlin/helpers/Helpers.kt
+.sharing/archiveBuffer/src/main/kotlin/helpers/VMFile.kt
+.sharing/archiveBuffer/src/main/kotlin/helpers/Config.kt
+.sharing/archiveBuffer/src/main/kotlin/helpers/toDoubleOrFloatBasedOnDataType.kt
+.sharing/archiveBuffer/src/main/kotlin/helpers/RuntimeStates.kt
+.sharing/archiveBuffer/src/main/kotlin/helpers/gatherHelp.kt
+.sharing/archiveBuffer/src/main/kotlin/helpers/findFreeMemory.kt
+.sharing/archiveBuffer/src/main/kotlin/helpers/writeStringSpecInMemory.kt
+.sharing/archiveBuffer/src/main/kotlin/helpers/stringToSuperRegisterType.kt
+.sharing/archiveBuffer/src/main/kotlin/helpers/Booleans.kt
+.sharing/archiveBuffer/src/main/kotlin/uniConstants.kt
+.sharing/archiveWikiBuffer
+.sharing/archiveWikiBuffer/System-Call-Implementation.md
+.sharing/archiveWikiBuffer/System-Calls-Table.md
+.sharing/archiveWikiBuffer/Informational-Registers.md
+.sharing/archiveWikiBuffer/DataTypes.md
+.sharing/archiveWikiBuffer/Standard-Library.md
+.sharing/archiveWikiBuffer/Instruction-Set.md
+.sharing/archiveWikiBuffer/Standard-Library-Table.md
+.sharing/archiveWikiBuffer/Process-Management.md
+.sharing/archiveWikiBuffer/Scheduler.md
+.sharing/archiveWikiBuffer/Virtual-Devices.md
+.sharing/archiveWikiBuffer/Getting-Started.md
+.sharing/archiveWikiBuffer/Home.md
+.sharing/archiveWikiBuffer/Architecture-Overview.md
+.sharing/archiveWikiBuffer/Future-Plans.md
+.sharing/archiveWikiBuffer/Assembly-Intro.md
+.sharing/archiveWikiBuffer/_Sidebar.md
+.sharing/archiveWikiBuffer/ASCII-Table.md
+.sharing/archiveWikiBuffer/Registers.md
+.sharing/archiveWikiBuffer/System-Calls.md
+.sharing/archiveWikiBuffer/Error-Codes.md
+.sharing/archiveWikiBuffer/Memory-Model.md
+.sharing/archiveWikiBuffer/Instruction-Table.md
+.sharing/archiveWikiBuffer/_Footer.md
