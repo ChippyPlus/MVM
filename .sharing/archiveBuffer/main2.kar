@@ -1,8 +1,0 @@
-str f1 "Enter your name!: "
-lit s1 24
-mov f1 s2
-syscall
-lit s1 25
-syscall
-mov r2 f1
-call println

@@ -1,1 +1,0 @@
-Not implemented yet. This works in the ./lib/*. But there is no way to make user-defined functions, yet
