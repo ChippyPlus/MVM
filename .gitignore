@@ -1,6 +1,5 @@
 .gradle
-.archiveOutBuffer
-.archiveBuffer/
+.sharing/
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
