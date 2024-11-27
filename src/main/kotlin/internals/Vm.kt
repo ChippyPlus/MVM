@@ -1,6 +1,5 @@
 package internals
 
-import config
 import data.memory.InternalMemory
 import data.registers.RegisterType
 import data.registers.Registers
@@ -37,7 +36,7 @@ class Vm {
 	val dataTransfer = DataTransfer(this)
 	val arithmetic = Arithmetic(this)
 	val bitwise = Bitwise(this)
-	val stackOperations = StackOperations(this, config?.stackSize ?: 12)
+	val stackOperations = StackOperations(this)
 	val controlFlow = ControlFlow(this)
 	val memory = Memory(this)
 	val systemCall = SystemCall(this)

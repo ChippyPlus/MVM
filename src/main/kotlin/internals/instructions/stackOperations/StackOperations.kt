@@ -11,8 +11,8 @@ import internals.Vm
  *
  * @property limit The maximum size of the stack.
  */
-class StackOperations(val vm: Vm, limit: Int) {
+class StackOperations(val vm: Vm) {
 	val registers = vm.registers
 	val errors = vm.errors
-	val internalStack = FixedStack(limit, vm)
+	val internalStack = FixedStack(vm)
 }

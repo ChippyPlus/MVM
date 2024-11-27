@@ -7,7 +7,7 @@ import kotlin.system.exitProcess
 
 
 @Suppress("unused")
-class VMErrors(val vm: Vm) {
+class VMErrors(val vm: Vm? = null, val pc: Long? = null) {
 	fun InvalidRegisterException(message: String) {
 		System.err.println("${prefix()}: Invalid Register of type \"$message\"")
 		exitProcess(1)
@@ -182,15 +182,12 @@ class VMErrors(val vm: Vm) {
 
 
 	private fun prefix(): String {
-		return if (vm.libExecute.enabledFunction) {
-			"ERROR in ${vm.libExecute.currentFunction.removeSuffix(".lib")}:${vm.libPc}:${vm.pc}"
-		} else {
+		return if (vm != null) {
 			"ERROR:${vm.pc}"
+		} else {
+			"ERROR:$pc"
 		}
-
 //		 Let's just forget about line numbers for now
-
-//		return "ERROR"
 	}
 
 }

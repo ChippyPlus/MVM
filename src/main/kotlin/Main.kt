@@ -1,4 +1,3 @@
-
 import engine.parser
 import helpers.Config
 import internals.Vm
@@ -12,9 +11,9 @@ import java.io.File
 import kotlin.system.exitProcess
 
 
-val config = if (File("./config.json").exists()) Config(File("./config.json")) else null
-val hertz = config?.hertz ?: 0L
-val MEMORY_LIMIT = config?.memorySize?.toInt() ?: 256
+val config = Config(File("./config.json"))
+val hertz = config.hertz
+val MEMORY_LIMIT = config.memorySize
 val os = OS()
 val initVm = Vm()
 

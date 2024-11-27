@@ -12,8 +12,8 @@ class Config(private val f: File) {
 	}
 
 	val hertz = content?.hertz!!.toLong() / 2
-	val stackSize = content?.stackSize!!
-	val memorySize = content?.memorySize!!
+	val stackSize = content?.stackSize ?: 12
+	val memorySize = content?.memorySize ?: 1024
 	val paths = content?.locations!!
 
 	@OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)

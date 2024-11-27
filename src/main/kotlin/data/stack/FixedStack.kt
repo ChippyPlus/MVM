@@ -1,5 +1,6 @@
 package data.stack
 
+import config
 import data.registers.IntelRegisters
 import data.registers.intelNames
 import environment.errorsCatchable.ErrorType
@@ -13,9 +14,9 @@ import internals.Vm
  *
  * @constructor Creates a new [FixedStack] with the specified maximum size.
  */
-class FixedStack(private val maxSize: Int, vm: Vm) {
+class FixedStack(vm: Vm) {
 	private val registers = vm.registers
-	private val stack = Array<Long?>(maxSize) { _ -> null }
+	private val stack = Array<Long?>(config.stackSize) { _ -> null }
 	private var topIndex = -1
 
 	fun push(element: Long) {
@@ -86,6 +87,6 @@ class FixedStack(private val maxSize: Int, vm: Vm) {
 	 * @return `true` if the stack is full, `false` otherwise.
 	 */
 	fun isFull(): Boolean {
-		return topIndex == maxSize - 1
+		return topIndex == config.stackSize - 1
 	}
 }
