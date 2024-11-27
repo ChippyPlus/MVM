@@ -14,7 +14,7 @@ import kotlin.system.exitProcess
  * Handles the execution of system calls within the virtual machine.
  */
 class SystemCall(val vm: Vm) {
-
+	val kp = reflection.groupTrackedVmByVm()[vm]!!
 	val helpers = vm.helpers
 	val internalMemory = vm.internalMemory
 	val errors = vm.errors
@@ -56,9 +56,8 @@ class SystemCall(val vm: Vm) {
 			19 -> sendSignal(s2, s3)
 			24 -> writeIo(s2)
 			25 -> readIo()
-//			26 -> createArray(s2)
-//			27 -> arraySet(s2, s3, s4)
-//			28 -> arrayGet(s2, s3)
+			26 -> allocate(s2) // TODO Update docs with 26 and 27 now alloc & dealloc
+			27 -> dealloc(s2)
 			29 -> getMyPid()
 			30 -> Ipc(vm).link(s2, s3)
 			31 -> "unlink_pro"
@@ -72,7 +71,7 @@ class SystemCall(val vm: Vm) {
 	}
 
 
-	inline fun call(name: String, function: () -> Unit?) {
+	inline fun call(name: String, crossinline function: () -> Unit?) {
 
 		val functionResult = try {
 			function()
