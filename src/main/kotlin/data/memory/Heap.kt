@@ -4,7 +4,7 @@ import config
 
 
 class Heap {
-	private val m = LongArray((config.memorySize - config.stackSize).toInt()) { 0L }
+	var m = LongArray((config.memorySize - config.stackSize).toInt()) { 0L }
 
 	data class AllocatedBlock(val range: LongRange, val size: Int)
 
@@ -20,9 +20,9 @@ class Heap {
 
 			} else count = 0
 			if (count == size) {
-				used += AllocatedBlock(range = start..<start + size, size = size) // Add allocated range to used
+				used += AllocatedBlock(range = start..<start + size, size = size)
 				for (j in 0 until size) {
-					m[j + start.toInt()] = -1L
+					m[j + start.toInt()] = -1L // Alloc longRange
 				}
 				return start
 			}
@@ -44,43 +44,43 @@ class Heap {
 	}
 
 
-	fun get(address: Long, offset: Int): Long {
-		val block = used.find { address in it.range }
-		if (block != null && offset >= 0 && offset < block.size) {
-			val actualAddress = address + offset
-			if (actualAddress < 0 && actualAddress >= m.size) throw IllegalStateException("Invalid memory address \"$actualAddress\"")
-			return m[actualAddress.toInt()]
+	fun get(absoluteAddress: Long): Long {
+		val block = used.find { absoluteAddress in it.range }
+
+		if (block != null) {
+			val offset = (absoluteAddress - block.range.first).toInt() // Calculate offset
+
+			if (offset >= 0 && offset < block.size) {
+				return m[absoluteAddress.toInt()]
+			} else {
+				throw IllegalArgumentException("Invalid offset within allocated block")
+			}
 		} else {
-			throw IllegalArgumentException("Invalid address or offset")
+			throw IllegalArgumentException("Accessing unallocated memory: Address not found in allocated blocks.")
 		}
+
+
 	}
 
+	fun set(absoluteAddress: Long, value: Long) {
+		val block = used.find { absoluteAddress in it.range }
 
-	fun set(address: Long, offset: Int, value: Long) {
-		val block = used.find { address in it.range }
-		if (block != null && offset >= 0 && offset < block.size) {
-			val actualAddress = address + offset
-			if (actualAddress < 0 && actualAddress >= m.size) throw IllegalStateException("Invalid memory address \"$actualAddress\"")
-			m[actualAddress.toInt()] = value
+		if (block != null) {
+			val offset = (absoluteAddress - block.range.first).toInt()
+			if (offset >= 0 && offset < block.size) {
+				m[absoluteAddress.toInt()] = value
+			} else {
+				throw IllegalArgumentException("Invalid offset for allocated block")
+			}
 		} else {
-			throw IllegalArgumentException("Invalid address or offset")
+			throw IllegalArgumentException("Address not within any allocated block")
 		}
+
+
 	}
 }
 
 
 fun main() {
 
-	val h = Heap()
-
-	val addr = h.alloc(2)
-	h.set(addr, 0, 111)
-	println(h.get(addr, 0))
-	h.set(addr, 1, 222)
-	println(h.get(addr, 1))
-	h.set(addr, 2, 333)
-	println(h.get(addr, 2))
-	h.set(addr, 3, 444)
-	println(h.get(addr, 3))
-	h.dealloc(addr)
 }

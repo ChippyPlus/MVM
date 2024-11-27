@@ -1,6 +1,5 @@
 package internals
 
-import data.memory.InternalMemory
 import data.registers.RegisterType
 import data.registers.Registers
 import data.registers.read
@@ -8,6 +7,7 @@ import data.vfs.Vfs
 import environment.ExecuteLib
 import environment.VMErrors
 import environment.libEx.SnapShotManager
+import environment.reflection.reflection
 import helpers.Helpers
 import helpers.RuntimeStates
 import internals.instructions.arithmetic.Arithmetic
@@ -28,8 +28,6 @@ import kotlin.reflect.KProperty
 class Vm {
 	val registers = Registers(this) // NOOOO!
 	val snapShotManager = SnapShotManager(this) // NOOOO!!!
-	val internalMemory = InternalMemory(this) // NOOO!!!
-
 	val errors = VMErrors(this)
 	val helpers = Helpers(this)
 	val libExecute = ExecuteLib(this)
@@ -49,6 +47,8 @@ class Vm {
 	var pc: Long by pcInternal
 	var libPc = 0L
 	val vfs = Vfs()
+
+	val heap = reflection.groupTrackedVmByVm()[this]!!.addressSpace.heap
 
 	var runtimeState = RuntimeStates.RUNNING
 

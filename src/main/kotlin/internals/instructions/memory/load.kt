@@ -3,6 +3,7 @@ package internals.instructions.memory
 import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
+import data.registers.read
 import helpers.toLong
 
 /**
@@ -13,8 +14,11 @@ import helpers.toLong
  * @throws GeneralMemoryException If an error occurs during the memory load operation.
  */
 fun Memory.load(memoryAddress: RegisterType, destination: RegisterType): Unit = try {
+
+	val h = heap.get(memoryAddress.read(vm))
+
 	registers.write(
-		register = destination, value = internalMemory.read(registers.read(memoryAddress))
+		register = destination, value = h
 	)
 	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
 

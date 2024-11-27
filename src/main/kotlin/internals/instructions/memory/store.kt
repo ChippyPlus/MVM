@@ -13,11 +13,8 @@ import helpers.toLong
  * @throws GeneralMemoryException If an error occurs during the memory store operation.
  */
 fun Memory.store(source: RegisterType, destination: RegisterType) = try {
-	with(receiver = internalMemory) {
-		this@with.write(
-			address = registers.read(destination), value = registers.read(source)
-		)
-	}
+	heap.set(registers.read(destination), registers.read(source))
+
 	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
 
 } catch (_: Exception) {

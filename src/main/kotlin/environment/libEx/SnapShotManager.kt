@@ -21,15 +21,14 @@ class SnapShotManager(val vm: Vm) {
 		return allRegisters
 	}
 
-	fun snapShotMemory(): Map<Long, Long> = vm.internalMemory.memory.toMutableMap()
-	fun populateSnapShotMemory(memory: Map<Long, Long>) {
-		val internalMem = memory.toMutableMap()
+	fun snapShotMemory(): LongArray = vm.heap.m
+	fun populateSnapShotMemory(memory: LongArray) {
 		safeMemory.forEach {
 			for (i in it) {
-				internalMem[i] = vm.internalMemory.memory[i] as Long
+				memory[i.toInt()] = vm.heap.m[i.toInt()]
 			}
 		}
-		vm.internalMemory.memory = internalMem.toMutableMap()
+		vm.heap.m = memory
 	}
 
 
@@ -54,5 +53,23 @@ class SnapShotManager(val vm: Vm) {
 }
 
 
-data class SnapData(val memory: Map<Long, Long>, val registers: Map<RegisterType, Long>)
+data class SnapData(val memory: LongArray, val registers: Map<RegisterType, Long>) {
+	override fun equals(other: Any?): Boolean {
+		if (this === other) return true
+		if (javaClass != other?.javaClass) return false
+
+		other as SnapData
+
+		if (!memory.contentEquals(other.memory)) return false
+		if (registers != other.registers) return false
+
+		return true
+	}
+
+	override fun hashCode(): Int {
+		var result = memory.contentHashCode()
+		result = 31 * result + registers.hashCode()
+		return result
+	}
+}
 
