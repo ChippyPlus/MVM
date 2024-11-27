@@ -1,9 +1,9 @@
-package environment
+package os_package
 
-import environment.libEx.executeKt
-import environment.libEx.executeMar
-import environment.libEx.findMarLib
 import internals.Vm
+import os_package.libEx.executeKt
+import os_package.libEx.executeMar
+import os_package.libEx.findMarLib
 import java.io.File
 
 

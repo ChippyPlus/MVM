@@ -1,7 +1,7 @@
-package environment.libEx
+package os_package.libEx
 
-import environment.ExecuteLib
 import kilb.Klib
+import os_package.ExecuteLib
 
 fun ExecuteLib.executeKt(name: String) {
 	val oldPc = vm.pc

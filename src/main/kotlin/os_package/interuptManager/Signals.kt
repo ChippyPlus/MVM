@@ -1,4 +1,4 @@
-package environment.interuptManager
+package os_package.interuptManager
 
 enum class Signals(val code: Int, val signalName: String) {
 	InterruptProgram(code = 2, signalName = "INT"), EmulateInstructionExecuted(

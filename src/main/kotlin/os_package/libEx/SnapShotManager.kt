@@ -1,4 +1,4 @@
-package environment.libEx
+package os_package.libEx
 
 import data.registers.RegisterType
 import internals.Vm

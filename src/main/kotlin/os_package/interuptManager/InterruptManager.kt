@@ -1,4 +1,4 @@
-package environment.interuptManager
+package os_package.interuptManager
 
 import data.registers.RegisterType
 import data.registers.write

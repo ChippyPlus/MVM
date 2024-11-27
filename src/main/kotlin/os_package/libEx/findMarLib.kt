@@ -1,6 +1,6 @@
-package environment.libEx
+package os_package.libEx
 
-import environment.ExecuteLib
+import os_package.ExecuteLib
 import java.io.File
 
 fun ExecuteLib.findMarLib(name: String): String? {

@@ -5,9 +5,7 @@ import data.registers.RegisterType
 import data.registers.Registers
 import data.registers.read
 import data.vfs.Vfs
-import environment.ExecuteLib
 import environment.VMErrors
-import environment.libEx.SnapShotManager
 import helpers.Helpers
 import helpers.RuntimeStates
 import internals.instructions.arithmetic.Arithmetic
@@ -22,6 +20,8 @@ import internals.instructions.stackOperations.StackOperations
 import internals.instructions.strings.Strings
 import internals.instructions.xFloats.XFloats
 import kotlinx.coroutines.runBlocking
+import os_package.ExecuteLib
+import os_package.libEx.SnapShotManager
 import os_package.systemCalls.SystemCall
 import kotlin.reflect.KProperty
 
