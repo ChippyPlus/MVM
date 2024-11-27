@@ -1,9 +1,9 @@
-package internals.systemCalls.calls
+package os_package.systemCalls.calls
 
 import data.registers.RegisterType
 import helpers.readRegisterString
 import helpers.writeClosestString
-import internals.systemCalls.SystemCall
+import os_package.systemCalls.SystemCall
 
 
 fun SystemCall.readFile(nameX: RegisterType) = call("readFile") {

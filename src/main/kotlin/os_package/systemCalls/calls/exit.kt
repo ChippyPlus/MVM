@@ -1,7 +1,7 @@
-package internals.systemCalls.calls
+package os_package.systemCalls.calls
 
 import data.registers.RegisterType
-import internals.systemCalls.SystemCall
+import os_package.systemCalls.SystemCall
 import kotlin.system.exitProcess
 
 /**

@@ -1,22 +1,10 @@
-package internals.systemCalls.calls
+package os_package.systemCalls.calls
 
 import data.registers.RegisterType
 import environment.reflection.reflection
 import helpers.RuntimeStates
-import internals.systemCalls.SystemCall
 import os_package.KProcess
-
-fun SystemCall.spawn(pathX: RegisterType) {
-//	val path = helpers.readRegisterString(pathX)
-//	val newVm = Vm()
-//	val tracked = KProcess(newVm)
-//	tracked.thread = Thread.currentThread()
-//	taskManager.addTask {
-//		tracked.parent = reflection.groupTrackedVmByVm()[vm]!!.id
-//		Execute(tracked, File(path)).execute()
-//	}
-//	registers.write(RegisterType.R2, tracked.id.toLong())
-}
+import os_package.systemCalls.SystemCall
 
 
 fun SystemCall.share_m(vm_id: RegisterType, fromX: RegisterType, toX: RegisterType) {

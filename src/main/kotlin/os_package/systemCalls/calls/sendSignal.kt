@@ -1,9 +1,9 @@
-package internals.systemCalls.calls
+package os_package.systemCalls.calls
 
 import data.registers.RegisterType
 import data.registers.read
 import environment.interuptManager.InterruptManager
-import internals.systemCalls.SystemCall
+import os_package.systemCalls.SystemCall
 
 fun SystemCall.sendSignal(code: RegisterType, process: RegisterType) {
 	InterruptManager(vm).sendSignal(code.read(vm).toInt(), process.read(vm))

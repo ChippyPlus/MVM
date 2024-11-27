@@ -1,20 +1,18 @@
-package internals.systemCalls.calls
+package os_package.systemCalls.calls
 
-import data.registers.RegisterType
-import helpers.readRegisterString
-import internals.systemCalls.SystemCall
+
+import environment.reflection.reflection
 import kotlinx.coroutines.*
+import os_package.systemCalls.SystemCall
 import java.io.IOException
 import java.lang.Runtime.getRuntime
 
 private const val javaEx =
 	"/Users/adam/Library/CloudStorage/OneDrive-WynbergBoys'HighSchool/Dev/kotlin/mvm/build/libs/MVM-1.0.jar"
 
-fun SystemCall.exec(path: RegisterType) {
+fun SystemCall.fork() {
 
-	val ss = "java -jar $javaEx irun ${
-		helpers.readRegisterString(path)
-	}"
+	val ss = "java -jar $javaEx irun ${reflection.currentFileData.name}"
 	runBlocking { forkAndExecute(ss) }
 
 }

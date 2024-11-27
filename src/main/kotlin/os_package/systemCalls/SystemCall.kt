@@ -1,4 +1,4 @@
-package internals.systemCalls
+package os_package.systemCalls
 
 import data.registers.IntelRegisters
 import data.registers.RegisterType
@@ -7,8 +7,8 @@ import data.registers.write
 import environment.reflection.reflection
 import helpers.toLong
 import internals.Vm
-import internals.systemCalls.calls.*
 import os_package.KProcess
+import os_package.systemCalls.calls.*
 import kotlin.system.exitProcess
 
 /**
@@ -39,7 +39,7 @@ class SystemCall(val vm: Vm) {
 			6 -> exit(s2)
 			7 -> exec(s2)
 			8 -> fork()
-			9 -> spawn(s2)
+//			9 -> spawn(s2)
 			10 -> share_m(s2, s3, s4)
 			11 -> pause_t(s2)
 			12 -> continue_t(s2)

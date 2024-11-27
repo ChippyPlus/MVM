@@ -1,4 +1,4 @@
-package internals.systemCalls.calls
+package os_package.systemCalls.calls
 
 import data.registers.RegisterType
 import data.registers.read
