@@ -1,9 +1,6 @@
 package data.memory
 
 import config
-import internals.Vm
-import os_package.KProcess
-import java.io.File
 
 
 class Heap {
@@ -74,7 +71,7 @@ class Heap {
 
 fun main() {
 
-	val h = Heap(KProcess(Vm(), File("")))
+	val h = Heap()
 
 	val addr = h.alloc(2)
 	h.set(addr, 0, 111)
