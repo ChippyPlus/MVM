@@ -1,12 +1,13 @@
 package data.memory
 
-import config
+import os
 import os_package.KProcess
 import kotlin.system.exitProcess
 
 
 class Heap(val kp: KProcess) {
-	var m = LongArray((config.memorySize - config.stackSize).toInt()) { 0L }
+	var m = os.mainMemory
+
 
 	data class AllocatedBlock(val range: LongRange, val size: Int)
 
