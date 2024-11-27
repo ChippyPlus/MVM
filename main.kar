@@ -1,3 +1,5 @@
-lit g1 20
-lit g2 30
-store g1 g2
+lit f1 3
+call alloc
+pop g1
+lit g2 5
+help load

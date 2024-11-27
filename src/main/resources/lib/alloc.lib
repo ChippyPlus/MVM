@@ -1,0 +1,6 @@
+// F1 is size
+
+lit s1 26
+mov f1 s2
+syscall
+push r2

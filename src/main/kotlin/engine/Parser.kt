@@ -5,10 +5,16 @@ import data.registers.toRegisterDataType
 import engine.execution.InstructData
 import helpers.gatherHelp
 import helpers.toRegisterType
+import internals.Vm
 import os_package.KProcess
 import kotlin.system.exitProcess
 
 fun parser(kp: KProcess, file: List<String>) {
+	kp.instructionMemory = parserReturn(kp.vm, file)
+}
+
+
+fun parserReturn(vm: Vm, file: List<String>): List<InstructData> {
 	val out = emptyArray<InstructData>().toMutableList()
 	val tokens = emptyList<MutableList<String>>().toMutableList()
 
@@ -22,7 +28,6 @@ fun parser(kp: KProcess, file: List<String>) {
 		tokens.add(secretLineParts)
 	}
 	for (line in tokens) {
-		kp.vm.pc++
 		val instruction = if (line.isEmpty()) "" else line[0].lowercase()
 		try {
 			out.add(
@@ -71,7 +76,7 @@ fun parser(kp: KProcess, file: List<String>) {
 								line[1].toRegisterType(), try {
 									line.joinToString(" ").split("\"")[1]
 								} catch (e: IndexOutOfBoundsException) {
-									kp.vm.errors.InvalidArgumentFormatException(
+									vm.errors.InvalidArgumentFormatException(
 										"Any", shouldBe = "String"
 									)
 								}
@@ -156,27 +161,27 @@ fun parser(kp: KProcess, file: List<String>) {
 					}
 
 					else -> {
-						kp.vm.errors.InvalidInstructionException(instruction)
+						vm.errors.InvalidInstructionException(instruction)
 						exitProcess(99) // for kotlin. Ughhhhhh
 					}
 				}
 			)
 		} catch (missingArgument: IndexOutOfBoundsException) {
 			val missingIndex = missingArgument.message!!.split(" ")[1].toByte() - 1
-			val info = kp.vm.helpers.gatherHelp(instruction).arguments[missingIndex]
-			kp.vm.errors.InvalidArgumentException(info = info)
+			val info = vm.helpers.gatherHelp(instruction).arguments[missingIndex]
+			vm.errors.InvalidArgumentException(info = info)
 
 
 		} catch (e: NumberFormatException) {
 			try {
 				val x = e.message!!.split(" ")[3].substring(1, e.message!!.split(" ").size - 1).toRegisterType()
 				if (x == null) {
-					kp.vm.errors.InvalidArgumentFormatException(badType = "Any", shouldBe = "Long")
+					vm.errors.InvalidArgumentFormatException(badType = "Any", shouldBe = "Long")
 				} else {
-					kp.vm.errors.InvalidArgumentFormatException(badType = "Long", shouldBe = "Register")
+					vm.errors.InvalidArgumentFormatException(badType = "Long", shouldBe = "Register")
 				}
 			} catch (_: IllegalStateException) {
-				kp.vm.errors.InvalidArgumentFormatException(
+				vm.errors.InvalidArgumentFormatException(
 					badType = "String", shouldBe = "Long"
 				)
 			}
@@ -184,7 +189,5 @@ fun parser(kp: KProcess, file: List<String>) {
 	}
 
 	out.add(InstructData("HALT", arrayOf()))
-
-	kp.vm.pc = 0
-	kp.instructionMemory = out
+	return out
 }

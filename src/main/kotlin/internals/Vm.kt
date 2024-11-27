@@ -72,7 +72,6 @@ class Pc(val vm: Vm) {
 	}
 
 	operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Long) = runBlocking {
-
 		if (value < 0) {
 			vm.errors.InvalidPcValueException(value.toString())
 		}
