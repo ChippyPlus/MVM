@@ -1,25 +1,5 @@
-
-lit f1 4
-call arrays.create
-
-pop g1
-
-lit f1 4
-call arrays.create
-
-peek f1
+lit g1 10
+lit g2 20
 
 
-lit f2 0
-lit f3 111
-call arrays.add
-
-lit f2 1
-lit f3 222
-call arrays.add
-
-mov g1 f1
-printr f1
-lit f2 4
-lit f3 333
-call arrays.add
+call test g1 g2

@@ -2,6 +2,8 @@ package engine.execution
 
 import data.registers.RegisterDataType
 import data.registers.RegisterType
+import data.registers.read
+import data.registers.write
 import engine.parser
 import helpers.RuntimeStates
 import helpers.toDoubleOrFloatBasedOnDataType
@@ -167,6 +169,26 @@ class Execute(val kp: KProcess) {
 
 			"call" -> {
 				vm.libPc = vm.pc
+
+
+				for (i in args.toList().subList(1, args.size).withIndex()) {
+					val r = i.value as RegisterType
+					when (i.index) {
+						0 -> RegisterType.F1.write(vm, r.read(vm))
+						1 -> RegisterType.F2.write(vm, r.read(vm))
+						2 -> RegisterType.F3.write(vm, r.read(vm))
+						3 -> RegisterType.F4.write(vm, r.read(vm))
+						4 -> RegisterType.F5.write(vm, r.read(vm))
+						5 -> RegisterType.F6.write(vm, r.read(vm))
+						6 -> RegisterType.F7.write(vm, r.read(vm))
+						7 -> RegisterType.F8.write(vm, r.read(vm))
+						8 -> RegisterType.F9.write(vm, r.read(vm))
+						9 -> RegisterType.F10.write(vm, r.read(vm))
+						else -> vm.errors.InvalidInstructionArgumentException("To many arguments")
+					}
+				}
+
+
 				vm.libExecute.execute(args[0].toString())
 			}
 

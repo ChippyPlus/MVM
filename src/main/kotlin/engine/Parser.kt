@@ -53,14 +53,21 @@ fun parserReturn(vm: Vm, file: List<String>): List<InstructData> {
 					}
 
 					"call" -> {
+						val outI: MutableList<Any> =
+							line.subList(2, line.size).toList().map { it.toRegisterType()!! }.toMutableList()
+						outI.add(0, line[1])
+
 						InstructData(
-							name = "call", values = arrayOf(line[1])
+							name = "call", values = outI.toTypedArray()
 						)
+
 					}
 
 
 					// Register Register Register
-					// What is substr? Ive never seen this. Oh well
+					// What is substr?
+					// I've never seen this.
+					// Oh, Well
 					"substr" -> { // Meant to leave in the string deprecation via new stdlib. But this can stay
 						InstructData( // for reasons
 							name = "substr", arrayOf(
@@ -135,7 +142,7 @@ fun parserReturn(vm: Vm, file: List<String>): List<InstructData> {
 
 
 					// Register
-					"printr", "peek", "pop", "push", "inr", "dealloc", "sleep" -> {
+					"printr", "peek", "pop", "push", "inr", "sleep" -> {
 						InstructData(
 							name = instruction, arrayOf(line[1].toRegisterType())
 						)
