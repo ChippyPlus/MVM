@@ -21,8 +21,8 @@ import internals.instructions.misc.Misc
 import internals.instructions.stackOperations.StackOperations
 import internals.instructions.strings.Strings
 import internals.instructions.xFloats.XFloats
-import internals.systemCalls.SystemCall
 import kotlinx.coroutines.runBlocking
+import os_package.systemCalls.SystemCall
 import kotlin.reflect.KProperty
 
 class Vm {
