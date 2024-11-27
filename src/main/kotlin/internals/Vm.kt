@@ -54,7 +54,6 @@ class Vm {
 
 	var runtimeState = RuntimeStates.RUNNING
 
-//	val coroutines = mutableListOf<Job>()
 
 }
 
