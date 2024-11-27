@@ -175,10 +175,21 @@ class VMErrors(val vm: Vm? = null, val pc: Long? = null) {
 		exitProcess(31)
 	}
 
-	fun ProcessNotFound(message: String) {
-		System.err.println("${prefix()}: Process Not Found: \"$message\"")
+	fun ProcessNotFoundException(message: String) {
+		System.err.println("${prefix()}: Process Not Found Exception: \"$message\"")
 		exitProcess(32)
 	}
+
+
+	fun InvalidOffsetForBlockException(message: Long) {
+		System.err.println("${prefix()}: Invalid Offset For Block Exception: \"$message\"")
+		exitProcess(33)
+	}
+
+	fun AccessingUnallocatedMemoryException(message: Long) {
+		System.err.println("${prefix()}: Accessing Unallocated Memory Exception: \"$message\"")
+	}
+
 
 
 	private fun prefix(): String {

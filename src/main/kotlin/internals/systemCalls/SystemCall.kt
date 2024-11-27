@@ -14,6 +14,7 @@ import kotlin.system.exitProcess
 /**
  * Handles the execution of system calls within the virtual machine.
  */
+@Suppress("UNUSED_EXPRESSION")
 class SystemCall(val vm: Vm) {
 	val kp: KProcess by lazy { // This may be a BAD IDEA
 		reflection.groupTrackedVmByVm()[vm]!!
@@ -23,16 +24,6 @@ class SystemCall(val vm: Vm) {
 	val errors = vm.errors
 	val registers = vm.registers
 
-	/**
-	 * Executes the system call specified by the call ID.
-	 *
-	 * @param callId The system call number, identifying the system call to execute (stored in register S0).
-	 * @param s2 The register containing the first argument to the system call (stored in register S1).
-	 * @param s3 The register containing the second argument to the system call (stored in register S2).
-	 * @param s4 The register containing the third argument to the system call (stored in register S3).
-	 * @throws InvalidSystemCallException If the provided system call number is invalid.
-	 */
-	@Suppress("UNUSED_EXPRESSION")
 	fun execute(
 		callId: RegisterType,
 		s2: RegisterType,

@@ -1,9 +1,11 @@
 package data.memory
 
 import config
+import os_package.KProcess
+import kotlin.system.exitProcess
 
 
-class Heap {
+class Heap(val kp: KProcess) {
 	var m = LongArray((config.memorySize - config.stackSize).toInt()) { 0L }
 
 	data class AllocatedBlock(val range: LongRange, val size: Int)
@@ -27,7 +29,8 @@ class Heap {
 				return start
 			}
 		}
-		throw IllegalStateException("Out of memory")
+		kp.vm.errors.MemoryAllocationException(size.toString())
+		exitProcess(32)
 	}
 
 
@@ -39,7 +42,7 @@ class Heap {
 				m[i.toInt()] = 0L
 			}
 		} else {
-			throw IllegalArgumentException("Invalid address to deallocate")
+			kp.vm.errors.InvalidMemoryAddressException(address)
 		}
 	}
 
@@ -53,10 +56,13 @@ class Heap {
 			if (offset >= 0 && offset < block.size) {
 				return m[absoluteAddress.toInt()]
 			} else {
-				throw IllegalArgumentException("Invalid offset within allocated block")
+				kp.vm.errors.InvalidOffsetForBlockException(absoluteAddress)
+				exitProcess(203)
+
 			}
 		} else {
-			throw IllegalArgumentException("Accessing unallocated memory: Address not found in allocated blocks.")
+			kp.vm.errors.AccessingUnallocatedMemoryException(absoluteAddress)
+			exitProcess(203)
 		}
 
 
@@ -70,10 +76,12 @@ class Heap {
 			if (offset >= 0 && offset < block.size) {
 				m[absoluteAddress.toInt()] = value
 			} else {
-				throw IllegalArgumentException("Invalid offset for allocated block")
+				kp.vm.errors.InvalidOffsetForBlockException(absoluteAddress)
+
 			}
 		} else {
-			throw IllegalArgumentException("Address not within any allocated block")
+			kp.vm.errors.InvalidMemoryAddressException(absoluteAddress)
+
 		}
 
 
