@@ -1,5 +1,6 @@
 package os_package
 
+import data.memory.ProcessMemory
 import data.registers.Registers
 import engine.execution.InstructData
 import environment.reflection.reflection
@@ -9,7 +10,10 @@ import java.io.File
 
 data class KProcess(val vm: Vm, val file: File) {
 
-	val registers = Registers() // PLEASE COME BACK!!!
+	val registers = Registers(vm)// PLEASE COME BACK!
+	val addressSpace = ProcessMemory(this)
+
+
 	val ipcPermissions = mutableListOf<Int>()
 	var parent: Int? = null
 	var instructionMemory = emptyList<InstructData>()

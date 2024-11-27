@@ -1,8 +1,13 @@
 package data.memory
 
+import config
+import internals.Vm
+import os_package.KProcess
+import java.io.File
 
-class Heap {
-	private val m = LongArray(1024) { 0L }
+
+class Heap(val kp: KProcess) {
+	private val m = LongArray((config.memorySize - config.stackSize).toInt()) { 0L }
 
 	data class AllocatedBlock(val range: LongRange, val size: Int)
 
@@ -68,7 +73,9 @@ class Heap {
 
 
 fun main() {
-	val h = Heap()
+
+	val h = Heap(KProcess(Vm(), File("")))
+
 	val addr = h.alloc(2)
 	h.set(addr, 0, 111)
 	println(h.get(addr, 0))
