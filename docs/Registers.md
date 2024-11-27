@@ -78,7 +78,7 @@ directly modified by most instructions.
 - `I9`  Set when a signal is received.
 - `I10` Stores the ID for inter-process communication.
 
-see for more information -> [Informational Registers](Informational-Registers)
+see for more information -> [Informational Registers](Informational-Registers.md)
 
 ## Register Size
 
@@ -109,6 +109,6 @@ Registers offer faster access than memory. Store frequently accessed data in reg
 structures or data not requiring constant access. `STORE` and `LOAD` instructions transfer data between registers and
 memory.
 
-Refer to the [Instruction Set](Instruction-Set) documentation for more examples of register usage.
+Refer to the [Instruction Set](Instruction-Set.md) documentation for more examples of register usage.
 
 

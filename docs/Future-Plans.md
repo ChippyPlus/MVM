@@ -3,14 +3,14 @@
 ## I. Language and Runtime Enhancements
 
 1. **Customizable Syntax:** Allow users to define their own syntax for MVM assembly language, enabling domain-specific
-   languages or personalized coding styles.
+   languages or personalised coding styles.
 2. **Built-in Data Structures:** Implement built-in support for more complex data structures like hash maps, trees, and
    graphs, accessible through standard library functions or new instructions.
 3. **Type Inference:** Add type inference to your higher-level language (if you create one), reducing the need for
    explicit type declarations.
-4. **Automatic Memory Management:**  Explore garbage collection algorithms (mark-and-sweep, reference counting) to
+4. **Automatic Memory Management:** Explore garbage collection algorithms (mark-and-sweep, reference counting) to
    automate memory management and prevent memory leaks.
-5. **Reflection API:** Allow programs running in the VM to inspect and manipulate their own structure and behavior (
+5. **Reflection API:** Allow programs running on the VM to inspect and manipulate their own structure and behaviour (
    e.g., access register values, inspect the call stack).
 6. **Dynamic Linking:** Enable dynamic linking of libraries or modules, allowing programs to load and use external code
    at runtime.
@@ -40,8 +40,8 @@
 
 ## IV. Debugging and Development Tools
 
-17. **Time-Travel Debugging:** Implement a debugger that allows stepping backward through program execution to analyze
-	program behavior.
+17. **Time-Travel Debugging:** Implement a debugger that allows stepping backward through program execution to analyse
+	program behaviour.
 18. **Code Coverage Analysis:** Add tools to measure code coverage during testing.
 19. **Performance Profiler:** Develop tools to profile CPU usage, memory access patterns, and other performance metrics.
 20. **Bytecode Disassembler:** Create a tool to disassemble MVM bytecode back into assembly language for easier
@@ -63,6 +63,6 @@
 	execution environment (interesting for simulations or genetic algorithms).
 27. **MVM as a Service:** Create a web service that allows users to upload and run MVM programs remotely.
 
-This document details planned enhancements for the MVM. This is a high-level view, and the prioritization and specifics
+This document details planned enhancements for the MVM. This is a high-level view, and the prioritisation and specifics
 are subject to change.
 

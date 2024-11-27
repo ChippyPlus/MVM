@@ -31,22 +31,25 @@ This looks like `104 | 101 | 108 | 108 | 111 | 0 ` in memory
 
 ## Array Storage
 
-Arrays are stored contiguously in memory. The first word contains the array's size (number of elements). Subsequent
-words hold array elements. The data type of array elements is specified during array creation using the `createArray`
+Arrays are stored contiguously in memory.
+The first word contains the array's size (number of elements).
+Later
+words hold array elements.
+The data type of array elements is specified during array creation using the `createArray`
 system call.
 
 ```assembly
 // Create array of size 10, Longs
-lit S1 26      // Array Create
-lit S2 10       // Size of 10
-syscall        // Result: Array base address in R2
+lit S1 26		// Array Create
+lit S2 10		// Size of 10
+syscall			// Result: Array base address in R2
 
 // Store value 50 at index 0
-lit S1 27       // Array Set
-mov R2 S2 		// Move Array to S2
+lit S1 27 		// Array Set
+mov R2 S2		// Move Array to S2
 lit S3 0		// Index 0
 lit S4 50		// Value 50
-syscall         // arraySet
+syscall			// arraySet
 ```
 
 This document explains the MVM's linear memory model, how memory is addressed, and how strings and arrays are stored.

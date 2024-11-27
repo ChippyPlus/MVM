@@ -15,7 +15,7 @@ These instructions move data between registers and memory.
 Loads a 64-bit integer literal `Value` into the `Destination` register
 
 ```assembly
-lit `G1` `10`       // G1 = 10
+lit G1 10       // G1 = 10
 ```
 
 ### XLIT
@@ -26,14 +26,14 @@ Loads a floating-point literal `Value` into the `Destination` register. The data
 runtime based on the data type assigned to the register by the `SETTYPE` instruction.
 
 ```assembly
-xlit `X1` `3.14159` // X1 = 3.14159 (as a Double)
+xlit X1 3.14159 // X1 = 3.14159 (as a Double)
 ```
 
 To load as a single-precision Float:
 
 ```assembly
-settype `X1` `Float` // Set X1's data type to Float
-xlit `X1` `3.14159` // X1 = 3.14159 (as a Float)
+settype X1 Float // Set X1's data type to Float
+xlit X1 3.14159 // X1 = 3.14159 (as a Float)
 ```
 
 ### MOV
@@ -43,7 +43,7 @@ xlit `X1` `3.14159` // X1 = 3.14159 (as a Float)
 Moves a value from the `Source` register to the `Destination` register.
 
 ```assembly
-mov `G1` `G2`       // G2 = G1
+mov G1 G2       // G2 = G1
 ```
 
 ### SWP
@@ -53,7 +53,7 @@ mov `G1` `G2`       // G2 = G1
 Swaps the values of `Register1` and `Register2`.
 
 ```assembly
-swp `G1` `G2`       // G1 <-> G2 (G1 and G2 exchange values)
+swp G1 G2       // G1 <-> G2 (G1 and G2 exchange values)
 ```
 
 ### SETTYPE
@@ -64,7 +64,7 @@ Sets the data type of the `Target` register. If the current value is too large o
 will be truncated.
 
 ```assembly
-settype `G1` `Long` // G1 is now a Long
+settype G1 Long // G1 is now a Long
 ```
 
 The available data types are: `Byte`, `Short`, `Int`, `Long`, `Float`, `Double`.
@@ -76,7 +76,7 @@ The available data types are: `Byte`, `Short`, `Int`, `Long`, `Float`, `Double`.
 Stores the value from the `Source` register into the memory location whose address is in the `MemoryAddress` register.
 
 ```assembly
-store `G1` `G2`     // Memory[G2] = G1
+store G1 G2     // Memory[G2] = G1
 ```
 
 ### LOAD
@@ -86,7 +86,7 @@ store `G1` `G2`     // Memory[G2] = G1
 Loads the value from the memory location specified by the `MemoryAddress` register into the `Destination` register.
 
 ```assembly
-load `G2` `G1`      // G1 = Memory[G2]
+load G2 G1      // G1 = Memory[G2]
 ```
 
 ### PUSH
@@ -96,7 +96,7 @@ load `G2` `G1`      // G1 = Memory[G2]
 Pushes the value from the `Source` register onto the stack. The stack grows downwards.
 
 ```assembly
-push `G1`         // Push G1 onto the stack
+push G1         // Push G1 onto the stack
 ```
 
 ### PUSHL
@@ -106,7 +106,7 @@ push `G1`         // Push G1 onto the stack
 Pushes the 64-bit integer literal `Value` onto the stack.
 
 ```assembly
-pushl `100`       // Push 100 onto the stack
+pushl 100       // Push 100 onto the stack
 ```
 
 ### POP
@@ -116,7 +116,7 @@ pushl `100`       // Push 100 onto the stack
 Pops a value from the top of the stack and stores it in the `Destination` register. Handles stack underflow.
 
 ```assembly
-pop `G1`          // G1 = top of stack; pop the stack
+pop G1          // G1 = top of stack; pop the stack
 ```
 
 ### PEEK
@@ -127,18 +127,9 @@ Copies the value at the top of the stack into the `Destination` register without
 stack underflow.
 
 ```assembly
-peek `G1`         // G1 = top of stack; stack unchanged
+peek G1         // G1 = top of stack; stack unchanged
 ```
 
-### DEALLOC
-
-**`dealloc` `Address` (Memory Address)**
-
-Deallocates the memory at the address held in the `Address` register.
-
-```assembly
-dealloc `G1`      // Deallocate memory at G1
-```
 
 ## Arithmetic Instructions
 
@@ -151,7 +142,7 @@ These instructions perform arithmetic operations. Results are pushed onto the st
 Adds `Addend1` and `Addend2`; a result is pushed onto the stack.
 
 ```assembly
-add `G1` `G2` `R4`    // Push G1 + G2 onto stack
+add G1 G2 R4    // Push G1 + G2 onto stack
 ```
 
 ### SUB
@@ -161,7 +152,7 @@ add `G1` `G2` `R4`    // Push G1 + G2 onto stack
 Subtracts `Subtrahend` from `Minuend`; a result is pushed onto the stack.
 
 ```assembly
-sub `G1` `G2` `R4`    // Push G1 - G2 onto stack
+sub G1 G2 R4    // Push G1 - G2 onto stack
 ```
 
 ### MUL
@@ -171,7 +162,7 @@ sub `G1` `G2` `R4`    // Push G1 - G2 onto stack
 Multiplies `Multiplier` and `Multiplicand`; a result is pushed onto the stack.
 
 ```assembly
-mul `G1` `G2` `R4`    // Push G1 * G2 onto stack
+mul G1 G2 R4    // Push G1 * G2 onto stack
 ```
 
 ### DIV
@@ -182,7 +173,7 @@ Divides `Dividend` by `Divisor` (integer division); a result is pushed onto the 
 divisor is zero.
 
 ```assembly
-div `G1` `G2` `R4`    // Push G1 / G2 onto stack
+div G1 G2 R4    // Push G1 / G2 onto stack
 ```
 
 ### MOD
@@ -193,7 +184,7 @@ Calculates the modulo of `Dividend` and `Divisor`; a result is pushed onto the s
 is zero.
 
 ```assembly
-mod `G1` `G2` `R4`    // Push G1 % G2 onto stack
+mod G1 G2 R4    // Push G1 % G2 onto stack
 ```
 
 ### POW
@@ -204,69 +195,7 @@ Raises `Base` to the power of `Exponent` (integer exponentiation); a result is p
 overflow.
 
 ```assembly
-pow `G1` `G2` `R4`    // Push G1 ^ G2 onto stack
-```
-
-### XADD
-
-**`xadd` `Addend1` `Addend2` `ResultDestination Register` (Register Value)**
-
-Adds two floating-point values; a result is pushed onto the stack. Operands must be of the same type (Float or Double).
-
-```assembly
-xadd `X1` `X2` `R5`   // Push X1 + X2 onto stack
-```
-
-### XSUB
-
-**`xsub` `Minuend` `Subtrahend` `ResultDestination Register` (Register Value)**
-
-Subtracts two floating-point values; a result is pushed onto the stack. Operands must be of the same type.
-
-```assembly
-xsub `X1` `X2` `R5`   // Push X1 - X2 onto stack
-```
-
-### XMUL
-
-**`xmul` `Multiplier` `Multiplicand` `ResultDestination Register` (Register Value)**
-
-Multiplies two floating-point values; a result is pushed onto the stack. Operands must be of the same type.
-
-```assembly
-xmul `X1` `X2` `R5`   // Push X1 * X2 onto stack
-```
-
-### XDIV
-
-**`xdiv` `Dividend` `Divisor` `ResultDestination Register` (Register Value)**
-
-Divides two floating-point values; a result is pushed onto the stack. Operands must be of the same type. Throws an
-exception if the divisor is zero.
-
-```assembly
-xdiv `X1` `X2` `R5`   // Push X1 / X2 onto stack
-```
-
-### XMOD
-
-**`xmod` `Dividend` `Divisor` `ResultDestination Register` (Register Value)**
-
-Calculates the modulo of two floating-point values; a result is pushed onto the stack. Operands must be of the same
-type. Throws an exception if the divisor is zero.
-
-```assembly
-xmod `X1` `X2` `R5`   // Push X1 % X2 onto stack
-```
-
-### XPOW
-
-**`xpow` `Base` `Exponent` `ResultDestination Register` (Register Value)**
-
-Raises a floating-point value to a power; a result is pushed onto the stack. Operands must be of the same type.
-
-```assembly
-xpow `X1` `X2` `R5`   // Push X1 ^ X2 onto stack
+pow G1 G2 R4    // Push G1 ^ G2 onto stack
 ```
 
 ## Bitwise Instructions
@@ -280,7 +209,7 @@ These instructions perform bitwise operations. Results are pushed onto the stack
 Performs a bitwise AND operation; a result is pushed onto the stack.
 
 ```assembly
-and `G1` `G2` `R3`    // Push G1 & G2 onto stack
+and G1 G2 R3    // Push G1 & G2 onto stack
 ```
 
 ### OR
@@ -290,7 +219,7 @@ and `G1` `G2` `R3`    // Push G1 & G2 onto stack
 Performs a bitwise OR operation; a result is pushed onto the stack.
 
 ```assembly
-or `G1` `G2` `R3`     // Push G1 | G2 onto stack
+or G1 G2 R3     // Push G1 | G2 onto stack
 ```
 
 ### XOR
@@ -300,7 +229,7 @@ or `G1` `G2` `R3`     // Push G1 | G2 onto stack
 Performs a bitwise XOR operation; a result is pushed onto the stack.
 
 ```assembly
-xor `G1` `G2` `R3`    // Push G1 ^ G2 onto stack
+xor G1 G2 R3    // Push G1 ^ G2 onto stack
 ```
 
 ### NOT
@@ -310,7 +239,7 @@ xor `G1` `G2` `R3`    // Push G1 ^ G2 onto stack
 Performs a bitwise NOT operation; a result is pushed onto the stack.
 
 ```assembly
-not `G1` `R3`      // Push ~G1 onto stack
+not G1 R3      // Push ~G1 onto stack
 ```
 
 ### SHL
@@ -321,7 +250,7 @@ Shifts the bits in the `Value` register to the left by the amount specified in t
 pushed onto the stack.
 
 ```assembly
-shl `G1` `G2` `R3`    // Push G1 << G2 onto stack
+shl G1 G2 R3    // Push G1 << G2 onto stack
 ```
 
 ### SHR
@@ -332,7 +261,7 @@ Shifts the bits in the `Value` register to the right by the amount specified in 
 pushed onto the stack.
 
 ```assembly
-shr `G1` `G2` `R3`    // Push G1 >> G2 onto stack
+shr G1 G2 R3    // Push G1 >> G2 onto stack
 ```
 
 ## Control Flow Instructions
@@ -346,7 +275,7 @@ These instructions control the flow of execution.
 Unconditionally jumps to the specified `LineNumber`.
 
 ```assembly
-jmp `10`         // Jump to line 10
+jmp 10         // Jump to line 10
 ```
 
 ### JZ
@@ -356,7 +285,7 @@ jmp `10`         // Jump to line 10
 Jumps to the specified `LineNumber` if the Zero Flag (`I1`) register is zero.
 
 ```assembly
-jz `20`          // Jump to line 20 if I1 == 0
+jz 20          // Jump to line 20 if I1 == 0
 ```
 
 ### JNZ
@@ -366,7 +295,7 @@ jz `20`          // Jump to line 20 if I1 == 0
 Jumps to the specified `LineNumber` if the Zero Flag (`I1`) register is not zero.
 
 ```assembly
-jnz `20`          // Jump to line 20 if I1 != 0
+jnz 20          // Jump to line 20 if I1 != 0
 ```
 
 ### CALL
@@ -377,7 +306,7 @@ Calls the function specified by `FunctionName`. Arguments are passed in F regist
 the stack.
 
 ```assembly
-call `maths.pow`  // Call the pow function
+call maths.pow  // Call the pow function
 ```
 
 ### RET
@@ -397,7 +326,7 @@ These instructions perform comparisons. Results (0 or 1) are pushed onto the sta
 Compares two values for equality. Pushes 1 if equal, 0 if not.
 
 ```assembly
-eq `G1` `G2`        // Push 1 if G1 == G2, 0 otherwise
+eq G1 G2        // Push 1 if G1 == G2, 0 otherwise
 ```
 
 ### GT
@@ -407,7 +336,7 @@ eq `G1` `G2`        // Push 1 if G1 == G2, 0 otherwise
 Compares two values; pushes 0 if `Operand1` > `Operand2`, otherwise 1. Sets the Greater Than Flag (`I3`).
 
 ```assembly
-gt `G1` `G2`        // Push 0 if G1 > G2, 1 otherwise. Set I3 (Greater Than Flag) accordingly.
+gt G1 G2        // Push 0 if G1 > G2, 1 otherwise. Set I3 (Greater Than Flag) accordingly.
 ```
 
 ### LT
@@ -417,7 +346,7 @@ gt `G1` `G2`        // Push 0 if G1 > G2, 1 otherwise. Set I3 (Greater Than Flag
 Compares two values; pushes 0 if `Operand1` < `Operand2`, otherwise 1. Sets the Greater Than Flag (`I3`).
 
 ```assembly
-lt `G1` `G2`        // Push 0 if G1 < G2, 1 otherwise. Set I3 (Greater Than Flag) accordingly.
+lt G1 G2        // Push 0 if G1 < G2, 1 otherwise. Set I3 (Greater Than Flag) accordingly.
 ```
 
 ## String Instructions
@@ -432,7 +361,7 @@ Stores the `StringLiteral` in memory. The address of the new string is stored in
 Memory is allocated automatically.
 
 ```assembly
-str `G1` `"Hello"`   // Store "Hello" at a new memory location; G1 holds the address
+str G1 "Hello Reader?!?!"   // Store "Hello" at a new memory location; G1 holds the address
 ```
 
 ## I/O Instructions
@@ -456,7 +385,7 @@ prints         // Print value at top of stack
 Prints the value of the specified register to the console.
 
 ```assembly
-printr `G1`       // Print value of G1
+printr G1       // Print value of G1
 ```
 
 ## System Calls
@@ -468,24 +397,15 @@ These instructions invoke operating system (kernel) functions.
 **`syscall` `SystemCallID` `Argument1` `Argument2` `Argument3` (SystemCallID, Register Value)**
 
 Executes a system call. Arguments are passed in `S` registers; the system call ID is in `S1`. The result (if any) is
-pushed onto the stack. See the [System Call Table](System-Calls-Table) for details.
+pushed onto the stack. See the [System Call Table](System-Calls-Table.md) for details.
 
 ```assembly
-lit `s1` `14`        // Get current time (system call ID 14)
+lit s1 14	        // Get current time (system call ID 14)
 syscall             // Make the system call; result is on stack
 ```
 
 ## Miscellaneous Instructions
 
-### INR
-
-**`inr` `Register` (Register Value)**
-
-Checks if a register is null (uninitialized). Pushes 1 if null, 0 if not.
-
-```assembly
-inr `G1`          // Push 1 if G1 is null, 0 otherwise
-```
 
 ### HELP
 
@@ -497,15 +417,6 @@ Displays help information for the specified `Topic` (instruction or standard lib
 help `"add"`       // Display help for the ADD instruction
 ```
 
-### DEALLOC
-
-**`dealloc` `Address` (Memory Address)**
-
-Deallocates memory at the specified `Address`.
-
-```assembly
-dealloc `G1`      // Deallocate memory pointed to by G1
-```
 
 ### SLEEP
 
@@ -514,7 +425,7 @@ dealloc `G1`      // Deallocate memory pointed to by G1
 Pauses execution for the specified `Milliseconds`.
 
 ```assembly
-sleep `G1`        // Pause for number of milliseconds in G1
+sleep G1        // Pause for number of milliseconds in G1
 ```
 
 ## XFloats Instructions
@@ -529,7 +440,7 @@ type (Float or Double).
 Adds two floating-point values; a result is pushed onto the stack.
 
 ```assembly
-xadd `X1` `X2` `R5`   // Push X1 + X2 onto stack
+xadd X1 X2 R5   // Push X1 + X2 onto stack
 ```
 
 ### XSUB
@@ -539,7 +450,7 @@ xadd `X1` `X2` `R5`   // Push X1 + X2 onto stack
 Subtracts two floating-point values; a result is pushed onto the stack.
 
 ```assembly
-xsub `X1` `X2` `R5`   // Push X1 - X2 onto stack
+xsub X1 X2 R5   // Push X1 - X2 onto stack
 ```
 
 ### XMUL
@@ -549,7 +460,7 @@ xsub `X1` `X2` `R5`   // Push X1 - X2 onto stack
 Multiplies two floating-point values; a result is pushed onto the stack.
 
 ```assembly
-xmul `X1` `X2` `R5`   // Push X1 * X2 onto stack
+xmul X1 X2 R5   // Push X1 * X2 onto stack
 ```
 
 ### XDIV
@@ -559,7 +470,7 @@ xmul `X1` `X2` `R5`   // Push X1 * X2 onto stack
 Divides two floating-point values; a result is pushed onto the stack. Throws an exception if the divisor is zero.
 
 ```assembly
-xdiv `X1` `X2` `R5`   // Push X1 / X2 onto stack
+xdiv X1 X2 R5   // Push X1 / X2 onto stack
 ```
 
 ### XMOD
@@ -570,7 +481,7 @@ Calculates the modulo of two floating-point values; a result is pushed onto the 
 divisor is zero.
 
 ```assembly
-xmod `X1` `X2` `R5`   // Push X1 % X2 onto stack
+xmod X1 X2 R5   // Push X1 % X2 onto stack
 ```
 
 ### XPOW
@@ -580,7 +491,7 @@ xmod `X1` `X2` `R5`   // Push X1 % X2 onto stack
 Raises a floating-point value to a power; a result is pushed onto the stack.
 
 ```assembly
-xpow `X1` `X2` `R5`   // Push X1 ^ X2 onto stack
+xpow X1 X2 R5   // Push X1 ^ X2 onto stack
 ```
 
 ### ITOF
@@ -590,7 +501,7 @@ xpow `X1` `X2` `R5`   // Push X1 ^ X2 onto stack
 Converts a `Long` from the `Source` register to a `Double` and stores it in the `Destination` register.
 
 ```assembly
-itof `G1` `X1`      // X1 = G1 (as a Double)
+itof G1 X1      // X1 = G1 (as a Double)
 ```
 
 ### FTOI
@@ -600,11 +511,11 @@ itof `G1` `X1`      // X1 = G1 (as a Double)
 Converts a `Double` from the `Source` register to a `Long` and stores it in the `Destination` register.
 
 ```assembly
-ftoi `X1` `G1`      // G1 = X1 (truncated to a Long)
+ftoi X1 G1      // G1 = X1 (truncated to a Long)
 ```
 
 This detailed explanation, for example, provides a clear understanding of each instruction and its usage within the MVM.
-Remember to consult the [System Call Table](System-Calls-Table) for details on system calls. // Comments are now //
+Remember to consult the [System Call Table](System-Calls-Table.md) for details on system calls. // Comments are now //
 instead of ;
 
 

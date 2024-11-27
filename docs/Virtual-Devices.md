@@ -75,6 +75,6 @@ The following system calls provide access to the IPC:
 - `receive`: Receives a message from another process.
 
 This document provides an overview of virtual devices in the MVM. For more detailed information, refer to
-the [System Call Table](System-Calls-Table) and the specific documentation for each virtual device.
+the [System Call Table](System-Calls-Table.md) and the specific documentation for each virtual device.
 
 

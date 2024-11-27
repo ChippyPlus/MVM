@@ -6,7 +6,7 @@ mechanism for user-space programs to request services from the kernel.
 ## System Call Interface
 
 User programs invoke system calls using the `syscall` instruction. The system call ID is passed in register `S1`.
-Arguments are passed in registers `S2`, `S3`, and `S4`. The result (if any) are stored in `R2` by the system call
+Arguments are passed in registers `S2`, `S3`, and `S4`. The result (if any) is stored in `R2` by the system call
 handler.
 
 ## System Call Handling
@@ -25,13 +25,13 @@ The system call mechanism involves:
 	  function which uses a `when` statement to call the correct function.
 	- Stores the return values (if any) in `R2`.
 
-4. **Return to User Mode:**  Once the system call is handled, execution returns to the user program.
+4. **Return to User Mode:** Once the system call is handled, execution returns to the user program.
 
 ## Example: `readFile` System Call
 
 Let's trace the steps for `readFile`:
 
-1. **User Program:**  A user program calls `readFile` using the `syscall` instruction:
+1. **User Program:** A user program calls `readFile` using the `syscall` instruction:
    ```assembly
    lit S1 2         		// System call ID for readFile	
    str S2 "file name.txt"	// Address of the filename string
@@ -81,5 +81,4 @@ Each system call is responsible for managing any necessary resources,
 interacting with virtual devices, and performing necessary actions.
 Return values are always stored on the stack, which is managed by the VM's runtime environment.
 
-```
 

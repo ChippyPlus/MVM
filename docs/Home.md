@@ -32,7 +32,7 @@ rewrite focuses on simulating a time-sharing operating system kernel within the 
 ## Getting Started
 
 For detailed instructions on setting up and running the virtual machine, please refer to
-the [Installation and Setup](Getting-Started) guide.
+the [Installation and Setup](Getting-Started.md) guide.
 
 ## Explore the Documentation
 

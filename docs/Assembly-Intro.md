@@ -49,11 +49,11 @@ PRINTR R1      // Print the value in R4 (15)
 
 For detailed information, refer to:
 
-* [Instruction Set](Instruction-Set): Detailed explanation of each instruction.
-* [Registers](Registers): Information on the different register types.
-* [Memory Model](Memory-Model): How memory is organised and accessed.
-* [System Calls](System-Calls): How to interact with the OS kernel.
-* [Standard Library](Standard-Library): Overview of available functions.
+* [Instruction Set](Instruction-Set.md): Detailed explanation of each instruction.
+* [Registers](Registers.md): Information on the different register types.
+* [Memory Model](Memory-Model.md): How memory is organised and accessed.
+* [System Calls](System-Calls.md): How to interact with the OS kernel.
+* [Standard Library](Standard-Library.md): Overview of available functions.
 
 This introduction provides a foundation for understanding the MVM assembly language. You can start writing programs
 after

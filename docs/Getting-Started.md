@@ -86,6 +86,7 @@ call println             // Prints the string located in F1 to stdout
 To run this program, use one of the above commands, replacing `<path_to_assembly_file.kar>` with `myprogram.kar`. The
 output will be printed to the console.
 
-Now you can start writing and executing your own assembly programs. Refer to the [Instruction Table](Instruction-Table)
+Now you can start writing and executing your own assembly programs. Refer to
+the [Instruction Table](Instruction-Table.md)
 for a list of instructions and their syntax.
 

@@ -75,6 +75,6 @@ syscall              // Make the system call
 ## Further Information
 
 For a detailed list of system calls, their arguments, return values,
-and notes, refer to the [System Call Table](System-Calls-Table).
+and notes, refer to the [System Call Table](System-Calls-Table.md).
 This overview explains the purpose and organisation of the MVM system calls.
 

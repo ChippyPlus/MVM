@@ -27,7 +27,7 @@ created with `createArray` can be cleared using `clean.array`. The available fun
 - `get`: Gets an element from an array. Returns the element's value.
 - `size`: Returns the size of an array.
 
-### Math Functions
+### Maths Functions
 
 This module contains standard mathematical functions. For floating-point functions, operands must be of the same type.
 The functions are:
@@ -79,6 +79,6 @@ Arguments are passed in F registers (F1, F2, etc.), and the return value (if any
 
 ## Further Information
 
-Refer to the [Standard Library Table](Standard-Library-Table) for detailed information on each function, including
+Refer to the [Standard Library Table](Standard-Library-Table.md) for detailed information on each function, including
 argument types and return values.
 
