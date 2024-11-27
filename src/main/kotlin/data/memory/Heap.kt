@@ -6,7 +6,7 @@ import os_package.KProcess
 import java.io.File
 
 
-class Heap(val kp: KProcess) {
+class Heap {
 	private val m = LongArray((config.memorySize - config.stackSize).toInt()) { 0L }
 
 	data class AllocatedBlock(val range: LongRange, val size: Int)

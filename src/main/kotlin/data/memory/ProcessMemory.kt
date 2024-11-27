@@ -4,6 +4,6 @@ import data.stack.FixedStackStateless
 import os_package.KProcess
 
 class ProcessMemory(kp: KProcess) {
-	val heap = Heap(kp)
+	val heap = Heap()
 	val stack = FixedStackStateless(kp)
 }
