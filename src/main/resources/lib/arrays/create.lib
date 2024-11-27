@@ -1,5 +1,0 @@
-// f1 = size
-lit s1 26
-cpy f1 s2
-syscall
-push r2
