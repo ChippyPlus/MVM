@@ -1,6 +1,5 @@
 package environment
 
-import engine.execution.InstructData
 import environment.libEx.executeKt
 import environment.libEx.executeMar
 import environment.libEx.findMarLib
@@ -9,7 +8,6 @@ import java.io.File
 
 
 class ExecuteLib(val vm: Vm) {
-	val parsedMarFiles = mutableMapOf<String, List<InstructData>>()
 	var currentFunction = ""
 	var enabledFunction = false
 
