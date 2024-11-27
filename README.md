@@ -4,8 +4,8 @@ Welcome to the MVM (Micro Virtual Machine) project! This is an experimental virt
 for educational purposes and to explore the fundamentals of virtual machine architecture.
 
 **PLEASE LOOK**   
-Keep in mind that this project is **STILL IN THE PROGRESS** and may parts are unfinished. I recomend you look into the
-code yourself to see whats implimented.   
+Keep in mind that this project is **STILL IN THE PROGRESS** and may parts are unfinished. I recommend you look into the
+code yourself to see whats implemented.   
 AND These docs are being changed. For instance some of the syscall/instruction tables are wrong because they are busy
 being changed in production
 
@@ -20,8 +20,8 @@ MVM is a simple, stack-based virtual machine that executes a custom assembly lan
 
 ## Documentation
 
-For documentation please check the wiki tab!!!   
-Over here -> [wiki tab](https://github.com/ChippyPlus/MVM/wiki)!!!
+For documentation please check the wiki tab!   
+Over here → [wiki tab](https://github.com/ChippyPlus/MVM/wiki)!
 
 ## Features
 
@@ -34,7 +34,7 @@ Over here -> [wiki tab](https://github.com/ChippyPlus/MVM/wiki)!!!
 
 ## Getting Started
 
-Look over here [Getting started](https://github.com/ChippyPlus/MVM/wiki/Getting-Started)!!!!
+Look over here [Getting started](https://github.com/ChippyPlus/MVM/wiki/Getting-Started)!
 
 ## Example of the VM byte code
 

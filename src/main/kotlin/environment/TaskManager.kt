@@ -12,6 +12,7 @@ private class TaskManager {
 
 
 	@OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
+	@Deprecated("This wasn't meant to use kotlinx coroutines 😭😭. Like a time sharing os!!!")
 	fun addTask(block: suspend () -> Unit) {
 		taskScope.launch { taskChannel.send(block) }
 		if (!::taskManager.isInitialized) {
@@ -28,7 +29,7 @@ private class TaskManager {
 
 	}
 
-
+	@Deprecated("This wasn't meant to use kotlinx coroutines 😭😭. Like a time sharing os!!!")
 	suspend fun wait() {
 		if (::taskManager.isInitialized) {
 			taskChannel.close()
@@ -52,9 +53,4 @@ fun main() = runBlocking {
 
 }
 
-
-private suspend fun f(index: Int, time: Long) {
-	delay(time)
-	println("Finished task $index on thread ${Thread.currentThread().name}")
-}
 

@@ -9,7 +9,7 @@ import os_package.KProcess
 
 class FixedStackStateless(kp: KProcess) {
 	private val maxSize = config.stackSize
-	private val registers = kp.registers
+	private val registers = kp.vm.registers
 	private val stack = Array<Long>(maxSize) { _ -> 0 }
 	private var topIndex = -1
 
@@ -35,6 +35,7 @@ class FixedStackStateless(kp: KProcess) {
 		return element
 	}
 
+	@Suppress("unused")
 	fun inspect(): Array<Long> {
 		return stack
 	}

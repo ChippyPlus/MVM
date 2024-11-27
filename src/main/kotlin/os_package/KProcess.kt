@@ -1,7 +1,6 @@
 package os_package
 
 import data.memory.ProcessMemory
-import data.registers.Registers
 import engine.execution.InstructData
 import environment.reflection.reflection
 import internals.Vm
@@ -18,7 +17,7 @@ data class KProcess(val vm: Vm, var file: File) {
 	}
 
 
-	val registers = Registers(vm)// PLEASE COME BACK!
+//	val registers = Registers(vm) // PLEASE COME BACK!
 
 
 	val ipcPermissions = mutableListOf<Int>()

@@ -6,7 +6,7 @@ import java.io.File
 
 open class Functions {
 	val stdlibPath = run {
-		config?.paths?.get(1)?.path ?: "${System.getProperty("user.dir")}/src/main/resources/lib"
+		config.paths[1].path
 	}
 	val functionsList: List<String> = File(stdlibPath).listFiles()!!.map { it.nameWithoutExtension }
 }

@@ -12,7 +12,6 @@ import internals.instructions.bitwise.*
 import internals.instructions.controlFlow.jmp
 import internals.instructions.controlFlow.jnz
 import internals.instructions.controlFlow.jz
-import internals.instructions.dataTransfer.dealloc
 import internals.instructions.dataTransfer.lit
 import internals.instructions.dataTransfer.mov
 import internals.instructions.dataTransfer.swp
@@ -88,12 +87,12 @@ class Execute(val kp: KProcess) {
 	}
 
 
-	suspend fun execute() {
-		this.run(command = kp.instructionMemory)
-	}
+//	suspend fun execute() {
+//		this.run(command = kp.instructionMemory)
+//	}
 
 
-	suspend fun exeWhen(name: String, args: Array<Any?>): Unit? { // This has to be suspend ik its terible!!!!!
+	suspend fun exeWhen(name: String, args: Array<Any?>): Unit? { // This has to be suspended I know its terrible!
 		val vm = kp.vm
 		when (name) {
 
@@ -144,9 +143,9 @@ class Execute(val kp: KProcess) {
 				vm.registers.registers[(args[0] as RegisterType)]!!.settype(args[1] as RegisterDataType)
 			}
 
-			"dealloc" -> {
-				vm.dataTransfer.dealloc(args[0] as RegisterType)
-			}
+//			"dealloc" -> {
+//				vm.dataTransfer.dealloc(args[0] as RegisterType)
+//			}
 
 			"pow" -> {
 				vm.arithmetic.pow(args[0] as RegisterType, args[1] as RegisterType, args[2] as RegisterType)

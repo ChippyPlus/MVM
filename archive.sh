@@ -34,7 +34,7 @@ while IFS= read -r i; do
         *.kar) ext="custom assembly" ;;
     esac
 
-    echo $i
+    echo "$i"
     if [[ -n "$ext" ]]; then
         files+=$'\nfilePath '$i$'\n```'$ext$'\n'$(cat "$i")$'\n-------------------------------\n```'
     fi

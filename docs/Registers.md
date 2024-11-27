@@ -56,7 +56,7 @@ prints              // Print the result on the stack, 100. 10 * 10
 
 ### Floating-Point Registers (X1-X10)
 
-These registers are used for floating-point arithmetic operations. By defult these are Floats. Not Doubles
+These registers are used for floating-point arithmetic operations. By default these are Floats. Not Doubles
 
 ```assembly
 xlit X1 3.14159 //  Load a floating-point literal
@@ -78,7 +78,7 @@ directly modified by most instructions.
 - `I9`  Set when a signal is received.
 - `I10` Stores the ID for inter-process communication.
 
-see for more information -> [Informational Registers](Informational-Registers.md)
+see for more information → [Informational Registers](Informational-Registers.md)
 
 ## Register Size
 

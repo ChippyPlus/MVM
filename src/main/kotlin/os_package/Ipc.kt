@@ -18,17 +18,7 @@ import kotlin.system.exitProcess
 
 
 class Ipc {
-	val sharedMemory = SharedMemory()
 	val messagePassing = MessagePassing()
-
-
-	class SharedMemory {
-		fun create() {}
-
-		fun attach() {}
-
-	}
-
 
 	class MessagePassing {
 		val pending = mutableMapOf<KProcess, MutableSet<KProcess>>()  // requester,acceptent"S"

@@ -88,8 +88,3 @@ class Heap(val kp: KProcess) {
 
 	}
 }
-
-
-fun main() {
-
-}

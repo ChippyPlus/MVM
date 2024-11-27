@@ -13,8 +13,9 @@ enum class StatusType {
 
 data class ContextUnderstanding(val name: RegisterType, var status: StatusType, val lineNumber: Int)
 
-
+@Deprecated("Does not work!")
 class VarRedundancy(val globalInfo: List<InstructData>) {
+	@Deprecated("Does not work!")
 	fun parseRegisterStatuses(): MutableList<ContextUnderstanding> {
 		val tracked = mutableListOf<ContextUnderstanding>()
 
@@ -64,7 +65,7 @@ class VarRedundancy(val globalInfo: List<InstructData>) {
 		return tracked
 	}
 
-
+	@Deprecated("Does not work!")
 	fun removeRedundancy(inp: MutableSet<Int>): List<InstructData> {
 		val n = globalInfo.toMutableList()
 		for (i in inp) {
@@ -73,6 +74,7 @@ class VarRedundancy(val globalInfo: List<InstructData>) {
 		return n
 	}
 
+	@Deprecated("Does not work!")
 	fun cleanRedundancy(): List<InstructData> {
 		var out = removeRedundancy(
 			inp = reverseFindRedundancy(parseRegisterStatuses())
@@ -91,7 +93,7 @@ class VarRedundancy(val globalInfo: List<InstructData>) {
 		return out
 	}
 
-
+	@Deprecated("Does not work!")
 	fun reverseFindRedundancy(inp: MutableList<ContextUnderstanding>): MutableSet<Int> {
 		val uses = mutableSetOf<RegisterType>()
 		val u2 = mutableSetOf<Int>()

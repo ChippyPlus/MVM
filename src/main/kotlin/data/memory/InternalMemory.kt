@@ -38,6 +38,7 @@ class InternalMemory(vm: Vm) {
 		return memory[address]!!
 	}
 
+	@Deprecated("Should implement a new method for memoryV2")
 	fun link(ref: InternalMemory, range: LongRange) {
 		linkedR = range
 		linedRef = ref
