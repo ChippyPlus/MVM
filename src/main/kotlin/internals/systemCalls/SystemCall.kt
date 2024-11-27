@@ -16,7 +16,6 @@ import kotlin.system.exitProcess
 class SystemCall(val vm: Vm) {
 	val kp = reflection.groupTrackedVmByVm()[vm]!!
 	val helpers = vm.helpers
-	val internalMemory = vm.internalMemory
 	val errors = vm.errors
 	val registers = vm.registers
 

@@ -13,8 +13,9 @@ import internals.Vm
  */
 open class DataTransfer(vm: Vm) {
 	val registers = vm.registers
-	val internalMemory = vm.internalMemory
 	val errors = vm.errors
+	val heap = vm.heap
+
 
 	fun call(name: String, function: () -> Unit?) {
 		try {

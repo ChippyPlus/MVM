@@ -7,6 +7,6 @@ import data.registers.RegisterType
 	replaceWith = ReplaceWith("Idk Magic?")
 )
 fun DataTransfer.dealloc(memAddress: RegisterType) = call("dealloc") {
-	internalMemory.write(registers.read(memAddress), 0)
+//	internalMemory.write(registers.read(memAddress), 0)
 }
 

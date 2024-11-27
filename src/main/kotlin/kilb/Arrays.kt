@@ -6,7 +6,7 @@ import internals.Vm
 class Arrays(val vm: Vm) {
 	fun size() {
 		val meta = vm.registers.read(RegisterType.F1)
-		val count = vm.internalMemory.read(meta + 1)
+		val count = vm.heap.get(meta + 1)
 		vm.stackOperations.internalStack.push(count)
 	}
 }

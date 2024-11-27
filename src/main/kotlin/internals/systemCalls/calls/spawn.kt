@@ -25,7 +25,8 @@ fun SystemCall.share_m(vm_id: RegisterType, fromX: RegisterType, toX: RegisterTy
 	val from = registers.read(fromX)
 	val to = registers.read(toX)
 
-	vmI.internalMemory.link(vm.internalMemory, from..to)
+//	vmI.internalMemory.link(vm.internalMemory, from..to)
+	// TODO New linking API
 }
 
 

@@ -11,7 +11,6 @@ import internals.Vm
 
 class Strings(val vm: Vm) {
 	val registers = vm.registers
-	val internalMemory = vm.internalMemory
 	val helpers = vm.helpers
 
 	fun strcmp() {
@@ -51,7 +50,7 @@ class Strings(val vm: Vm) {
 
 		var index: Long = 0L
 		while (true) {
-			val byte = internalMemory.read(registers.read(RegisterType.F1) + index)
+			val byte = vm.heap.get(registers.read(RegisterType.F1) + index)
 			if (byte == 0L) break
 			index++
 		}

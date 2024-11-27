@@ -12,5 +12,4 @@ open class Strings(vm: Vm) {
 	val helpers = vm.helpers
 	val registers = vm.registers
 	val errors = vm.errors
-	val internalMemory = vm.internalMemory
 }
