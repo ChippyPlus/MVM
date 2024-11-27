@@ -15,11 +15,11 @@ val config = Config(File("./config.json"))
 val hertz = config.hertz
 val MEMORY_LIMIT = config.memorySize
 val os = OS()
-val initVm = Vm()
+val init = KProcess(Vm(), File(""))
 
 @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
 fun main(args: Array<String>): Unit = runBlocking(newSingleThreadContext("Kotlin's main")) {
-	val init = KProcess(initVm, File(args[1]))
+	init.file = File(args[1])
 	init.notifyOS()
 	if (args.isEmpty()) {
 		println("Usage: mvm <command> [options]")

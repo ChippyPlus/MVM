@@ -50,7 +50,7 @@ class Strings(val vm: Vm) {
 
 		var index: Long = 0L
 		while (true) {
-			val byte = vm.heap.get(registers.read(RegisterType.F1) + index)
+			val byte = vm.heap!!.get(registers.read(RegisterType.F1) + index)
 			if (byte == 0L) break
 			index++
 		}

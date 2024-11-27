@@ -12,7 +12,7 @@ fun Helpers.readRegisterString(register: RegisterType): String {
 	var index = 0
 	var string = ""
 	while (true) {
-		val byte = heap.get(registers.read(register) + index)
+		val byte = heap!!.get(registers.read(register) + index)
 		if (byte == 0L) break
 		string += byte.toInt().toChar()
 		index++

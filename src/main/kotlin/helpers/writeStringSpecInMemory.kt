@@ -12,14 +12,14 @@ fun Helpers.writeStringSpecInMemory(string: String, destinationAddress: Long) {
 	val allocMem = string.length
 
 	for (i in (destinationAddress until (destinationAddress + allocMem))) {
-		if (heap.get(i) != 0L) {
+		if (heap!!.get(i) != 0L) {
 			errors.NotFreeMemoryException(i.toString())
 		}
 	}
 
 	for ((index, i) in (destinationAddress until (destinationAddress + allocMem)).withIndex()) {
-		heap.set(i, (string[index].code.toLong()))
+		heap!!.set(i, (string[index].code.toLong()))
 	}
-	heap.set(destinationAddress + allocMem, 0L)
+	heap!!.set(destinationAddress + allocMem, 0L)
 }
 

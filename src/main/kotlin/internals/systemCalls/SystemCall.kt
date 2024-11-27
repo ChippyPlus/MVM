@@ -8,13 +8,17 @@ import environment.reflection.reflection
 import helpers.toLong
 import internals.Vm
 import internals.systemCalls.calls.*
+import os_package.KProcess
 import kotlin.system.exitProcess
 
 /**
  * Handles the execution of system calls within the virtual machine.
  */
 class SystemCall(val vm: Vm) {
-	val kp = reflection.groupTrackedVmByVm()[vm]!!
+	val kp: KProcess by lazy { // This may be a BAD IDEA
+		reflection.groupTrackedVmByVm()[vm]!!
+	}
+
 	val helpers = vm.helpers
 	val errors = vm.errors
 	val registers = vm.registers

@@ -11,7 +11,7 @@ fun Helpers.findFreeMemory(size: Long): Long {
 	var freeCount = 0L
 
 	while (currentAddress + size <= MEMORY_LIMIT) {
-		if (vm.heap.m[currentAddress.toInt()] == 0L) {
+		if (vm.heap!!.get(currentAddress) == 0L) {
 			freeCount++
 			if (freeCount == size + 1L) {
 				return currentAddress - size

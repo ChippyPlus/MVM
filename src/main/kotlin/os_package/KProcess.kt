@@ -8,10 +8,17 @@ import internals.Vm
 import os
 import java.io.File
 
-data class KProcess(val vm: Vm, val file: File) {
+data class KProcess(val vm: Vm, var file: File) {
+
+	val addressSpace = ProcessMemory(this)
+
+	init {
+		reflection.vmTracker.add(this)
+		vm.heap = addressSpace.heap
+	}
+
 
 	val registers = Registers(vm)// PLEASE COME BACK!
-	val addressSpace = ProcessMemory(this)
 
 
 	val ipcPermissions = mutableListOf<Int>()
@@ -20,9 +27,6 @@ data class KProcess(val vm: Vm, val file: File) {
 	val id: Int = reflection.vmTracker.size
 	val thread: Thread = Thread.currentThread()
 
-	init {
-		reflection.vmTracker.add(this)
-	}
 
 	fun notifyOS() = os.taskManager.add(this)
 }

@@ -21,14 +21,14 @@ class SnapShotManager(val vm: Vm) {
 		return allRegisters
 	}
 
-	fun snapShotMemory(): LongArray = vm.heap.m
+	fun snapShotMemory(): LongArray = vm.heap!!.m
 	fun populateSnapShotMemory(memory: LongArray) {
 		safeMemory.forEach {
 			for (i in it) {
-				memory[i.toInt()] = vm.heap.m[i.toInt()]
+				memory[i.toInt()] = vm.heap!!.m[i.toInt()]
 			}
 		}
-		vm.heap.m = memory
+		vm.heap!!.m = memory
 	}
 
 

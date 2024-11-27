@@ -1,5 +1,6 @@
 package internals
 
+import data.memory.Heap
 import data.registers.RegisterType
 import data.registers.Registers
 import data.registers.read
@@ -7,7 +8,6 @@ import data.vfs.Vfs
 import environment.ExecuteLib
 import environment.VMErrors
 import environment.libEx.SnapShotManager
-import environment.reflection.reflection
 import helpers.Helpers
 import helpers.RuntimeStates
 import internals.instructions.arithmetic.Arithmetic
@@ -48,7 +48,9 @@ class Vm {
 	var libPc = 0L
 	val vfs = Vfs()
 
-	val heap = reflection.groupTrackedVmByVm()[this]!!.addressSpace.heap
+
+	var heap: Heap? = null
+
 
 	var runtimeState = RuntimeStates.RUNNING
 
