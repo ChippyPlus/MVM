@@ -1,5 +1,30 @@
-lit f1 3
+lit f1 2
 call alloc
-pop g1
-lit g2 5
-help load
+peek g1
+lit g2 10
+lit g3 1
+
+store g2 g1
+
+add g1 g3 r1
+
+add g2 g3 g2
+add g2 g3 g2
+add g2 g3 g2
+add g2 g3 g2
+
+peek f1
+
+store g2 r1
+
+
+load g1 r2
+printr r2
+
+
+add g1 g3 g1
+
+load g1 r2
+
+printr r2
+
