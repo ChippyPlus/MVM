@@ -7,6 +7,7 @@
     <entry_points version="2.0">
       <entry_point TYPE="field" FQNAME="engine.v2.TransMapIDs uInstruction" />
     </entry_points>
+    <pattern value="helpers.ConfigStructure" method="ConfigStructure" />
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
