@@ -1,6 +1,6 @@
 package data.vfs
 
-
+/*
 val myFileSystem: List<Formats.Ventry> = listOf(
 	Formats.Ventry(
 		name = "home", permissions = Formats.Permissions(directory = true), children = listOf(
@@ -29,3 +29,4 @@ val myFileSystem: List<Formats.Ventry> = listOf(
 	)
 )
 
+*/
