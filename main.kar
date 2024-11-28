@@ -1,1 +1,5 @@
-help dealloc
+lit g1 10
+lit g2 20
+
+
+call test g1 g2

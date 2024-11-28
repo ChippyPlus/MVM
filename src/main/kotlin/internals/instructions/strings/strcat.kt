@@ -7,14 +7,7 @@ import helpers.readRegisterString
 import helpers.toLong
 import helpers.writeClosestString
 
-/**
- * Concatenates two strings and stores the resulting string in memory.
- * The address of the concatenated string is stored in the `R4` register.
- *
- * @param string1 The register containing the memory address of the first string.
- * @param string2 The register containing the memory address of the second string.
- * @throws GeneralStringException If an error occurs during the string concatenation.
- */
+
 @Deprecated("Moved into stdlib functions")
 fun Strings.strcat(string1: RegisterType, string2: RegisterType): Any = try {
 

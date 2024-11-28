@@ -3,20 +3,16 @@ package data.registers
 import internals.Vm
 import kotlin.system.exitProcess
 
-data class FDRegister(val isDouble: Boolean, val value: Long)
+data class FDRegister(val isDouble: Boolean, val value: Long?)
 
 class Registers(val vm: Vm) {
-	val errors = vm.errors
 	val registers = mutableMapOf<RegisterType, RegisterData>()
 
 	init {
 		for (register in RegisterType.entries) {
-
-
 			registers[register] = RegisterData(
 
-
-				name = register, data = null, dataType = if (register.name.startsWith('X')) {
+				name = register, data = 0, dataType = if (register.name.startsWith('X')) {
 					RegisterDataType.RFloat
 				} else if (register.name == "R5") {
 					RegisterDataType.RFloat
@@ -27,24 +23,17 @@ class Registers(val vm: Vm) {
 		}
 	}
 
-	fun readUnsafe(register: RegisterType): Long? = registers[register]!!.read()
-
 
 	fun readX(registerX: RegisterType): FDRegister {
 		return if (registers[registerX]!!.dataType == RegisterDataType.RFloat) {
-			FDRegister(false, registers[registerX]!!.data!!)
+			FDRegister(false, registers[registerX]!!.data)
 		} else {
-			FDRegister(true, registers[registerX]!!.data!!)
+			FDRegister(true, registers[registerX]!!.data)
 		}
 	}
 
 	fun writeX(registerX: RegisterType, valueX: FDRegister) {
-		write(registerX, valueX.value)
-	}
-
-
-	fun writeX(registerX: RegisterType, valueX: Long) {
-		write(registerX, valueX)
+		registers[registerX]!!.write(valueX.value)
 	}
 
 
@@ -53,7 +42,7 @@ class Registers(val vm: Vm) {
 		value!!
 
 	} catch (_: NullPointerException) {
-		errors.NullRegisterException(register)
+		vm.errors.NullRegisterException(register)
 		exitProcess(1)
 	}
 
@@ -61,8 +50,5 @@ class Registers(val vm: Vm) {
 		registers[register]!!.write(value)
 	}
 
-	fun writeUnsafe(register: RegisterType, value: Long?) {
-		registers[register]!!.write(value)
-	}
 
 }

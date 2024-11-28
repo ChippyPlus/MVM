@@ -10,11 +10,11 @@ import data.registers.RegisterType
  * @throws GeneralArithmeticException If an arithmetic error occurs during the subtraction.
  */
 
-fun Arithmetic.sub(registerA: RegisterType, registerB: RegisterType) = call("sub") {
+fun Arithmetic.sub(registerA: RegisterType, registerB: RegisterType, where: RegisterType) = call("sub") {
 	val a: Long = registers.read(register = registerA)
 	val b: Long = registers.read(register = registerB)
 	val out = a - b
-	registers.write(RegisterType.R4, out)
+	registers.write(where, out)
 
 
 }

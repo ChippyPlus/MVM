@@ -1,20 +1,8 @@
-str s2 "Child -> "
+str f1 "Enter your name!: "
 lit s1 24
+mov f1 s2
 syscall
-lit s1 16
+lit s1 25
 syscall
-printr r2
-lit g1 100
-// handle signal 31
-lit s1 18
-lit s2 31
-lit s3 17
-syscall
-
-sleep g1
-jmp 11
-
-str f1 "Received termination request, exiting now"
+mov r2 f1
 call println
-lit f1 0
-call sys.exit

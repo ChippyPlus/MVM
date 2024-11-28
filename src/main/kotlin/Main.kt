@@ -1,23 +1,26 @@
-import engine.execution.Execute
 import engine.parser
-import environment.reflection.reflection
 import helpers.Config
 import internals.Vm
-import optimisations.VarRedundancy
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.runBlocking
+import os_package.KProcess
+import os_package.OS
 import java.io.File
 import kotlin.system.exitProcess
 
 
-val config = if (File("./config.json").exists()) Config(File("./config.json")) else null
-val hertz = config?.hertz ?: 0L
-val MEMORY_LIMIT = config?.memorySize ?: 256
+val config = Config(File("./config.json"))
+val hertz = config.hertz
+val MEMORY_LIMIT = config.memorySize
+val os = OS()
+val init = KProcess(Vm(), File(""))
 
-val init = Vm()
-
-val execute = Execute(vm = init)
-fun main(args: Array<String>) {
-
-
+@OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
+fun main(args: Array<String>): Unit = runBlocking(newSingleThreadContext("Kotlin's main")) {
+	init.file = File(args[1])
+	init.notifyOS()
 	if (args.isEmpty()) {
 		println("Usage: mvm <command> [options]")
 		exitProcess(1)
@@ -28,8 +31,7 @@ fun main(args: Array<String>) {
 				println("Usage: mvm irun <file.kar>")
 				exitProcess(1)
 			}
-			reflection.currentFileData.name = args[1]
-			execute.execute(File(args[1]))
+			os.taskManager.eventLoop()
 		}
 
 
@@ -38,7 +40,8 @@ fun main(args: Array<String>) {
 				println("Usage: mvm tokenise <file.kar>")
 				exitProcess(1)
 			}
-			parser(init, File(args[1]).readLines()).forEach(::println)
+			parser(init, File(args[1]).readLines())
+			init.instructionMemory.forEach(::println)
 		}
 
 
@@ -47,7 +50,8 @@ fun main(args: Array<String>) {
 				println("Usage: mvm tokenise <file.kar>")
 				exitProcess(1)
 			}
-			VarRedundancy(globalInfo = parser(init, File(args[1]).readLines())).cleanRedundancy().forEach(::println)
+			println("Deprecated!")
+//			VarRedundancy(globalInfo = parser(init, File(args[1]).readLines())).cleanRedundancy().forEach(::println)
 		}
 
 
@@ -63,10 +67,8 @@ fun main(args: Array<String>) {
 		}
 	}
 
-	exitVM()
+
 }
 
-
-fun exitVM(): Nothing = exitProcess(0)
 
 

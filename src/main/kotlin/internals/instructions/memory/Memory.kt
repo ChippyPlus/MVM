@@ -1,5 +1,6 @@
 package internals.instructions.memory
 
+import environment.reflection.reflection
 import internals.Vm
 
 
@@ -9,7 +10,9 @@ import internals.Vm
  * This class provides functions for accessing and modifying memory.
  */
 open class Memory(val vm: Vm) {
+	val heap by lazy {
+		reflection.groupTrackedVmByVm()[vm]!!.addressSpace.heap
+	}
 	val registers = vm.registers
 	val errors = vm.errors
-	val internalMemory = vm.internalMemory
 }

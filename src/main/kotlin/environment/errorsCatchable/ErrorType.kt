@@ -1,5 +1,6 @@
 package environment.errorsCatchable
 
+@Suppress("unused")
 enum class ErrorType(val code: Long) {
 	FILE_NOT_FOUND(0),
 	FILE_ALREADY_EXISTS(1),

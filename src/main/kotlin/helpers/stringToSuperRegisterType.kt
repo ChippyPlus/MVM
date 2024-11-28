@@ -19,6 +19,9 @@ fun String.toRegisterType(): RegisterType? {
 		"g6" -> RegisterType.G6
 		"g7" -> RegisterType.G7
 		"g8" -> RegisterType.G8
+		"g9" -> RegisterType.G9
+		"g10" -> RegisterType.G10
+
 
 		"s1" -> RegisterType.S1
 		"s2" -> RegisterType.S2
@@ -33,6 +36,10 @@ fun String.toRegisterType(): RegisterType? {
 		"r6" -> RegisterType.R6
 		"r7" -> RegisterType.R7
 		"r8" -> RegisterType.R8
+		"r9" -> RegisterType.R9
+		"r10" -> RegisterType.R10
+
+
 
 		"f1" -> RegisterType.F1
 		"f2" -> RegisterType.F2
@@ -42,7 +49,8 @@ fun String.toRegisterType(): RegisterType? {
 		"f6" -> RegisterType.F6
 		"f7" -> RegisterType.F7
 		"f8" -> RegisterType.F8
-
+		"f9" -> RegisterType.F9
+		"f10" -> RegisterType.F10
 
 		"i1" -> RegisterType.I1
 		"i2" -> RegisterType.I2
@@ -53,6 +61,7 @@ fun String.toRegisterType(): RegisterType? {
 		"i7" -> RegisterType.I7
 		"i8" -> RegisterType.I8
 		"i9" -> RegisterType.I9
+		"i10" -> RegisterType.I10
 
 		"x1" -> RegisterType.X1
 		"x2" -> RegisterType.X2
@@ -62,6 +71,8 @@ fun String.toRegisterType(): RegisterType? {
 		"x6" -> RegisterType.X6
 		"x7" -> RegisterType.X7
 		"x8" -> RegisterType.X8
+		"x9" -> RegisterType.X9
+		"x10" -> RegisterType.X10
 
 		else -> null
 	}

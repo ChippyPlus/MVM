@@ -1,15 +1,13 @@
 package internals
 
-import config
-import data.memory.InternalMemory
+import data.memory.Heap
 import data.registers.RegisterType
 import data.registers.Registers
 import data.registers.read
-import environment.ExecuteLib
+import data.vfs.Vfs
 import environment.VMErrors
-import environment.libEx.SnapShotManager
-import environment.vfs.Vfs
 import helpers.Helpers
+import helpers.RuntimeStates
 import internals.instructions.arithmetic.Arithmetic
 import internals.instructions.bitwise.Bitwise
 import internals.instructions.controlFlow.ControlFlow
@@ -21,20 +19,22 @@ import internals.instructions.misc.Misc
 import internals.instructions.stackOperations.StackOperations
 import internals.instructions.strings.Strings
 import internals.instructions.xFloats.XFloats
-import internals.systemCalls.SystemCall
+import kotlinx.coroutines.runBlocking
+import os_package.ExecuteLib
+import os_package.SnapShotManager
+import os_package.systemCalls.SystemCall
 import kotlin.reflect.KProperty
 
 class Vm {
+	val registers = Registers(this) // NOOOO!
+	val snapShotManager = SnapShotManager(this) // NOOOO!!!
 	val errors = VMErrors(this)
-	val registers = Registers(this)
-	val internalMemory = InternalMemory(this)
-	val snapShotManager = SnapShotManager(this)
 	val helpers = Helpers(this)
 	val libExecute = ExecuteLib(this)
 	val dataTransfer = DataTransfer(this)
 	val arithmetic = Arithmetic(this)
 	val bitwise = Bitwise(this)
-	val stackOperations = StackOperations(this, config?.stackSize ?: 12)
+	val stackOperations = StackOperations(this)
 	val controlFlow = ControlFlow(this)
 	val memory = Memory(this)
 	val systemCall = SystemCall(this)
@@ -43,9 +43,18 @@ class Vm {
 	val functions = Functions()
 	val misc = Misc(this)
 	val xFloats = XFloats(this)
-	var pc: Long by Pc(vm = this)
+	val pcInternal = Pc(vm = this)
+	var pc: Long by pcInternal
 	var libPc = 0L
 	val vfs = Vfs()
+
+
+	var heap: Heap? = null
+
+
+	var runtimeState = RuntimeStates.RUNNING
+
+
 }
 
 
@@ -61,7 +70,7 @@ class Pc(val vm: Vm) {
 		return value
 	}
 
-	operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Long) = kotlin.run {
+	operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Long) = runBlocking {
 		if (value < 0) {
 			vm.errors.InvalidPcValueException(value.toString())
 		}
@@ -75,5 +84,5 @@ class Pc(val vm: Vm) {
 	operator fun minus(a: Long): Long = a - RegisterType.I8.read(vm)
 	operator fun minus(a: Int): Long = a.toLong() - RegisterType.I8.read(vm)
 	fun toLong(): Long = RegisterType.I8.read(vm)
-
+	fun toInt(): Int = RegisterType.I8.read(vm).toInt()
 }

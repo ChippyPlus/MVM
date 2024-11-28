@@ -1,12 +1,4 @@
 // Prints whats in F1
 
-
-
-
-
-
-
-
-
-
-PRINTR 1
+printr f1
+printr f2

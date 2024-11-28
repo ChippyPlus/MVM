@@ -6,16 +6,15 @@ import engine.execution.InstructData
 import helpers.gatherHelp
 import helpers.toRegisterType
 import internals.Vm
+import os_package.KProcess
 import kotlin.system.exitProcess
 
-/**
- * Parses assembly code from a file and converts it into a list of instructions.
- *
- * @param file The file containing the assembly code.
- * @return A mutable list of [Instruction] objects representing the parsed instructions.
- * @throws InvalidInstructionException If an invalid instruction mnemonic is encountered.
- */
-fun parser(vm: Vm, file: List<String>): List<InstructData> {
+fun parser(kp: KProcess, file: List<String>) {
+	kp.instructionMemory = parserReturn(kp.vm, file)
+}
+
+
+fun parserReturn(vm: Vm, file: List<String>): List<InstructData> {
 	val out = emptyArray<InstructData>().toMutableList()
 	val tokens = emptyList<MutableList<String>>().toMutableList()
 
@@ -29,7 +28,6 @@ fun parser(vm: Vm, file: List<String>): List<InstructData> {
 		tokens.add(secretLineParts)
 	}
 	for (line in tokens) {
-		vm.pc++
 		val instruction = if (line.isEmpty()) "" else line[0].lowercase()
 		try {
 			out.add(
@@ -55,14 +53,21 @@ fun parser(vm: Vm, file: List<String>): List<InstructData> {
 					}
 
 					"call" -> {
+						val outI: MutableList<Any> =
+							line.subList(2, line.size).toList().map { it.toRegisterType()!! }.toMutableList()
+						outI.add(0, line[1])
+
 						InstructData(
-							name = "call", values = arrayOf(line[1])
+							name = "call", values = outI.toTypedArray()
 						)
+
 					}
 
 
 					// Register Register Register
-					// What is substr? Ive never seen this. Oh well
+					// What is substr?
+					// I've never seen this.
+					// Oh, Well
 					"substr" -> { // Meant to leave in the string deprecation via new stdlib. But this can stay
 						InstructData( // for reasons
 							name = "substr", arrayOf(
@@ -109,11 +114,17 @@ fun parser(vm: Vm, file: List<String>): List<InstructData> {
 						)
 					}
 
+					// Register Register Register
+					"mod", "add", "sub", "mul", "div", "shl", "shr", "and", "or", "xor", "pow", "xadd", "xsub", "xmul", "xdiv", "xpow" -> {
+						InstructData(
+							name = instruction,
+							arrayOf(line[1].toRegisterType(), line[2].toRegisterType(), line[3].toRegisterType())
+
+						)
+					}
+
 					// Register Register
-					"mod", "add", "sub", "mul", "div", "eq",
-					"shl", "shr", "mov", "cpy", "and", "or",
-					"xor", "lt", "gt", "pow", "xadd", "xsub", "xmul", "xdiv", "xpow",
-					"itof", "ftoi",
+					"eq", "mov", "swp", "lt", "gt", "itof", "ftoi", "not",
 						-> {
 						InstructData(
 							name = instruction, arrayOf(line[1].toRegisterType(), line[2].toRegisterType())
@@ -131,7 +142,7 @@ fun parser(vm: Vm, file: List<String>): List<InstructData> {
 
 
 					// Register
-					"not", "printr", "peek", "pop", "push", "inr", "dealloc", "sleep" -> {
+					"printr", "peek", "pop", "push", "inr", "sleep" -> {
 						InstructData(
 							name = instruction, arrayOf(line[1].toRegisterType())
 						)
@@ -170,7 +181,6 @@ fun parser(vm: Vm, file: List<String>): List<InstructData> {
 
 		} catch (e: NumberFormatException) {
 			try {
-//				throw e
 				val x = e.message!!.split(" ")[3].substring(1, e.message!!.split(" ").size - 1).toRegisterType()
 				if (x == null) {
 					vm.errors.InvalidArgumentFormatException(badType = "Any", shouldBe = "Long")
@@ -184,8 +194,8 @@ fun parser(vm: Vm, file: List<String>): List<InstructData> {
 			}
 		}
 	}
-
-
 	vm.pc = 0
+
+	out.add(InstructData("HALT", arrayOf()))
 	return out
 }

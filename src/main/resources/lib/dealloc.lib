@@ -1,0 +1,3 @@
+lit s1 27
+mov f1 s2
+syscall

@@ -10,7 +10,7 @@ import data.registers.RegisterType
  * @param operand2 The [RegisterType] holding the second operand.
  * @throws GeneralBitwiseException If an error occurs during the bitwise XOR operation.
  */
-fun Bitwise.xor(operand1: RegisterType, operand2: RegisterType) = call("xor") {
+fun Bitwise.xor(operand1: RegisterType, operand2: RegisterType, where: RegisterType) = call("xor", where) {
 	registers.read(operand1) xor registers.read(operand2)
 
 }

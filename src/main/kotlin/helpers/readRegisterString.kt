@@ -1,6 +1,5 @@
 package helpers
 
-import data.memory.MemoryAddress
 import data.registers.RegisterType
 
 /**
@@ -13,9 +12,9 @@ fun Helpers.readRegisterString(register: RegisterType): String {
 	var index = 0
 	var string = ""
 	while (true) {
-		val byte = internalMemory.read(MemoryAddress(registers.read(register) + index))
-		if (byte.value == 0L) break
-		string += byte.value!!.toInt().toChar()
+		val byte = heap!!.get(registers.read(register) + index)
+		if (byte == 0L) break
+		string += byte.toInt().toChar()
 		index++
 	}
 	return string
