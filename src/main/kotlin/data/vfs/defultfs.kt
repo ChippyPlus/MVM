@@ -1,4 +1,4 @@
-package environment.vfs
+package data.vfs
 
 
 val myFileSystem: List<Formats.Ventry> = listOf(
