@@ -6,5 +6,6 @@ import os_package.systemCalls.SystemCall
 
 fun SystemCall.deleteFile(pathX: RegisterType) = call("deleteFile") {
 	val path = helpers.readRegisterString(pathX)
-	vm.vfs.delete(path) ?: errors.FileNotFoundException(path)
+	TODO("Bring back VFS")
+//	vm.vfs.delete(path) ?: errors.FileNotFoundException(path)
 }
