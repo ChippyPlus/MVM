@@ -7,4 +7,4 @@ data class Permissions(var directory: Boolean = false, var write: Boolean = true
 
 
 @Serializable
-data class Ventry(var path: String, var content: String? = null, var permissions: Permissions = Permissions())
+data class Ventry(var path: String, var content: String = "", var permissions: Permissions = Permissions())
