@@ -2,7 +2,6 @@ package helpers
 
 fun Helpers.writeClosestString(string: String): Long {
 	val spot = vm.heap!!.alloc(string.length + 1)
-	println("SPOT = $spot")
 	for (i in string.indices) {
 		val ascii = string[i].code.toLong()
 		vm.heap!!.set(i + spot, ascii)
