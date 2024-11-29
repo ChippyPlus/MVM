@@ -9,10 +9,8 @@ import kotlin.system.exitProcess
 
 
 @OptIn(ExperimentalStdlibApi::class, ExperimentalSerializationApi::class)
+// TODO. Turn into syscalls
 class Vfs {
-	enum class Mode {
-		Remove, Create
-	}
 
 	init {
 		if (!File("src/main/resources/vfs.fs").exists()) {
