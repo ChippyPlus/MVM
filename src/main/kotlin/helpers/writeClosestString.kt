@@ -7,6 +7,5 @@ fun Helpers.writeClosestString(string: String): Long {
 		vm.heap!!.set(i + spot, ascii)
 	}
 	vm.heap!!.set(spot + string.length, 0)
-	println(vm.heap!!.m.toList().subList(0, 30))
 	return spot
 }
