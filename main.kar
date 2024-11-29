@@ -1,5 +1,8 @@
-str g1 "hello world!"
-str g1 "hello world!"
-str g1 "hello world!"
 
-call io.println g1
+str f2 "say something PLEASE :"
+call io.print f2
+
+call io.readln
+
+peek f3
+call io.println f3

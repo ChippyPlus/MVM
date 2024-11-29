@@ -10,8 +10,6 @@ main.kar
 main.mar
 hello.txt
 docs/gitTemp.md
-src/main/resources/debug/out/*
-debug
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
