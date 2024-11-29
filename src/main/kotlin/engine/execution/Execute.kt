@@ -29,9 +29,9 @@ import internals.instructions.stackOperations.push
 import internals.instructions.stackOperations.pushl
 import internals.instructions.strings.str
 import internals.instructions.xFloats.*
+import kernel.KProcess
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
-import os_package.KProcess
 
 
 class Execute(val kp: KProcess) {

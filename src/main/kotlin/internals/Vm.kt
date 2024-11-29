@@ -19,10 +19,10 @@ import internals.instructions.misc.Misc
 import internals.instructions.stackOperations.StackOperations
 import internals.instructions.strings.Strings
 import internals.instructions.xFloats.XFloats
+import kernel.ExecuteLib
+import kernel.SnapShotManager
+import kernel.systemCalls.SystemCall
 import kotlinx.coroutines.runBlocking
-import os_package.ExecuteLib
-import os_package.SnapShotManager
-import os_package.systemCalls.SystemCall
 import kotlin.reflect.KProperty
 
 class Vm {

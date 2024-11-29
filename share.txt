@@ -907,9 +907,9 @@ class VarRedundancy(val globalInfo: List<InstructData>) {
 //}
 -------------------------------
 ```
-filePath .sharing/archiveBuffer/src/main/kotlin/os_package/TaskManagerV2.kt
+filePath .sharing/archiveBuffer/src/main/kotlin/kernel/TaskManagerV2.kt
 ```kotlin
-package os_package
+package kernel
 
 import engine.execution.Execute
 import internals.Pc
@@ -942,9 +942,9 @@ class TaskManagerV2 {
 }
 -------------------------------
 ```
-filePath .sharing/archiveBuffer/src/main/kotlin/os_package/KProcess.kt
+filePath .sharing/archiveBuffer/src/main/kotlin/kernel/KProcess.kt
 ```kotlin
-package os_package
+package kernel
 
 import engine.execution.InstructData
 import environment.reflection.reflection
@@ -969,9 +969,9 @@ data class KProcess(val vm: Vm, val file: File) {
 }
 -------------------------------
 ```
-filePath .sharing/archiveBuffer/src/main/kotlin/os_package/OS.kt
+filePath .sharing/archiveBuffer/src/main/kotlin/kernel/OS.kt
 ```kotlin
-package os_package
+package kernel
 
 class OS {
 	val taskManager = TaskManagerV2()
@@ -979,11 +979,11 @@ class OS {
 }
 -------------------------------
 ```
-filePath .sharing/archiveBuffer/src/main/kotlin/os_package/Ipc.kt
+filePath .sharing/archiveBuffer/src/main/kotlin/kernel/Ipc.kt
 ```kotlin
 @file:Suppress("UnnecessaryVariable")
 
-package os_package
+package kernel
 
 import internals.Vm
 import java.io.File
@@ -1085,8 +1085,8 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
-import os_package.KProcess
-import os_package.OS
+import kernel.KProcess
+import kernel.OS
 import java.io.File
 import kotlin.system.exitProcess
 
@@ -1164,7 +1164,7 @@ import data.registers.RegisterType
 import environment.reflection.reflection
 import helpers.RuntimeStates
 import internals.systemCalls.SystemCall
-import os_package.KProcess
+import kernel.KProcess
 
 fun SystemCall.spawn(pathX: RegisterType) {
 //	val path = helpers.readRegisterString(pathX)
@@ -4265,7 +4265,7 @@ filePath .sharing/archiveBuffer/src/main/kotlin/environment/reflection/Reflectio
 package environment.reflection
 
 import internals.Vm
-import os_package.KProcess
+import kernel.KProcess
 
 
 val reflection = Reflection()
@@ -4895,7 +4895,7 @@ import data.registers.toRegisterDataType
 import engine.execution.InstructData
 import helpers.gatherHelp
 import helpers.toRegisterType
-import os_package.KProcess
+import kernel.KProcess
 import kotlin.system.exitProcess
 
 fun parser(kp: KProcess, file: List<String>) {
@@ -5221,7 +5221,7 @@ import internals.instructions.strings.str
 import internals.instructions.xFloats.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
-import os_package.KProcess
+import kernel.KProcess
 
 
 class Execute(val kp: KProcess) {
@@ -7001,7 +7001,7 @@ triggers a context switch once it reaches the maximum value set in the configura
 ### Inter-Process Communication (IPC)
 
 The kernel manages IPC using mailboxes.
-These are implemented using stacks (`os_package.Ipc.MessagePassing.mailBoxes`).
+These are implemented using stacks (`kernel.Ipc.MessagePassing.mailBoxes`).
 The following system calls provide access to the IPC:
 
 - `link`: Establishes a link (connection) between two processes.

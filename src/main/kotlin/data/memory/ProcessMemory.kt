@@ -1,7 +1,7 @@
 package data.memory
 
 import data.stack.FixedStackStateless
-import os_package.KProcess
+import kernel.KProcess
 
 class ProcessMemory(kp: KProcess) {
 	val heap = Heap(kp)

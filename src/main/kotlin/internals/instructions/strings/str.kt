@@ -13,12 +13,9 @@ import helpers.writeClosestString
  * @param string The string literal to be stored in memory.
  * @throws GeneralStringException If an error occurs while storing the string.
  */
-fun Strings.str(targetAddress: RegisterType, string: String): Unit = try {
+fun Strings.str(targetAddress: RegisterType, string: String) {
 	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
 
 	val location = helpers.writeClosestString(string = string)
 	registers.write(register = targetAddress, value = location)
-
-} catch (_: Exception) {
-	errors.GeneralStringException(message = "str")
 }

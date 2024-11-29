@@ -1,7 +1,7 @@
 package environment.reflection
 
 import internals.Vm
-import os_package.KProcess
+import kernel.KProcess
 
 
 val reflection = Reflection()

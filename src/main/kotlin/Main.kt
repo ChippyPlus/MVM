@@ -1,12 +1,13 @@
+
 import engine.parser
 import helpers.Config
 import internals.Vm
+import kernel.KProcess
+import kernel.OS
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
-import os_package.KProcess
-import os_package.OS
 import java.io.File
 import kotlin.system.exitProcess
 
@@ -15,7 +16,7 @@ val config = Config(File("./config.json"))
 val hertz = config.hertz
 val MEMORY_LIMIT = config.memorySize
 val os = OS()
-val init = KProcess(Vm(), File(""))
+val init = KProcess(Vm(), File("idk the netherlands?"))
 
 @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
 fun main(args: Array<String>): Unit = runBlocking(newSingleThreadContext("Kotlin's main")) {

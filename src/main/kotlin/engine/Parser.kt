@@ -6,7 +6,7 @@ import engine.execution.InstructData
 import helpers.gatherHelp
 import helpers.toRegisterType
 import internals.Vm
-import os_package.KProcess
+import kernel.KProcess
 import kotlin.system.exitProcess
 
 fun parser(kp: KProcess, file: List<String>) {

@@ -67,7 +67,7 @@ triggers a context switch once it reaches the maximum value set in the configura
 ### Inter-Process Communication (IPC)
 
 The kernel manages IPC using mailboxes.
-These are implemented using stacks (`os_package.Ipc.MessagePassing.mailBoxes`).
+These are implemented using stacks (`kernel.Ipc.MessagePassing.mailBoxes`).
 The following system calls provide access to the IPC:
 
 - `link`: Establishes a link (connection) between two processes.

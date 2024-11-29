@@ -1,0 +1,5 @@
+str g1 "hello world!"
+str g1 "hello world!"
+str g1 "hello world!"
+
+call io.println g1

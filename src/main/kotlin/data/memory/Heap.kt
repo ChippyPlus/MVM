@@ -1,23 +1,23 @@
 package data.memory
 
+import kernel.KProcess
 import os
-import os_package.KProcess
 import kotlin.system.exitProcess
 
-
+const val EMPTY_MEM_VAL = -255L
 class Heap(val kp: KProcess) {
 	var m = os.mainMemory
 
 
 	data class AllocatedBlock(val range: LongRange, val size: Int)
 
-	private val used = mutableListOf<AllocatedBlock>()
+	private val used = os.usedMemory
 
 	fun alloc(size: Int): Long {
 		var start = -1L
 		var count = 0
 		for (i in m.indices) {
-			if (m[i] == 0L) {
+			if (m[i] == EMPTY_MEM_VAL) {
 				if (count == 0) start = i.toLong()
 				count++
 
