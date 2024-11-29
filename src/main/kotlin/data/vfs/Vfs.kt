@@ -27,13 +27,11 @@ class Vfs {
 		exitProcess(1)
 	}
 
-	private fun mk(p: Ventry, mode: Mode = Mode.Create) {
+	private fun mk(p: Ventry) {
 		if (p.path.endsWith('/')) {
 			p.permissions.directory = true
 			p.path = p.path.removeSuffix("/")
 		}
-
-
 		val ren = list()
 		val pathPartsUnclear = if (p.path.startsWith('/')) {
 			p.path.split('/').subList(1, p.path.split('/').size).toMutableList()
@@ -44,35 +42,32 @@ class Vfs {
 		println(pathParts)
 		var memoized = ""
 
-		if (p !in ren && mode == Mode.Remove) {
-			error("Ventry not found")
-		}
-
 		for (i in pathParts.withIndex()) {
 			memoized += "/${pathParts[i.index]}"
 			println(memoized)
 
 			if (i.index == pathParts.size - 1) {
 				if (memoized in ren.map(Ventry::path)) {
-					if (mode == Mode.Remove) {
-						flash(ren - p)
-						return
-					}
 					error("Ventry already exists")
 				} else {
-					if (mode == Mode.Create) flash(ren + p)
+					flash(ren + p)
 					return
 				}
 			}
-
 			if (memoized !in ren.map(Ventry::path)) {
 				error("Parent directory not found")
 			}
 		}
-
 	}
 
-	private fun rm(p: Ventry) = mk(p, Mode.Remove)
+	private fun rm(p: Ventry) {
+		val ren = list()
+		if (p !in ren) {
+			error("Ventry not found")
+		}
+		flash(ren - p)
+	}
+
 	fun read(path: String): String {
 		val rend = list()
 		for (ventry in rend) {
@@ -106,16 +101,23 @@ class Vfs {
 	}
 
 	fun rmFile(path: String) {
-		rm(Ventry(path = path, content = "", permissions = Permissions(directory = false, write = true, read = true)))
-	}
+		val l = list().map { Pair(it.path, it) }
+		if (path !in l.map { it.first }) {
+			error("Ventry not found")
+		}
 
+		val x = list().groupBy(Ventry::path).map { it.key to it.value.first() }.toMap()
+
+		rm(p = l.first { borrow ->
+			return@first borrow.first == path
+		}.second)
+	}
 
 }
 
 
 fun main() {
 	val v = Vfs()
-	v.rmFile("/sounds")
 	v.list().forEach(::println)
 }
 
