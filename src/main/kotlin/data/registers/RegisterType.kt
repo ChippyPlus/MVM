@@ -2,6 +2,7 @@ package data.registers
 
 import data.registers.RegisterDataType.*
 import internals.Vm
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a supertype encompassing all register types in the virtual machine.
@@ -32,7 +33,7 @@ enum class RegisterDataType {
 	RByte, RShort, RInt, RLong, RFloat, RDouble
 }
 
-
+@Serializable
 data class RegisterData(val name: RegisterType, var data: Long?, var dataType: RegisterDataType) {
 
 	fun read(): Long? {

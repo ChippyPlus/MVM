@@ -4,16 +4,18 @@ import data.memory.ProcessMemory
 import engine.execution.InstructData
 import environment.reflection.reflection
 import internals.Vm
+import internals.debug.DebugFullSnapShots
 import os
 import java.io.File
 
 data class KProcess(val vm: Vm, var file: File) {
-
+	val debugFullSnapShots = DebugFullSnapShots()
 	val addressSpace = ProcessMemory(this)
 
 	init {
 		reflection.vmTracker.add(this)
 		vm.heap = addressSpace.heap
+		vm.libExecute = ExecuteLib(vm)
 	}
 
 

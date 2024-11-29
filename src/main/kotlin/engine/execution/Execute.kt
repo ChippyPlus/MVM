@@ -8,7 +8,6 @@ import engine.parser
 import helpers.RuntimeStates
 import helpers.toDoubleOrFloatBasedOnDataType
 import helpers.toRegisterType
-import hertz
 import internals.instructions.arithmetic.*
 import internals.instructions.bitwise.*
 import internals.instructions.controlFlow.jmp
@@ -30,8 +29,6 @@ import internals.instructions.stackOperations.pushl
 import internals.instructions.strings.str
 import internals.instructions.xFloats.*
 import kernel.KProcess
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 
 
 class Execute(val kp: KProcess) {
@@ -41,19 +38,20 @@ class Execute(val kp: KProcess) {
 	}
 
 	fun singleEvent(command: InstructData) {
+		kp.debugFullSnapShots.act(kp.vm)
 		kp.vm.pc++
 		if (kp.vm.pc - 1 < 0) {
 			kp.vm.errors.InvalidPcValueException((kp.vm.pc - 1).toString())
 		}
 
-		runBlocking {
-			exeWhen(command.name, command.values)
-		}
+
+		exeWhen(command.name, command.values)
+
 
 	}
 
 
-	suspend fun run(command: List<InstructData>) {
+	fun run(command: List<InstructData>) {
 		val vm = kp.vm
 		while (true) {
 			when (vm.runtimeState) {
@@ -65,11 +63,8 @@ class Execute(val kp: KProcess) {
 				RuntimeStates.PAUSED -> continue
 				RuntimeStates.CANCELLED -> break
 			}
-
-			delay(hertz)
-
 			vm.pc++
-
+			kp.debugFullSnapShots.act(kp.vm)
 			if (vm.pc - 1 < 0) {
 				vm.errors.InvalidPcValueException((vm.pc - 1).toString())
 			}
@@ -94,8 +89,9 @@ class Execute(val kp: KProcess) {
 //	}
 
 
-	suspend fun exeWhen(name: String, args: Array<Any?>): Unit? { // This has to be suspended I know its terrible!
+	fun exeWhen(name: String, args: Array<Any?>): Unit? { // This has to be suspended I know its terrible!
 		val vm = kp.vm
+		println("pc = ${vm.pc}, name = $name")
 		when (name) {
 
 			"HALT" -> {
@@ -189,7 +185,7 @@ class Execute(val kp: KProcess) {
 				}
 
 
-				vm.libExecute.execute(args[0].toString())
+				vm.libExecute!!.execute(args[0].toString())
 			}
 
 			"emptyLine", "comment" -> {}

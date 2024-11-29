@@ -30,7 +30,7 @@ class Vm {
 	val snapShotManager = SnapShotManager(this) // NOOOO!!!
 	val errors = VMErrors(this)
 	val helpers = Helpers(this)
-	val libExecute = ExecuteLib(this)
+	var libExecute: ExecuteLib? = null
 	val dataTransfer = DataTransfer(this)
 	val arithmetic = Arithmetic(this)
 	val bitwise = Bitwise(this)

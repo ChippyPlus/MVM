@@ -68,6 +68,7 @@ fun main(args: Array<String>): Unit = runBlocking(newSingleThreadContext("Kotlin
 		}
 	}
 
+	exitProcess(0)
 
 }
 

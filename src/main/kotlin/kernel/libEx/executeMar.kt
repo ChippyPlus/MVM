@@ -6,7 +6,7 @@ import environment.reflection.reflection
 import kernel.ExecuteLib
 import java.io.File
 
-suspend fun ExecuteLib.executeMar(file: File) {
+fun ExecuteLib.executeMar(file: File) {
 	val vm = vm
 	val oldPc = vm.pc
 	val snapshot = vm.snapShotManager.snapShotRegisters()

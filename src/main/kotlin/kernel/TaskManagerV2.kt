@@ -15,7 +15,7 @@ class TaskManagerV2 {
 		outer@ while (true) {
 			inner@ for (process in keepPcs) {
 				if (deadProcess.toTypedArray().contentEquals(keepPcs.keys.toTypedArray())) break@outer
-				if (process.key.instructionMemory[process.value.first.toInt()].name == "HALT" && process.key !in deadProcess) deadProcess.add(
+				if (process.key.instructionMemory[process.value.first.toInt()].name == "HALT" && process.key !in deadProcess && !process.value.second.kp.vm.libExecute!!.enabledFunction) deadProcess.add(
 					process.key
 				)
 
