@@ -15,19 +15,19 @@ class TaskManagerV2 {
 		outer@ while (true) {
 			inner@ for (process in keepPcs) {
 				if (deadProcess.toTypedArray().contentEquals(keepPcs.keys.toTypedArray())) break@outer
-				if (process.key.instructionMemory[process.value.first.toInt()].name == "HALT" && process.key !in deadProcess && !process.value.second.kp.vm.libExecute!!.enabledFunction) {
+				if (process.key.instructionMemory[process.value.first.toInt()].name == "HALT" && process.key !in deadProcess) {
 					deadProcess.add(process.key)
-					println("[DEAD] += | ${process.key.file.name} ")
+//					println("[DEAD] += | ${process.key.file.name} ")
 				}
 
 				if (process.key in deadProcess) {
-					println("[IGNORE DEAD] ${process.key.file.name} ")
+//					println("[IGNORE DEAD] ${process.key.file.name} ")
 					continue@inner
 				}
 
 
 				process.value.second.singleEvent(process.key.instructionMemory[process.value.first.toInt()])
-				println("[EVAL] ${process.key.file.name} | ${process.key.vm.pc} | ${process.key.currentInstruction} ")
+//				println("[EVAL] ${process.key.file.name} | ${process.key.vm.pc} | ${process.key.currentInstruction} ")
 			}
 		}
 	}
