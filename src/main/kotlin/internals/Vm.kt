@@ -46,7 +46,7 @@ class Vm {
 	val pcInternal = Pc(vm = this)
 	var pc: Long by pcInternal
 	var libPc = 0L
-	val vfs = Vfs()
+	val vfs = Vfs() // TODO. We need to bring this back!
 
 
 	var heap: Heap? = null
