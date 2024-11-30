@@ -10,6 +10,7 @@ class SnapShotManager(val vm: Vm) {
 			vm.registers.write(i.key, i.value)
 		}
 	}
+
 	fun snapShotRegisters(): Map<RegisterType, Long> {
 		val allRegisters = mutableMapOf<RegisterType, Long>()
 		allRegisters.forEach { if (!it.key.name.startsWith('I')) allRegisters.remove(it.key) }
@@ -18,10 +19,6 @@ class SnapShotManager(val vm: Vm) {
 		}
 		return allRegisters
 	}
-
-
-
-
 
 
 }

@@ -40,7 +40,6 @@ fun String.toRegisterType(): RegisterType? {
 		"r10" -> RegisterType.R10
 
 
-
 		"f1" -> RegisterType.F1
 		"f2" -> RegisterType.F2
 		"f3" -> RegisterType.F3

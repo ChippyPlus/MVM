@@ -191,7 +191,6 @@ class VMErrors(val vm: Vm? = null, val pc: Long? = null) {
 	}
 
 
-
 	private fun prefix(): String {
 		return if (vm != null) {
 			"ERROR:${vm.pc}"

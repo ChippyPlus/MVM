@@ -1,4 +1,3 @@
-
 import engine.parser
 import helpers.Config
 import internals.Vm
@@ -13,7 +12,8 @@ import kotlin.system.exitProcess
 
 
 val config = Config(File("./config.json"))
-val hertz = config.hertz
+
+//val hertz = config.hertz
 val MEMORY_LIMIT = config.memorySize
 val os = OS()
 val init = KProcess(Vm(), File("idk the netherlands?"))

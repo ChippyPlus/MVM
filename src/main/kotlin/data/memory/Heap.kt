@@ -5,6 +5,7 @@ import os
 import kotlin.system.exitProcess
 
 const val EMPTY_MEM_VAL = -255L
+
 class Heap(val kp: KProcess) {
 	var m = os.mainMemory
 

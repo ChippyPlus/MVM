@@ -130,7 +130,6 @@ stack underflow.
 peek G1         // G1 = top of stack; stack unchanged
 ```
 
-
 ## Arithmetic Instructions
 
 These instructions perform arithmetic operations. Results are pushed onto the stack.
@@ -406,7 +405,6 @@ syscall             // Make the system call; result is on stack
 
 ## Miscellaneous Instructions
 
-
 ### HELP
 
 **`help` `Topic` (Topic)**
@@ -416,7 +414,6 @@ Displays help information for the specified `Topic` (instruction or standard lib
 ```assembly
 help `"add"`       // Display help for the ADD instruction
 ```
-
 
 ### SLEEP
 
