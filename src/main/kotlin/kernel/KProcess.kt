@@ -4,12 +4,13 @@ import data.memory.ProcessMemory
 import engine.execution.InstructData
 import environment.reflection.reflection
 import internals.Vm
-import internals.debug.DebugFullSnapShots
+import internals.debug.Debug
 import os
 import java.io.File
 
 data class KProcess(val vm: Vm, var file: File) {
-	val debugFullSnapShots = DebugFullSnapShots()
+	val debug = Debug(this)
+
 	val addressSpace = ProcessMemory(this)
 	var currentInstruction: InstructData = InstructData(name = "init", arrayOf())
 

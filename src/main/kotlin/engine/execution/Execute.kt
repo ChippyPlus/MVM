@@ -38,7 +38,6 @@ class Execute(val kp: KProcess) {
 	}
 
 	fun singleEvent(command: InstructData) {
-		kp.debugFullSnapShots.act(kp.vm)
 		kp.vm.pc++
 		if (kp.vm.pc - 1 < 0) {
 			kp.vm.errors.InvalidPcValueException((kp.vm.pc - 1).toString())
@@ -64,7 +63,6 @@ class Execute(val kp: KProcess) {
 				RuntimeStates.CANCELLED -> break
 			}
 			vm.pc++
-			kp.debugFullSnapShots.act(kp.vm)
 			if (vm.pc - 1 < 0) {
 				vm.errors.InvalidPcValueException((vm.pc - 1).toString())
 			}
@@ -91,8 +89,10 @@ class Execute(val kp: KProcess) {
 
 	fun exeWhen(name: String, args: Array<Any?>): Unit? { // This has to be suspended I know its terrible!
 		val vm = kp.vm
-//		println("pc = ${vm.pc}, name = $name")
 		kp.currentInstruction = InstructData(name, args)
+
+		kp.debug.act()
+
 		when (name) {
 
 			"HALT" -> {

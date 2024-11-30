@@ -196,6 +196,8 @@ fun parserReturn(vm: Vm, file: List<String>): List<InstructData> {
 	}
 	vm.pc = 0
 
+//	if (reflection.groupTrackedVmByVm()[vm]!!.file.extension != "lib") {
 	out.add(InstructData("HALT", arrayOf()))
+//	}
 	return out
 }
