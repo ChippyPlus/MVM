@@ -1,3 +1,4 @@
 // read the line
 LIT S1 25
 SYSCALL
+push r2
