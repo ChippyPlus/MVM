@@ -7,7 +7,6 @@ import data.registers.read
 import data.vfs.Vfs
 import environment.VMErrors
 import helpers.Helpers
-import helpers.RuntimeStates
 import internals.instructions.arithmetic.Arithmetic
 import internals.instructions.bitwise.Bitwise
 import internals.instructions.controlFlow.ControlFlow
@@ -50,9 +49,6 @@ class Vm {
 
 
 	var heap: Heap? = null
-
-
-	var runtimeState = RuntimeStates.RUNNING
 
 
 }

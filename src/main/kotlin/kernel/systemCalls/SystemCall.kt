@@ -24,7 +24,7 @@ class SystemCall(val vm: Vm) {
 	val errors = vm.errors
 	val registers = vm.registers
 
-	fun execute(
+	suspend fun execute(
 		callId: RegisterType,
 		s2: RegisterType,
 		s3: RegisterType,

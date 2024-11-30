@@ -20,10 +20,10 @@ fun SystemCall.share_m(vm_id: RegisterType, fromX: RegisterType, toX: RegisterTy
 
 fun SystemCall.pause_t(vmToPause: RegisterType) {
 	val x = reflection.vmTracker.groupBy(KProcess::id)
-	x[registers.read(vmToPause).toInt()]!![0].vm.runtimeState = RuntimeStates.PAUSED
+	x[registers.read(vmToPause).toInt()]!![0].runtimeState = RuntimeStates.PAUSED
 }
 
 fun SystemCall.continue_t(vmToPause: RegisterType) {
 	val x = reflection.vmTracker.groupBy(KProcess::id)
-	x[registers.read(vmToPause).toInt()]!![0].vm.runtimeState = RuntimeStates.RUNNING
+	x[registers.read(vmToPause).toInt()]!![0].runtimeState = RuntimeStates.RUNNING
 }

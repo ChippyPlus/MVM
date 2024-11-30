@@ -37,7 +37,7 @@ class Execute(val kp: KProcess) {
 		parser(kp, kp.file.readLines())
 	}
 
-	fun singleEvent(command: InstructData) {
+	suspend fun singleEvent(command: InstructData) {
 		kp.vm.pc++
 		if (kp.vm.pc - 1 < 0) {
 			kp.vm.errors.InvalidPcValueException((kp.vm.pc - 1).toString())
@@ -50,10 +50,10 @@ class Execute(val kp: KProcess) {
 	}
 
 
-	fun run(command: List<InstructData>) {
+	suspend fun run(command: List<InstructData>) {
 		val vm = kp.vm
 		while (true) {
-			when (vm.runtimeState) {
+			when (kp.runtimeState) {
 
 				RuntimeStates.RUNNING -> {/* pass */
 
@@ -87,7 +87,7 @@ class Execute(val kp: KProcess) {
 //	}
 
 
-	fun exeWhen(name: String, args: Array<Any?>): Unit? { // This has to be suspended I know its terrible!
+	suspend fun exeWhen(name: String, args: Array<Any?>): Unit? { // This has to be suspended I know its terrible!
 		val vm = kp.vm
 		kp.currentInstruction = InstructData(name, args)
 

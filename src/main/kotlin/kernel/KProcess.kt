@@ -3,6 +3,7 @@ package kernel
 import data.memory.ProcessMemory
 import engine.execution.InstructData
 import environment.reflection.reflection
+import helpers.RuntimeStates
 import internals.Vm
 import internals.debug.Debug
 import os
@@ -10,7 +11,7 @@ import java.io.File
 
 data class KProcess(val vm: Vm, var file: File) {
 	val debug = Debug(this)
-
+	var runtimeState = RuntimeStates.RUNNING
 	val addressSpace = ProcessMemory(this)
 	var currentInstruction: InstructData = InstructData(name = "init", arrayOf())
 
