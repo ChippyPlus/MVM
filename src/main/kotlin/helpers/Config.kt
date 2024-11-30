@@ -11,7 +11,7 @@ class Config(private val f: File) {
 		runBlocking { init() }
 	}
 
-	val hertz = content?.hertz!!.toLong() / 2
+	//	val hertz = content?.hertz!!.toLong() / 2
 	val stackSize = content?.stackSize ?: 32
 	val memorySize = content?.memorySize ?: 1024
 	val paths = content?.locations!!

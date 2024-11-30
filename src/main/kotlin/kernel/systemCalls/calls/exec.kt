@@ -3,19 +3,22 @@ package kernel.systemCalls.calls
 import data.registers.RegisterType
 import helpers.readRegisterString
 import kernel.systemCalls.SystemCall
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.lang.Runtime.getRuntime
 
 private const val javaEx =
 	"/Users/adam/Library/CloudStorage/OneDrive-WynbergBoys'HighSchool/Dev/kotlin/mvm/build/libs/MVM-1.0.jar"
 
-fun SystemCall.exec(path: RegisterType) {
+suspend fun SystemCall.exec(path: RegisterType) {
 
 	val ss = "java -jar $javaEx irun ${
 		helpers.readRegisterString(path)
 	}"
-	runBlocking { forkAndExecute(ss) }
+	forkAndExecute(ss)
 
 }
 

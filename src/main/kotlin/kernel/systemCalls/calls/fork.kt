@@ -3,17 +3,20 @@ package kernel.systemCalls.calls
 
 import environment.reflection.reflection
 import kernel.systemCalls.SystemCall
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.lang.Runtime.getRuntime
 
 private const val javaEx =
 	"/Users/adam/Library/CloudStorage/OneDrive-WynbergBoys'HighSchool/Dev/kotlin/mvm/build/libs/MVM-1.0.jar"
 
-fun SystemCall.fork() {
+suspend fun SystemCall.fork() {
 
 	val ss = "java -jar $javaEx irun ${reflection.currentFileData.name}"
-	runBlocking { forkAndExecute(ss) }
+	forkAndExecute(ss)
 
 }
 

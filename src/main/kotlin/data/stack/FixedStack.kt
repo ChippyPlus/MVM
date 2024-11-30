@@ -52,6 +52,7 @@ class FixedStack(vm: Vm) {
 	 *
 	 * @return An array representation of the stack.
 	 */
+	@Suppress("unused")
 	fun inspect(): Array<Long?> {
 		return stack
 	}
