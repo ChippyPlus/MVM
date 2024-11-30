@@ -91,7 +91,8 @@ class Execute(val kp: KProcess) {
 
 	fun exeWhen(name: String, args: Array<Any?>): Unit? { // This has to be suspended I know its terrible!
 		val vm = kp.vm
-		println("pc = ${vm.pc}, name = $name")
+//		println("pc = ${vm.pc}, name = $name")
+		kp.currentInstruction = InstructData(name, args)
 		when (name) {
 
 			"HALT" -> {

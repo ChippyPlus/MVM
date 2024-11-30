@@ -1,5 +1,5 @@
 {
-    "fileName": "main.kar",
+    "fileName": "print.lib",
     "pc": 3,
     "registers": {
         "G1": {
@@ -159,7 +159,7 @@
         },
         "S1": {
             "name": "S1",
-            "data": 0,
+            "data": 24,
             "dataType": "RLong"
         },
         "S2": {

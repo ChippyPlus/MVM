@@ -11,6 +11,7 @@ import java.io.File
 data class KProcess(val vm: Vm, var file: File) {
 	val debugFullSnapShots = DebugFullSnapShots()
 	val addressSpace = ProcessMemory(this)
+	var currentInstruction: InstructData = InstructData(name = "init", arrayOf())
 
 	init {
 		reflection.vmTracker.add(this)
