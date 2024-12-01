@@ -2,7 +2,6 @@ package internals
 
 import data.memory.Heap
 import data.registers.RegisterType
-import data.registers.Registers
 import data.registers.read
 import data.vfs.Vfs
 import environment.VMErrors
@@ -19,14 +18,13 @@ import internals.instructions.stackOperations.StackOperations
 import internals.instructions.strings.Strings
 import internals.instructions.xFloats.XFloats
 import kernel.ExecuteLib
-import kernel.SnapShotManager
 import kernel.systemCalls.SystemCall
 import kotlinx.coroutines.runBlocking
+import os
 import kotlin.reflect.KProperty
 
 class Vm {
-	val registers = Registers(this) // NOOOO!
-	val snapShotManager = SnapShotManager(this) // NOOOO!!!
+	var registers = os.registers
 	val errors = VMErrors(this)
 	val helpers = Helpers(this)
 	var libExecute: ExecuteLib? = null

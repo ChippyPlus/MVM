@@ -20,6 +20,8 @@ data class KProcess(val vm: Vm, var file: File) {
 		reflection.vmTracker.add(this)
 		vm.heap = addressSpace.heap
 		vm.libExecute = ExecuteLib(vm)
+		os.snapShotManager.initSnapShotRegister(this)
+
 	}
 
 

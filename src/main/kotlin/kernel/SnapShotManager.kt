@@ -1,25 +1,34 @@
 package kernel
 
 import data.registers.RegisterType
-import internals.Vm
+import data.registers.Registers
+import kernel.process.KProcess
 
-class SnapShotManager(val vm: Vm) {
+class SnapShotManager(private val registers: Registers) {
 
-	fun populateSnapShotRegister(snapShotRegisters: Map<RegisterType, Long>) {
-		for (i in snapShotRegisters) {
-			vm.registers.write(i.key, i.value)
+	private val snapshots = mutableMapOf<KProcess, Map<RegisterType, Long>>()
+
+	fun populateSnapShotRegister(kProcess: KProcess) {
+		for (i in snapshots[kProcess]!!) {
+			registers.write(i.key, i.value)
 		}
 	}
 
-	fun snapShotRegisters(): Map<RegisterType, Long> {
+	fun snapShotRegisters(kProcess: KProcess) {
 		val allRegisters = mutableMapOf<RegisterType, Long>()
-		allRegisters.forEach { if (!it.key.name.startsWith('I')) allRegisters.remove(it.key) }
 		for (i in RegisterType.entries) {
-			allRegisters[i] = vm.registers.read(i)
+			allRegisters[i] = registers.read(i)
 		}
-		return allRegisters
+		snapshots[kProcess] = allRegisters
 	}
 
+	fun initSnapShotRegister(kProcess: KProcess) {
+		for (register in RegisterType.entries) {
+			registers.write(register, 0L)
+		}
+		snapShotRegisters(kProcess)
+
+	}
 
 }
 
