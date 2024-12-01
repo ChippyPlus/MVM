@@ -11,7 +11,7 @@ import helpers.toLong
  * @param destination The register to store the popped value.
  * @throws GeneralStackOperationsException If an error occurs during the pop operation (e.g. stack underflow).
  */
-fun StackOperations.pop(destination: RegisterType) = try {
+fun StackOperations.pop(destination: RegisterType) {
 	registers.write(
 		intelNames[IntelRegisters.ENSF], true.toLong()
 	) // It's above the next expr because the internal stack may throw its own errors
@@ -20,7 +20,4 @@ fun StackOperations.pop(destination: RegisterType) = try {
 	registers.write(
 		register = destination, value = internalStack.pop()
 	)
-} catch (_: Exception) {
-	errors.GeneralStackOperationsException("Pop")
-
 }
