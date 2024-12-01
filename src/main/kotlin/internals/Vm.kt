@@ -45,6 +45,8 @@ class Vm {
 	val pcInternal = Pc(vm = this)
 	var pc: Long by pcInternal
 	var libPc = 0L
+
+	@Suppress("unused")
 	val vfs = Vfs() // TODO. We need to bring this back!
 
 

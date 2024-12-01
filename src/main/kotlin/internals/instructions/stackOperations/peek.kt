@@ -14,7 +14,7 @@ import helpers.toLong
 fun StackOperations.peek(destination: RegisterType) = try {
 	registers.write(
 		intelNames[IntelRegisters.ENSF], true.toLong()
-	) // Its above the next expr because internal stack may throw its own errors
+	) // It's above the next expr because the internal stack may throw its own errors
 
 	registers.write(
 		register = destination, value = internalStack.peek()

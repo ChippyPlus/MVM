@@ -193,7 +193,7 @@ class Instruction {
 	data class Not(val operand: RegisterType)
 
 	/**
-	 * Represents a SHL instruction, which shifts the bits of a register to the left by a specified amount.
+	 * Represents an SHL instruction, which shifts the bits of a register to the left by a specified amount.
 	 *
 	 * @param operand The operand register.
 	 * @param shiftAmount The amount to shift the bits.
@@ -209,7 +209,7 @@ class Instruction {
 	data class Shr(val operand: RegisterType, val shiftAmount: RegisterType)
 
 	/**
-	 * Represents a LIT instruction, which loads a literal value into a specified register.
+	 * Represents an LIT instruction, which loads a literal value into a specified register.
 	 *
 	 * @param destination The destination register.
 	 * @param value The literal value to load.

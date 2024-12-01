@@ -93,12 +93,13 @@ class Vfs {
 	fun list(): List<Ventry> =
 		ProtoBuf.decodeFromHexString<List<Ventry>>(hex = File("src/main/resources/vfs.fs").readText())
 
-
-	fun mkFile(path: String) {
+	@Suppress("unused")
+	fun mkFile(path: String) { // // TODO. Implement
 		mk(Ventry(path = path, content = "", permissions = Permissions(directory = false, write = true, read = true)))
 	}
 
-	fun rmFile(path: String) {
+	@Suppress("unused")
+	fun rmFile(path: String) { // TODO. Implement
 		val l = list().map { Pair(it.path, it) }
 		if (path !in l.map { it.first }) {
 			error("Ventry not found")

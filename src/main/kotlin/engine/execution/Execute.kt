@@ -81,13 +81,16 @@ class Execute(val kp: KProcess) {
 		}
 	}
 
+	@Deprecated(
+		"Not usable with TaskManagerV2. I mean I guess it is but yk whatever",
+		ReplaceWith("engine.execution.Execute.run")
+	)
+	suspend fun execute() {
+		this.run(command = kp.instructionMemory)
+	}
 
-//	suspend fun execute() {
-//		this.run(command = kp.instructionMemory)
-//	}
 
-
-	suspend fun exeWhen(name: String, args: Array<Any?>): Unit? { // This has to be suspended I know its terrible!
+	suspend fun exeWhen(name: String, args: Array<Any?>): Unit? { // This has to be suspended. I know it's terrible!
 		val vm = kp.vm
 		kp.currentInstruction = InstructData(name, args)
 

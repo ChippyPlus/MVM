@@ -3,11 +3,14 @@ package data.memory
 import MEMORY_LIMIT
 import internals.Vm
 
+@Deprecated("We have moved to using the HEAP", replaceWith = ReplaceWith("data.memory.Heap"))
 class InternalMemory(vm: Vm) {
 	val errors = vm.errors
 	var memory = emptyMap<Long, Long>().toMutableMap()
 
 	var linkedR: LongRange? = null
+
+	@Suppress("DEPRECATION")
 	var linedRef: InternalMemory? = null
 
 	init {
@@ -39,6 +42,7 @@ class InternalMemory(vm: Vm) {
 	}
 
 	@Deprecated("Should implement a new method for memoryV2")
+	@Suppress("DEPRECATION")
 	fun link(ref: InternalMemory, range: LongRange) {
 		linkedR = range
 		linedRef = ref
