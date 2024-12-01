@@ -1,6 +1,6 @@
 package data.memory
 
-import kernel.KProcess
+import kernel.process.KProcess
 import os
 import kotlin.system.exitProcess
 

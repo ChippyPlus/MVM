@@ -1,4 +1,4 @@
-package kernel
+package kernel.process
 
 import data.memory.ProcessMemory
 import engine.execution.InstructData
@@ -6,6 +6,7 @@ import environment.reflection.reflection
 import helpers.RuntimeStates
 import internals.Vm
 import internals.debug.Debug
+import kernel.ExecuteLib
 import os
 import java.io.File
 

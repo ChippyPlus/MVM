@@ -1,8 +1,8 @@
 import engine.parser
 import helpers.Config
 import internals.Vm
-import kernel.KProcess
 import kernel.OS
+import kernel.process.KProcess
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.newSingleThreadContext

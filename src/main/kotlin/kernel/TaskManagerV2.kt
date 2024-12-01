@@ -2,6 +2,7 @@ package kernel
 
 import engine.execution.Execute
 import internals.Pc
+import kernel.process.KProcess
 
 class TaskManagerV2 {
 	val keepPcs = mutableMapOf<KProcess, Pair<Pc, Execute>>()
@@ -9,7 +10,7 @@ class TaskManagerV2 {
 
 	fun add(process: KProcess) = run { keepPcs[process] = Pair(process.vm.pcInternal, Execute(process)) }
 
-	fun eventLoop() {
+	suspend fun eventLoop() {
 		if (keepPcs.isEmpty()) return
 		outer@ while (true) {
 			inner@ for (process in keepPcs) {

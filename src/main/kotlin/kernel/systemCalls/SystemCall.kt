@@ -7,7 +7,7 @@ import data.registers.write
 import environment.reflection.reflection
 import helpers.toLong
 import internals.Vm
-import kernel.KProcess
+import kernel.process.KProcess
 import kernel.systemCalls.calls.*
 import kotlin.system.exitProcess
 

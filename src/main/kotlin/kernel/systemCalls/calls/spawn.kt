@@ -3,7 +3,7 @@ package kernel.systemCalls.calls
 import data.registers.RegisterType
 import environment.reflection.reflection
 import helpers.RuntimeStates
-import kernel.KProcess
+import kernel.process.KProcess
 import kernel.systemCalls.SystemCall
 
 
@@ -19,11 +19,9 @@ fun SystemCall.share_m(vm_id: RegisterType, fromX: RegisterType, toX: RegisterTy
 
 
 fun SystemCall.pause_t(vmToPause: RegisterType) {
-	val x = reflection.vmTracker.groupBy(KProcess::id)
-	x[registers.read(vmToPause).toInt()]!![0].runtimeState = RuntimeStates.PAUSED
+	reflection.groupTrackedVmById()[registers.read(vmToPause).toInt()]!!.runtimeState = RuntimeStates.PAUSED
 }
 
 fun SystemCall.continue_t(vmToPause: RegisterType) {
-	val x = reflection.vmTracker.groupBy(KProcess::id)
-	x[registers.read(vmToPause).toInt()]!![0].runtimeState = RuntimeStates.RUNNING
+	reflection.groupTrackedVmById()[registers.read(vmToPause).toInt()]!!.runtimeState = RuntimeStates.RUNNING
 }

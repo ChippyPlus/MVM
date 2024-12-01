@@ -1,6 +1,0 @@
-str f2 "say something PLEASE :"
-
-call io.print f2
-call io.readln
-peek f3
-call io.println f3
