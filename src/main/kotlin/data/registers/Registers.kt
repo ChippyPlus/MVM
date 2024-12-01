@@ -42,7 +42,7 @@ class Registers(val vm: Vm) {
 		value!!
 
 	} catch (_: NullPointerException) {
-		vm.errors.NullRegisterException(register)
+		vm.errors.nullRegisterException(register)
 		exitProcess(1)
 	}
 

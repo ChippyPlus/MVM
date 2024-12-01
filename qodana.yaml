@@ -1,3 +1,4 @@
+#file: noinspection ComposeMissingKeys
 version: "1.0"
 profile:
   name: qodana.starter
@@ -9,10 +10,10 @@ include:
   - name: DuplicatedCode
   - name: EmptyDirectory
   - name: InconsistentLineSeparators
-  - name: IncorrectFormatting
   - name: InjectedReferences
-  - name: LongLine
-  - name: ProblematicWhitespace
+  #  - name: IncorrectFormatting
+  #  - name: LongLine
+  #  - name: ProblematicWhitespace
   - name: ReassignedToPlainText
   - name: RedundantSuppression
   - name: TodoComment

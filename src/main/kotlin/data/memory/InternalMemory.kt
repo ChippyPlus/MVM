@@ -21,7 +21,7 @@ class InternalMemory(vm: Vm) {
 
 	fun write(address: Long, value: Long) {
 		if (address.toInt() > MEMORY_LIMIT) {
-			errors.InvalidMemoryAddressException(address)
+			errors.invalidMemoryAddressException(address)
 		}
 
 		if (linkedR != null && linedRef != null && address in linkedR!!) {
@@ -33,10 +33,10 @@ class InternalMemory(vm: Vm) {
 
 	fun read(address: Long): Long {
 		if (memory[address] == 0L) {
-			errors.NullAddressException(address)
+			errors.nullAddressException(address)
 		}
 		if (address > MEMORY_LIMIT) {
-			errors.InvalidMemoryAddressException(address)
+			errors.invalidMemoryAddressException(address)
 		}
 		return memory[address]!!
 	}

@@ -8,8 +8,7 @@ import java.io.File
 import kotlin.system.exitProcess
 
 
-@OptIn(ExperimentalStdlibApi::class, ExperimentalSerializationApi::class)
-// TODO. Turn into syscalls
+@OptIn(ExperimentalStdlibApi::class, ExperimentalSerializationApi::class) //TODO. Turn into syscalls
 class Vfs {
 
 	init {

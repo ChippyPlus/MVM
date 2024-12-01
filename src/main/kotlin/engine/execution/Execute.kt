@@ -40,7 +40,7 @@ class Execute(val kp: KProcess) {
 	suspend fun singleEvent(command: InstructData) {
 		kp.vm.pc++
 		if (kp.vm.pc - 1 < 0) {
-			kp.vm.errors.InvalidPcValueException((kp.vm.pc - 1).toString())
+			kp.vm.errors.invalidPcValueException((kp.vm.pc - 1).toString())
 		}
 
 
@@ -64,7 +64,7 @@ class Execute(val kp: KProcess) {
 			}
 			vm.pc++
 			if (vm.pc - 1 < 0) {
-				vm.errors.InvalidPcValueException((vm.pc - 1).toString())
+				vm.errors.invalidPcValueException((vm.pc - 1).toString())
 			}
 
 			if (vm.pc - 1L == command.size.toLong()) {
@@ -98,8 +98,7 @@ class Execute(val kp: KProcess) {
 
 		when (name) {
 
-			"HALT" -> {
-				// This should not be handled here but in TaskManager. Or maybe by the OS IDK!
+			"HALT" -> { // This should not be handled here but in TaskManager. Or maybe by the OS IDK!
 			}
 
 			"sleep" -> {
@@ -145,9 +144,6 @@ class Execute(val kp: KProcess) {
 				vm.registers.registers[(args[0] as RegisterType)]!!.settype(args[1] as RegisterDataType)
 			}
 
-//			"dealloc" -> {
-//				vm.dataTransfer.dealloc(args[0] as RegisterType)
-//			}
 
 			"pow" -> {
 				vm.arithmetic.pow(args[0] as RegisterType, args[1] as RegisterType, args[2] as RegisterType)
@@ -163,7 +159,7 @@ class Execute(val kp: KProcess) {
 
 			"inr" -> {
 				(args[0] as String).toRegisterType() ?: {
-					vm.errors.InvalidRegisterException(args[0] as String)
+					vm.errors.invalidRegisterException(args[0] as String)
 				} as RegisterType
 			}
 
@@ -184,7 +180,7 @@ class Execute(val kp: KProcess) {
 						7 -> RegisterType.F8.write(vm, r.read(vm))
 						8 -> RegisterType.F9.write(vm, r.read(vm))
 						9 -> RegisterType.F10.write(vm, r.read(vm))
-						else -> vm.errors.InvalidInstructionArgumentException("To many arguments")
+						else -> vm.errors.invalidInstructionArgumentException("To many arguments")
 					}
 				}
 
@@ -203,7 +199,7 @@ class Execute(val kp: KProcess) {
 
 			"str" -> {
 				vm.strings.str(args[0].toString().toRegisterType() ?: {
-					vm.errors.InvalidRegisterException(args[0] as String)
+					vm.errors.invalidRegisterException(args[0] as String)
 				} as RegisterType, args[1].toString())
 			}
 
@@ -323,7 +319,7 @@ class Execute(val kp: KProcess) {
 			}
 
 			else -> {
-				vm.errors.InvalidInstructionException(name)
+				vm.errors.invalidInstructionException(name)
 			}
 		}
 		return Unit
