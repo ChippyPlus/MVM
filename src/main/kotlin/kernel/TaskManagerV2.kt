@@ -23,9 +23,9 @@ class TaskManagerV2 {
 				} else if (process.key in deadProcess) {
 					continue@inner
 				} else {
-					os.snapShotManager.snapShotRegisters(kp)
+					os.snapShotManager.populateSnapShotRegister(kp)
 					process.value.second.singleEvent(process.key.instructionMemory[process.value.first.toInt()])
-
+					os.snapShotManager.snapShotRegisters(kp)
 				}
 			}
 		}
