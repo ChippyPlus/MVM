@@ -2148,12 +2148,12 @@ call println
 ```
 filePath .sharing/archiveBuffer/main.kar
 ```custom assembly
-str f2 "say something PLEASE :"
-
-call io.print f2
-call io.readln
-peek f3
-call io.println f3
+lit g1 99
+str f1 "hello!!"
+str f1 "hello!!"
+call io.print f1
+str f1 ""
+call io.println f1
 -------------------------------
 ```
 filePath .sharing/archiveBuffer/src/test/resources/tokeniseTest.kar
@@ -2368,8 +2368,8 @@ filePath .sharing/archiveBuffer/src/main/kotlin/Main.kt
 import engine.parser
 import helpers.Config
 import internals.Vm
-import kernel.KProcess
 import kernel.OS
+import kernel.process.KProcess
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.newSingleThreadContext
@@ -2383,11 +2383,10 @@ val config = Config(File("./config.json"))
 //val hertz = config.hertz
 val MEMORY_LIMIT = config.memorySize
 val os = OS()
-val init = KProcess(Vm(), File("idk the netherlands?"))
 
 @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
 fun main(args: Array<String>): Unit = runBlocking(newSingleThreadContext("Kotlin's main")) {
-	init.file = File(args[1])
+	val init = KProcess(Vm(), File(args[1]))
 	init.notifyOS()
 	if (args.isEmpty()) {
 		println("Usage: mvm <command> [options]")
@@ -2559,7 +2558,7 @@ fun IoAbstractions.prints(): Unit = try {
 	println(vm.stackOperations.internalStack.peek())
 	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
 } catch (_: Exception) {
-	errors.GeneralIoAbstractionsException(message = "prints")
+	errors.generalIoAbstractionsException(message = "prints")
 }
 -------------------------------
 ```
@@ -2623,7 +2622,7 @@ fun Strings.strcmp(string1: RegisterType, string2: RegisterType) = try {
 
 
 } catch (_: Exception) {
-	errors.GeneralStringException("Strcmp")
+	errors.generalStringException("Strcmp")
 }
 -------------------------------
 ```
@@ -2679,7 +2678,7 @@ fun Strings.strcat(string1: RegisterType, string2: RegisterType): Any = try {
 
 
 } catch (_: Exception) {
-	errors.GeneralStringException("strcat")
+	errors.generalStringException("strcat")
 
 }
 -------------------------------
@@ -2716,7 +2715,7 @@ fun Memory.load(memoryAddress: RegisterType, destination: RegisterType): Unit = 
 	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
 
 } catch (e: Exception) {
-	errors.GeneralMemoryException("Load")
+	errors.generalMemoryException("Load")
 
 }
 -------------------------------
@@ -2765,7 +2764,7 @@ fun Memory.store(source: RegisterType, destination: RegisterType) = try {
 	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
 
 } catch (_: Exception) {
-	errors.GeneralMemoryException("Store")
+	errors.generalMemoryException("Store")
 }
 -------------------------------
 ```
@@ -2784,17 +2783,15 @@ import helpers.toLong
  * @param registerType The register containing the value to push.
  * @throws GeneralStackOperationsException If an error occurs during the push operation (e.g. stack overflow).
  */
-fun StackOperations.peek(destination: RegisterType) = try {
+fun StackOperations.peek(destination: RegisterType) {
 	registers.write(
 		intelNames[IntelRegisters.ENSF], true.toLong()
-	) // Its above the next expr because internal stack may throw its own errors
+	) // It's above the next expr because the internal stack may throw its own errors
 
 	registers.write(
 		register = destination, value = internalStack.peek()
 	)
 
-} catch (_: Exception) {
-	errors.GeneralStackOperationsException("Peek")
 }
 -------------------------------
 ```
@@ -2813,18 +2810,15 @@ import helpers.toLong
  * @param destination The register to store the popped value.
  * @throws GeneralStackOperationsException If an error occurs during the pop operation (e.g. stack underflow).
  */
-fun StackOperations.pop(destination: RegisterType) = try {
+fun StackOperations.pop(destination: RegisterType) {
 	registers.write(
 		intelNames[IntelRegisters.ENSF], true.toLong()
-	) // Its above the next expr because the internal stack may throw its own errors
+	) // It's above the next expr because the internal stack may throw its own errors
 
 
 	registers.write(
 		register = destination, value = internalStack.pop()
 	)
-} catch (_: Exception) {
-	errors.GeneralStackOperationsException("Pop")
-
 }
 -------------------------------
 ```
@@ -2844,24 +2838,20 @@ import helpers.toLong
  * @param registerType The register containing the value to push.
  * @throws GeneralStackOperationsException If an error occurs during the push operation (e.g. stack overflow).
  */
-fun StackOperations.push(registerType: RegisterType) = try {
+fun StackOperations.push(registerType: RegisterType) {
 	registers.write(
 		intelNames[IntelRegisters.ENSF], true.toLong()
-	) // Its above the next expr because internal stack may throw its own errors
+	) // It's above the next expr because the internal stack may throw its own errors
 
 	internalStack.push(element = registers.read(register = registerType))
-} catch (_: Exception) {
-	errors.GeneralStackOperationsException("Push")
 }
 
-fun StackOperations.pushl(registerType: Long) = try {
+fun StackOperations.pushl(registerType: Long) {
 	registers.write(
 		intelNames[IntelRegisters.ENSF], true.toLong()
 	) // It's above the next expr because the internal stack may throw its own errors
 
 	internalStack.push(registerType)
-} catch (_: Exception) {
-	errors.GeneralStackOperationsException("Push")
 }
 -------------------------------
 ```
@@ -2944,7 +2934,8 @@ class Instruction {
 	data class Mov(val source: RegisterType, val destination: RegisterType)
 
 	/**
-	 * Represents an ADD instruction, which adds the values in two registers and stores the result in a destination register.
+	 * Represents an ADD instruction, which adds the values in two registers and stores the result in a destination
+	 * register.
 	 *
 	 * @param operand1 The first operand register.
 	 * @param operand2 The second operand register.
@@ -2952,7 +2943,8 @@ class Instruction {
 	data class Add(val operand1: RegisterType, val operand2: RegisterType)
 
 	/**
-	 * Represents a SUB instruction, which subtracts the value in one register from the value in another register and stores the result in a destination register.
+	 * Represents a SUB instruction, which subtracts the value in one register from the value in another register and
+	 * stores the result in a destination register.
 	 *
 	 * @param operand1 The first operand register.
 	 * @param operand2 The second operand register.
@@ -2960,7 +2952,8 @@ class Instruction {
 	data class Sub(val operand1: RegisterType, val operand2: RegisterType)
 
 	/**
-	 * Represents a MUL instruction, which multiplies the values in two registers and stores the result in a destination register.
+	 * Represents a MUL instruction, which multiplies the values in two registers and stores the result in a destination
+	 * register.
 	 *
 	 * @param operand1 The first operand register.
 	 * @param operand2 The second operand register.
@@ -2968,7 +2961,8 @@ class Instruction {
 	data class Mul(val operand1: RegisterType, val operand2: RegisterType)
 
 	/**
-	 * Represents a DIV instruction, which divides the value in one register by the value in another register and stores the result in a destination register.
+	 * Represents a DIV instruction, which divides the value in one register by the value in another register and stores
+	 * the result in a destination register.
 	 *
 	 * @param operand1 The dividend register.
 	 * @param operand2 The divisor register.
@@ -2983,7 +2977,8 @@ class Instruction {
 	data class Jmp(val targetAddress: Int)
 
 	/**
-	 * Represents a JZ instruction, which jumps to a specified instruction address if the value in a test register is zero.
+	 * Represents a JZ instruction, which jumps to a specified instruction address if the value in a test register is
+	 * zero.
 	 *
 	 * @param targetAddress The address of the instruction to jump to.
 	 * @param testRegister The register to test for zero.
@@ -2991,7 +2986,8 @@ class Instruction {
 	data class Jz(val targetAddress: Int, val testRegister: RegisterType)
 
 	/**
-	 * Represents a JNZ instruction, which jumps to a specified instruction address if the value in a test register is not zero.
+	 * Represents a JNZ instruction, which jumps to a specified instruction address if the value in a test register is
+	 * not zero.
 	 *
 	 * @param targetAddress The address of the instruction to jump to.
 	 * @param testRegister The register to test for non-zero.
@@ -3053,7 +3049,8 @@ class Instruction {
 	data class Store(val source: RegisterType, val memoryAddress: RegisterType)
 
 	/**
-	 * Represents an AND instruction, which performs a bitwise AND operation between two registers and stores the result in a destination register.
+	 * Represents an AND instruction, which performs a bitwise AND operation between two registers and stores the result
+	 * in a destination register.
 	 *
 	 * @param operand1 The first operand register.
 	 * @param operand2 The second operand register.
@@ -3061,7 +3058,8 @@ class Instruction {
 	data class And(val operand1: RegisterType, val operand2: RegisterType)
 
 	/**
-	 * Represents an OR instruction, which performs a bitwise OR operation between two registers and stores the result in a destination register.
+	 * Represents an OR instruction, which performs a bitwise OR operation between two registers and stores the result
+	 * in a destination register.
 	 *
 	 * @param operand1 The first operand register.
 	 * @param operand2 The second operand register.
@@ -3069,7 +3067,8 @@ class Instruction {
 	data class Or(val operand1: RegisterType, val operand2: RegisterType)
 
 	/**
-	 * Represents an XOR instruction, which performs a bitwise XOR operation between two registers and stores the result in a destination register.
+	 * Represents an XOR instruction, which performs a bitwise XOR operation between two registers and stores the result
+	 * in a destination register.
 	 *
 	 * @param operand1 The first operand register.
 	 * @param operand2 The second operand register.
@@ -3077,14 +3076,15 @@ class Instruction {
 	data class Xor(val operand1: RegisterType, val operand2: RegisterType)
 
 	/**
-	 * Represents a NOT instruction, which performs a bitwise NOT operation on a register and stores the result in the same register.
+	 * Represents a NOT instruction, which performs a bitwise NOT operation on a register and stores the result in the
+	 * same register.
 	 *
 	 * @param operand The operand register.
 	 */
 	data class Not(val operand: RegisterType)
 
 	/**
-	 * Represents a SHL instruction, which shifts the bits of a register to the left by a specified amount.
+	 * Represents an SHL instruction, which shifts the bits of a register to the left by a specified amount.
 	 *
 	 * @param operand The operand register.
 	 * @param shiftAmount The amount to shift the bits.
@@ -3100,7 +3100,7 @@ class Instruction {
 	data class Shr(val operand: RegisterType, val shiftAmount: RegisterType)
 
 	/**
-	 * Represents a LIT instruction, which loads a literal value into a specified register.
+	 * Represents an LIT instruction, which loads a literal value into a specified register.
 	 *
 	 * @param destination The destination register.
 	 * @param value The literal value to load.
@@ -3169,7 +3169,7 @@ open class DataTransfer(vm: Vm) {
 				registers.write(intelNames[IntelRegisters.ENSF], false.toLong())
 			}
 		} catch (e: Exception) {
-			errors.GeneralDataTransferException(message = name)
+			errors.generalDataTransferException(message = name)
 		}
 	}
 }
@@ -3307,7 +3307,7 @@ fun Arithmetic.lt(operand1: RegisterType, operand2: RegisterType) = try {
 		intelNames[IntelRegisters.GF], if (!out) true.toLong() else false.toLong()
 	)
 } catch (e: Exception) {
-	errors.run { this@run.GeneralArithmeticException(message = "lt") }
+	errors.run { this@run.generalArithmeticException(message = "lt") }
 }
 -------------------------------
 ```
@@ -3432,7 +3432,7 @@ open class Arithmetic(val vm: Vm) {
 			function()
 
 		} catch (e: Exception) {
-			vm.errors.GeneralArithmeticException(message = name)
+			vm.errors.generalArithmeticException(message = name)
 		}
 		signFlag(registers.read(RegisterType.R4))
 		zeroFlag(registers.read(RegisterType.R4))
@@ -3490,7 +3490,7 @@ fun Arithmetic.eq(operand1: RegisterType, operand2: RegisterType) = try {
 	registers.write(intelNames[IntelRegisters.ZF], out.toLong())
 
 } catch (e: Exception) {
-	errors.GeneralArithmeticException(message = "eq")
+	errors.generalArithmeticException(message = "eq")
 }
 -------------------------------
 ```
@@ -3513,7 +3513,7 @@ fun Arithmetic.gt(operand1: RegisterType, operand2: RegisterType) = try {
 	)
 
 } catch (e: Exception) {
-	errors.GeneralArithmeticException(message = "gt")
+	errors.generalArithmeticException(message = "gt")
 
 }
 -------------------------------
@@ -3591,14 +3591,6 @@ package internals.instructions.bitwise
 
 import data.registers.RegisterType
 
-/**
- * Performs a logical right shift operation on the value in the operand register by the amount specified in the shift amount register,
- * and stores the result in the `R3` register.
- *
- * @param operand1 The [RegisterType] holding the operand to be shifted.
- * @param operand2 The [RegisterType] holding the shift amount.
- * @throws GeneralBitwiseException If an error occurs during the right shift operation.
- */
 
 fun Bitwise.shr(operand1: RegisterType, operand2: RegisterType, where: RegisterType) = call("shr", where) {
 	registers.read(operand1) shr registers.read(operand2).toInt()
@@ -3630,14 +3622,6 @@ package internals.instructions.bitwise
 
 import data.registers.RegisterType
 
-/**
- * Performs a logical left shift operation on the value in the operand register by the amount specified in the shift amount register,
- * and stores the result in the `R3` register.
- *
- * @param operand1 The [RegisterType] holding the operand to be shifted.
- * @param operand2 The [RegisterType] holding the shift amount.
- * @throws GeneralBitwiseException If an error occurs during the left shift operation.
- */
 fun Bitwise.shl(operand1: RegisterType, operand2: RegisterType, where: RegisterType) = call("shl", where) {
 	registers.read(operand1) shl registers.read(operand2).toInt()
 
@@ -3667,7 +3651,7 @@ open class Bitwise(vm: Vm) {
 			registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
 
 		} catch (e: Exception) {
-			errors.run { this@run.GeneralBitwiseException(message = name) }
+			errors.run { this@run.generalBitwiseException(message = name) }
 		}
 	}
 
@@ -3708,11 +3692,11 @@ fun XFloats.xPow(operand1: RegisterType, operand2: RegisterType, where: Register
 	val o2 = registers.readX(operand2)
 
 	if (o1.value == null) {
-		vm.errors.NullRegisterException(operand1)
+		vm.errors.nullRegisterException(operand1)
 		exitProcess(0)
 	}
 	if (o2.value == null) {
-		vm.errors.NullRegisterException(operand2)
+		vm.errors.nullRegisterException(operand2)
 		exitProcess(0)
 	}
 
@@ -3739,11 +3723,11 @@ fun XFloats.xAdd(operand1: RegisterType, operand2: RegisterType, where: Register
 	val o2 = registers.readX(operand2)
 
 	if (o1.value == null) {
-		vm.errors.NullRegisterException(operand1)
+		vm.errors.nullRegisterException(operand1)
 		exitProcess(0)
 	}
 	if (o2.value == null) {
-		vm.errors.NullRegisterException(operand2)
+		vm.errors.nullRegisterException(operand2)
 		exitProcess(0)
 	}
 
@@ -3768,7 +3752,7 @@ fun XFloats.ftoi(registerX: RegisterType, register: RegisterType) {
 
 	if (valueLong.isDouble) {
 		if (valueLong.value == null) {
-			vm.errors.NullRegisterException(registerX)
+			vm.errors.nullRegisterException(registerX)
 		}
 		registers.write(register, Double.fromBits(valueLong.value!!).toLong())
 	} else {
@@ -3791,11 +3775,11 @@ fun XFloats.xDiv(operand1: RegisterType, operand2: RegisterType, where: Register
 	val o2 = registers.readX(operand2)
 
 	if (o1.value == null) {
-		vm.errors.NullRegisterException(operand1)
+		vm.errors.nullRegisterException(operand1)
 		exitProcess(0)
 	}
 	if (o2.value == null) {
-		vm.errors.NullRegisterException(operand2)
+		vm.errors.nullRegisterException(operand2)
 		exitProcess(0)
 	}
 
@@ -3846,11 +3830,11 @@ fun XFloats.xMul(operand1: RegisterType, operand2: RegisterType, where: Register
 	val o2 = registers.readX(operand2)
 
 	if (o1.value == null) {
-		vm.errors.NullRegisterException(operand1)
+		vm.errors.nullRegisterException(operand1)
 		exitProcess(0)
 	}
 	if (o2.value == null) {
-		vm.errors.NullRegisterException(operand2)
+		vm.errors.nullRegisterException(operand2)
 		exitProcess(0)
 	}
 
@@ -3878,11 +3862,11 @@ fun XFloats.xSub(operand1: RegisterType, operand2: RegisterType, where: Register
 	val o2 = registers.readX(operand2)
 
 	if (o1.value == null) {
-		vm.errors.NullRegisterException(operand1)
+		vm.errors.nullRegisterException(operand1)
 		exitProcess(0)
 	}
 	if (o2.value == null) {
-		vm.errors.NullRegisterException(operand2)
+		vm.errors.nullRegisterException(operand2)
 		exitProcess(0)
 	}
 
@@ -3958,7 +3942,7 @@ fun ControlFlow.jz(targetAddress: Long): Any = try {
 	}
 
 } catch (_: Exception) {
-	errors.GeneralControlFlowException(message = "Jz")
+	errors.generalControlFlowException(message = "Jz")
 
 }
 -------------------------------
@@ -3977,7 +3961,7 @@ package internals.instructions.controlFlow
 fun ControlFlow.jmp(targetAddress: Long): Any = try {
 	vm.pc = targetAddress
 } catch (_: Exception) {
-	errors.GeneralControlFlowException(message = "Jmp")
+	errors.generalControlFlowException(message = "Jmp")
 }
 -------------------------------
 ```
@@ -4005,7 +3989,7 @@ fun ControlFlow.jnz(targetAddress: Long): Any = try {
 
 } catch (_: Exception) {
 	errors.run {
-		this.GeneralControlFlowException(message = "Jnz")
+		this.generalControlFlowException(message = "Jnz")
 	}
 }
 -------------------------------
@@ -4016,7 +4000,6 @@ package internals
 
 import data.memory.Heap
 import data.registers.RegisterType
-import data.registers.Registers
 import data.registers.read
 import data.vfs.Vfs
 import environment.VMErrors
@@ -4033,14 +4016,13 @@ import internals.instructions.stackOperations.StackOperations
 import internals.instructions.strings.Strings
 import internals.instructions.xFloats.XFloats
 import kernel.ExecuteLib
-import kernel.SnapShotManager
 import kernel.systemCalls.SystemCall
 import kotlinx.coroutines.runBlocking
+import os
 import kotlin.reflect.KProperty
 
 class Vm {
-	val registers = Registers(this) // NOOOO!
-	val snapShotManager = SnapShotManager(this) // NOOOO!!!
+	var registers = os.registers
 	val errors = VMErrors(this)
 	val helpers = Helpers(this)
 	var libExecute: ExecuteLib? = null
@@ -4059,6 +4041,8 @@ class Vm {
 	val pcInternal = Pc(vm = this)
 	var pc: Long by pcInternal
 	var libPc = 0L
+
+	@Suppress("unused")
 	val vfs = Vfs() // TODO. We need to bring this back!
 
 
@@ -4082,7 +4066,7 @@ class Pc(val vm: Vm) {
 
 	operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Long) = runBlocking {
 		if (value < 0) {
-			vm.errors.InvalidPcValueException(value.toString())
+			vm.errors.invalidPcValueException(value.toString())
 		}
 		vm.registers.write(RegisterType.I8, value)
 
@@ -4102,7 +4086,8 @@ filePath .sharing/archiveBuffer/src/main/kotlin/internals/debug/Debug.kt
 ```kotlin
 package internals.debug
 
-import kernel.KProcess
+import kernel.process.KProcess
+
 
 class Debug(val kp: KProcess) {
 	val dm = DebugMemorySnapShots()
@@ -4121,7 +4106,7 @@ filePath .sharing/archiveBuffer/src/main/kotlin/internals/debug/DebugMemorySnapS
 ```kotlin
 package internals.debug
 
-import kernel.KProcess
+import kernel.process.KProcess
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -4170,7 +4155,7 @@ import data.registers.RegisterData
 import data.registers.RegisterType
 import environment.reflection.reflection
 import internals.Vm
-import kernel.KProcess
+import kernel.process.KProcess
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -4216,7 +4201,7 @@ filePath .sharing/archiveBuffer/src/main/kotlin/internals/debug/DebugInstruction
 ```kotlin
 package internals.debug
 
-import kernel.KProcess
+import kernel.process.KProcess
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -4491,19 +4476,9 @@ filePath .sharing/archiveBuffer/src/main/kotlin/environment/errorsCatchable/Erro
 package environment.errorsCatchable
 
 @Suppress("unused")
-enum class ErrorType(val code: Long) {
-	FILE_NOT_FOUND(0),
-	FILE_ALREADY_EXISTS(1),
-	LONG_OVERFLOW(2),
-	LONG_UNDERFLOW(3),
-	DIVIDE_BY_0(4),
-	STACK_OVERFLOW(5),
-	STACK_UNDERFLOW(6),
-
-	/**
-	 * If when using randmax, if F1 is smaller than 0 throw this exception
-	 */
-	RANDOM_GREATER_THAN_ORIGIN(7)
+enum class ErrorType(val code: Long) { // TODO. Need to add working Error handling
+	FILE_NOT_FOUND(0), FILE_ALREADY_EXISTS(1), LONG_OVERFLOW(2), LONG_UNDERFLOW(3), DIVIDE_BY_0(4), STACK_OVERFLOW(5),
+	STACK_UNDERFLOW(6), RANDOM_GREATER_THAN_ORIGIN(7)
 }
 -------------------------------
 ```
@@ -4535,9 +4510,8 @@ private class TaskManager {
 		taskScope.launch { taskChannel.send(block) }
 		if (!::taskManager.isInitialized) {
 			taskManager = taskScope.launch {
-				for (task in taskChannel) {
-					val taskJob =
-						launch(newSingleThreadContext("Kotlin's slaves \$${activeTasks.size + 1}")) { task() } // Launch each task concurrently
+				for (task in taskChannel) {					// Launch each task concurrently
+					val taskJob = launch(newSingleThreadContext("Kotlin's slaves \$${activeTasks.size + 1}")) { task() }
 					activeTasks.add(taskJob)
 				}
 				activeTasks.joinAll()
@@ -4633,49 +4607,49 @@ import kotlin.system.exitProcess
 
 @Suppress("unused")
 class VMErrors(val vm: Vm? = null, val pc: Long? = null) {
-	fun InvalidRegisterException(message: String) {
+	fun invalidRegisterException(message: String) {
 		System.err.println("${prefix()}: Invalid Register of type \"$message\"")
 		exitProcess(1)
 	}
 
-	fun InvalidMemoryAddressException(message: Long) {
+	fun invalidMemoryAddressException(message: Long) {
 		System.err.println("${prefix()}: Invalid Memory Address \"${message}\"")
 		exitProcess(2)
 	}
 
-	fun InvalidMemoryAddressException(message: String) {
+	fun invalidMemoryAddressException(message: String) {
 		System.err.println("${prefix()}: Invalid Memory Address \"${message}\"")
 		exitProcess(2)
 	}
 
-	fun InvalidInstructionException(message: String) {
+	fun invalidInstructionException(message: String) {
 		System.err.println("${prefix()}: Invalid Instruction \"${message}\"")
 		exitProcess(3)
 	}
 
-	fun InvalidSystemCallException(message: String) {
+	fun invalidSystemCallException(message: String) {
 		System.err.println("${prefix()}: Invalid System Call \"${message}\"")
 		exitProcess(4)
 	}
 
-	fun StackOverflowException() {
+	fun stackOverflowException() {
 		System.err.println("${prefix()}: Stack Overflow Exception")
 		exitProcess(5)
 	}
 
-	fun EmptyStackException() {
+	fun emptyStackException() {
 		System.err.println("${prefix()}: Empty Stack Exception")
 		exitProcess(6)
 	}
 
-
-	fun GeneralArithmeticException(message: String) {
+	@Deprecated("Please remove General ERRORS")
+	fun generalArithmeticException(message: String) {
 		System.err.println("${prefix()}: General Arithmetic Exception \"$message operation failed\"")
 		exitProcess(7)
 	}
 
-
-	fun SystemCallGeneralException(message: String, info: String? = null) {
+	@Deprecated("Please remove General ERRORS")
+	fun systemCallGeneralException(message: String, info: String? = null) {
 		if (info == null) {
 			System.err.println("${prefix()}: System Call General Exception \"$message operation failed\"")
 		} else {
@@ -4685,134 +4659,149 @@ class VMErrors(val vm: Vm? = null, val pc: Long? = null) {
 	}
 
 
-	fun FileAccessException() {
+	fun fileAccessException() {
 		System.err.println("${prefix()}: File Access Exception")
 		exitProcess(9)
 	}
 
-	fun SocketException() {
+	fun socketException() {
 		System.err.println("${prefix()}: Socket Exception")
 		exitProcess(10)
 	}
 
-	fun MemoryAllocationException(message: String) {
+	fun memoryAllocationException(message: String) {
 		System.err.println("${prefix()}: Memory Allocation Exception \"$message\"")
 		exitProcess(11)
 	}
 
-	fun InvalidInstructionArgumentException(message: String) {
+	fun invalidInstructionArgumentException(message: String) {
 		System.err.println("${prefix()}: Invalid Instruction Argument \"$message\"")
 		exitProcess(12)
 	}
 
-	fun NullRegisterException(message: RegisterType) {
+	@Deprecated("Registers use a 0 init, instead of a null init")
+	fun nullRegisterException(message: RegisterType) {
 		System.err.println("${prefix()}: Null Register of \"$message\"")
 		exitProcess(13)
 	}
 
-	fun NullAddressException(message: Long) {
+	@Deprecated("Addresses use a 0 init, instead of a null init")
+	fun nullAddressException(message: Long) {
 		System.err.println("${prefix()}: Null Address of \"${message}\"")
 		exitProcess(14)
 	}
 
-	fun InvalidFileDescriptorException(message: String) {
+	@Deprecated("File Descriptors are not used anymore")
+	fun invalidFileDescriptorException(message: String) {
 		System.err.println("${prefix()}: Invalid File Descriptor of \"$message\"")
 		exitProcess(15)
 	}
 
-	fun NotFreeMemoryException(message: String) {
+	fun notFreeMemoryException(message: String) {
 		System.err.println("${prefix()}: Address \"$message\" is not free Memory")
 		exitProcess(16)
 	}
 
-	fun GeneralBitwiseException(message: String) {
+	@Deprecated("Please remove General ERRORS")
+	fun generalBitwiseException(message: String) {
 		System.err.println("${prefix()}: General Bitwise Exception \"$message operation failed\"")
 		exitProcess(17)
 	}
 
-	fun GeneralControlFlowException(message: String) {
+	@Deprecated("Please remove General ERRORS")
+	fun generalControlFlowException(message: String) {
 		System.err.println("${prefix()}: General ControlFlow Exception \"$message operation failed\"")
 		exitProcess(18)
 	}
 
-	fun GeneralDataTransferException(message: String) {
+	@Deprecated("Please remove General ERRORS")
+	fun generalDataTransferException(message: String) {
 		System.err.println("${prefix()}: General DataTransfer Exception \"$message operation failed\"")
 		exitProcess(19)
 	}
 
-	fun GeneralIoAbstractionsException(message: String) {
+	@Deprecated("Please remove General ERRORS")
+	fun generalIoAbstractionsException(message: String) {
 		System.err.println("${prefix()}: General IoAbstractions Exception \"$message operation failed\"")
 		exitProcess(20)
 	}
 
-	fun GeneralMemoryException(message: String) {
+	@Deprecated("Please remove General ERRORS")
+	fun generalMemoryException(message: String) {
 		System.err.println("${prefix()}: General Memory Exception \"$message operation failed\"")
 		exitProcess(21)
 	}
 
-	fun GeneralStackOperationsException(message: String) {
+	@Deprecated("Please remove General ERRORS")
+	fun generalStackOperationsException(message: String) {
 		System.err.println("${prefix()}: General Stack Operation \"$message operation failed\"")
 		exitProcess(22)
 	}
 
-	fun GeneralStringException(message: String) {
+	@Deprecated("Please remove General ERRORS")
+	fun generalStringException(message: String) {
 		System.err.println("${prefix()}: General Strings Exception \"$message operation failed\"")
 		exitProcess(23)
 	}
 
-	fun InvalidArgumentException(info: HelpJsonArguments) {
+	@Deprecated("Please remove General ERRORS")
+	fun invalidArgumentException(info: HelpJsonArguments) {
 		System.err.println("${prefix()}:Missing argument Exception: \"${info.name}\"")
 		exitProcess(24)
 	}
 
-	fun InvalidArgumentFormatException(badType: String, shouldBe: String) {
-		System.err.println("${prefix()}:Invalid Argument Format Exception: Invalid type of \"$badType\", should be \"$shouldBe\"")
+	@Deprecated("Please remove General ERRORS")
+	fun invalidArgumentFormatException(badType: String, shouldBe: String) {
+		System.err.println(
+			"${prefix()}:Invalid Argument Format Exception: Invalid type of \"$badType\", should be " + "\"$shouldBe\""
+		)
 		exitProcess(25)
 	}
 
-	fun MissingLibraryException(message: String) {
+	fun missingLibraryException(message: String) {
 		System.err.println("${prefix()}: Missing Library Exception \"$message\"")
 		exitProcess(26)
 	}
 
-	fun FileAlreadyExistsException(message: String) {
+	fun fileAlreadyExistsException(message: String) {
 		System.err.println("${prefix()}: File Already Exists Exception: \"$message\"")
 		exitProcess(27)
 	}
 
-	fun FileNotFoundException(message: String) {
+	fun fileNotFoundException(message: String) {
 		System.err.println("${prefix()}: File Not Found Exception: \"$message\"")
 		exitProcess(28)
 	}
 
-	fun BadSymbolAtRuntimeException(message: String) {
+	fun badSymbolAtRuntimeException(message: String) {
 		System.err.println("${prefix()}: Bad Symbol at Runtime Exception in MAR \"${message}\"")
 		exitProcess(29)
 	}
 
-	fun InvalidRegisterTypeException(message: String) {
+	fun invalidRegisterTypeException(message: String) {
 		System.err.println("${prefix()}: Invalid Register Type Exception: \"$message\"")
 		exitProcess(30)
 	}
 
-	fun InvalidPcValueException(message: String) {
+	fun invalidPcValueException(message: String) {
 		System.err.println("${prefix()}: Invalid Pc Value Exception: \"$message\"")
 		exitProcess(31)
 	}
 
-	fun ProcessNotFoundException(message: String) {
+	fun processNotFoundException(message: String) {
 		System.err.println("${prefix()}: Process Not Found Exception: \"$message\"")
 		exitProcess(32)
 	}
 
 
-	fun InvalidOffsetForBlockException(message: Long) {
+	fun invalidOffsetForBlockException(message: Long) {
 		System.err.println("${prefix()}: Invalid Offset For Block Exception: \"$message\"")
 		exitProcess(33)
 	}
 
-	fun AccessingUnallocatedMemoryException(message: Long) {
+	fun accessingUnallocatedMemoryException(message: Long) {
 		System.err.println("${prefix()}: Accessing Unallocated Memory Exception: \"$message\"")
+		exitProcess(34)
 	}
 
 
@@ -4821,8 +4810,7 @@ class VMErrors(val vm: Vm? = null, val pc: Long? = null) {
 			"ERROR:${vm.pc}"
 		} else {
 			"ERROR:$pc"
-		}
-//		 Let's just forget about line numbers for now
+		} //		 Let's just forget about line numbers for now
 	}
 
 }
@@ -4843,7 +4831,7 @@ filePath .sharing/archiveBuffer/src/main/kotlin/environment/reflection/Reflectio
 package environment.reflection
 
 import internals.Vm
-import kernel.KProcess
+import kernel.process.KProcess
 
 
 val reflection = Reflection()
@@ -4951,8 +4939,7 @@ import java.io.File
 import kotlin.system.exitProcess
 
 
-@OptIn(ExperimentalStdlibApi::class, ExperimentalSerializationApi::class)
-// TODO. Turn into syscalls
+@OptIn(ExperimentalStdlibApi::class, ExperimentalSerializationApi::class) //TODO. Turn into syscalls
 class Vfs {
 
 	init {
@@ -5036,12 +5023,13 @@ class Vfs {
 	fun list(): List<Ventry> =
 		ProtoBuf.decodeFromHexString<List<Ventry>>(hex = File("src/main/resources/vfs.fs").readText())
 
-
-	fun mkFile(path: String) {
+	@Suppress("unused")
+	fun mkFile(path: String) { // // TODO. Implement
 		mk(Ventry(path = path, content = "", permissions = Permissions(directory = false, write = true, read = true)))
 	}
 
-	fun rmFile(path: String) {
+	@Suppress("unused")
+	fun rmFile(path: String) { // TODO. Implement
 		val l = list().map { Pair(it.path, it) }
 		if (path !in l.map { it.first }) {
 			error("Ventry not found")
@@ -5077,7 +5065,7 @@ filePath .sharing/archiveBuffer/src/main/kotlin/data/memory/Heap.kt
 ```kotlin
 package data.memory
 
-import kernel.KProcess
+import kernel.process.KProcess
 import os
 import kotlin.system.exitProcess
 
@@ -5108,7 +5096,7 @@ class Heap(val kp: KProcess) {
 				return start
 			}
 		}
-		kp.vm.errors.MemoryAllocationException(size.toString())
+		kp.vm.errors.memoryAllocationException(size.toString())
 		exitProcess(32)
 	}
 
@@ -5121,7 +5109,7 @@ class Heap(val kp: KProcess) {
 				m[i.toInt()] = 0L
 			}
 		} else {
-			kp.vm.errors.InvalidMemoryAddressException(address)
+			kp.vm.errors.invalidMemoryAddressException(address)
 		}
 	}
 
@@ -5135,12 +5123,12 @@ class Heap(val kp: KProcess) {
 			if (offset >= 0 && offset < block.size) {
 				return m[absoluteAddress.toInt()]
 			} else {
-				kp.vm.errors.InvalidOffsetForBlockException(absoluteAddress)
+				kp.vm.errors.invalidOffsetForBlockException(absoluteAddress)
 				exitProcess(203)
 
 			}
 		} else {
-			kp.vm.errors.AccessingUnallocatedMemoryException(absoluteAddress)
+			kp.vm.errors.accessingUnallocatedMemoryException(absoluteAddress)
 			exitProcess(203)
 		}
 
@@ -5155,11 +5143,11 @@ class Heap(val kp: KProcess) {
 			if (offset >= 0 && offset < block.size) {
 				m[absoluteAddress.toInt()] = value
 			} else {
-				kp.vm.errors.InvalidOffsetForBlockException(absoluteAddress)
+				kp.vm.errors.invalidOffsetForBlockException(absoluteAddress)
 
 			}
 		} else {
-			kp.vm.errors.InvalidMemoryAddressException(absoluteAddress)
+			kp.vm.errors.invalidMemoryAddressException(absoluteAddress)
 
 		}
 
@@ -5173,7 +5161,7 @@ filePath .sharing/archiveBuffer/src/main/kotlin/data/memory/ProcessMemory.kt
 package data.memory
 
 import data.stack.FixedStackStateless
-import kernel.KProcess
+import kernel.process.KProcess
 
 class ProcessMemory(kp: KProcess) {
 	val heap = Heap(kp)
@@ -5188,11 +5176,14 @@ package data.memory
 import MEMORY_LIMIT
 import internals.Vm
 
+@Deprecated("We have moved to using the HEAP", replaceWith = ReplaceWith("data.memory.Heap"))
 class InternalMemory(vm: Vm) {
 	val errors = vm.errors
 	var memory = emptyMap<Long, Long>().toMutableMap()
 
 	var linkedR: LongRange? = null
+
+	@Suppress("DEPRECATION")
 	var linedRef: InternalMemory? = null
 
 	init {
@@ -5203,7 +5194,7 @@ class InternalMemory(vm: Vm) {
 
 	fun write(address: Long, value: Long) {
 		if (address.toInt() > MEMORY_LIMIT) {
-			errors.InvalidMemoryAddressException(address)
+			errors.invalidMemoryAddressException(address)
 		}
 
 		if (linkedR != null && linedRef != null && address in linkedR!!) {
@@ -5215,15 +5206,16 @@ class InternalMemory(vm: Vm) {
 
 	fun read(address: Long): Long {
 		if (memory[address] == 0L) {
-			errors.NullAddressException(address)
+			errors.nullAddressException(address)
 		}
 		if (address > MEMORY_LIMIT) {
-			errors.InvalidMemoryAddressException(address)
+			errors.invalidMemoryAddressException(address)
 		}
 		return memory[address]!!
 	}
 
 	@Deprecated("Should implement a new method for memoryV2")
+	@Suppress("DEPRECATION")
 	fun link(ref: InternalMemory, range: LongRange) {
 		linkedR = range
 		linedRef = ref
@@ -5248,10 +5240,12 @@ import kotlinx.serialization.Serializable
 /**
  * Represents a supertype encompassing all register types in the virtual machine.
  *
- * This enumeration allows for a unified way to refer to any register type, regardless of its specific category (General, System, or Return).
+ * This enumeration allows for a unified way to refer to any register type, regardless of its specific category
+ * (General, System, or Return).
  */
 enum class RegisterType {
-	G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, S4, S1, S2, S3, I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10
+	G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, R1, R2, R3, R4, R5, R6, R7, R8,
+	R9, R10, S4, S1, S2, S3, I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10
 }
 
 fun RegisterType.read(vm: Vm): Long = vm.registers.read(this)
@@ -5408,12 +5402,9 @@ filePath .sharing/archiveBuffer/src/main/kotlin/data/registers/Registers.kt
 ```kotlin
 package data.registers
 
-import internals.Vm
-import kotlin.system.exitProcess
-
 data class FDRegister(val isDouble: Boolean, val value: Long?)
 
-class Registers(val vm: Vm) {
+class Registers {
 	val registers = mutableMapOf<RegisterType, RegisterData>()
 
 	init {
@@ -5445,13 +5436,8 @@ class Registers(val vm: Vm) {
 	}
 
 
-	fun read(register: RegisterType): Long = try {
-		val value = registers[register]!!.read()
-		value!!
-
-	} catch (_: NullPointerException) {
-		vm.errors.NullRegisterException(register)
-		exitProcess(1)
+	fun read(register: RegisterType): Long {
+		return registers[register]!!.read()!!
 	}
 
 	fun write(register: RegisterType, value: Long) {
@@ -5568,7 +5554,7 @@ import data.registers.IntelRegisters
 import data.registers.intelNames
 import environment.errorsCatchable.ErrorType
 import helpers.toLong
-import kernel.KProcess
+import kernel.process.KProcess
 
 class FixedStackStateless(kp: KProcess) {
 	private val maxSize = config.stackSize
@@ -5633,7 +5619,7 @@ import engine.execution.InstructData
 import helpers.gatherHelp
 import helpers.toRegisterType
 import internals.Vm
-import kernel.KProcess
+import kernel.process.KProcess
 import kotlin.system.exitProcess
 
 fun parser(kp: KProcess, file: List<String>) {
@@ -5710,7 +5696,7 @@ fun parserReturn(vm: Vm, file: List<String>): List<InstructData> {
 								line[1].toRegisterType(), try {
 									line.joinToString(" ").split("\"")[1]
 								} catch (e: IndexOutOfBoundsException) {
-									vm.errors.InvalidArgumentFormatException(
+									vm.errors.invalidArgumentFormatException(
 										"Any", shouldBe = "String"
 									)
 								}
@@ -5742,7 +5728,9 @@ fun parserReturn(vm: Vm, file: List<String>): List<InstructData> {
 					}
 
 					// Register Register Register
-					"mod", "add", "sub", "mul", "div", "shl", "shr", "and", "or", "xor", "pow", "xadd", "xsub", "xmul", "xdiv", "xpow" -> {
+					"mod", "add", "sub", "mul", "div", "shl", "shr", "and", "or", "xor", "pow", "xadd", "xsub", "xmul",
+					"xdiv", "xpow",
+						-> {
 						InstructData(
 							name = instruction,
 							arrayOf(line[1].toRegisterType(), line[2].toRegisterType(), line[3].toRegisterType())
@@ -5795,7 +5783,7 @@ fun parserReturn(vm: Vm, file: List<String>): List<InstructData> {
 					}
 
 					else -> {
-						vm.errors.InvalidInstructionException(instruction)
+						vm.errors.invalidInstructionException(instruction)
 						exitProcess(99) // for kotlin. Ughhhhhh
 					}
 				}
@@ -5803,19 +5791,19 @@ fun parserReturn(vm: Vm, file: List<String>): List<InstructData> {
 		} catch (missingArgument: IndexOutOfBoundsException) {
 			val missingIndex = missingArgument.message!!.split(" ")[1].toByte() - 1
 			val info = vm.helpers.gatherHelp(instruction).arguments[missingIndex]
-			vm.errors.InvalidArgumentException(info = info)
+			vm.errors.invalidArgumentException(info = info)
 
 
 		} catch (e: NumberFormatException) {
 			try {
 				val x = e.message!!.split(" ")[3].substring(1, e.message!!.split(" ").size - 1).toRegisterType()
 				if (x == null) {
-					vm.errors.InvalidArgumentFormatException(badType = "Any", shouldBe = "Long")
+					vm.errors.invalidArgumentFormatException(badType = "Any", shouldBe = "Long")
 				} else {
-					vm.errors.InvalidArgumentFormatException(badType = "Long", shouldBe = "Register")
+					vm.errors.invalidArgumentFormatException(badType = "Long", shouldBe = "Register")
 				}
 			} catch (_: IllegalStateException) {
-				vm.errors.InvalidArgumentFormatException(
+				vm.errors.invalidArgumentFormatException(
 					badType = "String", shouldBe = "Long"
 				)
 			}
@@ -5823,9 +5811,8 @@ fun parserReturn(vm: Vm, file: List<String>): List<InstructData> {
 	}
 	vm.pc = 0
 
-//	if (reflection.groupTrackedVmByVm()[vm]!!.file.extension != "lib") {
-	out.add(InstructData("HALT", arrayOf()))
-//	}
+	//	if (reflection.groupTrackedVmByVm()[vm]!!.file.extension != "lib") {
+	out.add(InstructData("HALT", arrayOf())) //	}
 	return out
 }
 -------------------------------
@@ -5833,85 +5820,6 @@ fun parserReturn(vm: Vm, file: List<String>): List<InstructData> {
 filePath .sharing/archiveBuffer/src/main/kotlin/engine/tests.kt
 ```kotlin
 package engine
--------------------------------
-```
-filePath .sharing/archiveBuffer/src/main/kotlin/engine/kExe.kt
-```kotlin
-package engine
-//
-//import engine.execution.Execute
-//import environment.snapShotManager
-//import kotlinx.coroutines.CoroutineScope
-//import kotlinx.coroutines.Job
-//import kotlinx.coroutines.launch
-//import kotlinx.coroutines.withContext
-//import java.lang.Thread.sleep
-//
-//
-//var pc1 = 0
-//var pc2 = 0
-//val exe = Execute()
-//var depends = true
-//val clock = Channel()
-//val ps = listOf(p1, p2)
-//val cJob = Job()
-//var end = false
-//
-//
-//var p1r = snapShotManager.snapShotRegisters()
-//var p2r = snapShotManager.snapShotRegisters()
-//suspend fun main() {
-//	val max = ps.map { it.size }.toIntArray().max()
-//	clock()
-//
-//	while (true) {
-//		if (end) break
-//
-//		withContext(cJob) {
-//			if (clock.i % 10 == 0) {
-//				if (depends && pc1 < p1.size) {
-//					snapShotManager.populateSnapShotRegister(p1r)
-//					exe.exeWhen(p1[pc1].name, p1[pc1].values)
-//					p1r = snapShotManager.snapShotRegisters()
-//					snapShotManager.populateSnapShotRegister(p1r)
-//					pc1++
-//				} else if (!depends && pc2 < p2.size) {
-//					snapShotManager.populateSnapShotRegister(p2r)
-//					exe.exeWhen(p2[pc2].name, p2[pc2].values)
-//					p2r = snapShotManager.snapShotRegisters()
-//					snapShotManager.populateSnapShotRegister(p2r)
-//					pc2++
-//				} else if (pc1 == p1.size && pc2 == p2.size) {
-//					println("Complete")
-//					end = true
-//				}
-//
-//				depends = !depends
-//			}
-//		}
-//	}
-//}
-//
-//
-//fun clock() {
-//	CoroutineScope(cJob).launch {
-//		while (true) {
-//			if (end) break
-//			clock.increment()
-//			sleep(10)
-//		}
-//	}
-//}
-//
-//
-//class Channel {
-//	var i = 0
-//	fun increment() {
-//		i += 1
-//	}
-//}
-//
-//
 -------------------------------
 ```
 filePath .sharing/archiveBuffer/src/main/kotlin/engine/execution/InstructData.kt
@@ -5969,7 +5877,7 @@ import internals.instructions.stackOperations.push
 import internals.instructions.stackOperations.pushl
 import internals.instructions.strings.str
 import internals.instructions.xFloats.*
-import kernel.KProcess
+import kernel.process.KProcess
 
 
 class Execute(val kp: KProcess) {
@@ -5981,7 +5889,7 @@ class Execute(val kp: KProcess) {
 	suspend fun singleEvent(command: InstructData) {
 		kp.vm.pc++
 		if (kp.vm.pc - 1 < 0) {
-			kp.vm.errors.InvalidPcValueException((kp.vm.pc - 1).toString())
+			kp.vm.errors.invalidPcValueException((kp.vm.pc - 1).toString())
 		}
 
 
@@ -6005,7 +5913,7 @@ class Execute(val kp: KProcess) {
 			}
 			vm.pc++
 			if (vm.pc - 1 < 0) {
-				vm.errors.InvalidPcValueException((vm.pc - 1).toString())
+				vm.errors.invalidPcValueException((vm.pc - 1).toString())
 			}
 
 			if (vm.pc - 1L == command.size.toLong()) {
@@ -6022,13 +5930,16 @@ class Execute(val kp: KProcess) {
 		}
 	}
 
+	@Deprecated(
+		"Not usable with TaskManagerV2. I mean I guess it is but yk whatever",
+		ReplaceWith("engine.execution.Execute.run")
+	)
+	suspend fun execute() {
+		this.run(command = kp.instructionMemory)
+	}
 
-//	suspend fun execute() {
-//		this.run(command = kp.instructionMemory)
-//	}
 
-
-	suspend fun exeWhen(name: String, args: Array<Any?>): Unit? { // This has to be suspended I know its terrible!
+	suspend fun exeWhen(name: String, args: Array<Any?>): Unit? { // This has to be suspended. I know it's terrible!
 		val vm = kp.vm
 		kp.currentInstruction = InstructData(name, args)
 
@@ -6036,8 +5947,7 @@ class Execute(val kp: KProcess) {
 
 		when (name) {
 
-			"HALT" -> {
-				// This should not be handled here but in TaskManager. Or maybe by the OS IDK!
+			"HALT" -> { // This should not be handled here but in TaskManager. Or maybe by the OS IDK!
 			}
 
 			"sleep" -> {
@@ -6083,9 +5993,6 @@ class Execute(val kp: KProcess) {
 				vm.registers.registers[(args[0] as RegisterType)]!!.settype(args[1] as RegisterDataType)
 			}
 
-//			"dealloc" -> {
-//				vm.dataTransfer.dealloc(args[0] as RegisterType)
-//			}
 
 			"pow" -> {
 				vm.arithmetic.pow(args[0] as RegisterType, args[1] as RegisterType, args[2] as RegisterType)
@@ -6101,7 +6008,7 @@ class Execute(val kp: KProcess) {
 
 			"inr" -> {
 				(args[0] as String).toRegisterType() ?: {
-					vm.errors.InvalidRegisterException(args[0] as String)
+					vm.errors.invalidRegisterException(args[0] as String)
 				} as RegisterType
 			}
 
@@ -6122,7 +6029,7 @@ class Execute(val kp: KProcess) {
 						7 -> RegisterType.F8.write(vm, r.read(vm))
 						8 -> RegisterType.F9.write(vm, r.read(vm))
 						9 -> RegisterType.F10.write(vm, r.read(vm))
-						else -> vm.errors.InvalidInstructionArgumentException("To many arguments")
+						else -> vm.errors.invalidInstructionArgumentException("To many arguments")
 					}
 				}
 
@@ -6141,7 +6048,7 @@ class Execute(val kp: KProcess) {
 
 			"str" -> {
 				vm.strings.str(args[0].toString().toRegisterType() ?: {
-					vm.errors.InvalidRegisterException(args[0] as String)
+					vm.errors.invalidRegisterException(args[0] as String)
 				} as RegisterType, args[1].toString())
 			}
 
@@ -6261,7 +6168,7 @@ class Execute(val kp: KProcess) {
 			}
 
 			else -> {
-				vm.errors.InvalidInstructionException(name)
+				vm.errors.invalidInstructionException(name)
 			}
 		}
 		return Unit
@@ -6447,7 +6354,7 @@ fun Helpers.gatherHelp(string: String): HelpJsonPartial {
 		}
 	}
 	if (usable == null) {
-		errors.InvalidInstructionArgumentException(string)
+		errors.invalidInstructionArgumentException(string)
 	}
 	return usable!!
 }
@@ -6479,7 +6386,7 @@ fun Helpers.findFreeMemory(size: Long): Long {
 		currentAddress++
 	}
 
-	vm.errors.MemoryAllocationException("Could not allocate memory")
+	vm.errors.memoryAllocationException("Could not allocate memory")
 	exitProcess(1)
 }
 -------------------------------
@@ -6501,7 +6408,7 @@ fun Helpers.writeStringSpecInMemory(string: String, destinationAddress: Long) {
 
 	for (i in (destinationAddress until (destinationAddress + allocMem))) {
 		if (heap!!.get(i) != 0L) {
-			errors.NotFreeMemoryException(i.toString())
+			errors.notFreeMemoryException(i.toString())
 		}
 	}
 
@@ -6615,13 +6522,13 @@ package kernel.systemCalls.calls
 import data.registers.RegisterType
 import environment.reflection.reflection
 import helpers.RuntimeStates
-import kernel.KProcess
+import kernel.process.KProcess
 import kernel.systemCalls.SystemCall
 
 
-fun SystemCall.share_m(vm_id: RegisterType, fromX: RegisterType, toX: RegisterType) {
+fun SystemCall.shareM(vmId: RegisterType, fromX: RegisterType, toX: RegisterType) {
 	val x = reflection.vmTracker.groupBy(KProcess::id)
-	val vmI = x[registers.read(vm_id).toInt()]!![0].vm
+	val vmI = x[registers.read(vmId).toInt()]!![0].vm
 	val from = registers.read(fromX)
 	val to = registers.read(toX)
 
@@ -6630,14 +6537,12 @@ fun SystemCall.share_m(vm_id: RegisterType, fromX: RegisterType, toX: RegisterTy
 }
 
 
-fun SystemCall.pause_t(vmToPause: RegisterType) {
-	val x = reflection.vmTracker.groupBy(KProcess::id)
-	x[registers.read(vmToPause).toInt()]!![0].runtimeState = RuntimeStates.PAUSED
+fun SystemCall.pauseT(vmToPause: RegisterType) {
+	reflection.groupTrackedVmById()[registers.read(vmToPause).toInt()]!!.runtimeState = RuntimeStates.PAUSED
 }
 
-fun SystemCall.continue_t(vmToPause: RegisterType) {
-	val x = reflection.vmTracker.groupBy(KProcess::id)
-	x[registers.read(vmToPause).toInt()]!![0].runtimeState = RuntimeStates.RUNNING
+fun SystemCall.continueT(vmToPause: RegisterType) {
+	reflection.groupTrackedVmById()[registers.read(vmToPause).toInt()]!!.runtimeState = RuntimeStates.RUNNING
 }
 -------------------------------
 ```
@@ -6791,8 +6696,7 @@ package kernel.systemCalls.calls
 import data.registers.RegisterType
 import kernel.systemCalls.SystemCall
 
-fun SystemCall.newFile(name: RegisterType) = call("newFile") {
-//	vm.vfs.new(helpers.readRegisterString(name)) ?: errors.FileAlreadyExistsException(helpers.readRegisterString(name))
+fun SystemCall.newFile(name: RegisterType) = call("newFile") { //vm.vfs.new(helpers.readRegisterString(name)) ?: errors.FileAlreadyExistsException(helpers.readRegisterString(name))
 	TODO("Bring back VFS")
 
 }
@@ -7052,7 +6956,7 @@ import data.registers.write
 import environment.reflection.reflection
 import helpers.toLong
 import internals.Vm
-import kernel.KProcess
+import kernel.process.KProcess
 import kernel.systemCalls.calls.*
 import kotlin.system.exitProcess
 
@@ -7085,9 +6989,9 @@ class SystemCall(val vm: Vm) {
 			7 -> exec(s2)
 			8 -> fork()
 //			9 -> spawn(s2)
-			10 -> share_m(s2, s3, s4)
-			11 -> pause_t(s2)
-			12 -> continue_t(s2)
+			10 -> shareM(s2, s3, s4)
+			11 -> pauseT(s2)
+			12 -> continueT(s2)
 			14 -> time()
 			16 -> getPid()
 			17 -> getUid()
@@ -7105,7 +7009,7 @@ class SystemCall(val vm: Vm) {
 			34 -> getParentPid()
 
 
-			else -> errors.InvalidSystemCallException(registers.read(callId).toString())
+			else -> errors.invalidSystemCallException(registers.read(callId).toString())
 		}
 	}
 
@@ -7115,7 +7019,7 @@ class SystemCall(val vm: Vm) {
 		val functionResult = try {
 			function()
 		} catch (_: Exception) {
-			errors.SystemCallGeneralException(message = name)
+			errors.systemCallGeneralException(message = name)
 			exitProcess(29384)
 		}
 
@@ -7154,7 +7058,7 @@ class ExecuteLib(val vm: Vm) {
 	var currentFunction = ""
 	var enabledFunction = false
 	val kp = reflection.groupTrackedVmByVm()[vm]!!
-	fun execute(name: String) {
+	suspend fun execute(name: String) {
 		if (findMarLib(name) != null) {
 			val file = File(findMarLib(name)!!)
 			enabledFunction = true
@@ -7176,6 +7080,8 @@ package kernel
 
 import engine.execution.Execute
 import internals.Pc
+import kernel.process.KProcess
+import os
 
 class TaskManagerV2 {
 	val keepPcs = mutableMapOf<KProcess, Pair<Pc, Execute>>()
@@ -7183,69 +7089,27 @@ class TaskManagerV2 {
 
 	fun add(process: KProcess) = run { keepPcs[process] = Pair(process.vm.pcInternal, Execute(process)) }
 
-	fun eventLoop() {
+	suspend fun eventLoop() {
 		if (keepPcs.isEmpty()) return
 		outer@ while (true) {
 			inner@ for (process in keepPcs) {
+				val kp = process.key
 				if (deadProcess.toTypedArray().contentEquals(keepPcs.keys.toTypedArray())) break@outer
+
 				if (process.key.instructionMemory[process.value.first.toInt()].name == "HALT" && process.key !in deadProcess) {
 					deadProcess.add(process.key)
-//					println("[DEAD] += | ${process.key.file.name} ")
-				}
-
-				if (process.key in deadProcess) {
-//					println("[IGNORE DEAD] ${process.key.file.name} ")
+				} else if (process.key in deadProcess) {
 					continue@inner
+				} else {
+					os.snapShotManager.populateSnapShotRegister(kp)
+					process.value.second.singleEvent(process.key.instructionMemory[process.value.first.toInt()])
+					os.snapShotManager.snapShotRegisters(kp)
 				}
-
-
-				process.value.second.singleEvent(process.key.instructionMemory[process.value.first.toInt()])
-//				println("[EVAL] ${process.key.file.name} | ${process.key.vm.pc} | ${process.key.currentInstruction} ")
 			}
 		}
 	}
 
 
-}
--------------------------------
-```
-filePath .sharing/archiveBuffer/src/main/kotlin/kernel/KProcess.kt
-```kotlin
-package kernel
-
-import data.memory.ProcessMemory
-import engine.execution.InstructData
-import environment.reflection.reflection
-import helpers.RuntimeStates
-import internals.Vm
-import internals.debug.Debug
-import os
-import java.io.File
-
-data class KProcess(val vm: Vm, var file: File) {
-	val debug = Debug(this)
-	var runtimeState = RuntimeStates.RUNNING
-	val addressSpace = ProcessMemory(this)
-	var currentInstruction: InstructData = InstructData(name = "init", arrayOf())
-
-	init {
-		reflection.vmTracker.add(this)
-		vm.heap = addressSpace.heap
-		vm.libExecute = ExecuteLib(vm)
-	}
-
-
-//	val registers = Registers(vm) // PLEASE COME BACK!
-
-
-	val ipcPermissions = mutableListOf<Int>()
-	var parent: Int? = null
-	var instructionMemory = emptyList<InstructData>()
-	val id: Int = reflection.vmTracker.size
-	val thread: Thread = Thread.currentThread()
-
-
-	fun notifyOS() = os.taskManager.add(this)
 }
 -------------------------------
 ```
@@ -7256,11 +7120,14 @@ package kernel
 import config
 import data.memory.EMPTY_MEM_VAL
 import data.memory.Heap.AllocatedBlock
+import data.registers.Registers
 
 class OS {
 	val mainMemory = LongArray((config.memorySize - config.stackSize).toInt()) { EMPTY_MEM_VAL }
 	val usedMemory = mutableListOf<AllocatedBlock>()
 	val taskManager = TaskManagerV2()
+	val registers = Registers()
+	val snapShotManager = SnapShotManager(registers)
 	val ipc = Ipc()
 }
 -------------------------------
@@ -7272,6 +7139,7 @@ filePath .sharing/archiveBuffer/src/main/kotlin/kernel/Ipc.kt
 package kernel
 
 import internals.Vm
+import kernel.process.KProcess
 import java.io.File
 import java.util.*
 import kotlin.system.exitProcess
@@ -7358,17 +7226,21 @@ package kernel.libEx
 import engine.execution.Execute
 import engine.parserReturn
 import kernel.ExecuteLib
+import kernel.SnapShotManagerLegacy
+import kernel.UnstableSnapShots
 import java.io.File
 
-fun ExecuteLib.executeMar(file: File) {
+@OptIn(UnstableSnapShots::class)
+suspend fun ExecuteLib.executeMar(file: File) {
 	val vm = vm
+	val smLegacy = SnapShotManagerLegacy(vm)
 	val oldPC = kp.vm.pc
 	val oldInstructs = kp.instructionMemory
-	val snapshot = vm.snapShotManager.snapShotRegisters()
+	val snapshot = smLegacy.snapShotRegisters()
 	vm.pc - 2
 	val instructions = parserReturn(vm, file.readLines())
 	Execute(kp).run(instructions)
-	vm.snapShotManager.populateSnapShotRegister(snapshot)
+	smLegacy.populateSnapShotRegister(snapshot)
 	kp.vm.pc = oldPC
 	kp.instructionMemory = oldInstructs
 }
@@ -7379,16 +7251,20 @@ filePath .sharing/archiveBuffer/src/main/kotlin/kernel/libEx/executeKt.kt
 package kernel.libEx
 
 import kernel.ExecuteLib
+import kernel.SnapShotManagerLegacy
+import kernel.UnstableSnapShots
 import kilb.Klib
 
+@OptIn(UnstableSnapShots::class)
 fun ExecuteLib.executeKt(name: String) {
+	val smLegacy = SnapShotManagerLegacy(vm)
 	val oldPc = vm.pc
-	val snapshot = vm.snapShotManager.snapShotRegisters()
+	val snapshot = smLegacy.snapShotRegisters()
 	if (!Klib(vm).match(name)) {
-		vm.errors.MissingLibraryException(name) // Kt should be the last resort
+		vm.errors.missingLibraryException(name) // Kt should be the last resort
 	}
 	currentFunction = name
-	vm.snapShotManager.populateSnapShotRegister(snapshot)
+	smLegacy.populateSnapShotRegister(snapshot)
 	vm.pc = oldPc
 }
 -------------------------------
@@ -7432,16 +7308,49 @@ filePath .sharing/archiveBuffer/src/main/kotlin/kernel/SnapShotManager.kt
 package kernel
 
 import data.registers.RegisterType
+import data.registers.Registers
 import internals.Vm
+import kernel.process.KProcess
 
-class SnapShotManager(val vm: Vm) {
+class SnapShotManager(private val registers: Registers) {
 
+	private val snapshots = mutableMapOf<KProcess, Map<RegisterType, Long>>()
+
+	fun populateSnapShotRegister(kProcess: KProcess) {
+		for (i in snapshots[kProcess]!!) {
+			registers.write(i.key, i.value)
+		}
+	}
+
+	fun snapShotRegisters(kProcess: KProcess) {
+		val allRegisters = mutableMapOf<RegisterType, Long>()
+		for (i in RegisterType.entries) {
+			allRegisters[i] = registers.read(i)
+		}
+		snapshots[kProcess] = allRegisters
+	}
+
+	fun initSnapShotRegister(kProcess: KProcess) {
+		for (register in RegisterType.entries) {
+			registers.write(register, 0L)
+		}
+		snapShotRegisters(kProcess)
+
+	}
+}
+
+
+@UnstableSnapShots
+@Deprecated("Please dont use this")
+class SnapShotManagerLegacy(val vm: Vm) {
+	@Deprecated("Please dont use this")
 	fun populateSnapShotRegister(snapShotRegisters: Map<RegisterType, Long>) {
 		for (i in snapShotRegisters) {
 			vm.registers.write(i.key, i.value)
 		}
 	}
 
+	@Deprecated("Please dont use this")
 	fun snapShotRegisters(): Map<RegisterType, Long> {
 		val allRegisters = mutableMapOf<RegisterType, Long>()
 		allRegisters.forEach { if (!it.key.name.startsWith('I')) allRegisters.remove(it.key) }
@@ -7451,7 +7360,63 @@ class SnapShotManager(val vm: Vm) {
 		return allRegisters
 	}
 
+}
 
+
+@RequiresOptIn
+@Retention(AnnotationRetention.BINARY)
+@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
+annotation class UnstableSnapShots
+-------------------------------
+```
+filePath .sharing/archiveBuffer/src/main/kotlin/kernel/process/KThread.kt
+```kotlin
+package kernel.process
+
+import helpers.RuntimeStates
+
+data class KThread(val id: UInt, val state: RuntimeStates)
+-------------------------------
+```
+filePath .sharing/archiveBuffer/src/main/kotlin/kernel/process/KProcess.kt
+```kotlin
+package kernel.process
+
+import data.memory.ProcessMemory
+import engine.execution.InstructData
+import environment.reflection.reflection
+import helpers.RuntimeStates
+import internals.Vm
+import internals.debug.Debug
+import kernel.ExecuteLib
+import os
+import java.io.File
+
+data class KProcess(val vm: Vm, var file: File) {
+	val debug = Debug(this)
+	var runtimeState = RuntimeStates.RUNNING
+	val addressSpace = ProcessMemory(this)
+	var currentInstruction: InstructData = InstructData(name = "init", arrayOf())
+
+	init { // Look at the console. Theres 2 KProcesses. Different. But both have the same VM!??!?!?!?!??!?!?!?
+		reflection.vmTracker.add(this)
+		vm.heap = addressSpace.heap
+		vm.libExecute = ExecuteLib(vm)
+		os.snapShotManager.initSnapShotRegister(this)
+	}
+
+
+//	val registers = Registers(vm) // PLEASE COME BACK!
+
+
+	val ipcPermissions = mutableListOf<Int>()
+	var parent: Int? = null
+	var instructionMemory = emptyList<InstructData>()
+	val id: Int = reflection.vmTracker.size
+	val thread: Thread = Thread.currentThread()
+
+
+	fun notifyOS() = os.taskManager.add(this)
 }
 -------------------------------
 ```
@@ -7480,7 +7445,7 @@ class InterruptManager(val vm: Vm) {
 	fun sendSignal(code: Int, process: Long) {
 		val exitCode = getRuntime().exec("kill -$code $process").exitValue()
 		if (exitCode == 1) {
-			vm.errors.SystemCallGeneralException("sendSignal", "Bad PID")
+			vm.errors.systemCallGeneralException("sendSignal", "Bad PID")
 		}
 	}
 
@@ -7491,7 +7456,7 @@ class InterruptManager(val vm: Vm) {
 			if (it.code.equals(code)) handle(it.signalName, jumpWhere);did = true;return@forEach
 		}
 		if (!did) {
-			vm.errors.SystemCallGeneralException("handleSignals")
+			vm.errors.systemCallGeneralException("handleSignals")
 		}
 
 	}

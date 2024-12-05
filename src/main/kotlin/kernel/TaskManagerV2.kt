@@ -17,7 +17,6 @@ class TaskManagerV2 {
 			inner@ for (process in keepPcs) {
 				val kp = process.key
 				if (deadProcess.toTypedArray().contentEquals(keepPcs.keys.toTypedArray())) break@outer
-
 				if (process.key.instructionMemory[process.value.first.toInt()].name == "HALT" && process.key !in deadProcess) {
 					deadProcess.add(process.key)
 				} else if (process.key in deadProcess) {
