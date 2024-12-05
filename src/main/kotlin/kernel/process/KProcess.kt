@@ -16,7 +16,7 @@ data class KProcess(val vm: Vm, var file: File) {
 	val addressSpace = ProcessMemory(this)
 	var currentInstruction: InstructData = InstructData(name = "init", arrayOf())
 
-	init { // Look at the console. Theres 2 KProcesses. Different. But both have the same VM!??!?!?!?!??!?!?!?
+	init { // Look at the console. There's 2 KProcesses. Different. But both have the same VM!??!?!?!?!??!?!?!?
 		reflection.vmTracker.add(this)
 		vm.heap = addressSpace.heap
 		vm.libExecute = ExecuteLib(vm)

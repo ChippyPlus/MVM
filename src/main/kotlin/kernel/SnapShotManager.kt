@@ -11,9 +11,9 @@ class SnapShotManager(private val registers: Registers) {
 
 	fun populateSnapShotRegister(kProcess: KProcess) {
 		for (i in snapshots[kProcess]!!) {
-			println(snapshots[kProcess]!!)
 			registers.write(i.key, i.value)
 		}
+		println("{${kProcess}} [POPULATE] G1=${snapshots[kProcess]!![RegisterType.G1]}")
 	}
 
 	fun snapShotRegisters(kProcess: KProcess) {
@@ -22,6 +22,7 @@ class SnapShotManager(private val registers: Registers) {
 			allRegisters[i] = registers.read(i)
 		}
 		snapshots[kProcess] = allRegisters
+
 	}
 
 	fun initSnapShotRegister(kProcess: KProcess) {

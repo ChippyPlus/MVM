@@ -1,19 +1,18 @@
 package kernel.libEx
 
+import internals.Vm
 import kernel.ExecuteLib
-import kernel.SnapShotManagerLegacy
-import kernel.UnstableSnapShots
+import kernel.process.KProcess
 import kilb.Klib
+import os
+import java.io.File
 
-@OptIn(UnstableSnapShots::class)
 fun ExecuteLib.executeKt(name: String) {
-	val smLegacy = SnapShotManagerLegacy(vm)
-	val oldPc = vm.pc
-	val snapshot = smLegacy.snapShotRegisters()
-	if (!Klib(vm).match(name)) {
+	val newKp = KProcess(Vm(), File("Non-existent"))
+	os.snapShotManager.snapShotRegisters(newKp)
+	if (!Klib(newKp).match(name)) {
 		vm.errors.missingLibraryException(name) // Kt should be the last resort
 	}
 	currentFunction = name
-	smLegacy.populateSnapShotRegister(snapshot)
-	vm.pc = oldPc
+
 }
