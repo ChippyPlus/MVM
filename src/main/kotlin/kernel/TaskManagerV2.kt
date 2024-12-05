@@ -9,7 +9,7 @@ class TaskManagerV2 {
 
 	fun add(process: KProcess) = run { keepPcs[process] = Pair(process.vm.pcInternal, Execute(process)) }
 
-	fun eventLoop() {
+	suspend fun eventLoop() {
 		if (keepPcs.isEmpty()) return
 		outer@ while (true) {
 			inner@ for (process in keepPcs) {

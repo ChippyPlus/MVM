@@ -8,8 +8,21 @@ import engine.parser
 import helpers.RuntimeStates
 import helpers.toDoubleOrFloatBasedOnDataType
 import helpers.toRegisterType
-import internals.instructions.arithmetic.*
-import internals.instructions.bitwise.*
+import internals.instructions.arithmetic.add
+import internals.instructions.arithmetic.div
+import internals.instructions.arithmetic.eq
+import internals.instructions.arithmetic.gt
+import internals.instructions.arithmetic.lt
+import internals.instructions.arithmetic.mod
+import internals.instructions.arithmetic.mul
+import internals.instructions.arithmetic.pow
+import internals.instructions.arithmetic.sub
+import internals.instructions.bitwise.and
+import internals.instructions.bitwise.not
+import internals.instructions.bitwise.or
+import internals.instructions.bitwise.shl
+import internals.instructions.bitwise.shr
+import internals.instructions.bitwise.xor
 import internals.instructions.controlFlow.jmp
 import internals.instructions.controlFlow.jnz
 import internals.instructions.controlFlow.jz
@@ -27,7 +40,14 @@ import internals.instructions.stackOperations.pop
 import internals.instructions.stackOperations.push
 import internals.instructions.stackOperations.pushl
 import internals.instructions.strings.str
-import internals.instructions.xFloats.*
+import internals.instructions.xFloats.ftoi
+import internals.instructions.xFloats.itof
+import internals.instructions.xFloats.xAdd
+import internals.instructions.xFloats.xDiv
+import internals.instructions.xFloats.xLit
+import internals.instructions.xFloats.xMul
+import internals.instructions.xFloats.xPow
+import internals.instructions.xFloats.xSub
 import kernel.KProcess
 
 
@@ -142,9 +162,6 @@ class Execute(val kp: KProcess) {
 				vm.registers.registers[(args[0] as RegisterType)]!!.settype(args[1] as RegisterDataType)
 			}
 
-//			"dealloc" -> {
-//				vm.dataTransfer.dealloc(args[0] as RegisterType)
-//			}
 
 			"pow" -> {
 				vm.arithmetic.pow(args[0] as RegisterType, args[1] as RegisterType, args[2] as RegisterType)
