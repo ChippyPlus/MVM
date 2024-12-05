@@ -1,0 +1,6 @@
+lit g1 99
+str f1 "hello!!"
+str f1 "hello!!"
+call io.print f1
+str f1 ""
+call io.println f1
