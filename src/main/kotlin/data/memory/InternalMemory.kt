@@ -3,6 +3,7 @@ package data.memory
 import MEMORY_LIMIT
 import internals.Vm
 
+@Deprecated("This is now called the Heap!!!!")
 class InternalMemory(vm: Vm) {
 	val errors = vm.errors
 	var memory = emptyMap<Long, Long>().toMutableMap()
