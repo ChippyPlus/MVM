@@ -1,5 +1,6 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
+    <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="true" />
     <JetCodeStyleSettings>
       <option name="IF_RPAREN_ON_NEW_LINE" value="false" />
       <option name="ALLOW_TRAILING_COMMA" value="true" />
