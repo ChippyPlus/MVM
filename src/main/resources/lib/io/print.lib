@@ -1,3 +1,4 @@
 lit s1 24
 swp f1 s2
 syscall
+// Moo moo

@@ -137,7 +137,7 @@ fun parserReturn(vm: Vm, file: List<String>): List<InstructData> {
 					// None
 					"prints", "ret" -> {
 						InstructData(
-							name = "prints", emptyArray()
+							name = instruction, emptyArray()
 						)
 					}
 
