@@ -2,6 +2,7 @@ package internals.debug
 
 import kernel.process.KProcess
 
+
 class Debug(val kp: KProcess) {
 	val dm = DebugMemorySnapShots()
 	val di = DebugInstructionBuffer()
