@@ -1,6 +1,6 @@
 package internals.debug
 
-import kernel.KProcess
+import kernel.process.KProcess
 
 class Debug(val kp: KProcess) {
 	val dm = DebugMemorySnapShots()

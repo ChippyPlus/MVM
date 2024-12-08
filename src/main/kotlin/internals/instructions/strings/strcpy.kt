@@ -1,6 +1,5 @@
 package internals.instructions.strings
 
-import data.memory.MemoryAddress
 import data.registers.IntelRegisters
 import data.registers.RegisterType
 import data.registers.intelNames
@@ -15,7 +14,7 @@ fun Strings.strcpy(source: RegisterType, destination: RegisterType): Unit = try 
 	val string: String = helpers.readRegisterString(register = source)
 	val destinationAddress: Long = registers.read(register = destination)
 	helpers.writeStringSpecInMemory(
-		string = string, destinationAddress = MemoryAddress(address = destinationAddress)
+		string = string, destinationAddress = destinationAddress
 	)
 } catch (_: Exception) {
 	errors.GeneralStringException(message = "Strcpy")
