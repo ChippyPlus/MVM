@@ -8,7 +8,7 @@ import kernel.process.KProcess
 class Klib(val kp: KProcess) {
 	val strings = Strings(kp)
 	val arrays = Arrays(kp)
-	fun match(fame: String): Boolean {
+	suspend fun match(fame: String): Boolean {
 		kp.notifyOS()
 		when (fame) {
 

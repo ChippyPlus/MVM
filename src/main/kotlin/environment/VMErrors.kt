@@ -23,7 +23,7 @@ class VMErrors(val vm: Vm? = null, val pc: Long? = null) {
 		exitProcess(2)
 	}
 
-	fun invalidInstructionException(message: String) {
+	fun invalidInstructionException(message: String): Nothing {
 		System.err.println("${prefix()}: Invalid Instruction \"${message}\"")
 		exitProcess(3)
 	}
@@ -151,7 +151,6 @@ class VMErrors(val vm: Vm? = null, val pc: Long? = null) {
 		exitProcess(24)
 	}
 
-	@Deprecated("Please remove General ERRORS")
 	fun invalidArgumentFormatException(badType: String, shouldBe: String) {
 		System.err.println(
 			"${prefix()}:Invalid Argument Format Exception: Invalid type of \"$badType\", should be " + "\"$shouldBe\""

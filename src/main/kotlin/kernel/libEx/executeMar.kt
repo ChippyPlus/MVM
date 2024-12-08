@@ -1,23 +1,25 @@
 package kernel.libEx
 
-import engine.execution.Execute
 import engine.parserReturn
+import internals.Vm
 import kernel.ExecuteLib
-import kernel.SnapShotManagerLegacy
 import kernel.UnstableSnapShots
+import kernel.process.KProcess
+import os
 import java.io.File
 
 @OptIn(UnstableSnapShots::class)
 suspend fun ExecuteLib.executeMar(file: File) {
-	val vm = vm
-	val smLegacy = SnapShotManagerLegacy(vm)
-	val oldPC = kp.vm.pc
+
+	val localKp = KProcess(Vm(), file)
+	os.snapShotManager.snapShotRegisters(kp)
+
 	val oldInstructs = kp.instructionMemory
-	val snapshot = smLegacy.snapShotRegisters()
-	vm.pc - 2
-	val instructions = parserReturn(vm, file.readLines())
-	Execute(kp).run(instructions)
-	smLegacy.populateSnapShotRegister(snapshot)
-	kp.vm.pc = oldPC
+
+	localKp.instructionMemory = parserReturn(localKp.vm, file.readLines())
+	localKp.notifyOS()
+
 	kp.instructionMemory = oldInstructs
+
+	os.snapShotManager.populateSnapShotRegister(kp)
 }

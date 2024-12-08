@@ -7,7 +7,6 @@ import helpers.gatherHelp
 import helpers.toRegisterType
 import internals.Vm
 import kernel.process.KProcess
-import kotlin.system.exitProcess
 
 fun parser(kp: KProcess, file: List<String>) {
 	kp.instructionMemory = parserReturn(kp.vm, file)
@@ -171,7 +170,6 @@ fun parserReturn(vm: Vm, file: List<String>): List<InstructData> {
 
 					else -> {
 						vm.errors.invalidInstructionException(instruction)
-						exitProcess(99) // for kotlin. Ughhhhhh
 					}
 				}
 			)
@@ -198,7 +196,6 @@ fun parserReturn(vm: Vm, file: List<String>): List<InstructData> {
 	}
 	vm.pc = 0
 
-	//	if (reflection.groupTrackedVmByVm()[vm]!!.file.extension != "lib") {
 	out.add(InstructData("HALT", arrayOf())) //	}
 	return out
 }

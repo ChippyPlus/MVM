@@ -34,5 +34,5 @@ data class KProcess(val vm: Vm, var file: File) {
 	val thread: Thread = Thread.currentThread()
 
 
-	fun notifyOS() = os.taskManager.add(this)
+	suspend fun notifyOS() = os.taskManager.add(this)
 }
