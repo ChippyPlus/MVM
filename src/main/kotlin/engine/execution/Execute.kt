@@ -206,9 +206,12 @@ class Execute(val kp: KProcess) {
 
 
 				vm.libExecute!!.execute(args[0].toString())
+				println("${kp.file.name}:${kp.vm.pc.toInt()}:called")
 			}
 
 			"emptyLine", "comment" -> {}
+
+
 			"gt" -> {
 				vm.arithmetic.gt(args[0] as RegisterType, args[1] as RegisterType)
 			}
@@ -218,9 +221,9 @@ class Execute(val kp: KProcess) {
 			}
 
 			"str" -> {
-				vm.strings.str(args[0].toString().toRegisterType() ?: {
+				vm.strings.str((args[0].toString().toRegisterType() ?: {
 					vm.errors.invalidRegisterException(args[0] as String)
-				} as RegisterType, args[1].toString())
+				}) as RegisterType, args[1].toString())
 			}
 
 			"swp" -> {

@@ -20,20 +20,27 @@ class TaskManagerV2 {
 
 	suspend fun eventLoop() {
 		if (keepPcs.isEmpty()) return
-		outer@ while (true) {
+		outer@ while (true) { //			print("[ALIVE] = ")
+			//			keepPcs.forEach(::println)
+			//			print("-------------------------\n")
 			val keysCopy = keepPcs.toMap()
 			inner@ for (process in keysCopy) {
 				val kp = process.key
 				if (deadProcess.toTypedArray().contentEquals(keysCopy.keys.toTypedArray())) break@outer
-				if (process.key.instructionMemory[process.value.first.toInt()].name == "HALT" && process.key !in deadProcess) {
-					deadProcess.add(process.key)
-				} else if (process.key in deadProcess) {
-					continue@inner
+
+				if (process.key.instructionMemory.size == process.value.first.toInt() && process.key.instructionMemory[process.value.first.toInt() - 1].name == "HALT" && process.key in keepPcs) {
+					keepPcs.remove(process.key)
 				} else {
 					os.snapShotManager.populateSnapShotRegister(kp)
 					process.value.second.singleEvent(process.key.instructionMemory[process.value.first.toInt()])
 					os.snapShotManager.snapShotRegisters(kp)
 				}
+
+
+				//				if (process.key.instructionMemory[process.value.first.toInt()].name == "HALT" && process.key in keepPcs) {
+				//					keepPcs.remove(process.key)
+				//				}
+
 			}
 		}
 	}

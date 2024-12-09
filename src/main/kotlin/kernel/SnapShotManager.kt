@@ -14,7 +14,6 @@ class SnapShotManager(private val registers: Registers) {
 			registers.write(i.key, i.value)
 		} //		println("${kProcess.file.name}:${kProcess.vm.pc} -> [POPULATE]")
 
-		//		println("{${kProcess.file}} [POPULATE] G1=${snapshots[kProcess]!![RegisterType.G1]}")
 	}
 
 	fun snapShotRegisters(kProcess: KProcess) {
