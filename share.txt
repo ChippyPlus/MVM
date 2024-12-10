@@ -2148,12 +2148,10 @@ call println
 ```
 filePath .sharing/archiveBuffer/main.kar
 ```custom assembly
-lit g1 99
-str f1 "hello!!"
-str f1 "hello!!"
-call io.print f1
-str f1 ""
-call io.println f1
+lit s1 35
+lit s2 0
+syscall
+printr r2
 -------------------------------
 ```
 filePath .sharing/archiveBuffer/src/test/resources/tokeniseTest.kar
@@ -2196,32 +2194,47 @@ filePath .sharing/archiveBuffer/src/test/kotlin/Main.kt
 ```
 filePath .sharing/archiveBuffer/src/test/kotlin/Testable.kt
 ```kotlin
-import java.awt.BorderLayout
-import java.io.PrintStream
-import javax.swing.JFrame
-import javax.swing.JLabel
+import DataType.A
+import DataType.S
 
-fun main() {
-	setupErrorStreamFilter()
-	val frame = JFrame("My Kotlin Swing App")
-	frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
-	frame.setSize(300, 200)
-	val label = JLabel("Hello, Kotlin Swing!")
-	frame.add(label, BorderLayout.CENTER)
-	frame.isVisible = true
+enum class DataType {
+	A, S, D, F
+}
+
+class Sm {
+	fun snapshot() {}
+
+	fun refill() {}
+}
+
+
+class Data {
+	private val holders = mutableMapOf<DataType, Byte>()
+
+	init {
+		for (i in DataType.entries) {
+			holders[i] = 0
+		}
+	}
+
+	operator fun set(a: DataType, value: Byte) = run { holders[a] = value }
+	operator fun get(a: DataType) = holders[a]!!
+}
+
+val data = Data()
+val sm = Sm()
+fun runExternal() {
+	data[A] = 2
+	data[S] = 22
 
 }
 
 
-fun setupErrorStreamFilter() {
-	val process = ProcessBuilder(
-		"sh",
-		"-c",
-		"while read line; do if [[ ! \$line =~ IMK[A-Za-z]+ ]]; then echo \"\$line\" >&2; fi ; done"
-	).start()
-
-	// Redirect Java's stderr to the shell process's stdin
-	System.setErr(PrintStream(process.outputStream))
+fun main() {
+	data[A] = 15
+	sm
+	runExternal()
+	println(data[A])
 }
 -------------------------------
 ```
@@ -2564,7 +2577,20 @@ fun IoAbstractions.prints(): Unit = try {
 ```
 filePath .sharing/archiveBuffer/src/main/kotlin/internals/instructions/strings/strcpy.kt
 ```kotlin
+package internals.instructions.strings
 
+//@Deprecated("Moved into stdlib functions")
+//fun Strings.strcpy(source: RegisterType, destination: RegisterType): Unit = try {
+//	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+//
+//	val string: String = helpers.readRegisterString(register = source)
+//	val destinationAddress: Long = registers.read(register = destination)
+//	helpers.writeStringSpecInMemory(
+//		string = string, destinationAddress = destinationAddress
+//	)
+//} catch (_: Exception) {
+//	errors.GeneralStringException(message = "Strcpy")
+//}
 -------------------------------
 ```
 filePath .sharing/archiveBuffer/src/main/kotlin/internals/instructions/strings/Strings.kt
@@ -2685,7 +2711,32 @@ fun Strings.strcat(string1: RegisterType, string2: RegisterType): Any = try {
 ```
 filePath .sharing/archiveBuffer/src/main/kotlin/internals/instructions/strings/strlen.kt
 ```kotlin
+package internals.instructions.strings
 
+/**
+ * Calculates the length of a null-terminated string and stores it in the `R4` register.
+ *
+ * @param addressRegister The register containing the memory address of the first character of the string.
+ * @throws GeneralStringException If an error occurs during the string length calculation.
+ */
+//@Deprecated("Moved into stdlib functions")
+//fun Strings.strlen(addressRegister: RegisterType): Unit = try {
+//	registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
+//
+//	var index: Long = 0L
+//	while (true) {
+//		val byte = internalMemory.read(
+//			address = MemoryAddress(address = registers.read(addressRegister) + index)
+//		)
+//		if (byte.value?.equals(0L) ?: (false)) {
+//			break
+//		}
+//		index++
+//	}
+//	registers.write(register = R4, value = index)
+//} catch (_: Exception) {
+//	errors.GeneralStringException(message = "strlen")
+//}
 -------------------------------
 ```
 filePath .sharing/archiveBuffer/src/main/kotlin/internals/instructions/memory/load.kt
@@ -4249,8 +4300,8 @@ package kilb
 import data.registers.RegisterType
 import helpers.readRegisterString
 
-fun Klib.strtoint() = vm.stackOperations.internalStack.push(
-	vm.helpers.readRegisterString(RegisterType.F1).toLong()
+fun Klib.strtoint() = kp.vm.stackOperations.internalStack.push(
+	kp.vm.helpers.readRegisterString(RegisterType.F1).toLong()
 )
 -------------------------------
 ```
@@ -4265,11 +4316,11 @@ import helpers.readRegisterString
 import helpers.toLong
 import helpers.writeClosestString
 import helpers.writeStringSpecInMemory
-import internals.Vm
+import kernel.process.KProcess
 
-class Strings(val vm: Vm) {
-	val registers = vm.registers
-	val helpers = vm.helpers
+class Strings(val kp: KProcess) {
+	val registers = kp.vm.registers
+	val helpers = kp.vm.helpers
 
 	fun strcmp() {
 		registers.write(intelNames[IntelRegisters.ENSF], true.toLong())
@@ -4287,7 +4338,7 @@ class Strings(val vm: Vm) {
 		val s2: Comparable<String> = helpers.readRegisterString(register = RegisterType.F2)
 		val location = helpers.writeClosestString(string = (s1 + s2))
 //		registers.write(R4, location)
-		vm.stackOperations.internalStack.push(location)
+		kp.vm.stackOperations.internalStack.push(location)
 
 	}
 
@@ -4306,11 +4357,11 @@ class Strings(val vm: Vm) {
 
 		var index: Long = 0L
 		while (true) {
-			val byte = vm.heap!!.get(registers.read(RegisterType.F1) + index)
+			val byte = kp.vm.heap!!.get(registers.read(RegisterType.F1) + index)
 			if (byte == 0L) break
 			index++
 		}
-		vm.stackOperations.internalStack.push(index)
+		kp.vm.stackOperations.internalStack.push(index)
 	}
 }
 -------------------------------
@@ -4324,7 +4375,7 @@ import data.registers.RegisterType
 
 // turns F1 into a render able float
 fun Klib.cheekyFloat() {
-	println(Float.fromBits(vm.registers.read(RegisterType.F1).toInt()))
+	println(Float.fromBits(kp.vm.registers.read(RegisterType.F1).toInt()))
 }
 -------------------------------
 ```
@@ -4334,33 +4385,33 @@ package kilb
 
 import data.registers.RegisterType
 import data.registers.read
-import internals.Vm
+import kernel.process.KProcess
 import os
 
-class Arrays(val vm: Vm) {
-	val h = vm.heap!!
+class Arrays(val kp: KProcess) {
+	val h = kp.addressSpace.heap
 	fun size() {
-		val meta = vm.registers.read(RegisterType.F1)
-		val count = vm.heap!!.get(meta + 1)
-		vm.stackOperations.internalStack.push(count)
+		val meta = kp.vm.registers.read(RegisterType.F1)
+		val count = kp.vm.heap!!.get(meta + 1)
+		kp.vm.stackOperations.internalStack.push(count)
 	}
 
 	fun create() {
-		val size = RegisterType.F1.read(vm)
+		val size = RegisterType.F1.read(kp.vm)
 		val startAddr = h.alloc(size.toInt() + 1)
 		h.set(startAddr, size)
-		sreturn(vm, startAddr)
+		sreturn(kp.vm, startAddr)
 	}
 
 	fun get() {
-		val stAddr = RegisterType.F1.read(vm)
+		val stAddr = RegisterType.F1.read(kp.vm)
 		val size = h.get(stAddr)
 		val minAddr = stAddr + 1
 		println("-----------------------------------------------------------------------------")
 		println("OS M = ${os.mainMemory.toList().subList(0, 30).joinToString()}")
 
-		val index = RegisterType.F2.read(vm)
-		val value = RegisterType.F3.read(vm)
+		val index = RegisterType.F2.read(kp.vm)
+		val value = RegisterType.F3.read(kp.vm)
 
 		if (index >= size) {
 			println("Index = $index, size - 2 = ${size - 2}")
@@ -4373,15 +4424,15 @@ class Arrays(val vm: Vm) {
 	}
 
 	fun add() {
-		val stAddr = RegisterType.F1.read(vm)
+		val stAddr = RegisterType.F1.read(kp.vm)
 		// F1 = addr
 		// F2 = index
 		// F3 = value
 		val size = h.get(stAddr)
 		val minAddr = stAddr + 1
 
-		val index = RegisterType.F2.read(vm)
-		val value = RegisterType.F3.read(vm)
+		val index = RegisterType.F2.read(kp.vm)
+		val value = RegisterType.F3.read(kp.vm)
 
 		if (index >= size) {
 			println("Index = $index, size - 2 = ${size - 2}")
@@ -4392,7 +4443,7 @@ class Arrays(val vm: Vm) {
 	}
 
 
-//	fun createLinked(vm: Vm) {
+	//	fun createLinked(kp.vm: kp.vm) {
 //
 //	}
 
@@ -4406,9 +4457,9 @@ package kilb
 
 import data.registers.RegisterType
 
-fun Klib.randMax() = vm.stackOperations.internalStack.push(
+fun Klib.randMax() = kp.vm.stackOperations.internalStack.push(
 	kotlin.random.Random.nextInt(
-		0, vm.registers.read(RegisterType.F1).toInt()
+		0, kp.vm.registers.read(RegisterType.F1).toInt()
 	).toLong()
 )
 -------------------------------
@@ -4420,18 +4471,20 @@ package kilb
 import data.registers.RegisterType
 import helpers.readRegisterString
 import internals.Vm
+import kernel.process.KProcess
 
-class Klib(val vm: Vm) {
-	val strings = Strings(vm)
-	val arrays = Arrays(vm)
-	fun match(fame: String): Boolean {
+class Klib(val kp: KProcess) {
+	val strings = Strings(kp)
+	val arrays = Arrays(kp)
+	suspend fun match(fame: String): Boolean {
+		kp.notifyOS()
 		when (fame) {
 
 			"strings.strcmp" -> strings.strcmp()
 			"strings.strcat" -> strings.strcat()
 			"strings.strcpy" -> strings.strcpy()
 			"strings.strlen" -> strings.strlen()
-			"io.println" -> println(vm.helpers.readRegisterString(RegisterType.F1))
+			"io.println" -> println(kp.vm.helpers.readRegisterString(RegisterType.F1))
 
 
 			"strings.cheekyfloat" -> cheekyFloat()
@@ -4466,7 +4519,7 @@ import data.registers.RegisterType
 
 // turns F1 into a render able float
 fun Klib.cheekyDouble() {
-	println(Double.fromBits(vm.registers.read(RegisterType.F1)))
+	println(Double.fromBits(kp.vm.registers.read(RegisterType.F1)))
 
 }
 -------------------------------
@@ -4622,7 +4675,7 @@ class VMErrors(val vm: Vm? = null, val pc: Long? = null) {
 		exitProcess(2)
 	}
 
-	fun invalidInstructionException(message: String) {
+	fun invalidInstructionException(message: String): Nothing {
 		System.err.println("${prefix()}: Invalid Instruction \"${message}\"")
 		exitProcess(3)
 	}
@@ -4750,7 +4803,6 @@ class VMErrors(val vm: Vm? = null, val pc: Long? = null) {
 		exitProcess(24)
 	}
 
-	@Deprecated("Please remove General ERRORS")
 	fun invalidArgumentFormatException(badType: String, shouldBe: String) {
 		System.err.println(
 			"${prefix()}:Invalid Argument Format Exception: Invalid type of \"$badType\", should be " + "\"$shouldBe\""
@@ -5049,11 +5101,6 @@ fun main() {
 	val v = Vfs()
 	v.list().forEach(::println)
 }
--------------------------------
-```
-filePath .sharing/archiveBuffer/src/main/kotlin/data/memory/MemoryValue.kt
-```kotlin
-package data.memory
 -------------------------------
 ```
 filePath .sharing/archiveBuffer/src/main/kotlin/data/memory/MemoryAddress.kt
@@ -5620,7 +5667,6 @@ import helpers.gatherHelp
 import helpers.toRegisterType
 import internals.Vm
 import kernel.process.KProcess
-import kotlin.system.exitProcess
 
 fun parser(kp: KProcess, file: List<String>) {
 	kp.instructionMemory = parserReturn(kp.vm, file)
@@ -5751,7 +5797,7 @@ fun parserReturn(vm: Vm, file: List<String>): List<InstructData> {
 					// None
 					"prints", "ret" -> {
 						InstructData(
-							name = "prints", emptyArray()
+							name = instruction, emptyArray()
 						)
 					}
 
@@ -5784,7 +5830,6 @@ fun parserReturn(vm: Vm, file: List<String>): List<InstructData> {
 
 					else -> {
 						vm.errors.invalidInstructionException(instruction)
-						exitProcess(99) // for kotlin. Ughhhhhh
 					}
 				}
 			)
@@ -5811,7 +5856,6 @@ fun parserReturn(vm: Vm, file: List<String>): List<InstructData> {
 	}
 	vm.pc = 0
 
-	//	if (reflection.groupTrackedVmByVm()[vm]!!.file.extension != "lib") {
 	out.add(InstructData("HALT", arrayOf())) //	}
 	return out
 }
@@ -5857,8 +5901,21 @@ import engine.parser
 import helpers.RuntimeStates
 import helpers.toDoubleOrFloatBasedOnDataType
 import helpers.toRegisterType
-import internals.instructions.arithmetic.*
-import internals.instructions.bitwise.*
+import internals.instructions.arithmetic.add
+import internals.instructions.arithmetic.div
+import internals.instructions.arithmetic.eq
+import internals.instructions.arithmetic.gt
+import internals.instructions.arithmetic.lt
+import internals.instructions.arithmetic.mod
+import internals.instructions.arithmetic.mul
+import internals.instructions.arithmetic.pow
+import internals.instructions.arithmetic.sub
+import internals.instructions.bitwise.and
+import internals.instructions.bitwise.not
+import internals.instructions.bitwise.or
+import internals.instructions.bitwise.shl
+import internals.instructions.bitwise.shr
+import internals.instructions.bitwise.xor
 import internals.instructions.controlFlow.jmp
 import internals.instructions.controlFlow.jnz
 import internals.instructions.controlFlow.jz
@@ -5876,25 +5933,32 @@ import internals.instructions.stackOperations.pop
 import internals.instructions.stackOperations.push
 import internals.instructions.stackOperations.pushl
 import internals.instructions.strings.str
-import internals.instructions.xFloats.*
+import internals.instructions.xFloats.ftoi
+import internals.instructions.xFloats.itof
+import internals.instructions.xFloats.xAdd
+import internals.instructions.xFloats.xDiv
+import internals.instructions.xFloats.xLit
+import internals.instructions.xFloats.xMul
+import internals.instructions.xFloats.xPow
+import internals.instructions.xFloats.xSub
 import kernel.process.KProcess
 
 
 class Execute(val kp: KProcess) {
 
 	init {
-		parser(kp, kp.file.readLines())
+		if (kp.file.name != "Non-existent") parser(kp, kp.file.readLines())
 	}
 
 	suspend fun singleEvent(command: InstructData) {
-		kp.vm.pc++
-		if (kp.vm.pc - 1 < 0) {
-			kp.vm.errors.invalidPcValueException((kp.vm.pc - 1).toString())
+		if (kp.vm.pc < 0) {
+			kp.vm.errors.invalidPcValueException((kp.vm.pc).toString())
 		}
 
 
 		exeWhen(command.name, command.values)
 
+		kp.vm.pc++
 
 	}
 
@@ -5911,22 +5975,22 @@ class Execute(val kp: KProcess) {
 				RuntimeStates.PAUSED -> continue
 				RuntimeStates.CANCELLED -> break
 			}
-			vm.pc++
-			if (vm.pc - 1 < 0) {
-				vm.errors.invalidPcValueException((vm.pc - 1).toString())
+			if (vm.pc < 0) {
+				vm.errors.invalidPcValueException((vm.pc).toString())
 			}
 
-			if (vm.pc - 1L == command.size.toLong()) {
+			if (vm.pc == command.size.toLong()) {
 				break
 			}
-			val name = command[(vm.pc - 1).toInt()].name
+			val name = command[(vm.pc).toInt()].name
 			val args = try {
-				command[(vm.pc - 1).toInt()].values
+				command[(vm.pc).toInt()].values
 			} catch (_: IndexOutOfBoundsException) {
 				break
 			}
 
 			exeWhen(name, args)
+			vm.pc++
 		}
 	}
 
@@ -5944,6 +6008,7 @@ class Execute(val kp: KProcess) {
 		kp.currentInstruction = InstructData(name, args)
 
 		kp.debug.act()
+
 
 		when (name) {
 
@@ -6006,11 +6071,6 @@ class Execute(val kp: KProcess) {
 				return null
 			}
 
-			"inr" -> {
-				(args[0] as String).toRegisterType() ?: {
-					vm.errors.invalidRegisterException(args[0] as String)
-				} as RegisterType
-			}
 
 			"call" -> {
 				vm.libPc = vm.pc
@@ -6038,6 +6098,8 @@ class Execute(val kp: KProcess) {
 			}
 
 			"emptyLine", "comment" -> {}
+
+
 			"gt" -> {
 				vm.arithmetic.gt(args[0] as RegisterType, args[1] as RegisterType)
 			}
@@ -6047,9 +6109,9 @@ class Execute(val kp: KProcess) {
 			}
 
 			"str" -> {
-				vm.strings.str(args[0].toString().toRegisterType() ?: {
+				vm.strings.str((args[0].toString().toRegisterType() ?: {
 					vm.errors.invalidRegisterException(args[0] as String)
-				} as RegisterType, args[1].toString())
+				}) as RegisterType, args[1].toString())
 			}
 
 			"swp" -> {
@@ -6152,9 +6214,7 @@ class Execute(val kp: KProcess) {
 
 			"syscall" -> {
 				vm.systemCall.execute(
-					callId = args[0] as RegisterType,
-					s2 = args[1] as RegisterType,
-					s3 = args[2] as RegisterType,
+					callId = args[0] as RegisterType, s2 = args[1] as RegisterType, s3 = args[2] as RegisterType,
 					s4 = args[3] as RegisterType
 				)
 			}
@@ -6957,7 +7017,28 @@ import environment.reflection.reflection
 import helpers.toLong
 import internals.Vm
 import kernel.process.KProcess
-import kernel.systemCalls.calls.*
+import kernel.systemCalls.calls.Ipc
+import kernel.systemCalls.calls.allocate
+import kernel.systemCalls.calls.continueT
+import kernel.systemCalls.calls.dealloc
+import kernel.systemCalls.calls.deleteFile
+import kernel.systemCalls.calls.exec
+import kernel.systemCalls.calls.exit
+import kernel.systemCalls.calls.fork
+import kernel.systemCalls.calls.getPid
+import kernel.systemCalls.calls.getUid
+import kernel.systemCalls.calls.handleSignals
+import kernel.systemCalls.calls.listFiles
+import kernel.systemCalls.calls.newFile
+import kernel.systemCalls.calls.pauseT
+import kernel.systemCalls.calls.readFile
+import kernel.systemCalls.calls.readIo
+import kernel.systemCalls.calls.sendSignal
+import kernel.systemCalls.calls.shareM
+import kernel.systemCalls.calls.time
+import kernel.systemCalls.calls.writeFile
+import kernel.systemCalls.calls.writeIo
+import os
 import kotlin.system.exitProcess
 
 /**
@@ -6987,8 +7068,7 @@ class SystemCall(val vm: Vm) {
 			5 -> deleteFile(s2)
 			6 -> exit(s2)
 			7 -> exec(s2)
-			8 -> fork()
-//			9 -> spawn(s2)
+			8 -> fork() //			9 -> spawn(s2)
 			10 -> shareM(s2, s3, s4)
 			11 -> pauseT(s2)
 			12 -> continueT(s2)
@@ -7007,6 +7087,8 @@ class SystemCall(val vm: Vm) {
 			32 -> Ipc(vm).send(s2, s3)
 			33 -> Ipc(vm).receive(s2)
 			34 -> getParentPid()
+			35 -> os.driverManager.read(kp, s2, s3)
+			36 -> os.driverManager.write(kp, s2, s3, s4)
 
 
 			else -> errors.invalidSystemCallException(registers.read(callId).toString())
@@ -7042,6 +7124,62 @@ class SystemCall(val vm: Vm) {
 }
 -------------------------------
 ```
+filePath .sharing/archiveBuffer/src/main/kotlin/kernel/drivers/DriverManager.kt
+```kotlin
+package kernel.drivers
+
+import data.registers.RegisterType
+import data.registers.read
+import data.registers.write
+import kernel.process.KProcess
+
+class DriverManager {
+	val loaded = mutableMapOf<KProcess, MutableList<Driver>>()
+	val driversList = listOf<Driver>(
+		Clock()
+	)
+
+
+	fun read(kp: KProcess, driverId: RegisterType, where: RegisterType) {
+		RegisterType.R2.write(kp.vm, driversList[driverId.read(kp.vm).toInt()].read(where.read(kp.vm)))
+
+	}
+
+	fun write(kp: KProcess, driverId: RegisterType, where: RegisterType, what: RegisterType) {
+		driversList[driverId.read(kp.vm).toInt()].write(where.read(kp.vm), what.read(kp.vm))
+
+	}
+}
+-------------------------------
+```
+filePath .sharing/archiveBuffer/src/main/kotlin/kernel/drivers/Driver.kt
+```kotlin
+package kernel.drivers
+
+interface Driver {
+	var name: String
+	fun read(where: Long): Long
+	fun write(where: Long, what: Long)
+}
+-------------------------------
+```
+filePath .sharing/archiveBuffer/src/main/kotlin/kernel/drivers/Clock.kt
+```kotlin
+package kernel.drivers
+
+class Clock() : Driver {
+	override var name: String = "Clock"
+
+	override fun read(where: Long): Long {
+		return System.currentTimeMillis()
+	}
+
+	override fun write(where: Long, what: Long) {
+	}
+
+}
+-------------------------------
+```
 filePath .sharing/archiveBuffer/src/main/kotlin/kernel/ExecuteLib.kt
 ```kotlin
 package kernel
@@ -7063,9 +7201,11 @@ class ExecuteLib(val vm: Vm) {
 			val file = File(findMarLib(name)!!)
 			enabledFunction = true
 			val lastFile = kp.file
+			val OldPc = kp.vm.pc
 			kp.file = file
 			executeMar(file)
 			kp.file = lastFile
+			kp.vm.pc = OldPc // No way this was the fix
 			enabledFunction = false
 		} else {
 			executeKt(name)
@@ -7081,35 +7221,36 @@ package kernel
 import engine.execution.Execute
 import internals.Pc
 import kernel.process.KProcess
-import os
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 class TaskManagerV2 {
+	private val mutex = Mutex()
 	val keepPcs = mutableMapOf<KProcess, Pair<Pc, Execute>>()
-	val deadProcess = mutableListOf<KProcess>()
 
-	fun add(process: KProcess) = run { keepPcs[process] = Pair(process.vm.pcInternal, Execute(process)) }
-
-	suspend fun eventLoop() {
-		if (keepPcs.isEmpty()) return
-		outer@ while (true) {
-			inner@ for (process in keepPcs) {
-				val kp = process.key
-				if (deadProcess.toTypedArray().contentEquals(keepPcs.keys.toTypedArray())) break@outer
-
-				if (process.key.instructionMemory[process.value.first.toInt()].name == "HALT" && process.key !in deadProcess) {
-					deadProcess.add(process.key)
-				} else if (process.key in deadProcess) {
-					continue@inner
-				} else {
-					os.snapShotManager.populateSnapShotRegister(kp)
-					process.value.second.singleEvent(process.key.instructionMemory[process.value.first.toInt()])
-					os.snapShotManager.snapShotRegisters(kp)
-				}
-			}
+	suspend fun add(process: KProcess) {
+		mutex.withLock {
+			keepPcs[process] = Pair(process.vm.pcInternal, Execute(process))
 		}
 	}
 
+	suspend fun eventLoop() {
+		outer@ while (true) {
+			val copyK = keepPcs.toMap()
+			if (copyK.isEmpty()) break@outer
+			inner@ for (process in copyK) {
+				val kp = process.key
+				val pc = process.value.first.toInt()
+				if (kp.instructionMemory[pc].name == "HALT") {
+					keepPcs.remove(kp)
+					kp.vm.pc = 0
+				} else {
+					process.value.second.singleEvent(kp.instructionMemory[pc])
+				} //				println("${kp.vm}:${kp.vm.pc}:${kp.instructionMemory[pc]}")
 
+			}
+		}
+	}
 }
 -------------------------------
 ```
@@ -7121,6 +7262,7 @@ import config
 import data.memory.EMPTY_MEM_VAL
 import data.memory.Heap.AllocatedBlock
 import data.registers.Registers
+import kernel.drivers.DriverManager
 
 class OS {
 	val mainMemory = LongArray((config.memorySize - config.stackSize).toInt()) { EMPTY_MEM_VAL }
@@ -7129,6 +7271,7 @@ class OS {
 	val registers = Registers()
 	val snapShotManager = SnapShotManager(registers)
 	val ipc = Ipc()
+	val driverManager = DriverManager()
 }
 -------------------------------
 ```
@@ -7223,26 +7366,28 @@ filePath .sharing/archiveBuffer/src/main/kotlin/kernel/libEx/executeMar.kt
 ```kotlin
 package kernel.libEx
 
-import engine.execution.Execute
 import engine.parserReturn
+import internals.Vm
 import kernel.ExecuteLib
-import kernel.SnapShotManagerLegacy
 import kernel.UnstableSnapShots
+import kernel.process.KProcess
+import os
 import java.io.File
 
 @OptIn(UnstableSnapShots::class)
 suspend fun ExecuteLib.executeMar(file: File) {
-	val vm = vm
-	val smLegacy = SnapShotManagerLegacy(vm)
-	val oldPC = kp.vm.pc
+
+	val localKp = KProcess(Vm(), file)
+	os.snapShotManager.snapShotRegisters(kp)
+
 	val oldInstructs = kp.instructionMemory
-	val snapshot = smLegacy.snapShotRegisters()
-	vm.pc - 2
-	val instructions = parserReturn(vm, file.readLines())
-	Execute(kp).run(instructions)
-	smLegacy.populateSnapShotRegister(snapshot)
-	kp.vm.pc = oldPC
+
+	localKp.instructionMemory = parserReturn(localKp.vm, file.readLines())
+	localKp.notifyOS()
+
 	kp.instructionMemory = oldInstructs
+
+	os.snapShotManager.populateSnapShotRegister(kp)
 }
 -------------------------------
 ```
@@ -7250,22 +7395,21 @@ filePath .sharing/archiveBuffer/src/main/kotlin/kernel/libEx/executeKt.kt
 ```kotlin
 package kernel.libEx
 
+import internals.Vm
 import kernel.ExecuteLib
-import kernel.SnapShotManagerLegacy
-import kernel.UnstableSnapShots
+import kernel.process.KProcess
 import kilb.Klib
+import os
+import java.io.File
 
-@OptIn(UnstableSnapShots::class)
-fun ExecuteLib.executeKt(name: String) {
-	val smLegacy = SnapShotManagerLegacy(vm)
-	val oldPc = vm.pc
-	val snapshot = smLegacy.snapShotRegisters()
-	if (!Klib(vm).match(name)) {
+suspend fun ExecuteLib.executeKt(name: String) {
+	val newKp = KProcess(Vm(), File("Non-existent"))
+	os.snapShotManager.snapShotRegisters(newKp)
+	if (!Klib(newKp).match(name)) {
 		vm.errors.missingLibraryException(name) // Kt should be the last resort
 	}
 	currentFunction = name
-	smLegacy.populateSnapShotRegister(snapshot)
-	vm.pc = oldPc
+
 }
 -------------------------------
 ```
@@ -7319,7 +7463,8 @@ class SnapShotManager(private val registers: Registers) {
 	fun populateSnapShotRegister(kProcess: KProcess) {
 		for (i in snapshots[kProcess]!!) {
 			registers.write(i.key, i.value)
-		}
+		} //		println("${kProcess.file.name}:${kProcess.vm.pc} -> [POPULATE]")
+
 	}
 
 	fun snapShotRegisters(kProcess: KProcess) {
@@ -7327,7 +7472,7 @@ class SnapShotManager(private val registers: Registers) {
 		for (i in RegisterType.entries) {
 			allRegisters[i] = registers.read(i)
 		}
-		snapshots[kProcess] = allRegisters
+		snapshots[kProcess] = allRegisters //		println("${kProcess.file.name}:${kProcess.vm.pc} -> [SNAPSHOT]")
 	}
 
 	fun initSnapShotRegister(kProcess: KProcess) {
@@ -7398,7 +7543,7 @@ data class KProcess(val vm: Vm, var file: File) {
 	val addressSpace = ProcessMemory(this)
 	var currentInstruction: InstructData = InstructData(name = "init", arrayOf())
 
-	init { // Look at the console. Theres 2 KProcesses. Different. But both have the same VM!??!?!?!?!??!?!?!?
+	init { // Look at the console. There's 2 KProcesses. Different. But both have the same VM!??!?!?!?!??!?!?!?
 		reflection.vmTracker.add(this)
 		vm.heap = addressSpace.heap
 		vm.libExecute = ExecuteLib(vm)
@@ -7416,7 +7561,7 @@ data class KProcess(val vm: Vm, var file: File) {
 	val thread: Thread = Thread.currentThread()
 
 
-	fun notifyOS() = os.taskManager.add(this)
+	suspend fun notifyOS() = os.taskManager.add(this)
 }
 -------------------------------
 ```

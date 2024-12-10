@@ -6,7 +6,6 @@ import data.registers.write
 import kernel.process.KProcess
 
 class DriverManager {
-	val loaded = mutableMapOf<KProcess, MutableList<Driver>>()
 	val driversList = listOf<Driver>(
 		Clock()
 	)
@@ -19,6 +18,5 @@ class DriverManager {
 
 	fun write(kp: KProcess, driverId: RegisterType, where: RegisterType, what: RegisterType) {
 		driversList[driverId.read(kp.vm).toInt()].write(where.read(kp.vm), what.read(kp.vm))
-
 	}
 }
