@@ -1,4 +1,4 @@
 lit s1 35
-lit s2 0
+lit s2 1
 syscall
 printr r2
