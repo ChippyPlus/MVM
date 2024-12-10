@@ -17,9 +17,11 @@ class ExecuteLib(val vm: Vm) {
 			val file = File(findMarLib(name)!!)
 			enabledFunction = true
 			val lastFile = kp.file
+			val OldPc = kp.vm.pc
 			kp.file = file
 			executeMar(file)
 			kp.file = lastFile
+			kp.vm.pc = OldPc // No way this was the fix
 			enabledFunction = false
 		} else {
 			executeKt(name)

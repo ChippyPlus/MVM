@@ -1,6 +1,3 @@
-printr f1
-
-
-
-
-
+lit s1 24
+swp s2 f1
+syscall

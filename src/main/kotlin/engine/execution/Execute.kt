@@ -58,14 +58,14 @@ class Execute(val kp: KProcess) {
 	}
 
 	suspend fun singleEvent(command: InstructData) {
-		kp.vm.pc++
-		if (kp.vm.pc - 1 < 0) {
-			kp.vm.errors.invalidPcValueException((kp.vm.pc - 1).toString())
+		if (kp.vm.pc < 0) {
+			kp.vm.errors.invalidPcValueException((kp.vm.pc).toString())
 		}
 
 
 		exeWhen(command.name, command.values)
 
+		kp.vm.pc++
 
 	}
 
@@ -82,22 +82,22 @@ class Execute(val kp: KProcess) {
 				RuntimeStates.PAUSED -> continue
 				RuntimeStates.CANCELLED -> break
 			}
-			vm.pc++
-			if (vm.pc - 1 < 0) {
-				vm.errors.invalidPcValueException((vm.pc - 1).toString())
+			if (vm.pc < 0) {
+				vm.errors.invalidPcValueException((vm.pc).toString())
 			}
 
-			if (vm.pc - 1L == command.size.toLong()) {
+			if (vm.pc == command.size.toLong()) {
 				break
 			}
-			val name = command[(vm.pc - 1).toInt()].name
+			val name = command[(vm.pc).toInt()].name
 			val args = try {
-				command[(vm.pc - 1).toInt()].values
+				command[(vm.pc).toInt()].values
 			} catch (_: IndexOutOfBoundsException) {
 				break
 			}
 
 			exeWhen(name, args)
+			vm.pc++
 		}
 	}
 
@@ -115,6 +115,7 @@ class Execute(val kp: KProcess) {
 		kp.currentInstruction = InstructData(name, args)
 
 		kp.debug.act()
+
 
 		when (name) {
 
@@ -177,11 +178,6 @@ class Execute(val kp: KProcess) {
 				return null
 			}
 
-			"inr" -> {
-				(args[0] as String).toRegisterType() ?: {
-					vm.errors.invalidRegisterException(args[0] as String)
-				} as RegisterType
-			}
 
 			"call" -> {
 				vm.libPc = vm.pc
@@ -206,7 +202,6 @@ class Execute(val kp: KProcess) {
 
 
 				vm.libExecute!!.execute(args[0].toString())
-				println("${kp.file.name}:${kp.vm.pc.toInt()}:called")
 			}
 
 			"emptyLine", "comment" -> {}
