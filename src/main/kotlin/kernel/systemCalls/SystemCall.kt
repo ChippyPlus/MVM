@@ -8,7 +8,28 @@ import environment.reflection.reflection
 import helpers.toLong
 import internals.Vm
 import kernel.process.KProcess
-import kernel.systemCalls.calls.*
+import kernel.systemCalls.calls.Ipc
+import kernel.systemCalls.calls.allocate
+import kernel.systemCalls.calls.continueT
+import kernel.systemCalls.calls.dealloc
+import kernel.systemCalls.calls.deleteFile
+import kernel.systemCalls.calls.exec
+import kernel.systemCalls.calls.exit
+import kernel.systemCalls.calls.fork
+import kernel.systemCalls.calls.getPid
+import kernel.systemCalls.calls.getUid
+import kernel.systemCalls.calls.handleSignals
+import kernel.systemCalls.calls.listFiles
+import kernel.systemCalls.calls.newFile
+import kernel.systemCalls.calls.pauseT
+import kernel.systemCalls.calls.readFile
+import kernel.systemCalls.calls.readIo
+import kernel.systemCalls.calls.sendSignal
+import kernel.systemCalls.calls.shareM
+import kernel.systemCalls.calls.time
+import kernel.systemCalls.calls.writeFile
+import kernel.systemCalls.calls.writeIo
+import os
 import kotlin.system.exitProcess
 
 /**
@@ -38,8 +59,7 @@ class SystemCall(val vm: Vm) {
 			5 -> deleteFile(s2)
 			6 -> exit(s2)
 			7 -> exec(s2)
-			8 -> fork()
-//			9 -> spawn(s2)
+			8 -> fork() //			9 -> spawn(s2)
 			10 -> shareM(s2, s3, s4)
 			11 -> pauseT(s2)
 			12 -> continueT(s2)
@@ -58,6 +78,8 @@ class SystemCall(val vm: Vm) {
 			32 -> Ipc(vm).send(s2, s3)
 			33 -> Ipc(vm).receive(s2)
 			34 -> getParentPid()
+			35 -> os.driverManager.read(kp, s2, s3)
+			36 -> os.driverManager.write(kp, s2, s3, s4)
 
 
 			else -> errors.invalidSystemCallException(registers.read(callId).toString())

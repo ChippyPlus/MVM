@@ -1,4 +1,4 @@
-lit g1 99
-str f1 "hello!!"
-str f1 "hello!!"
-call io.print f1
+lit s1 35
+lit s2 0
+syscall
+printr r2
