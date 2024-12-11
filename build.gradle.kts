@@ -1,14 +1,14 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
-val kotlinVersion = "2.1.0-RC2"
+val kotlinVersion = "2.1.0"
 val coroutinesVersion = "1.9.0-RC"
 val serializationVersion = "1.7.3"
 val jnaVersion = "5.12.1"
 val joglVersion = "2.4.0"
 
 plugins {
-	id("org.jetbrains.kotlin.jvm") version "2.1.0-RC2"
-	id("org.jetbrains.kotlin.plugin.serialization") version "2.1.0-RC2"
+	id("org.jetbrains.kotlin.jvm") version "2.1.0"
+	id("org.jetbrains.kotlin.plugin.serialization") version "2.1.0"
 	application
 }
 
@@ -29,11 +29,7 @@ kotlin {
 
 	}
 
-	compilerOptions {
-		freeCompilerArgs.add("-Xnon-local-break-continue")
-		freeCompilerArgs.add("-Xmulti-dollar-interpolation")
-		freeCompilerArgs.add("-Xwhen-guards")
-	}
+	compilerOptions { }
 
 }
 
