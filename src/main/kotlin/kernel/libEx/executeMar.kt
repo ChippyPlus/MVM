@@ -3,12 +3,10 @@ package kernel.libEx
 import engine.parserReturn
 import internals.Vm
 import kernel.ExecuteLib
-import kernel.UnstableSnapShots
 import kernel.process.KProcess
 import os
 import java.io.File
 
-@OptIn(UnstableSnapShots::class)
 suspend fun ExecuteLib.executeMar(file: File) {
 
 	val localKp = KProcess(Vm(), file)

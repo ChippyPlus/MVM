@@ -2,7 +2,6 @@ package kernel
 
 import data.registers.RegisterType
 import data.registers.Registers
-import internals.Vm
 import kernel.process.KProcess
 
 class SnapShotManager(private val registers: Registers) {
@@ -12,7 +11,7 @@ class SnapShotManager(private val registers: Registers) {
 	fun populateSnapShotRegister(kProcess: KProcess) {
 		for (i in snapshots[kProcess]!!) {
 			registers.write(i.key, i.value)
-		} //		println("${kProcess.file.name}:${kProcess.vm.pc} -> [POPULATE]")
+		}
 
 	}
 
@@ -21,7 +20,7 @@ class SnapShotManager(private val registers: Registers) {
 		for (i in RegisterType.entries) {
 			allRegisters[i] = registers.read(i)
 		}
-		snapshots[kProcess] = allRegisters //		println("${kProcess.file.name}:${kProcess.vm.pc} -> [SNAPSHOT]")
+		snapshots[kProcess] = allRegisters
 	}
 
 	fun initSnapShotRegister(kProcess: KProcess) {
@@ -32,35 +31,3 @@ class SnapShotManager(private val registers: Registers) {
 
 	}
 }
-
-
-@UnstableSnapShots
-@Deprecated("Please dont use this")
-class SnapShotManagerLegacy(val vm: Vm) {
-	@Deprecated("Please dont use this")
-	fun populateSnapShotRegister(snapShotRegisters: Map<RegisterType, Long>) {
-		for (i in snapShotRegisters) {
-			vm.registers.write(i.key, i.value)
-		}
-	}
-
-	@Deprecated("Please dont use this")
-	fun snapShotRegisters(): Map<RegisterType, Long> {
-		val allRegisters = mutableMapOf<RegisterType, Long>()
-		allRegisters.forEach { if (!it.key.name.startsWith('I')) allRegisters.remove(it.key) }
-		for (i in RegisterType.entries) {
-			allRegisters[i] = vm.registers.read(i)
-		}
-		return allRegisters
-	}
-
-}
-
-
-@RequiresOptIn
-@Retention(AnnotationRetention.BINARY)
-@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
-annotation class UnstableSnapShots
-
-
-
